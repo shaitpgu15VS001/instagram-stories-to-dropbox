@@ -1,0 +1,90 @@
+name: Download Instagram Stories to Dropbox
+
+on:
+  schedule:
+    - cron: '0 */3 * * *'
+  workflow_dispatch:
+    inputs:
+      force_redownload:
+        description: 'האם להוריד הכל מחדש (ללא בדיקת כפילויות)?'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'false'
+          - 'true'
+
+concurrency:
+  group: instagram-stories-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: read
+
+    steps:
+      - name: הורדת הקוד של הריפו
+        uses: actions/checkout@v4
+
+      - name: התקנת Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: התקנת Go 1.21
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: שחזור קובץ ה-state מהרצה הקודמת
+        uses: actions/cache@v4
+        with:
+          path: state.json
+          key: state-json-cache-v1
+          restore-keys: |
+            state-json-cache-v1
+
+      - name: בניית fabula (הורדת סטוריז)
+        run: |
+          git clone --depth 1 https://github.com/mrizkimaulidan/fabula.git /tmp/fabula
+          cd /tmp/fabula
+          go build -o "${GITHUB_WORKSPACE}/fabula" .
+          chmod +x "${GITHUB_WORKSPACE}/fabula"
+          ./fabula --help
+
+      - name: התקנת תלויות Python
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: הרצת הסנכרון
+        env:
+          DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
+          DROPBOX_APP_SECRET: ${{ secrets.DROPBOX_APP_SECRET }}
+          DROPBOX_REFRESH_TOKEN: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
+          FORCE_REDOWNLOAD: ${{ github.event.inputs.force_redownload || 'false' }}
+        run: |
+          python -m src.main
+
+      - name: שמירת קובץ ה-state המעודכן
+        uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: state.json
+          key: state-json-cache-v1-${{ github.run_id }}
+          restore-keys: |
+            state-json-cache-v1
+
+      - name: ניקוי קבצים זמניים
+        if: always()
+        run: |
+          rm -rf stories highlights fabula
+
+      - name: סיכום הרצה
+        if: always()
+        run: |
+          echo "ההרצה הסתיימה. עיין בלוגים למעלה לפרטים נוספים."

@@ -1,0 +1,16 @@
+__pycache__/
+*.py[cod]
+*.so
+*.egg-info/
+.venv/
+venv/
+.env
+state.json
+stories/
+highlights/
+fabula
+fabula.exe
+bin/
+*.log
+.DS_Store
+Thumbs.db
