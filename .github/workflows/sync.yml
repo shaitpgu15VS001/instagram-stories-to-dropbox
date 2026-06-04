@@ -35,10 +35,10 @@ jobs:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: התקנת Go 1.21
+      - name: התקנת Go 1.23
         uses: actions/setup-go@v5
         with:
-          go-version: '1.21'
+          go-version: '1.23'
 
       - name: שחזור קובץ ה-state מהרצה הקודמת
         uses: actions/cache@v4
@@ -50,11 +50,9 @@ jobs:
 
       - name: בניית fabula (הורדת סטוריז)
         run: |
-          git clone --depth 1 https://github.com/mrizkimaulidan/fabula.git /tmp/fabula
-          cd /tmp/fabula
-          go build -o "${GITHUB_WORKSPACE}/fabula" .
-          chmod +x "${GITHUB_WORKSPACE}/fabula"
-          ./fabula --help
+          go install github.com/mrizkimaulidan/fabula@latest
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+          fabula --help
 
       - name: התקנת תלויות Python
         run: |

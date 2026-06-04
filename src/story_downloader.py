@@ -7,7 +7,7 @@ from .logger import logger
 
 
 STORIES_DIR = Path("stories")
-FABULA_BINARY = Path("./fabula")
+FABULA_BINARY = Path(shutil.which("fabula") or "./fabula")
 FABULA_TIMEOUT = 180
 
 MEDIA_EXTENSIONS = {".mp4", ".jpg", ".jpeg", ".png", ".webp", ".mov"}
@@ -20,12 +20,16 @@ class StoryDownloader:
         self.output_dir = Path(output_dir)
 
     def check_binary(self):
-        if not self.binary_path.exists():
-            logger.error(f"הבינארי של fabula לא נמצא ב-{self.binary_path}")
+        if self.binary_path.exists():
+            binary_name = str(self.binary_path)
+        else:
+            binary_name = shutil.which("fabula")
+        if not binary_name:
+            logger.error("הבינארי של fabula לא נמצא. ודא ש-fabula מותקן וזמין ב-PATH")
             return False
         try:
             result = subprocess.run(
-                [str(self.binary_path), "--help"],
+                [binary_name, "--help"],
                 capture_output=True,
                 text=True,
                 timeout=10,
@@ -63,7 +67,6 @@ class StoryDownloader:
                 capture_output=True,
                 text=True,
                 timeout=FABULA_TIMEOUT,
-                cwd=str(self.output_dir.parent.resolve()),
             )
         except subprocess.TimeoutExpired:
             logger.error(f"פג הזמן בהורדת סטוריז עבור @{username}")
