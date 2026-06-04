@@ -178,10 +178,17 @@ def main():
     logger.info(f"קבצים שדולגו (כבר היו): {total_stats['files_skipped']}")
     overall = state.get_stats()
     logger.info(f"סה\"כ קבצים במעקב: {overall['total_uploaded']} (עבור {overall['tracked_users']} משתמשים)")
-    logger.success("הסנכרון הסתיים בהצלחה")
 
-    if total_stats["users_failed"] == total:
+    failed = total_stats["users_failed"]
+    if failed == 0:
+        logger.success("הסנכרון הסתיים בהצלחה - כל המשתמשים עובדו")
+        sys.exit(0)
+    elif failed == total:
+        logger.error(f"הסנכרון נכשל - כל {total} המשתמשים נכשלו")
         sys.exit(1)
+    else:
+        logger.warning(f"הסנכרון הסתיים עם {failed} שגיאות מתוך {total} משתמשים")
+        sys.exit(0)
 
 
 if __name__ == "__main__":

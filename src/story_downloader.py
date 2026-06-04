@@ -54,8 +54,9 @@ class StoryDownloader:
             except OSError as exc:
                 logger.warning(f"לא ניתן למחוק {item}: {exc}")
 
+        binary_name = str(self.binary_path) if self.binary_path.exists() else shutil.which("fabula") or "fabula"
         cmd = [
-            str(self.binary_path),
+            binary_name,
             f"-username={username}",
             "-option=story",
         ]
@@ -75,26 +76,48 @@ class StoryDownloader:
             logger.error(f"שגיאה בהפעלת fabula: {exc}")
             return {"success": False, "files": [], "error": str(exc)}
 
-        stderr = (result.stderr or "").lower()
-        stdout = (result.stdout or "")
+        stderr_raw = result.stderr or ""
+        stdout_raw = result.stdout or ""
+        stderr = stderr_raw.lower()
+        stdout = stdout_raw.lower()
 
-        if "private" in stderr or "private" in stdout.lower():
+        if result.returncode != 0:
+            self._log_fabula_output(stdout_raw, stderr_raw, prefix="כשל fabula")
+
+        if "private" in stderr or "private" in stdout:
+            self._log_fabula_output(stdout_raw, stderr_raw, prefix="חשבון פרטי")
             logger.warning(f"@{username} הוא חשבון פרטי - לא ניתן להוריד סטוריז")
             return {"success": False, "files": [], "error": "private_account"}
-        if "not found" in stderr or "404" in stderr or "not found" in stdout.lower():
-            logger.warning(f"@{username} לא נמצא")
+        if "not found" in stderr or "404" in stderr or "not found" in stdout or "404" in stdout:
+            self._log_fabula_output(stdout_raw, stderr_raw, prefix="משתמש לא נמצא")
+            logger.warning(f"@{username} לא נמצא ב-storiesig.info")
             return {"success": False, "files": [], "error": "user_not_found"}
-        if "rate" in stderr or "limit" in stderr:
+        if "rate" in stderr or "limit" in stderr or "rate" in stdout or "limit" in stdout:
+            self._log_fabula_output(stdout_raw, stderr_raw, prefix="rate limit")
             logger.warning(f"הגבלת קצב מ-storiesig.info עבור @{username}")
             return {"success": False, "files": [], "error": "rate_limit"}
 
         files = self._scan_downloaded_files(user_dir)
         if not files:
+            if result.returncode == 0 and stdout_raw:
+                logger.debug(f"fabula output: {self._truncate(stdout_raw)}")
             logger.info(f"@{username}: אין סטוריז פעילים כרגע")
             return {"success": True, "files": [], "error": None}
 
         logger.success(f"@{username}: הורדו {len(files)} קבצים")
         return {"success": True, "files": files, "error": None}
+
+    @staticmethod
+    def _truncate(text, max_chars=500):
+        if len(text) <= max_chars:
+            return text
+        return text[:max_chars] + f"... ({len(text) - max_chars} תווים נוספים)"
+
+    def _log_fabula_output(self, stdout_raw, stderr_raw, prefix=""):
+        if stderr_raw:
+            logger.warning(f"[{prefix}] fabula stderr: {self._truncate(stderr_raw)}")
+        if stdout_raw:
+            logger.info(f"[{prefix}] fabula stdout: {self._truncate(stdout_raw)}")
 
     def _scan_downloaded_files(self, directory):
         files = []
