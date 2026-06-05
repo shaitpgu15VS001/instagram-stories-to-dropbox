@@ -1,13 +1,13 @@
 """
-מוריד סטוריז מ-Instagram דרך viewsocials.com
+מוריד סטוריז מ-Instagram דרך viewsocials.com (עם cookies של הדפדפן)
 """
+import base64
 import re
 import shutil
 import time
 import urllib.parse
 from pathlib import Path
 
-import requests
 from playwright.sync_api import (
     TimeoutError as PlaywrightTimeout,
     sync_playwright,
@@ -25,9 +25,8 @@ USER_AGENT = (
 STORIES_DIR = Path("stories")
 PAGE_LOAD_TIMEOUT = 60000
 STORIES_LOAD_TIMEOUT = 30000
-DOWNLOAD_TIMEOUT = 60
+DOWNLOAD_TIMEOUT = 120
 MEDIA_EXTENSIONS = {".mp4", ".jpg", ".jpeg", ".png", ".webp", ".mov"}
-STORY_CARD = "div.bg-white.my-2.p-3.rounded"
 DOWNLOAD_BTN = 'a[href*="download-action"]'
 POPUP_DIALOG = '[role="dialog"]'
 POPUP_CLOSE = 'button[aria-label="Close"]'
@@ -58,7 +57,6 @@ class StoryDownloader:
 
         user_dir = self.output_dir / username
         user_dir.mkdir(parents=True, exist_ok=True)
-
         for item in user_dir.iterdir():
             try:
                 if item.is_file():
@@ -67,65 +65,58 @@ class StoryDownloader:
                 logger.warning(f"לא ניתן למחוק {item}: {exc}")
 
         logger.info(f"מוריד סטוריז עבור @{username}...")
+        files = []
         try:
-            download_urls = self._fetch_story_urls(username)
-        except PlaywrightTimeout:
-            logger.error(f"פג הזמן בטעינת viewsocials.com עבור @{username}")
-            return {"success": False, "files": [], "error": "timeout"}
+            with sync_playwright() as p:
+                browser = p.chromium.launch(
+                    headless=True, args=["--no-sandbox", "--disable-dev-shm-usage"]
+                )
+                try:
+                    context = browser.new_context(
+                        user_agent=USER_AGENT, viewport={"width": 1280, "height": 720}, locale="en-US"
+                    )
+                    page = context.new_page()
+                    try:
+                        urls = self._fetch_story_urls(page, username)
+                    except PlaywrightTimeout:
+                        logger.error(f"פג הזמן בטעינת viewsocials.com עבור @{username}")
+                        return {"success": False, "files": [], "error": "timeout"}
+                    if urls is None:
+                        return {"success": False, "files": [], "error": "user_not_found"}
+                    if not urls:
+                        logger.info(f"@{username}: אין סטוריז פעילים כרגע")
+                        return {"success": True, "files": [], "error": None}
+                    files = self._download_files(urls, user_dir, page, context)
+                finally:
+                    browser.close()
         except Exception as exc:
             logger.error(f"שגיאה בגלישה ל-viewsocials.com עבור @{username}: {exc}")
             return {"success": False, "files": [], "error": str(exc)}
 
-        if download_urls is None:
-            logger.warning(f"@{username}: משתמש פרטי או לא קיים")
-            return {"success": False, "files": [], "error": "user_not_found"}
-        if not download_urls:
-            logger.info(f"@{username}: אין סטוריז פעילים כרגע")
-            return {"success": True, "files": [], "error": None}
-
-        files = self._download_files(download_urls, user_dir)
         if not files:
             return {"success": False, "files": [], "error": "download_failed"}
-
         logger.success(f"@{username}: הורדו {len(files)} קבצים")
         return {"success": True, "files": files, "error": None}
 
-    def _fetch_story_urls(self, username):
-        with sync_playwright() as p:
-            browser = p.chromium.launch(
-                headless=True,
-                args=["--no-sandbox", "--disable-dev-shm-usage"],
-            )
-            try:
-                context = browser.new_context(
-                    user_agent=USER_AGENT,
-                    viewport={"width": 1280, "height": 720},
-                    locale="en-US",
-                )
-                page = context.new_page()
-                page.goto(
-                    PROFILE_URL.format(username=username),
-                    timeout=PAGE_LOAD_TIMEOUT,
-                    wait_until="domcontentloaded",
-                )
-                if "404" in page.inner_text("body") and "NOT FOUND" in page.inner_text("body"):
-                    return None
-                self._close_popup(page)
-                try:
-                    page.wait_for_selector(
-                        DOWNLOAD_BTN,
-                        timeout=STORIES_LOAD_TIMEOUT,
-                        state="visible",
-                    )
-                except PlaywrightTimeout:
-                    return None
-                urls = page.eval_on_selector_all(
-                    DOWNLOAD_BTN,
-                    "els => els.map(el => el.href).filter(h => h && h.includes('download-action'))",
-                )
-                return list(dict.fromkeys(urls))
-            finally:
-                browser.close()
+    def _fetch_story_urls(self, page, username):
+        page.goto(
+            PROFILE_URL.format(username=username),
+            timeout=PAGE_LOAD_TIMEOUT, wait_until="domcontentloaded",
+        )
+        body_text = page.inner_text("body")
+        if "404" in body_text and "NOT FOUND" in body_text:
+            logger.warning(f"@{username}: משתמש פרטי או לא קיים")
+            return None
+        self._close_popup(page)
+        try:
+            page.wait_for_selector(DOWNLOAD_BTN, timeout=STORIES_LOAD_TIMEOUT, state="visible")
+        except PlaywrightTimeout:
+            return None
+        urls = page.eval_on_selector_all(
+            DOWNLOAD_BTN,
+            "els => els.map(el => el.href).filter(h => h && h.includes('download-action'))",
+        )
+        return list(dict.fromkeys(urls))
 
     def _close_popup(self, page):
         try:
@@ -140,37 +131,73 @@ class StoryDownloader:
         except Exception as exc:
             logger.debug(f"סגירת פופאפ נכשלה (לא קריטי): {exc}")
 
-    def _download_files(self, urls, user_dir):
+    def _download_files(self, urls, user_dir, page, context):
         downloaded = []
         total = len(urls)
         for idx, url in enumerate(urls, 1):
-            try:
-                response = requests.get(url, timeout=DOWNLOAD_TIMEOUT, allow_redirects=True)
-                response.raise_for_status()
-                filename = self._make_filename(url, response, idx)
-                filepath = user_dir / filename
-                filepath.write_bytes(response.content)
-                downloaded.append(filepath)
-                logger.debug(f"  [{idx}/{total}] הורד {filename}")
-            except requests.RequestException as exc:
-                logger.warning(f"  [{idx}/{total}] שגיאת רשת: {exc}")
-            except OSError as exc:
-                logger.warning(f"  [{idx}/{total}] שגיאת כתיבה: {exc}")
+            result = self._download_via_context(context, url)
+            if result is None:
+                result = self._download_via_browser_fetch(page, url)
+            if result is None:
+                logger.warning(f"  [{idx}/{total}] שתי השיטות נכשלו")
+                continue
+            body, headers = result
+            filename = self._make_filename(url, headers, idx)
+            filepath = user_dir / filename
+            filepath.write_bytes(body)
+            downloaded.append(filepath)
+            logger.debug(f"  [{idx}/{total}] הורד {filename}")
         return downloaded
 
-    def _make_filename(self, url, response, idx):
+    def _download_via_context(self, context, url):
+        try:
+            response = context.request.get(url, timeout=DOWNLOAD_TIMEOUT * 1000)
+            if response.status != 200:
+                logger.debug(f"context.request: HTTP {response.status}")
+                return None
+            return response.body(), dict(response.headers)
+        except Exception as exc:
+            logger.debug(f"context.request נכשל: {exc}")
+            return None
+
+    def _download_via_browser_fetch(self, page, url):
+        try:
+            result = page.evaluate(
+                """async (url) => {
+                    const r = await fetch(url, {credentials: 'include', redirect: 'follow'});
+                    if (!r.ok) return {ok: false, status: r.status};
+                    const buf = await r.arrayBuffer();
+                    const bytes = new Uint8Array(buf);
+                    let bin = '';
+                    for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+                    return {ok: true, data: btoa(bin),
+                        ct: r.headers.get('content-type') || '',
+                        cd: r.headers.get('content-disposition') || ''};
+                }""",
+                url,
+            )
+            if not result or not result.get("ok"):
+                return None
+            return base64.b64decode(result["data"]), {
+                "content-type": result["ct"], "content-disposition": result["cd"],
+            }
+        except Exception as exc:
+            logger.debug(f"fetch() נכשל: {exc}")
+            return None
+
+    def _make_filename(self, url, headers, idx):
         ig_name = self._extract_instagram_filename(url)
         if ig_name:
             return ig_name
-        cd = response.headers.get("content-disposition", "")
+        cd = headers.get("content-disposition", "")
         match = re.search(r'filename\*?=(?:UTF-8\'\')?["\']?([^"\';\r\n]+)', cd, re.IGNORECASE)
         if match:
             name = urllib.parse.unquote(match.group(1).strip())
             if Path(name).suffix.lower() in MEDIA_EXTENSIONS:
                 return name
-            ext = self._ext_from_content_type(response.headers.get("content-type", ""))
+            ext = self._ext_from_content_type(headers.get("content-type", ""))
             return f"{name}{ext}"
-        ext = self._ext_from_content_type(response.headers.get("content-type", ""))
+        ext = self._ext_from_content_type(headers.get("content-type", ""))
         return f"story_{int(time.time())}_{idx}{ext}"
 
     def _extract_instagram_filename(self, url):
@@ -179,15 +206,11 @@ class StoryDownloader:
             inner = qs.get("url", [""])[0]
             if not inner:
                 return None
-            inner_decoded = urllib.parse.unquote(inner)
-            qs2 = urllib.parse.parse_qs(urllib.parse.urlparse(inner_decoded).query)
+            decoded = urllib.parse.unquote(inner)
+            qs2 = urllib.parse.parse_qs(urllib.parse.urlparse(decoded).query)
             inner2 = qs2.get("url", [""])[0]
-            if inner2:
-                final = urllib.parse.unquote(inner2)
-            else:
-                final = inner_decoded
-            path = urllib.parse.urlparse(final).path
-            return Path(path).name
+            final = urllib.parse.unquote(inner2) if inner2 else decoded
+            return Path(urllib.parse.urlparse(final).path).name
         except Exception:
             return None
 
