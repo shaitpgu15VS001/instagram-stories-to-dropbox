@@ -49,35 +49,40 @@
 
 ## 🌐 אתרים נתמכים
 
-הפרויקט תומך כרגע באתר viewsocials.com להורדת סטוריז:
+הפרויקט משתמש ב-`fastdl.app` להורדת סטוריז:
 
 | אתר | סטטוס | תפקיד | תיעוד |
 |---|---|---|---|
-| **viewsocials.com** | ✅ פעיל | קוד ראשי ב-`story_downloader.py` | ראה סלקטורים למטה |
-| **fastdl.app** | 🔄 גיבוי | `story_downloader_fastdl_backup.py` | [docs/FASTDL_GUIDE.md](docs/FASTDL_GUIDE.md) |
-| **instanonimo.com** | ❌ לא עבר | נוסה אך חסום על ידי Cloudflare | ראה הערות למטה |
+| **fastdl.app** | ✅ פעיל | קוד ראשי ב-`story_downloader.py` | ראה סלקטורים למטה |
+| **viewsocials.com** | ❌ חסום ב-GitHub | נוסה אך Cloudflare חוסם את ה-IP של GitHub Actions | ראה הערות למטה |
+| **instanonimo.com** | ❌ לא עבר | נוסה אך חסום על ידי Cloudflare Turnstile | ראה הערות למטה |
 
-### סלקטורים של viewsocials.com
-- URL: `https://www.viewsocials.com/profile/<username>` (ניווט ישיר)
-- סטורי: `div.bg-white.my-2.p-3.rounded`
-- כפתור הורדה: `a[href*="download-action"]` (href אמיתי, לא צריך JavaScript)
-- popup סגירה: `button[aria-label="Close"]` (לא חוסם תוכן)
-- 404: הדף מציג "404 NOT FOUND" למשתמש לא קיים
+### סלקטורים של fastdl.app
+- URL ראשי: `https://fastdl.app/instagram-anonymously-viewer` (טופס חיפוש)
+- שדה חיפוש: `#search-form-input`
+- כפתור חיפוש: `#searchFormButton`
+- מידע משתמש: `.user-info`
+- טאב Stories: `button.tabs-component__button` (מכיל "Stories")
+- סטורי: `.media-content--story`
+- כפתור הורדה: `.button__download`
+- URL הורדה: `https://media.fastdl.app/?filename=...&token=...` (CDN נפרד)
 
-### תוצאות בדיקה (4 משתמשים)
-- @natgeo: 2 קבצים, 7.2s
-- @nike: 1 וידאו (10MB), 11.6s
-- @instagram: 2 קבצים, 9.2s
-- @cristiano: 1 וידאו (10MB), 11.8s
-- **סה"כ: 6/6 הצליח, 21MB, ממוצע 10s למשתמש**
+### תוצאות בדיקה מקומית (4 משתמשים)
+- @natgeo: ✅ (לפעמים אין סטוריז פעילים)
+- @nike: 1 וידאו (10MB), ~13s
+- @instagram: 2 קבצים, ~7s
+- @cristiano: ✅ (לפעמים אין סטוריז פעילים)
+- **בדרך כלל 1-3 קבצים למשתמש, 7-20 שניות**
 
-### הערה על instanonimo.com
-ניסינו לעבור ל-instanonimo.com, אך האתר חוסם אוטומציה דרך Cloudflare Turnstile.
-- ❌ Playwright headless נחסם
-- ❌ Playwright headed נחסם
-- ❌ persistent context נחסם
-- ❌ playwright-stealth נחסם
-- ❌ curl_cffi עם 5 impersonations שונים - כולם `BotBlocked`
+### הערה על viewsocials.com
+ניסינו לעבור ל-viewsocials.com, אך Cloudflare חוסם את ה-IP של GitHub Actions:
+- ❌ `context.request.get()` → 403
+- ❌ `fetch()` מהדפדפן → 403
+- ❌ `page.goto()` בכרטיסייה חדשה → 403
+- ❌ `curl_cffi` עם TLS impersonation → 403
+- ❌ לחיצה על לינק → ניווט לדף HTML (Cloudflare), ללא download event
+
+הקוד נשמר בגיבוי למקרה שהבעיה תיפתר.
 
 ---
 
@@ -89,8 +94,7 @@ instagram-stories-to-dropbox/
 ├── src/                                       ← קוד Python
 │   ├── main.py                                ← נקודת כניסה ראשית
 │   ├── dropbox_uploader.py                    ← טיפול בדרופבוקס
-│   ├── story_downloader.py                    ← הורדת סטוריז (viewsocials.com)
-│   ├── story_downloader_fastdl_backup.py      ← גיבוי עם הערות תיעוד (fastdl.app)
+│   ├── story_downloader.py                    ← הורדת סטוריז (fastdl.app)
 │   ├── state_manager.py                       ← מניעת כפילויות
 │   └── logger.py                              ← לוגים
 ├── docs/                                      ← תיעוד
