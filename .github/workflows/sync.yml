@@ -57,6 +57,7 @@ jobs:
           DROPBOX_APP_SECRET: ${{ secrets.DROPBOX_APP_SECRET }}
           DROPBOX_REFRESH_TOKEN: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
           FORCE_REDOWNLOAD: ${{ github.event.inputs.force_redownload || 'false' }}
+          LOG_LEVEL: DEBUG
         run: |
           python -m src.main
 

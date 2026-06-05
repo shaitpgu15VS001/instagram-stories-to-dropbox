@@ -1,3 +1,4 @@
+import os
 import sys
 from datetime import datetime
 
@@ -23,7 +24,8 @@ class Logger:
         "error": 40,
     }
 
-    def __init__(self, level="info"):
+    def __init__(self, level=None):
+        level = level or os.environ.get("LOG_LEVEL", "info")
         self.level = self.LEVELS.get(level.lower(), 20)
         self._force_color = False
 

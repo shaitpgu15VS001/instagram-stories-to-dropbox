@@ -152,37 +152,39 @@ class StoryDownloader:
     def _download_via_context(self, context, url):
         try:
             response = context.request.get(url, timeout=DOWNLOAD_TIMEOUT * 1000)
+            logger.debug(f"context.request: status={response.status} url={url[:80]}")
             if response.status != 200:
-                logger.debug(f"context.request: HTTP {response.status}")
+                logger.debug(f"context.request body[:200]: {response.body()[:200]!r}")
                 return None
             return response.body(), dict(response.headers)
         except Exception as exc:
-            logger.debug(f"context.request נכשל: {exc}")
+            logger.debug(f"context.request exception: {type(exc).__name__}: {exc}")
             return None
 
     def _download_via_browser_fetch(self, page, url):
         try:
             result = page.evaluate(
                 """async (url) => {
-                    const r = await fetch(url, {credentials: 'include', redirect: 'follow'});
-                    if (!r.ok) return {ok: false, status: r.status};
-                    const buf = await r.arrayBuffer();
-                    const bytes = new Uint8Array(buf);
-                    let bin = '';
-                    for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-                    return {ok: true, data: btoa(bin),
-                        ct: r.headers.get('content-type') || '',
-                        cd: r.headers.get('content-disposition') || ''};
-                }""",
-                url,
-            )
+                    try {
+                        const r = await fetch(url, {credentials: 'include', redirect: 'follow'});
+                        if (!r.ok) return {ok: false, status: r.status, error: r.statusText};
+                        const buf = await r.arrayBuffer();
+                        const bytes = new Uint8Array(buf);
+                        let bin = '';
+                        for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+                        return {ok: true, status: r.status, data: btoa(bin),
+                            ct: r.headers.get('content-type') || '',
+                            cd: r.headers.get('content-disposition') || ''};
+                    } catch (e) { return {ok: false, status: 0, error: e.toString()}; }
+                }""", url)
+            logger.debug(f"fetch(): status={result.get('status')} ok={result.get('ok')} err={result.get('error')}")
             if not result or not result.get("ok"):
                 return None
             return base64.b64decode(result["data"]), {
                 "content-type": result["ct"], "content-disposition": result["cd"],
             }
         except Exception as exc:
-            logger.debug(f"fetch() נכשל: {exc}")
+            logger.debug(f"fetch() exception: {type(exc).__name__}: {exc}")
             return None
 
     def _make_filename(self, url, headers, idx):
