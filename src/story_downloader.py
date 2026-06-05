@@ -1,6 +1,4 @@
-"""
-מוריד סטוריז מ-Instagram דרך viewsocials.com (עם cookies של הדפדפן)
-"""
+"""מוריד סטוריז מ-Instagram דרך viewsocials.com (עם cookies של הדפדפן)"""
 import base64
 import re
 import shutil
@@ -8,10 +6,7 @@ import time
 import urllib.parse
 from pathlib import Path
 
-from playwright.sync_api import (
-    TimeoutError as PlaywrightTimeout,
-    sync_playwright,
-)
+from playwright.sync_api import TimeoutError as PlaywrightTimeout, sync_playwright
 
 from .logger import logger
 
@@ -123,11 +118,12 @@ class StoryDownloader:
             dialog = page.locator(POPUP_DIALOG)
             if dialog.count() == 0:
                 return
-            if dialog.first.is_visible(timeout=2000):
-                try:
-                    page.click(POPUP_CLOSE, force=True, timeout=2000)
-                except Exception:
-                    dialog.first.evaluate("el => el.remove()")
+            if not dialog.first.is_visible(timeout=2000):
+                return
+            try:
+                page.click(POPUP_CLOSE, force=True, timeout=2000)
+            except Exception:
+                dialog.first.evaluate("el => el.remove()")
         except Exception as exc:
             logger.debug(f"סגירת פופאפ נכשלה (לא קריטי): {exc}")
 
@@ -135,11 +131,11 @@ class StoryDownloader:
         downloaded = []
         total = len(urls)
         for idx, url in enumerate(urls, 1):
-            result = self._download_via_context(context, url)
+            result = (self._download_via_context(context, url)
+                      or self._download_via_browser_fetch(page, url)
+                      or self._download_via_new_tab(context, url))
             if result is None:
-                result = self._download_via_browser_fetch(page, url)
-            if result is None:
-                logger.warning(f"  [{idx}/{total}] שתי השיטות נכשלו")
+                logger.warning(f"  [{idx}/{total}] כל השיטות נכשלו")
                 continue
             body, headers = result
             filename = self._make_filename(url, headers, idx)
@@ -152,13 +148,12 @@ class StoryDownloader:
     def _download_via_context(self, context, url):
         try:
             response = context.request.get(url, timeout=DOWNLOAD_TIMEOUT * 1000)
-            logger.debug(f"context.request: status={response.status} url={url[:80]}")
+            logger.debug(f"context.request: status={response.status}")
             if response.status != 200:
-                logger.debug(f"context.request body[:200]: {response.body()[:200]!r}")
                 return None
             return response.body(), dict(response.headers)
         except Exception as exc:
-            logger.debug(f"context.request exception: {type(exc).__name__}: {exc}")
+            logger.debug(f"context.request exc: {type(exc).__name__}: {exc}")
             return None
 
     def _download_via_browser_fetch(self, page, url):
@@ -172,20 +167,31 @@ class StoryDownloader:
                         const bytes = new Uint8Array(buf);
                         let bin = '';
                         for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-                        return {ok: true, status: r.status, data: btoa(bin),
-                            ct: r.headers.get('content-type') || '',
+                        return {ok: true, data: btoa(bin), ct: r.headers.get('content-type') || '',
                             cd: r.headers.get('content-disposition') || ''};
                     } catch (e) { return {ok: false, status: 0, error: e.toString()}; }
                 }""", url)
             logger.debug(f"fetch(): status={result.get('status')} ok={result.get('ok')} err={result.get('error')}")
             if not result or not result.get("ok"):
                 return None
-            return base64.b64decode(result["data"]), {
-                "content-type": result["ct"], "content-disposition": result["cd"],
-            }
+            return base64.b64decode(result["data"]), {"content-type": result["ct"], "content-disposition": result["cd"]}
         except Exception as exc:
-            logger.debug(f"fetch() exception: {type(exc).__name__}: {exc}")
+            logger.debug(f"fetch() exc: {type(exc).__name__}: {exc}")
             return None
+
+    def _download_via_new_tab(self, context, url):
+        page = context.new_page()
+        try:
+            response = page.goto(url, timeout=DOWNLOAD_TIMEOUT * 1000, wait_until="domcontentloaded")
+            logger.debug(f"page.goto: status={response.status}")
+            if response.status != 200:
+                return None
+            return response.body(), dict(response.headers)
+        except Exception as exc:
+            logger.debug(f"page.goto exc: {type(exc).__name__}: {exc}")
+            return None
+        finally:
+            page.close()
 
     def _make_filename(self, url, headers, idx):
         ig_name = self._extract_instagram_filename(url)
@@ -193,13 +199,10 @@ class StoryDownloader:
             return ig_name
         cd = headers.get("content-disposition", "")
         match = re.search(r'filename\*?=(?:UTF-8\'\')?["\']?([^"\';\r\n]+)', cd, re.IGNORECASE)
+        ext = self._ext_from_content_type(headers.get("content-type", ""))
         if match:
             name = urllib.parse.unquote(match.group(1).strip())
-            if Path(name).suffix.lower() in MEDIA_EXTENSIONS:
-                return name
-            ext = self._ext_from_content_type(headers.get("content-type", ""))
-            return f"{name}{ext}"
-        ext = self._ext_from_content_type(headers.get("content-type", ""))
+            return name if Path(name).suffix.lower() in MEDIA_EXTENSIONS else f"{name}{ext}"
         return f"story_{int(time.time())}_{idx}{ext}"
 
     def _extract_instagram_filename(self, url):
@@ -210,8 +213,7 @@ class StoryDownloader:
                 return None
             decoded = urllib.parse.unquote(inner)
             qs2 = urllib.parse.parse_qs(urllib.parse.urlparse(decoded).query)
-            inner2 = qs2.get("url", [""])[0]
-            final = urllib.parse.unquote(inner2) if inner2 else decoded
+            final = urllib.parse.unquote(qs2.get("url", [""])[0] or decoded)
             return Path(urllib.parse.urlparse(final).path).name
         except Exception:
             return None
