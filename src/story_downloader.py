@@ -1,5 +1,4 @@
 """מוריד סטוריז מ-Instagram דרך viewsocials.com (עם cookies של הדפדפן)"""
-import base64
 import re
 import shutil
 import time
@@ -131,9 +130,9 @@ class StoryDownloader:
         downloaded = []
         total = len(urls)
         for idx, url in enumerate(urls, 1):
-            result = (self._download_via_curl_cffi(context, url)
-                      or self._download_via_context(context, url)
-                      or self._download_via_browser_fetch(page, url))
+            result = (self._download_via_click(page, url)
+                      or self._download_via_curl_cffi(context, url)
+                      or self._download_via_context(context, url))
             if result is None:
                 logger.warning(f"  [{idx}/{total}] כל השיטות נכשלו")
                 continue
@@ -156,27 +155,18 @@ class StoryDownloader:
             logger.debug(f"context.request exc: {type(exc).__name__}: {exc}")
             return None
 
-    def _download_via_browser_fetch(self, page, url):
+    def _download_via_click(self, page, url):
         try:
-            result = page.evaluate(
-                """async (url) => {
-                    try {
-                        const r = await fetch(url, {credentials: 'include', redirect: 'follow'});
-                        if (!r.ok) return {ok: false, status: r.status, error: r.statusText};
-                        const buf = await r.arrayBuffer();
-                        const bytes = new Uint8Array(buf);
-                        let bin = '';
-                        for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-                        return {ok: true, data: btoa(bin), ct: r.headers.get('content-type') || '',
-                            cd: r.headers.get('content-disposition') || ''};
-                    } catch (e) { return {ok: false, status: 0, error: e.toString()}; }
-                }""", url)
-            logger.debug(f"fetch(): status={result.get('status')} ok={result.get('ok')} err={result.get('error')}")
-            if not result or not result.get("ok"):
-                return None
-            return base64.b64decode(result["data"]), {"content-type": result["ct"], "content-disposition": result["cd"]}
+            with page.expect_download(timeout=DOWNLOAD_TIMEOUT * 1000) as dl_info:
+                page.evaluate(
+                    """(u) => {
+                        const ls = document.querySelectorAll('a[href*="download-action"]');
+                        for (const l of ls) if (l.href === u) { l.click(); break; }
+                    }""", url)
+            download = dl_info.value
+            return Path(download.path()).read_bytes(), {}
         except Exception as exc:
-            logger.debug(f"fetch() exc: {type(exc).__name__}: {exc}")
+            logger.debug(f"click exc: {type(exc).__name__}: {exc}")
             return None
 
     def _download_via_curl_cffi(self, context, url):
