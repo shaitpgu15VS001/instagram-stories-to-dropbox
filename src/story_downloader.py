@@ -6,10 +6,10 @@ import time
 import urllib.parse
 from pathlib import Path
 
+from curl_cffi import requests as cc_requests
 from playwright.sync_api import TimeoutError as PlaywrightTimeout, sync_playwright
 
 from .logger import logger
-
 
 PROFILE_URL = "https://www.viewsocials.com/profile/{username}"
 USER_AGENT = (
@@ -131,9 +131,9 @@ class StoryDownloader:
         downloaded = []
         total = len(urls)
         for idx, url in enumerate(urls, 1):
-            result = (self._download_via_context(context, url)
-                      or self._download_via_browser_fetch(page, url)
-                      or self._download_via_new_tab(context, url))
+            result = (self._download_via_curl_cffi(context, url)
+                      or self._download_via_context(context, url)
+                      or self._download_via_browser_fetch(page, url))
             if result is None:
                 logger.warning(f"  [{idx}/{total}] כל השיטות נכשלו")
                 continue
@@ -179,19 +179,20 @@ class StoryDownloader:
             logger.debug(f"fetch() exc: {type(exc).__name__}: {exc}")
             return None
 
-    def _download_via_new_tab(self, context, url):
-        page = context.new_page()
+    def _download_via_curl_cffi(self, context, url):
         try:
-            response = page.goto(url, timeout=DOWNLOAD_TIMEOUT * 1000, wait_until="domcontentloaded")
-            logger.debug(f"page.goto: status={response.status}")
-            if response.status != 200:
-                return None
-            return response.body(), dict(response.headers)
+            cookies = {c["name"]: c["value"] for c in context.cookies()}
+            headers = {"User-Agent": USER_AGENT,
+                "Accept": "image/avif,image/webp,image/*,*/*;q=0.8",
+                "Referer": "https://www.viewsocials.com/"}
+            response = cc_requests.get(url, cookies=cookies, headers=headers,
+                impersonate="chrome", timeout=DOWNLOAD_TIMEOUT)
+            logger.debug(f"curl_cffi: status={response.status_code}")
+            if response.status_code != 200: return None
+            return response.content, dict(response.headers)
         except Exception as exc:
-            logger.debug(f"page.goto exc: {type(exc).__name__}: {exc}")
+            logger.debug(f"curl_cffi exc: {type(exc).__name__}: {exc}")
             return None
-        finally:
-            page.close()
 
     def _make_filename(self, url, headers, idx):
         ig_name = self._extract_instagram_filename(url)
