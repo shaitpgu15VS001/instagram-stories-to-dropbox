@@ -113,7 +113,21 @@ class StoryDownloader:
                 ).filter(has_text="Stories")
                 if stories_tab.count() == 0:
                     return []
-                stories_tab.first.click(force=True, timeout=5000)
+                self._close_popups(page)
+                page.evaluate(
+                    """() => {
+                        const bs = document.querySelectorAll('button.tabs-component__button');
+                        for (const b of bs) {
+                            if (b.innerText.toLowerCase().includes('stories')) {
+                                b.scrollIntoView();
+                                b.click();
+                                return true;
+                            }
+                        }
+                        return false;
+                    }"""
+                )
+                self._close_popups(page)
                 try:
                     page.wait_for_selector(
                         ".media-content--story",
@@ -130,6 +144,39 @@ class StoryDownloader:
                 return list(dict.fromkeys(urls))
             finally:
                 browser.close()
+
+    def _close_popups(self, page):
+        for sel in [
+            "button[aria-label='Close']",
+            "button[aria-label='close']",
+            ".browser-extension__close",
+            ".modal-close",
+            ".popup-close",
+        ]:
+            try:
+                loc = page.locator(sel)
+                if loc.count() > 0 and loc.first.is_visible(timeout=1000):
+                    loc.first.click(force=True, timeout=2000)
+                    logger.debug(f"סגרתי פופאפ: {sel}")
+                    time.sleep(0.5)
+            except Exception:
+                pass
+        try:
+            removed = page.evaluate("""() => {
+                const cands = document.querySelectorAll('[class*=\"hook_panel\"], [class*=\"popup\"], [class*=\"overlay\"]');
+                for (const c of cands) {
+                    const r = c.getBoundingClientRect();
+                    if (r.width > window.innerWidth * 0.7 && r.height > window.innerHeight * 0.7) {
+                        c.remove();
+                        return c.className;
+                    }
+                }
+                return null;
+            }""")
+            if removed:
+                logger.debug(f"הסרתי שכבת-על: {removed}")
+        except Exception:
+            pass
 
     def _download_files(self, urls, user_dir):
         downloaded = []
