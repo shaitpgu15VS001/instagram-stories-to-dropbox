@@ -1,0 +1,191 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Logo" [ref=e5] [cursor=pointer]:
+          - /url: /en
+          - img "Logo" [ref=e6]
+        - link "Blog" [ref=e7] [cursor=pointer]:
+          - /url: /blog
+        - button "English" [ref=e9]:
+          - img [ref=e10]
+          - generic [ref=e13]: English
+          - img [ref=e14]
+    - generic:
+      - insertion:
+        - iframe [ref=e194]:
+          
+    - main [ref=e195]:
+      - generic [ref=e196]:
+        - insertion [ref=e197]:
+          - generic [ref=e200]:
+            - heading "Estes são tópicos relacionados com o artigo que podem ser do seu interesse" [level=2] [ref=e202]: Descobrir mais
+            - link "Redes sociais" [ref=e203] [cursor=pointer]:
+              - generic "Redes sociais" [ref=e204]
+              - img [ref=e206]
+            - link "Partilha de fotos e imagens" [ref=e208] [cursor=pointer]:
+              - generic "Partilha de fotos e imagens" [ref=e209]
+              - img [ref=e211]
+            - link "Gestores de Transferências" [ref=e213] [cursor=pointer]:
+              - generic "Gestores de Transferências" [ref=e214]
+              - img [ref=e216]
+        - generic [ref=e219]:
+          - generic [ref=e220]:
+            - generic [ref=e280]:
+              - img [ref=e281]
+              - img [ref=e283] [cursor=pointer]
+            - generic [ref=e222]:
+              - generic [ref=e285]:
+                - link "instagram" [ref=e286] [cursor=pointer]:
+                  - /url: https://instagram.com/instagram
+                - img [ref=e288]
+              - list [ref=e224]:
+                - listitem [ref=e290]: 8469 posts
+                - listitem [ref=e291]: 686M‏ followers
+                - listitem [ref=e292]: 214 following
+              - paragraph [ref=e295]:
+                - generic [ref=e296]: Discover
+                - generic [ref=e297]: what's
+                - generic [ref=e298]: new
+                - generic [ref=e299]: "on"
+                - generic [ref=e300]: Instagram
+                - generic [ref=e301]: 🔎✨
+          - generic [ref=e303]:
+            - generic [ref=e304] [cursor=pointer]:
+              - img [ref=e305]
+              - paragraph [ref=e306]: Meta AI ✍️
+            - generic [ref=e307] [cursor=pointer]:
+              - img [ref=e308]
+              - paragraph [ref=e309]: CFO Podcast
+            - generic [ref=e310] [cursor=pointer]:
+              - img [ref=e311]
+              - paragraph [ref=e312]: IG Tips 📝
+            - generic [ref=e313] [cursor=pointer]:
+              - img [ref=e314]
+              - paragraph [ref=e315]: ✨✨✨
+            - generic [ref=e316] [cursor=pointer]:
+              - img [ref=e317]
+              - paragraph [ref=e318]: Halloween 2024
+            - generic [ref=e319] [cursor=pointer]:
+              - img [ref=e320]
+              - paragraph [ref=e321]: Creatives ✩
+            - generic [ref=e322] [cursor=pointer]:
+              - img [ref=e323]
+              - paragraph [ref=e324]: Hello World
+            - generic [ref=e325] [cursor=pointer]:
+              - img [ref=e326]
+              - paragraph [ref=e327]: Too Reel
+            - generic [ref=e328] [cursor=pointer]:
+              - img [ref=e329]
+              - paragraph [ref=e330]: 24for24
+            - generic [ref=e331] [cursor=pointer]:
+              - img [ref=e332]
+              - paragraph [ref=e333]: Trend Talk 2024
+            - generic [ref=e334] [cursor=pointer]:
+              - img [ref=e335]
+              - paragraph [ref=e336]: FutureMakers
+          - insertion:
+            - iframe [ref=e338]:
+              
+          - generic [ref=e339]:
+            - generic [ref=e340]:
+              - generic [ref=e341]:
+                - generic [ref=e342]: 6/4 17:03 · 18h ago
+                - generic [ref=e343]:
+                  - img [ref=e344] [cursor=pointer]
+                  - generic [ref=e346]: "1"
+              - status [ref=e348] [cursor=pointer]:
+                - img [ref=e350]
+                - generic [ref=e352]: Loading...
+              - generic [ref=e354] [cursor=pointer]:
+                - img [ref=e355]
+                - generic [ref=e357]: Download
+            - generic [ref=e358]:
+              - generic [ref=e359]:
+                - generic [ref=e360]: 6/4 22:07 · 13h ago
+                - generic [ref=e361]:
+                  - img [ref=e362] [cursor=pointer]
+                  - generic [ref=e364]: "1"
+              - status [ref=e366] [cursor=pointer]:
+                - img [ref=e368]
+                - generic [ref=e370]: Loading...
+              - generic [ref=e372] [cursor=pointer]:
+                - img [ref=e373]
+                - generic [ref=e375]: Download
+          - generic [ref=e377]:
+            - insertion [ref=e379]:
+              - generic [ref=e382]:
+                - heading "Estes são tópicos relacionados com o artigo que podem ser do seu interesse" [level=2] [ref=e384]: Descobrir mais
+                - link "Gestores de Transferências" [ref=e385] [cursor=pointer]:
+                  - generic "Gestores de Transferências" [ref=e386]
+                  - img [ref=e388]
+                - link "Redes sociais" [ref=e390] [cursor=pointer]:
+                  - generic "Redes sociais" [ref=e391]
+                  - img [ref=e393]
+                - link "Partilha de fotos e imagens" [ref=e395] [cursor=pointer]:
+                  - generic "Partilha de fotos e imagens" [ref=e396]
+                  - img [ref=e398]
+            - generic [ref=e400]: Close
+      - generic [ref=e231]:
+        - heading "Frequently Asked Questions" [level=2] [ref=e232]
+        - generic [ref=e233]:
+          - generic [ref=e234]:
+            - generic [ref=e235]:
+              - heading "What is Instanônimo?" [level=3] [ref=e236]
+              - generic [ref=e238]: Instanônimo is an online tool that allows you to view Instagram stories anonymously without logging in or revealing your identity to the profile owner.
+            - generic [ref=e239]:
+              - heading "Can I watch Instagram stories without being seen?" [level=3] [ref=e240]
+              - generic [ref=e242]: Yes. Instanônimo lets you watch public Instagram stories anonymously, so your view is not recorded and the user is not notified.
+            - generic [ref=e243]:
+              - heading "Do I need to log in to use Instanônimo?" [level=3] [ref=e244]
+              - generic [ref=e246]: No. Instanônimo does not require any login, Instagram account, or personal information to view stories.
+          - generic [ref=e247]:
+            - generic [ref=e248]:
+              - heading "Is Instanônimo free to use?" [level=3] [ref=e249]
+              - generic [ref=e251]: Yes. Instanônimo is completely free and can be used directly from your browser on desktop or mobile devices.
+            - generic [ref=e252]:
+              - heading "Can I view private Instagram accounts with Instanônimo?" [level=3] [ref=e253]
+              - generic [ref=e255]: No. Instanônimo can only show stories from public Instagram accounts. Private profiles are not accessible.
+            - generic [ref=e256]:
+              - heading "Is Instanônimo safe and secure?" [level=3] [ref=e257]
+              - generic [ref=e259]: Yes. Instanônimo does not store user data, track activity, or require credentials, making it a safe and privacy-focused Instagram story viewer.
+    - contentinfo [ref=e83]:
+      - generic [ref=e84]:
+        - img "Instanônimo" [ref=e86]
+        - paragraph [ref=e87]: Instanônimo is not connected with Instagram. All content presented here is public and owned by their respective creators.
+        - generic [ref=e88]:
+          - link "Blog" [ref=e89] [cursor=pointer]:
+            - /url: /blog
+          - generic [ref=e90]: "|"
+          - link "Terms of Service" [ref=e91] [cursor=pointer]:
+            - /url: /terms-of-service
+          - generic [ref=e92]: "|"
+          - link "Privacy Policy" [ref=e93] [cursor=pointer]:
+            - /url: /privacy-policy
+          - generic [ref=e94]: "|"
+          - link "Contact" [ref=e95] [cursor=pointer]:
+            - /url: /contact
+        - paragraph [ref=e96]: © 2025 - 2026 Instanônimo. All rights reserved.
+  - insertion [ref=e168]:
+    - generic [ref=e262]:
+      - heading "Estes são tópicos relacionados com o artigo que podem ser do seu interesse" [level=2] [ref=e264]: Descobrir mais
+      - link "Redes sociais" [ref=e265] [cursor=pointer]:
+        - generic "Redes sociais" [ref=e266]
+        - img [ref=e268]
+      - link "Partilha de fotos e imagens" [ref=e270] [cursor=pointer]:
+        - generic "Partilha de fotos e imagens" [ref=e271]
+        - img [ref=e273]
+      - link "Gestores de Transferências" [ref=e275] [cursor=pointer]:
+        - generic "Gestores de Transferências" [ref=e276]
+        - img [ref=e278]
+  - alert [ref=e97]: View instagram’s Instagram Stories Anonymously | Instanônimo
+  - insertion [ref=e170]:
+    - iframe [ref=e173]:
+      - generic [active] [ref=f15e1]:
+        - generic [ref=f15e3]:
+          - link:
+            - /url: https://googleads.g.doubleclick.net/aclk?sa=l&ai=C8NkVW4QiatCBB_WPwuIPqv2S8Ae85IHrdduRrK2UEfip3dTcExABILGF4GRg-arzg5gQoAHk9vTrA8gBA6kCvaUBq00Ulz6oAwHIA8kEqgTXAU_QLq-1_MQKkowsCsr3Ytop3t0OqN5vaFyebYBn5PQ4-hUJqHqz2RKyho3P1E0ErMR3ihLhV_h-lAiBx1_k733qXSfKtnWUudYuzmT8Ac-gLwg0-UxFLwjaXGACnIZ1DfbQfcjjxUTeFf3_gD9aBZ1Znw7JUAaExdnHObM0o5iLKsI2Yy3vT810TLqxwJojUhPTao2cbTufuSaBPtfVv_8upfO7TRIbnbL99LIVNS1ekckYvEPb4RibgDm0McZrlfjKFUYjLLrBX9ZoAZsAGTGaIamFnhgpwASP2tzanQSIBa_GzrBJoAYDgAeEiYsUqAenzLECqAfi2LECqAemvhuoB8zOsQKoB_PRG6gHltgbqAeqm7ECqAeOzhuoB5PYG6gH8OAbqAfulrECqAf-nrECqAevvrECqAfVyRuoB9m2sQKoB5oGqAf_nrECqAffn7ECqAf4wrECqAf7wrEC2AcB0ggzCIBhEAEYnwMyCIqCgICAgIAIOg-AQIDAgICAgKiAAqiDgBBIvf3BOljWvNyA0--UA2ABsQl0PTrg9MbdFIAKAZgLAcgLAaIMA5ABAaoNAklMyA0B6g0TCIyk3YDT75QDFfWHUAYdqr4EfvANAogOCdgTCtAVAZgWAcoWAgoA-BYBgBcBshcEGAFQBroXAjgBshgJEgL9ThgDIgEA0BgB6BgBwhkCCAE&ae=1&gclid=EAIaIQobChMIkJvdgNPvlAMV9YdQBh2qvgR-EAEYASAAEgKXRPD_BwE&num=1&cid=CAQSnwIAEQoqgYTMZUZznemoScrbDXCCYZ-I9O2OL64PYvbRKqwxqdfwBtIctPtxGrJ0Alj5aogU94JPb--jk1fDM-kyEJpy5cICTER8bCcgUabEFPB7X9pnlMN8EVCvP50eMfjobhqN7-tlEuDd19b3ZlaBBpP6MIMBfru9uERPhbAkMZElOOuyJiYIOiJ8tRO0M0EZXX5orY5Ygi7_hBZepEPZiGVKD46IaiKDAeS-XJcGwNmp-VhXjp413Nrh49lVbnZ8trPhwRUDt5Lof1h7QxmHjVtQ4Y_QOw4XhzDgP6d0oaa72B62KUodM8e43eWgNdfpFQOP23VSokhwvykBHVl_Meexr07vA6aM_jDTqM6DNFg-SLdz0fznHxKWdKAsrBgB&sig=AOD64_02XdWyzfPIXIvS_oqL5dlDlTj-Og&client=ca-pub-2234703663073578&rf=2&nb=2&adurl=https://bible.new/%25d7%2594%25d7%2591%25d7%25a8%25d7%2599%25d7%25aa-%25d7%2594%25d7%2597%25d7%2593%25d7%25a9%25d7%2594-%25d7%259c%25d7%2594%25d7%2590%25d7%2596%25d7%25a0%25d7%2594/%3Ftw_source%3Dgoogle%26tw_adid%3D648463437980%26tw_campaign%3D19697738543%26tw_kwdid%3D%26gad_source%3D5%26gad_campaignid%3D19697738543%26gclid%3DEAIaIQobChMIkJvdgNPvlAMV9YdQBh2qvgR-EAEYASAAEgKXRPD_BwE
+          - img [ref=f15e7] [cursor=pointer]
+          - button [ref=f15e9] [cursor=pointer]:
+            - img [ref=f15e10]
+        - iframe

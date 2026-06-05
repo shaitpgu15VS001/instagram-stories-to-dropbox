@@ -12,9 +12,9 @@ from .story_downloader import StoryDownloader
 
 
 USERNAMES_FILE = "usernames.txt"
-MIN_DELAY_BETWEEN_USERS = 30
-MAX_DELAY_BETWEEN_USERS = 90
-DELAY_AFTER_ERROR = 60
+MIN_DELAY_BETWEEN_USERS = 2
+MAX_DELAY_BETWEEN_USERS = 3
+DELAY_AFTER_ERROR = 30
 
 
 def load_usernames(file_path=USERNAMES_FILE):
@@ -126,7 +126,7 @@ def main():
     uploader = DropboxUploader(app_key, app_secret, refresh_token)
 
     if not downloader.check_binary():
-        logger.error("fabula לא מותקן כראוי. בדוק את שלב הבנייה ב-workflow.")
+        logger.error("Playwright לא מותקן כראוי. בדוק את שלב ההתקנה ב-workflow.")
         sys.exit(1)
 
     if not uploader.connect():

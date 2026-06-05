@@ -1,0 +1,91 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - generic [ref=e4]:
+        - link "Logo" [ref=e5] [cursor=pointer]:
+          - /url: /en
+          - img "Logo" [ref=e6]
+        - link "Blog" [ref=e7] [cursor=pointer]:
+          - /url: /blog
+        - button "English" [ref=e9]:
+          - img [ref=e10]
+          - generic [ref=e13]: English
+          - img [ref=e14]
+    - generic [ref=e16]:
+      - generic [ref=e19]:
+        - generic [ref=e20]:
+          - heading "Instagram story viewer anonymously" [level=1] [ref=e21]:
+            - generic [ref=e22]: Instagram
+            - text: story viewer anonymously
+          - paragraph [ref=e23]: Watch and download Instagram stories anonymously. No login. No tracking. Completely free.
+        - generic [ref=e25]:
+          - generic [ref=e26]:
+            - generic [ref=e27]:
+              - img [ref=e28]
+              - textbox "Instagram username" [ref=e31]
+            - button "View stories anonymously" [ref=e32]
+          - generic [ref=e34]:
+            - generic [ref=e35]: No login required
+            - generic [ref=e36]: •
+            - generic [ref=e37]: Unlimited
+            - generic [ref=e38]: •
+            - generic [ref=e39]: 100% anonymous
+      - generic [ref=e41]:
+        - img [ref=e42]
+        - generic [ref=e43]:
+          - generic [ref=e44]:
+            - img [ref=e45]
+            - generic [ref=e46]:
+              - paragraph [ref=e47]: 100% Anonymous Viewing
+              - paragraph [ref=e48]: Watch Instagram stories without being detected. Instanônimo ensures your identity stays completely hidden—no views, no traces, no account required.
+          - generic [ref=e49]:
+            - img [ref=e50]
+            - generic [ref=e51]:
+              - paragraph [ref=e52]: No Login, No Limits
+              - paragraph [ref=e53]: Use Instanônimo instantly without signing in or sharing personal data. Just enter a username and start viewing public Instagram stories right away.
+          - generic [ref=e54]:
+            - img [ref=e55]
+            - generic [ref=e56]:
+              - paragraph [ref=e57]: Fast, Free & Secure
+              - paragraph [ref=e58]: Enjoy a smooth, lightning-fast experience on any device. Instanônimo is free to use, works on mobile and desktop, and never stores your data.
+      - generic [ref=e60]:
+        - generic [ref=e61]:
+          - heading "Frequently Asked Questions" [level=2] [ref=e62]
+          - paragraph [ref=e63]: Get all your questions answered about Instanônimo, what it is, how it works and feel safe using this free anonymous browsing service on Instagram.
+        - generic [ref=e64]:
+          - generic [ref=e65]:
+            - heading "Does Instanônimo work on mobile devices?" [level=3] [ref=e66]
+            - paragraph [ref=e67]: Yes. Instanônimo is fully responsive and works smoothly on smartphones, tablets, and desktops without needing to install any app.
+          - generic [ref=e68]:
+            - heading "Can I download Instagram stories using Instanônimo?" [level=3] [ref=e69]
+            - paragraph [ref=e70]: Instanônimo allows you to view stories anonymously. Download availability may depend on the specific content type and local usage rules.
+          - generic [ref=e71]:
+            - heading "How long do Instagram stories stay available on Instanônimo?" [level=3] [ref=e72]
+            - paragraph [ref=e73]: Stories are available only while they are live on Instagram, typically for up to 24 hours after being posted.
+          - generic [ref=e74]:
+            - heading "Why can’t I find a specific username?" [level=3] [ref=e75]
+            - paragraph [ref=e76]: If a username does not appear, it may be due to the account being private, temporarily unavailable, deleted, or having no active stories.
+          - generic [ref=e77]:
+            - heading "Is Instanônimo affiliated with Instagram?" [level=3] [ref=e78]
+            - paragraph [ref=e79]: No. Instanônimo is an independent tool and is not affiliated with, endorsed by, or connected to Instagram or Meta.
+          - generic [ref=e80]:
+            - heading "Do I need to install any software or extensions?" [level=3] [ref=e81]
+            - paragraph [ref=e82]: No installation is required. Instanônimo works directly in your web browser with no extensions, plugins, or downloads needed.
+    - contentinfo [ref=e83]:
+      - generic [ref=e84]:
+        - img "Instanônimo" [ref=e86]
+        - paragraph [ref=e87]: Instanônimo is not connected with Instagram. All content presented here is public and owned by their respective creators.
+        - generic [ref=e88]:
+          - link "Blog" [ref=e89] [cursor=pointer]:
+            - /url: /blog
+          - generic [ref=e90]: "|"
+          - link "Terms of Service" [ref=e91] [cursor=pointer]:
+            - /url: /terms-of-service
+          - generic [ref=e92]: "|"
+          - link "Privacy Policy" [ref=e93] [cursor=pointer]:
+            - /url: /privacy-policy
+          - generic [ref=e94]: "|"
+          - link "Contact" [ref=e95] [cursor=pointer]:
+            - /url: /contact
+        - paragraph [ref=e96]: © 2025 - 2026 Instanônimo. All rights reserved.
+  - alert [ref=e97]

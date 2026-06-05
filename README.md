@@ -17,10 +17,11 @@
 
 ## ⚠️ אזהרה חשובה - קרא לפני שמתחילים
 
-הפרויקט משתמש בשירות חיצוני בשם `storiesig.info` כדי להוריד סטוריז.
+הפרויקט משתמש בשירותים חיצוניים כדי להוריד סטוריז.
 - ✅ זה עובד בלי חשבון אינסטגרם
-- ⚠️ אין ערובה רשמית שהשירות ימשיך לעבוד לתמיד
-- ⚠️ אם הוא יפסיק לעבוד, נצטרך לעבור לפתרון חלופי
+- ✅ משתמש בדפדפן אמיתי (Playwright) - עוקף חסימות אנטי-בוט
+- ⚠️ אין ערובה רשמית שהשירותים ימשיכו לעבוד לתמיד
+- ⚠️ אם האתר הנוכחי יפסיק לעבוד, יש גיבוי מוכן (`docs/FASTDL_GUIDE.md`)
 - ⚠️ סטוריז של חשבונות **פרטיים** לא יורדו (רק ציבוריים)
 
 ---
@@ -46,23 +47,60 @@
 
 ---
 
+## 🌐 אתרים נתמכים
+
+הפרויקט תומך כרגע באתר viewsocials.com להורדת סטוריז:
+
+| אתר | סטטוס | תפקיד | תיעוד |
+|---|---|---|---|
+| **viewsocials.com** | ✅ פעיל | קוד ראשי ב-`story_downloader.py` | ראה סלקטורים למטה |
+| **fastdl.app** | 🔄 גיבוי | `story_downloader_fastdl_backup.py` | [docs/FASTDL_GUIDE.md](docs/FASTDL_GUIDE.md) |
+| **instanonimo.com** | ❌ לא עבר | נוסה אך חסום על ידי Cloudflare | ראה הערות למטה |
+
+### סלקטורים של viewsocials.com
+- URL: `https://www.viewsocials.com/profile/<username>` (ניווט ישיר)
+- סטורי: `div.bg-white.my-2.p-3.rounded`
+- כפתור הורדה: `a[href*="download-action"]` (href אמיתי, לא צריך JavaScript)
+- popup סגירה: `button[aria-label="Close"]` (לא חוסם תוכן)
+- 404: הדף מציג "404 NOT FOUND" למשתמש לא קיים
+
+### תוצאות בדיקה (4 משתמשים)
+- @natgeo: 2 קבצים, 7.2s
+- @nike: 1 וידאו (10MB), 11.6s
+- @instagram: 2 קבצים, 9.2s
+- @cristiano: 1 וידאו (10MB), 11.8s
+- **סה"כ: 6/6 הצליח, 21MB, ממוצע 10s למשתמש**
+
+### הערה על instanonimo.com
+ניסינו לעבור ל-instanonimo.com, אך האתר חוסם אוטומציה דרך Cloudflare Turnstile.
+- ❌ Playwright headless נחסם
+- ❌ Playwright headed נחסם
+- ❌ persistent context נחסם
+- ❌ playwright-stealth נחסם
+- ❌ curl_cffi עם 5 impersonations שונים - כולם `BotBlocked`
+
+---
+
 ## 📂 מבנה הפרויקט
 
 ```
 instagram-stories-to-dropbox/
-├── .github/workflows/sync.yml     ← קובץ האוטומציה של GitHub
-├── src/                            ← קוד Python
-│   ├── main.py                     ← נקודת כניסה ראשית
-│   ├── dropbox_uploader.py         ← טיפול בדרופבוקס
-│   ├── story_downloader.py         ← הורדת סטוריז
-│   ├── state_manager.py            ← מניעת כפילויות
-│   └── logger.py                   ← לוגים
-├── usernames.txt                   ← רשימת שמות משתמש (לעריכה)
-├── requirements.txt                ← תלויות Python
-├── README.md                       ← הקובץ הזה
-├── SETUP.md                        ← מדריך ההתקנה
-├── USAGE.md                        ← מדריך השימוש
-└── TROUBLESHOOTING.md              ← פתרון בעיות
+├── .github/workflows/sync.yml                ← קובץ האוטומציה של GitHub
+├── src/                                       ← קוד Python
+│   ├── main.py                                ← נקודת כניסה ראשית
+│   ├── dropbox_uploader.py                    ← טיפול בדרופבוקס
+│   ├── story_downloader.py                    ← הורדת סטוריז (viewsocials.com)
+│   ├── story_downloader_fastdl_backup.py      ← גיבוי עם הערות תיעוד (fastdl.app)
+│   ├── state_manager.py                       ← מניעת כפילויות
+│   └── logger.py                              ← לוגים
+├── docs/                                      ← תיעוד
+│   └── FASTDL_GUIDE.md                        ← מדריך מלא ל-fastdl.app
+├── usernames.txt                              ← רשימת שמות משתמש (לעריכה)
+├── requirements.txt                           ← תלויות Python
+├── README.md                                  ← הקובץ הזה
+├── SETUP.md                                   ← מדריך ההתקנה
+├── USAGE.md                                   ← מדריך השימוש
+└── TROUBLESHOOTING.md                         ← פתרון בעיות
 ```
 
 ---

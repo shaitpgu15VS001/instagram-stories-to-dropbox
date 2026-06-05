@@ -1,0 +1,153 @@
+- generic [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "View Socials" [ref=e4] [cursor=pointer]:
+        - /url: https://www.viewsocials.com/
+        - img [ref=e5]
+        - text: View Socials
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "Home" [ref=e10] [cursor=pointer]:
+            - /url: https://www.viewsocials.com/
+        - listitem [ref=e11]:
+          - button "Instagram Tools" [ref=e12] [cursor=pointer]
+        - listitem [ref=e13]:
+          - button "TikTok Tools" [ref=e14] [cursor=pointer]
+        - listitem [ref=e15]:
+          - link "About" [ref=e16] [cursor=pointer]:
+            - /url: https://www.viewsocials.com/about/
+        - listitem [ref=e17]:
+          - link "Blog" [ref=e18] [cursor=pointer]:
+            - /url: https://www.viewsocials.com/blog
+        - listitem [ref=e19]:
+          - button "English" [ref=e20] [cursor=pointer]
+  - generic [ref=e22]:
+    - insertion [ref=e24]:
+      - generic [ref=e72]:
+        - heading "These are topics related to the article that might interest you" [level=2] [ref=e74]: Discover more
+        - link "Highlight download service" [ref=e75] [cursor=pointer]:
+          - generic "Highlight download service" [ref=e76]
+          - img [ref=e78]
+        - link "Social Networks" [ref=e80] [cursor=pointer]:
+          - generic "Social Networks" [ref=e81]
+          - img [ref=e83]
+        - link "Computers & Electronics" [ref=e85] [cursor=pointer]:
+          - generic "Computers & Electronics" [ref=e86]
+          - img [ref=e88]
+    - generic [ref=e26]:
+      - img "Instagram" [ref=e28]
+      - insertion [ref=e91]:
+        - iframe [ref=e93]:
+          - generic [ref=f39e13]:
+            - link [ref=f39e17] [cursor=pointer]:
+              - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=kKJjo2AAAAAAAAAAeJzj4uW4_uCstgCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aCIRscf-_o-2gvwajBYMTLMfPsPXUBEAE0AQCm5if2&dt=3&et=2&f=JRuOzRwBAAAAAAAAeJzjmNHZMfPkui9_DARWr-26yCbx6OjNEzs33j0UpMXBwSjAIcGkwGAkycEgwCDBoMCgwWDAYMHgygAEHgwBDBEMVmwcigJCEoxOphyrVtxe97bl7rtjjALXJrxs-PrzUBOnBEJQSbi8vFyvLDO1vDg_OTMxp1gvOT83o5mxiI-Li-MXoxBzcWKxBIMASwMjWxcjl0QTo8ZWRgMOC4ZJjNoccDcJsFlJOzu6Brv6-mfmZkeZRkWUlxj5mDom60aZuzoWRzHMYGRcwMiwiZEF6HbGnYy_GzmX76losjvI-Ksua0_J5A77E4wMLxiZPzAy_mBcyd_AxNDBxDiJiZdj5tl76gIgQuIE2wImhhVMS57P5wAAAmViZA%2C%2C&rt=1&sgn=2qInP-QvyV4p0ErjX6A4nAWUDwr0d84DUO7N4FhnJ6U%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+              - img [ref=f39e20]
+            - generic [ref=f39e23]:
+              - generic [ref=f39e25]:
+                - generic [ref=f39e26]:
+                  - link "kualastyle.com" [ref=f39e27] [cursor=pointer]:
+                    - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=kKJjo2AAAAAAAAAAeJzj4uW4_uCstgCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aCIRscf-_o-2gvwajBYMTLMfPsPXUBEAE0AQCm5if2&dt=3&et=2&f=JRuOzRwBAAAAAAAAeJzjmNHZMfPkui9_DARWr-26yCbx6OjNEzs33j0UpMXBwSjAIcGkwGAkycEgwCDBoMCgwWDAYMHgygAEHgwBDBEMVmwcigJCEoxOphyrVtxe97bl7rtjjALXJrxs-PrzUBOnBEJQSbi8vFyvLDO1vDg_OTMxp1gvOT83o5mxiI-Li-MXoxBzcWKxBIMASwMjWxcjl0QTo8ZWRgMOC4ZJjNoccDcJsFlJOzu6Brv6-mfmZkeZRkWUlxj5mDom60aZuzoWRzHMYGRcwMiwiZEF6HbGnYy_GzmX76losjvI-Ksua0_J5A77E4wMLxiZPzAy_mBcyd_AxNDBxDiJiZdj5tl76gIgQuIE2wImhhVMS57P5wAAAmViZA%2C%2C&rt=1&sgn=2qInP-QvyV4p0ErjX6A4nAWUDwr0d84DUO7N4FhnJ6U%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+                    - generic [ref=f39e31]: kualastyle.com
+                  - generic [ref=f39e33]: מודעה
+                - button [ref=f39e35] [cursor=pointer]:
+                  - generic:
+                    - img
+              - link "STIGSKO | מעמד האכלה ארגונומי - עץ אלון טבעי עץ אלון…" [ref=f39e39] [cursor=pointer]:
+                - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=kKJjo2AAAAAAAAAAeJzj4uW4_uCstgCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aCIRscf-_o-2gvwajBYMTLMfPsPXUBEAE0AQCm5if2&dt=3&et=2&f=JRuOzRwBAAAAAAAAeJzjmNHZMfPkui9_DARWr-26yCbx6OjNEzs33j0UpMXBwSjAIcGkwGAkycEgwCDBoMCgwWDAYMHgygAEHgwBDBEMVmwcigJCEoxOphyrVtxe97bl7rtjjALXJrxs-PrzUBOnBEJQSbi8vFyvLDO1vDg_OTMxp1gvOT83o5mxiI-Li-MXoxBzcWKxBIMASwMjWxcjl0QTo8ZWRgMOC4ZJjNoccDcJsFlJOzu6Brv6-mfmZkeZRkWUlxj5mDom60aZuzoWRzHMYGRcwMiwiZEF6HbGnYy_GzmX76losjvI-Ksua0_J5A77E4wMLxiZPzAy_mBcyd_AxNDBxDiJiZdj5tl76gIgQuIE2wImhhVMS57P5wAAAmViZA%2C%2C&rt=1&sgn=2qInP-QvyV4p0ErjX6A4nAWUDwr0d84DUO7N4FhnJ6U%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+                - generic [ref=f39e40]: STIGSKO | מעמד האכלה ארגונומי - עץ אלון טבעי עץ אלון…
+              - link "295 ₪ 310 ₪" [ref=f39e42] [cursor=pointer]:
+                - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=kKJjo2AAAAAAAAAAeJzj4uW4_uCstgCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aCIRscf-_o-2gvwajBYMTLMfPsPXUBEAE0AQCm5if2&dt=3&et=2&f=JRuOzRwBAAAAAAAAeJzjmNHZMfPkui9_DARWr-26yCbx6OjNEzs33j0UpMXBwSjAIcGkwGAkycEgwCDBoMCgwWDAYMHgygAEHgwBDBEMVmwcigJCEoxOphyrVtxe97bl7rtjjALXJrxs-PrzUBOnBEJQSbi8vFyvLDO1vDg_OTMxp1gvOT83o5mxiI-Li-MXoxBzcWKxBIMASwMjWxcjl0QTo8ZWRgMOC4ZJjNoccDcJsFlJOzu6Brv6-mfmZkeZRkWUlxj5mDom60aZuzoWRzHMYGRcwMiwiZEF6HbGnYy_GzmX76losjvI-Ksua0_J5A77E4wMLxiZPzAy_mBcyd_AxNDBxDiJiZdj5tl76gIgQuIE2wImhhVMS57P5wAAAmViZA%2C%2C&rt=1&sgn=2qInP-QvyV4p0ErjX6A4nAWUDwr0d84DUO7N4FhnJ6U%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+                - generic [ref=f39e43]: 295 ₪
+                - generic [ref=f39e44]: 310 ₪
+              - link "למידע נוסף" [ref=f39e47] [cursor=pointer]:
+                - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=kKJjo2AAAAAAAAAAeJzj4uW4_uCstgCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aCIRscf-_o-2gvwajBYMTLMfPsPXUBEAE0AQCm5if2&dt=3&et=2&f=JRuOzRwBAAAAAAAAeJzjmNHZMfPkui9_DARWr-26yCbx6OjNEzs33j0UpMXBwSjAIcGkwGAkycEgwCDBoMCgwWDAYMHgygAEHgwBDBEMVmwcigJCEoxOphyrVtxe97bl7rtjjALXJrxs-PrzUBOnBEJQSbi8vFyvLDO1vDg_OTMxp1gvOT83o5mxiI-Li-MXoxBzcWKxBIMASwMjWxcjl0QTo8ZWRgMOC4ZJjNoccDcJsFlJOzu6Brv6-mfmZkeZRkWUlxj5mDom60aZuzoWRzHMYGRcwMiwiZEF6HbGnYy_GzmX76losjvI-Ksua0_J5A77E4wMLxiZPzAy_mBcyd_AxNDBxDiJiZdj5tl76gIgQuIE2wImhhVMS57P5wAAAmViZA%2C%2C&rt=1&sgn=2qInP-QvyV4p0ErjX6A4nAWUDwr0d84DUO7N4FhnJ6U%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+                - generic [ref=f39e48]: למידע נוסף
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - paragraph [ref=e32]:
+            - text: instagram
+            - img "verified" [ref=e33]
+          - link "Share Profile" [ref=e36] [cursor=pointer]:
+            - /url: "#"
+        - paragraph [ref=e37]:
+          - strong [ref=e38]: "0"
+          - text: posts
+          - generic [ref=e39]:
+            - strong [ref=e40]: 686M
+            - text: followers
+          - generic [ref=e41]:
+            - strong [ref=e42]: "214"
+            - text: followings
+        - paragraph [ref=e43]: Instagram
+        - paragraph
+        - paragraph [ref=e44]: Discover what's new on Instagram 🔎✨
+  - generic [ref=e48]:
+    - generic [ref=e49]:
+      - link "STORIES" [ref=e50] [cursor=pointer]:
+        - /url: /profile/instagram
+        - img [ref=e51]
+        - text: STORIES
+      - link "HIGHLIGHTS" [ref=e52] [cursor=pointer]:
+        - /url: /profile/instagram?tab=highlights
+        - img [ref=e53]
+        - text: HIGHLIGHTS
+      - link "POSTS" [ref=e54] [cursor=pointer]:
+        - /url: /profile/instagram?tab=posts
+        - img [ref=e55]
+        - text: POSTS
+      - link "REELS" [ref=e56] [cursor=pointer]:
+        - /url: /profile/instagram?tab=reels
+        - img [ref=e57]
+        - text: REELS
+    - generic [ref=e58]:
+      - generic [ref=e60]:
+        - img "story title" [ref=e94]
+        - paragraph [ref=e61]: "Posted on: 19 hours ago"
+        - link "Download" [ref=e63] [cursor=pointer]:
+          - /url: /download-action?url=https://phosphor.utils.elfsightcdn.com/?url=https%3A%2F%2Fscontent-phl2-1.cdninstagram.com%2Fv%2Ft51.82787-15%2F715079139_18759922105001321_8508794964458694207_n.jpg%3Fstp%3Ddst-jpg_e35_tt6%26_nc_cat%3D1%26ig_cache_key%3DMzkxMjEyNjAyOTQ4NTI4MDgyMQ%253D%253D.3-ccb7-5%26ccb%3D7-5%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6IlNUT1JZLnhwaWRzLjExNzkuc2RyLnJlZ3VsYXJfcGhvdG8uQzMifQ%253D%253D%26_nc_ohc%3DfnwwkZAEG4cQ7kNvwGEblmy%26_nc_oc%3DAdpo0Tned7F9iW571gxaPCPBoMrKCeFh8XoUt_aASMTWBx6IBKYSqFgnUJFn83o_HX4%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26se%3D8%26_nc_ht%3Dscontent-phl2-1.cdninstagram.com%26_nc_gid%3DXp32xomzjoUwi3cKtEmppw%26_nc_ss%3D7a3ba%26oh%3D00_Af-Z99BYiRgraKidcW3MSah_nzkyTVhdwDotAkYLfgjJ8g%26oe%3D6A287BE6
+          - img [ref=e64]
+          - text: Download
+      - generic [ref=e66]:
+        - img "story title" [ref=e95]
+        - paragraph [ref=e67]: "Posted on: 14 hours ago"
+        - link "Download" [ref=e69] [cursor=pointer]:
+          - /url: /download-action?url=https://phosphor.utils.elfsightcdn.com/?url=https%3A%2F%2Fscontent-phl2-1.cdninstagram.com%2Fv%2Ft51.82787-15%2F714403704_18760008373001321_1142271433135064252_n.jpg%3Fstp%3Ddst-jpg_e35_tt6%26_nc_cat%3D1%26ig_cache_key%3DMzkxMjI3OTI2NjU3MzU5MTY3OQ%253D%253D.3-ccb7-5%26ccb%3D7-5%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6IlNUT1JZLnhwaWRzLjExNzAuc2RyLnJlZ3VsYXJfcGhvdG8uQzMifQ%253D%253D%26_nc_ohc%3DJWKAowSMxA8Q7kNvwEvCJcH%26_nc_oc%3DAdrSQAlGvmCeW3Xov-hUaCXBC6Zi-lSj4sZR4Ur-m9OWyc9H_cRKvjmke66bGsrS0Xc%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26se%3D8%26_nc_ht%3Dscontent-phl2-1.cdninstagram.com%26_nc_gid%3DXp32xomzjoUwi3cKtEmppw%26_nc_ss%3D7a3ba%26oh%3D00_Af9R3PEjA7DLnkFCyZQYqLR0K3cpIi8MFARElBLbQaB-ng%26oe%3D6A285B06
+          - img [ref=e70]
+          - text: Download
+  - insertion [ref=e97]:
+    - iframe [ref=e99]:
+      - generic [ref=f40e13]:
+        - link [ref=f40e17] [cursor=pointer]:
+          - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=R_4azmAAAAAAAAAAeJzj4uU4dniftgCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aCIRscf-_o-2gvwajBYMTL8efOBXUBEAE0AQBgPCfK&dt=3&et=2&f=ZpZUnBwBAAAAAAAAeJzjmNnbsfjaui9_DARWr-26yCbx6OjNEzs33j0UpMXBwSjAIcGkwGAkycEgwCDBoMCgwWDAYMHgygAEHgwBDBEMVmwcigJCEoxOphyrVtxe97bl7rtjjAI73n__09kw6baEBEJQSbi8vFyvLDO1vDg_OTMxp1gvOT83o5mxiI-Li-M_ixBzcWKxBIMASwMjWxcjl0QTo8ZWRgMOC4ZJjNoccDcJsFlJOzu6Brv6-mfmZkeZRkWUlxj5mDom60aZuzoWRzHMYGRcwMiwiZEF6HbGnYwtN9_mNZu12B1ktNxyomzf_C77E4wMLxiZPzAy_mBcyd_AxNDBxDiJiZfjz50L6gIgQuIE2wImhhVMS57P5wAASiJjZg%2C%2C&rt=1&sgn=Kbq02ej9z12BDGbvmjxjMSh_3eW2neYvsQRULCbzCQI%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+          - img [ref=f40e20]
+        - generic [ref=f40e23]:
+          - generic [ref=f40e25]:
+            - generic [ref=f40e26]:
+              - link "kualastyle.com" [ref=f40e27] [cursor=pointer]:
+                - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=R_4azmAAAAAAAAAAeJzj4uU4dniftgCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aCIRscf-_o-2gvwajBYMTL8efOBXUBEAE0AQBgPCfK&dt=3&et=2&f=ZpZUnBwBAAAAAAAAeJzjmNnbsfjaui9_DARWr-26yCbx6OjNEzs33j0UpMXBwSjAIcGkwGAkycEgwCDBoMCgwWDAYMHgygAEHgwBDBEMVmwcigJCEoxOphyrVtxe97bl7rtjjAI73n__09kw6baEBEJQSbi8vFyvLDO1vDg_OTMxp1gvOT83o5mxiI-Li-M_ixBzcWKxBIMASwMjWxcjl0QTo8ZWRgMOC4ZJjNoccDcJsFlJOzu6Brv6-mfmZkeZRkWUlxj5mDom60aZuzoWRzHMYGRcwMiwiZEF6HbGnYwtN9_mNZu12B1ktNxyomzf_C77E4wMLxiZPzAy_mBcyd_AxNDBxDiJiZfjz50L6gIgQuIE2wImhhVMS57P5wAASiJjZg%2C%2C&rt=1&sgn=Kbq02ej9z12BDGbvmjxjMSh_3eW2neYvsQRULCbzCQI%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+                - generic [ref=f40e31]: kualastyle.com
+              - generic [ref=f40e33]: מודעה
+            - button [ref=f40e35] [cursor=pointer]:
+              - generic:
+                - img
+          - link "STIGSKO | מעמד האכלה ארגונומי - עץ אלון טבעי עץ אלון…" [ref=f40e39] [cursor=pointer]:
+            - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=R_4azmAAAAAAAAAAeJzj4uU4dniftgCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aCIRscf-_o-2gvwajBYMTL8efOBXUBEAE0AQBgPCfK&dt=3&et=2&f=ZpZUnBwBAAAAAAAAeJzjmNnbsfjaui9_DARWr-26yCbx6OjNEzs33j0UpMXBwSjAIcGkwGAkycEgwCDBoMCgwWDAYMHgygAEHgwBDBEMVmwcigJCEoxOphyrVtxe97bl7rtjjAI73n__09kw6baEBEJQSbi8vFyvLDO1vDg_OTMxp1gvOT83o5mxiI-Li-M_ixBzcWKxBIMASwMjWxcjl0QTo8ZWRgMOC4ZJjNoccDcJsFlJOzu6Brv6-mfmZkeZRkWUlxj5mDom60aZuzoWRzHMYGRcwMiwiZEF6HbGnYwtN9_mNZu12B1ktNxyomzf_C77E4wMLxiZPzAy_mBcyd_AxNDBxDiJiZfjz50L6gIgQuIE2wImhhVMS57P5wAASiJjZg%2C%2C&rt=1&sgn=Kbq02ej9z12BDGbvmjxjMSh_3eW2neYvsQRULCbzCQI%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+            - generic [ref=f40e40]: STIGSKO | מעמד האכלה ארגונומי - עץ אלון טבעי עץ אלון…
+          - link "295 ₪ 310 ₪" [ref=f40e42] [cursor=pointer]:
+            - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=R_4azmAAAAAAAAAAeJzj4uU4dniftgCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aCIRscf-_o-2gvwajBYMTL8efOBXUBEAE0AQBgPCfK&dt=3&et=2&f=ZpZUnBwBAAAAAAAAeJzjmNnbsfjaui9_DARWr-26yCbx6OjNEzs33j0UpMXBwSjAIcGkwGAkycEgwCDBoMCgwWDAYMHgygAEHgwBDBEMVmwcigJCEoxOphyrVtxe97bl7rtjjAI73n__09kw6baEBEJQSbi8vFyvLDO1vDg_OTMxp1gvOT83o5mxiI-Li-M_ixBzcWKxBIMASwMjWxcjl0QTo8ZWRgMOC4ZJjNoccDcJsFlJOzu6Brv6-mfmZkeZRkWUlxj5mDom60aZuzoWRzHMYGRcwMiwiZEF6HbGnYwtN9_mNZu12B1ktNxyomzf_C77E4wMLxiZPzAy_mBcyd_AxNDBxDiJiZfjz50L6gIgQuIE2wImhhVMS57P5wAASiJjZg%2C%2C&rt=1&sgn=Kbq02ej9z12BDGbvmjxjMSh_3eW2neYvsQRULCbzCQI%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+            - generic [ref=f40e43]: 295 ₪
+            - generic [ref=f40e44]: 310 ₪
+          - link "למידע נוסף" [ref=f40e47] [cursor=pointer]:
+            - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=R_4azmAAAAAAAAAAeJzj4uU4dniftgCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aCIRscf-_o-2gvwajBYMTL8efOBXUBEAE0AQBgPCfK&dt=3&et=2&f=ZpZUnBwBAAAAAAAAeJzjmNnbsfjaui9_DARWr-26yCbx6OjNEzs33j0UpMXBwSjAIcGkwGAkycEgwCDBoMCgwWDAYMHgygAEHgwBDBEMVmwcigJCEoxOphyrVtxe97bl7rtjjAI73n__09kw6baEBEJQSbi8vFyvLDO1vDg_OTMxp1gvOT83o5mxiI-Li-M_ixBzcWKxBIMASwMjWxcjl0QTo8ZWRgMOC4ZJjNoccDcJsFlJOzu6Brv6-mfmZkeZRkWUlxj5mDom60aZuzoWRzHMYGRcwMiwiZEF6HbGnYwtN9_mNZu12B1ktNxyomzf_C77E4wMLxiZPzAy_mBcyd_AxNDBxDiJiZfjz50L6gIgQuIE2wImhhVMS57P5wAASiJjZg%2C%2C&rt=1&sgn=Kbq02ej9z12BDGbvmjxjMSh_3eW2neYvsQRULCbzCQI%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+            - generic [ref=f40e48]: למידע נוסף
+  - dialog "View and Download Anonymously" [active] [ref=e102]:
+    - generic [ref=e103]:
+      - img "Welcome to View Socials" [ref=e106]
+      - generic [ref=e107]:
+        - heading "View and Download Anonymously" [level=1] [ref=e108]
+        - paragraph [ref=e110]: Watch a small ad to remove all limits for 24 hours.
+      - button "View a small ad Help us to keep the services for free." [ref=e112] [cursor=pointer]:
+        - generic [ref=e113]:
+          - generic [ref=e114]: View a small ad
+          - generic [ref=e116]: Help us to keep the services for free.
+        - img [ref=e119]

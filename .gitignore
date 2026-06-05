@@ -7,9 +7,6 @@ venv/
 .env
 state.json
 stories/
-highlights/
-fabula
-fabula.exe
 bin/
 *.log
 .DS_Store

@@ -1,0 +1,237 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "View Socials" [ref=e4] [cursor=pointer]:
+        - /url: https://www.viewsocials.com/
+        - img [ref=e5]
+        - text: View Socials
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "Home" [ref=e10] [cursor=pointer]:
+            - /url: https://www.viewsocials.com/
+        - listitem [ref=e11]:
+          - button "Instagram Tools" [ref=e12] [cursor=pointer]
+        - listitem [ref=e13]:
+          - button "TikTok Tools" [ref=e14] [cursor=pointer]
+        - listitem [ref=e15]:
+          - link "About" [ref=e16] [cursor=pointer]:
+            - /url: https://www.viewsocials.com/about/
+        - listitem [ref=e17]:
+          - link "Blog" [ref=e18] [cursor=pointer]:
+            - /url: https://www.viewsocials.com/blog
+        - listitem [ref=e19]:
+          - button "English" [ref=e20] [cursor=pointer]
+  - generic [ref=e22]:
+    - generic [ref=e24]:
+      - heading "Anonymous Instagram Viewer" [level=1] [ref=e25]
+      - heading "View and Download Instagram Stories, Reels, Photo, Video, and Highlight Anonymously." [level=2] [ref=e26]
+      - generic [ref=e28]:
+        - textbox "Username or post link" [ref=e29]
+        - button "View/Download" [ref=e30] [cursor=pointer]
+    - generic [ref=e32]:
+      - link "play store" [ref=e33] [cursor=pointer]:
+        - /url: https://play.google.com/store/apps/details?id=com.viewsocials.web
+        - img "play store" [ref=e34]
+      - paragraph [ref=e35]: "Share with your Friends & Family:"
+      - link "Share on Facebook" [ref=e36] [cursor=pointer]:
+        - /url: https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fwww.viewsocials.com
+        - img [ref=e37]
+      - link "Share on Twitter" [ref=e39] [cursor=pointer]:
+        - /url: https://twitter.com/intent/tweet?text=Check+this+out%21&url=https%3A%2F%2Fwww.viewsocials.com
+        - img [ref=e40]
+      - link "Share on Pinterest" [ref=e42] [cursor=pointer]:
+        - /url: https://pinterest.com/pin/create/button/?url=https%3A%2F%2Fwww.viewsocials.com&description=Interesting+content
+        - img [ref=e43]
+      - link "Share on WhatsApp" [ref=e45] [cursor=pointer]:
+        - /url: https://api.whatsapp.com/send?text=Check+this+out%3A+https%3A%2F%2Fwww.viewsocials.com
+        - img [ref=e46]
+      - link "Share on Telegram" [ref=e48] [cursor=pointer]:
+        - /url: https://t.me/share/url?url=https%3A%2F%2Fwww.viewsocials.com&text=Check+this+out%21
+        - img [ref=e49]
+      - link "Share on Skype" [ref=e51] [cursor=pointer]:
+        - /url: skype:?chat&topic=Check+this+out&message=https%3A%2F%2Fwww.viewsocials.com
+        - img [ref=e52]
+      - link "Share via Email" [ref=e54] [cursor=pointer]:
+        - /url: mailto:?subject=Check+this+out%21&body=https%3A%2F%2Fwww.viewsocials.com
+        - img [ref=e55]
+  - generic [ref=e59]:
+    - generic [ref=e60]:
+      - heading "Insta Story Viewer Features" [level=2] [ref=e61]
+      - insertion [ref=e63]:
+        - generic [ref=e66]:
+          - heading "These are topics related to the article that might interest you" [level=2] [ref=e68]: Discover more
+          - link "Computers & Electronics" [ref=e69] [cursor=pointer]:
+            - generic "Computers & Electronics" [ref=e70]
+            - img [ref=e72]
+          - link "Instagram tools suite" [ref=e74] [cursor=pointer]:
+            - generic "Instagram tools suite" [ref=e75]
+            - img [ref=e77]
+          - link "Highlight download service" [ref=e79] [cursor=pointer]:
+            - generic "Highlight download service" [ref=e80]
+            - img [ref=e82]
+      - paragraph [ref=e84]:
+        - text: Features of our Instagram anonymous story viewer are glorious and make you comfortable with its usages.
+        - text: So don’t keep any doubt in your mind; start using it and see the power of our Instagram anonymous viewer.
+      - paragraph [ref=e85]: "Check out the advantages you can enjoy with our online anonymous Instagram story viewer:"
+    - generic [ref=e87]:
+      - img [ref=e88]
+      - heading "100% Anonymous" [level=3] [ref=e90]
+      - paragraph [ref=e91]: No need to share your information or credentials while using this service to save your Instagram story; anonymously, you can use it without any hurdle. So, you don’t need to think about privacy and safety.
+    - generic [ref=e93]:
+      - img [ref=e94]
+      - heading "No Account Required" [level=3] [ref=e96]
+      - paragraph [ref=e97]: If you have chosen the publication and are interested in watching some Instagram story of any Public profile, also not having any Instagram account, you can execute the action with no questions asked.
+    - generic [ref=e99]:
+      - img [ref=e100]
+      - heading "View and Download" [level=3] [ref=e102]
+      - paragraph [ref=e103]: Our Instagram story viewer anonymous profile can be accessed to download a particular story. Here, the process to view and download is very simple and doesn’t affect the public profile while downloading the story.
+    - generic [ref=e105]:
+      - img [ref=e106]
+      - heading "No Installation Required" [level=3] [ref=e108]
+      - paragraph [ref=e109]: As mentioned, our anonymous Instagram viewer is easy to use and offers online and offline facilities to watch Instagram stories. This is not an application or tool, so no installation is required.
+    - generic [ref=e111]:
+      - img [ref=e112]
+      - heading "Free and Reliable" [level=4] [ref=e114]
+      - paragraph [ref=e115]: To View Instagram Stories Anonymously, you don’t need to pay here. It's free of cost and safe too. We use great and unbreakable algorithms in our online service, so you don’t need to think twice before you use it.
+    - generic [ref=e117]:
+      - img [ref=e118]
+      - heading "Support All Devices" [level=4] [ref=e120]
+      - paragraph [ref=e121]: To anonymously use our online IG story viewer, check your internet connection. If the Internet services are working properly, you can use them on any device, such as a laptop, phone, desktop, etc.
+  - insertion [ref=e123]:
+    - generic [ref=e126]:
+      - heading "These are topics related to the article that might interest you" [level=2] [ref=e128]: Discover more
+      - link "Anonymous profile access" [ref=e129] [cursor=pointer]:
+        - generic "Anonymous profile access" [ref=e130]
+        - img [ref=e132]
+      - link "TV & Video Equipment" [ref=e134] [cursor=pointer]:
+        - generic "TV & Video Equipment" [ref=e135]
+        - img [ref=e137]
+      - link "Social media tools" [ref=e139] [cursor=pointer]:
+        - generic "Social media tools" [ref=e140]
+        - img [ref=e142]
+  - generic [ref=e144]:
+    - generic [ref=e147]:
+      - heading "How to Use" [level=4] [ref=e149]
+      - img "copy Instagram profile link" [ref=e151]
+      - generic [ref=e152]:
+        - heading "Enter Username or Profile Link" [level=4] [ref=e153]
+        - insertion [ref=e155]
+        - paragraph [ref=e157]: The anonymous Instagram story you want to save on your device can be downloaded without any video quality changes. Our online Instagram story viewer is just for your convenience. You need to put the username or profile link in the search bar, and with one click, you are allowed to save the content. Also, you can set the profile link in the search bar to save the IG video.
+    - generic [ref=e160]:
+      - generic [ref=e161]:
+        - heading "View Stories, Highlights, Posts, Reels Anonymously" [level=4] [ref=e162]
+        - paragraph [ref=e163]: If you are a frequent Instagram user who loves to watch anonymous reels, videos, highlights, etc, and looking for an online source to help you view some IG stories, highlights, reels, and posts anonymously, then you are here at the right place. You don’t need to wait and waste your time; just put the profile name or URL link from where you want to view the Instagram story anonymously; within seconds, you can view the stories, posts, etc.
+      - img "view instagram stories" [ref=e165]
+    - generic [ref=e168]:
+      - img "download instagram stories" [ref=e170]
+      - generic [ref=e171]:
+        - heading "Download Stories, Highlights, Posts, Reels" [level=5] [ref=e172]
+        - insertion [ref=e174]
+        - paragraph [ref=e176]: If you love to check out the reels over Instagram but don't have time now, you can download and save those Instagram posts, stories, and reels for the future. It will help you to watch them anytime at your convenience. Our online anonymous Instagram viewer application lets you view and download anonymous highlights, reels, and stories from public Instagram profiles.
+  - generic [ref=e179]:
+    - heading "FAQs" [level=5] [ref=e181]
+    - generic [ref=e183]:
+      - generic [ref=e184]:
+        - heading "Anyone who doesn’t have an Instagram account can use this online service." [level=5] [ref=e185]:
+          - button "Anyone who doesn’t have an Instagram account can use this online service." [expanded] [ref=e186] [cursor=pointer]
+        - generic [ref=e188]: Yes, it is so simple. There is no need to make an Instagram account to access an anonymous Instagram story if you don't have an existing one. The only essential requirement is having Internet access. To view an Insta story, you need to get the profile link or username. Through our website Viewsocials, you can easily access amazing stories and reels from public Instagram accounts. If you are satisfied with the preview of Instagram highlights, reels, stories, etc, you can download it to watch it later. Note that you don’t even need to log into your Instagram account.
+      - heading "Can I access my Instagram stuff if my account is blocked for some unknown reason?" [level=5] [ref=e190]:
+        - button "Can I access my Instagram stuff if my account is blocked for some unknown reason?" [ref=e191] [cursor=pointer]
+      - heading "Is downloading a story, highlight, photo, or video from someone else’s Instagram profile possible?" [level=5] [ref=e193]:
+        - button "Is downloading a story, highlight, photo, or video from someone else’s Instagram profile possible?" [ref=e194] [cursor=pointer]
+      - generic [ref=e195]:
+        - heading "What if I cannot open and view downloaded Instagram stories?" [level=5] [ref=e196]:
+          - button "What if I cannot open and view downloaded Instagram stories?" [ref=e197] [cursor=pointer]
+        - insertion [ref=e199]
+      - heading "Is this online Instagram viewer capable of keeping the quality of downloaded Insta images intact?" [level=5] [ref=e202]:
+        - button "Is this online Instagram viewer capable of keeping the quality of downloaded Insta images intact?" [ref=e203] [cursor=pointer]
+      - heading "Is there any specification for using this service to view Instagram anonymously over specific devices?" [level=5] [ref=e205]:
+        - button "Is there any specification for using this service to view Instagram anonymously over specific devices?" [ref=e206] [cursor=pointer]
+      - heading "Can I use Anonymous Instagram Story Viewer with any browser?" [level=6] [ref=e208]:
+        - button "Can I use Anonymous Instagram Story Viewer with any browser?" [ref=e209] [cursor=pointer]
+      - heading "Is this Instagram Anonymous Story Viewer helpful in keeping my anonymity protected?" [level=6] [ref=e211]:
+        - button "Is this Instagram Anonymous Story Viewer helpful in keeping my anonymity protected?" [ref=e212] [cursor=pointer]
+      - heading "Do I need to pay the cost of using Instagram Story viewer, or is it free?" [level=6] [ref=e214]:
+        - button "Do I need to pay the cost of using Instagram Story viewer, or is it free?" [ref=e215] [cursor=pointer]
+      - heading "Is there any specific type of file format supported by online Instagram viewers?" [level=6] [ref=e217]:
+        - button "Is there any specific type of file format supported by online Instagram viewers?" [ref=e218] [cursor=pointer]
+  - generic [ref=e222]:
+    - heading "What is ViewSocials?" [level=5] [ref=e223]
+    - paragraph [ref=e224]: Viewsocials is the platform for helping you view Instagram anonymously and allows you to download them easily. There are simple commands there to deal with. Any IG story can be stored in your system or phone without bothering you to use unsafe third-party applications.
+    - insertion [ref=e226]
+    - paragraph [ref=e228]: The exclusive publication of Instagram, an Instagram story, fades within a day, and sometimes, you want to rewatch it. And you are left with no option. We help you as an Anonymous Instagram Story Viewer to deal with such a situation. To do this, you just need to use our online service to download an Instagram story, which can be saved and seen later.
+    - paragraph [ref=e229]: What's more exciting is monitoring multiple Instagram profiles without limitations or restrictions. It would be best if you kept patient as a single profile can be accessed in one go. Still, you cannot access the number of Insta stories, highlights, photos, videos, and reels from many anonymous Insta profiles.
+  - generic [ref=e232]:
+    - heading "Our Stats" [level=5] [ref=e233]
+    - generic [ref=e235]:
+      - paragraph [ref=e236]: 77K
+      - paragraph [ref=e237]: Profiles
+    - generic [ref=e239]:
+      - paragraph [ref=e240]: 279K
+      - paragraph [ref=e241]: Posts
+    - generic [ref=e243]:
+      - paragraph [ref=e244]: 169K
+      - paragraph [ref=e245]: Anonymous View
+    - generic [ref=e247]:
+      - paragraph [ref=e248]: 161K
+      - paragraph [ref=e249]: Downloads
+  - insertion [ref=e251]
+  - generic [ref=e254]:
+    - generic [ref=e255]:
+      - generic [ref=e256]:
+        - paragraph [ref=e257]:
+          - link "View Socials" [ref=e258] [cursor=pointer]:
+            - /url: "#"
+            - img [ref=e259]
+            - text: View Socials
+        - paragraph [ref=e261]: ViewSocials is a well-known and highly used online service that allows you to view and download anonymous Instagram account photos, highlights, reels, stories, etc. Our anonymous Instagram viewer doesn’t trace any information from the user’s end.
+      - generic [ref=e263]:
+        - generic [ref=e264]:
+          - heading "Pages" [level=6] [ref=e265]
+          - list [ref=e266]:
+            - listitem [ref=e267]:
+              - link "About" [ref=e268] [cursor=pointer]:
+                - /url: https://www.viewsocials.com/about/
+            - listitem [ref=e269]:
+              - link "How to Use" [ref=e270] [cursor=pointer]:
+                - /url: https://www.viewsocials.com/how-to-use/
+            - listitem [ref=e271]:
+              - link "Contact" [ref=e272] [cursor=pointer]:
+                - /url: https://www.viewsocials.com/contact/
+            - listitem [ref=e273]:
+              - link "Blog" [ref=e274] [cursor=pointer]:
+                - /url: https://www.viewsocials.com/blog
+            - listitem [ref=e275]:
+              - link "Privacy Policy" [ref=e276] [cursor=pointer]:
+                - /url: https://www.viewsocials.com/privacy-policy/
+            - listitem [ref=e277]:
+              - link "Terms of Use" [ref=e278] [cursor=pointer]:
+                - /url: https://www.viewsocials.com/terms-of-use/
+        - generic [ref=e279]:
+          - heading "Other Tools" [level=6] [ref=e280]
+          - list [ref=e281]:
+            - listitem [ref=e282]:
+              - link "Spoty Downloader" [ref=e283] [cursor=pointer]:
+                - /url: https://www.spotydownloader.com/
+            - listitem [ref=e284]:
+              - link "TikFace" [ref=e285] [cursor=pointer]:
+                - /url: https://www.tikface.com/
+    - separator [ref=e286]
+    - generic [ref=e287]:
+      - paragraph [ref=e288]:
+        - text: Copyright © 2024-2026
+        - link "View Socials" [ref=e289] [cursor=pointer]:
+          - /url: https://www.viewsocials.com/
+        - text: . All Rights reserved.
+      - paragraph [ref=e291]: We don't host Instagram or TikTok content on our website.
+  - insertion [ref=e292]:
+    - iframe [ref=e295]:
+      - generic [ref=f13e2]:
+        - link "Advertisement" [ref=f13e4] [cursor=pointer]:
+          - /url: https://ad.doubleclick.net/pcs/click?xai=AKAOjsvGWtsst_Pxp9-RhosZkkFQDV6WOZiHeFxqeBs9Xm6Z_ROLY_7A7LRRnDheMJQ0et0DOxr2zzUpcjnhO1CmYBwxn8WmoBoKOAPwbG0Lf9EIqLsMLrLqs3NRjg1yB-JqX5UgnU5dky5ezntB77vmx1dmXgIhcvIsWxL8AyH_nIc-movfrNDNEuFRqYa3cebpYO1Uhm2pB_X6pJ3dZuMoa523FCiWHwolrWygH7C_yPbeHl9QMPdpXehBB_JisAqfe_dNUnHv3-CyBAwgZWeWbDy2N5cPFSg1fBdKKgufUW7Ao4JwR82ByzaZhbc84q8tF8Wi-gjPwlbloelnWYvUfAZYYx_xQLA2m_6N_LKQTAQPWmQjY0KrFMmNRl182Jl1mlyBGTzxU1rfZM1Q2b08Myu2mexz6NkWao-LyBXz3xpazFoatdpy6ZODFXtM00k4cB5XQab4etl-MtFYh4yxn6mPA2hkD2swdABa24CM3xSZ1ZpMangg4u1dbB6fO6RPvA5P2v5Gx-sSEn4DSAnbxugbClfTdd-VqIaOx98VdhNQ6xCnxfGD40ninq73DMzRkXYDv_tjM25Yn8D2CFlnXoOYNGRe6wWw5Y-S_8xIyjZgRgmSw0Rf4ydso-3rbnf4GxMQTrlOBA4DSTN0ZA86XxFwLKkgf0sbTH1PkSTuHBhNJHtY7YyJONEC61XmSLH9uhdPkIyvMRSrI-fHM02P3XKTiybkEIR6Hu-zKeFDyX9wtAtv6i6G_zOPy4zDeDmL-LuSGTHnWfevydp4hlZO3l-JbcW3XheoxWUG8cdNidctzVrjTPsNF5sSSORY3FILHs7UE-0ZAv3BJTeDZE2_dfyGob7LtNwp3PSq7VGVkhLGMG57dsK49RDAW1qJfqdUHVvYTd-q58Dosr_ydGtJ8T7EQ4k452qUJCaKpZE0f5enT9CA44XIny3nnQuXwqjf2hVZLlkUjpwJ3ZoLETI9h8lhC03eaWoMts_Ndl8zIpu9Flqug7tePQVyXW5n-fhdIk8OKLEtIziDLmDrtz1Le0UEYIM2RNn7OWCYF_fiPNvLcyowmDw7XRGbYa_u2AFe7TseENnc-wBdm6ziDE5agFdnsqdo3EReYg8DbmvR0P621RO75b4GbY2c4JEXTyBB0-vO9d97qizZdLDjZrKnp2VCzmHzuCoEssFCQKvobb6E7Od0mx1jVjajXPc8tiahNGxNi6xBwSZ-rHAIa8AiZUT-BR_4rDtnq8fhVj_sFeA2GAwDAt4lSeuEKbelPMm6xwFSQT18qKRJwvo01H3XMYW2NVohB3hNA4XQLM8oEAhHvO3OXimYumiDhoMqBUnPNJ7tLSXDBwqmPCmtMw7bLwBiVBPjZps_aj6YhEqQbnWRtd_53CqgrXIQgFxDj-Mxc3FjFXuTpkEGAHBj0siWl4yalwVwiv8YFNo6oSLLh4Bsx2HVXGHRS0SxTAJsGinin7HrWZxZPb1XP-TXhXlR0XV_urspr3rekmZF0lLdj98yYsTlCrQmK4P7y4XXrdx6dP4kDX-7K5uO3_bDgiIIXQvfxiFuvWrLFJypTH7S_Uf6fJb9VRdTb0dYQIUhsU361J0X9ZsjQObpzGshviXTyGlcJWlZyPO0ZgJDZg73-4oAC0jW5VNyjpZTUYlV0mi6eq7hRYCm0yf7OaL4gFwc5isioV5TioE&sai=AMfl-YQYUNNEFCqC6vAlFriwLp4d-6uvpOR4FKxcPF05j3eSeg4YnX8261IHqb4IPDXrI8kfT2857wl4rWpeE_HuS-EXIeRMYCDwoCzz_KxD8llUN3IW64T5kNLZB2vl7IYrXN78urpBhHknOUy7GBRiKeDwSeH_QqqmNtIMEK9Tou-cFjG1rMa3pt_bQnigsKXPeZ5ESaQXRjF2fvz4pCnaHMQn8lrWlqEdjXELP7cG6j-VzzIwtkAoD2YUoFNdlP2uU0CcoUYYdyJjdv9Nv1v5tnwqOI-2HUSt6hBkMfoeM_9oNvThJvNG-vhGHBKtkHiEsFsCDwqRkVgRU52RBWWlU5SE2cl4mRdwjPbQ4bKyaGCl_RVB_SkVUQFzMtNgQ_1O54f5D5AxEADs9_5-WWOdul9pf7O08kVwUEVSOmzr_pdIS64eXCFZfX_Z0dIXukiXwBwxUksTKdDcb-mT4rfaYBvgnmItB2hjIe9zQhjHLVVyXYyR26zjKTBUz1ZSHzI8O9bXQsbgmU0Cll5KXT6tp3TZ4EucAnaXXiIyz5BLbGs3S3yi-nNFaBGpCRo1FLJy71rH624D4LRlMaWKlNr7tRipaW6T059DoLpbGSRcvg8Ok9gkq4p3OrfNxEc4npJir2vOCiKEcaVq5fA4XnFMUBRY1XcvFEH4zkKDdQKqDdw3RSnqC3MtFNtJiY3Qj9AXZTiGK9Qgqz5M9hee5ITPlG-e-8iBoT4No48-CWwF8A5zV2iFMvApBszcQKDBVXyQvEoSMgi2VDlEjlkfla4zGW2M9pFBo0VAuBjIM2J45xfNyw_i0MKNT8F1Lf9jW-pPYckfv27y8M6Ujv4T95GI0vUAH7EDPUJV99H0W0VRXmjutDgOPaYboLuV7ddmn2RFvXuNsLx_xAfrztCnslYaEQyzXCf4G6nBrN7KxSrZStlNZt92fQLhqfTL&sig=Cg0ArKJSzN3sDtoOzKu7&fbs_aeid=%5Bgw_fbsaeid%5D&crd=aHR0cHM6Ly9kaXNuZXlwbHVzLmNvbQ&urlfix=1&adurl=https://www.apps.disneyplus.com/il/onboarding%3Futm_source%3Ddv%26utm_medium%3Ddisplay%26utm_campaign%3Dbau%26dclid%3D%25edclid!%26gad_source%3D7%26gad_campaignid%3D23893028820
+          - img "Advertisement" [ref=f13e5]
+        - generic [ref=f13e6]:
+          - generic:
+            - img [ref=f13e10] [cursor=pointer]
+            - button [ref=f13e12] [cursor=pointer]:
+              - img [ref=f13e13]

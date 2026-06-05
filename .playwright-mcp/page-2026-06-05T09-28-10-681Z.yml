@@ -1,0 +1,79 @@
+- generic [active] [ref=e1]:
+  - navigation [ref=e2]:
+    - generic [ref=e3]:
+      - link "View Socials" [ref=e4] [cursor=pointer]:
+        - /url: https://www.viewsocials.com/
+        - img [ref=e5]
+        - text: View Socials
+      - list [ref=e8]:
+        - listitem [ref=e9]:
+          - link "Home" [ref=e10] [cursor=pointer]:
+            - /url: https://www.viewsocials.com/
+        - listitem [ref=e11]:
+          - button "Instagram Tools" [ref=e12] [cursor=pointer]
+        - listitem [ref=e13]:
+          - button "TikTok Tools" [ref=e14] [cursor=pointer]
+        - listitem [ref=e15]:
+          - link "About" [ref=e16] [cursor=pointer]:
+            - /url: https://www.viewsocials.com/about/
+        - listitem [ref=e17]:
+          - link "Blog" [ref=e18] [cursor=pointer]:
+            - /url: https://www.viewsocials.com/blog
+        - listitem [ref=e19]:
+          - button "English" [ref=e20] [cursor=pointer]
+  - generic [ref=e22]:
+    - insertion [ref=e24]
+    - generic [ref=e26]:
+      - img "Instagram" [ref=e28]
+      - generic [ref=e29]:
+        - generic [ref=e30]:
+          - paragraph [ref=e32]:
+            - text: instagram
+            - img "verified" [ref=e33]
+          - link "Share Profile" [ref=e36] [cursor=pointer]:
+            - /url: "#"
+        - paragraph [ref=e37]:
+          - strong [ref=e38]: "0"
+          - text: posts
+          - generic [ref=e39]:
+            - strong [ref=e40]: 686M
+            - text: followers
+          - generic [ref=e41]:
+            - strong [ref=e42]: "214"
+            - text: followings
+        - paragraph [ref=e43]: Instagram
+        - paragraph
+        - paragraph [ref=e44]: Discover what's new on Instagram 🔎✨
+  - generic [ref=e48]:
+    - generic [ref=e49]:
+      - link "STORIES" [ref=e50] [cursor=pointer]:
+        - /url: /profile/instagram
+        - img [ref=e51]
+        - text: STORIES
+      - link "HIGHLIGHTS" [ref=e52] [cursor=pointer]:
+        - /url: /profile/instagram?tab=highlights
+        - img [ref=e53]
+        - text: HIGHLIGHTS
+      - link "POSTS" [ref=e54] [cursor=pointer]:
+        - /url: /profile/instagram?tab=posts
+        - img [ref=e55]
+        - text: POSTS
+      - link "REELS" [ref=e56] [cursor=pointer]:
+        - /url: /profile/instagram?tab=reels
+        - img [ref=e57]
+        - text: REELS
+    - generic [ref=e58]:
+      - generic [ref=e60]:
+        - img "story title"
+        - paragraph [ref=e61]: "Posted on: 19 hours ago"
+        - link "Download" [ref=e63] [cursor=pointer]:
+          - /url: /download-action?url=https://phosphor.utils.elfsightcdn.com/?url=https%3A%2F%2Fscontent-phl2-1.cdninstagram.com%2Fv%2Ft51.82787-15%2F715079139_18759922105001321_8508794964458694207_n.jpg%3Fstp%3Ddst-jpg_e35_tt6%26_nc_cat%3D1%26ig_cache_key%3DMzkxMjEyNjAyOTQ4NTI4MDgyMQ%253D%253D.3-ccb7-5%26ccb%3D7-5%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6IlNUT1JZLnhwaWRzLjExNzkuc2RyLnJlZ3VsYXJfcGhvdG8uQzMifQ%253D%253D%26_nc_ohc%3DfnwwkZAEG4cQ7kNvwGEblmy%26_nc_oc%3DAdpo0Tned7F9iW571gxaPCPBoMrKCeFh8XoUt_aASMTWBx6IBKYSqFgnUJFn83o_HX4%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26se%3D8%26_nc_ht%3Dscontent-phl2-1.cdninstagram.com%26_nc_gid%3DXp32xomzjoUwi3cKtEmppw%26_nc_ss%3D7a3ba%26oh%3D00_Af-Z99BYiRgraKidcW3MSah_nzkyTVhdwDotAkYLfgjJ8g%26oe%3D6A287BE6
+          - img [ref=e64]
+          - text: Download
+      - generic [ref=e66]:
+        - img "story title"
+        - paragraph [ref=e67]: "Posted on: 14 hours ago"
+        - link "Download" [ref=e69] [cursor=pointer]:
+          - /url: /download-action?url=https://phosphor.utils.elfsightcdn.com/?url=https%3A%2F%2Fscontent-phl2-1.cdninstagram.com%2Fv%2Ft51.82787-15%2F714403704_18760008373001321_1142271433135064252_n.jpg%3Fstp%3Ddst-jpg_e35_tt6%26_nc_cat%3D1%26ig_cache_key%3DMzkxMjI3OTI2NjU3MzU5MTY3OQ%253D%253D.3-ccb7-5%26ccb%3D7-5%26_nc_sid%3D58cdad%26efg%3DeyJ2ZW5jb2RlX3RhZyI6IlNUT1JZLnhwaWRzLjExNzAuc2RyLnJlZ3VsYXJfcGhvdG8uQzMifQ%253D%253D%26_nc_ohc%3DJWKAowSMxA8Q7kNvwEvCJcH%26_nc_oc%3DAdrSQAlGvmCeW3Xov-hUaCXBC6Zi-lSj4sZR4Ur-m9OWyc9H_cRKvjmke66bGsrS0Xc%26_nc_ad%3Dz-m%26_nc_cid%3D0%26_nc_zt%3D23%26se%3D8%26_nc_ht%3Dscontent-phl2-1.cdninstagram.com%26_nc_gid%3DXp32xomzjoUwi3cKtEmppw%26_nc_ss%3D7a3ba%26oh%3D00_Af9R3PEjA7DLnkFCyZQYqLR0K3cpIi8MFARElBLbQaB-ng%26oe%3D6A285B06
+          - img [ref=e70]
+          - text: Download
