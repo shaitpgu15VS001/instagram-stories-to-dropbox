@@ -1,0 +1,264 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Go home" [ref=e3] [cursor=pointer]:
+      - /url: https://fastdl.app/en2
+      - img [ref=e4]
+    - navigation [ref=e7]:
+      - link "FAQ Faq" [ref=e8] [cursor=pointer]:
+        - /url: https://fastdl.app/faq
+      - button "Toggle theme" [ref=e9] [cursor=pointer]:
+        - img [ref=e11]
+      - button "en" [ref=e14] [cursor=pointer]:
+        - text: en
+        - img [ref=e15]
+  - main [ref=e17]:
+    - generic [ref=e18]:
+      - navigation [ref=e19]:
+        - link "Video" [ref=e21] [cursor=pointer]:
+          - /url: https://fastdl.app/video
+          - img [ref=e22]
+          - text: Video
+        - link "Photo" [ref=e27] [cursor=pointer]:
+          - /url: https://fastdl.app/photo
+          - img [ref=e28]
+          - text: Photo
+        - link "Reels" [ref=e33] [cursor=pointer]:
+          - /url: https://fastdl.app/instagram-reels-download
+          - img [ref=e34]
+          - text: Reels
+        - link "Story" [ref=e38] [cursor=pointer]:
+          - /url: https://fastdl.app/story-saver
+          - img [ref=e39]
+          - text: Story
+        - link "Igtv" [ref=e44] [cursor=pointer]:
+          - /url: https://fastdl.app/igtv
+          - img [ref=e45]
+          - text: Igtv
+        - link "Carousel" [ref=e49] [cursor=pointer]:
+          - /url: https://fastdl.app/carousel
+          - img [ref=e50]
+          - text: Carousel
+        - generic [ref=e54]:
+          - img [ref=e55]
+          - text: Viewer
+      - generic [ref=e59]:
+        - heading "Instagram Stories Viewer" [level=1] [ref=e60]
+        - paragraph [ref=e61]: Anonymously Instagram Story Viewer
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - textbox [ref=e65]:
+            - /placeholder: Insert instagram link here
+            - text: cristiano
+          - button "Clear" [ref=e239] [cursor=pointer]:
+            - img [ref=e240]
+            - text: Clear
+        - button "Download" [disabled] [ref=e70] [cursor=pointer]
+    - insertion [ref=e244]:
+      - generic [ref=e247]:
+        - heading "These are topics related to the article that might interest you" [level=2] [ref=e249]: Discover more
+        - link "Instagram app alternatives" [ref=e250] [cursor=pointer]:
+          - generic "Instagram app alternatives" [ref=e251]
+          - img [ref=e253]
+        - link "Instagram handle search" [ref=e255] [cursor=pointer]:
+          - generic "Instagram handle search" [ref=e256]
+          - img [ref=e258]
+        - link "Photo & Image Sharing" [ref=e260] [cursor=pointer]:
+          - generic "Photo & Image Sharing" [ref=e261]
+          - img [ref=e263]
+    - paragraph [ref=e271]: We are downloading the profile. Please wait :)
+    - insertion [ref=e273]:
+      - generic [ref=e276]:
+        - heading "These are topics related to the article that might interest you" [level=2] [ref=e278]: Discover more
+        - link "Instagram viewer tool" [ref=e279] [cursor=pointer]:
+          - generic "Instagram viewer tool" [ref=e280]
+          - img [ref=e282]
+        - link "Instagram story viewer" [ref=e284] [cursor=pointer]:
+          - generic "Instagram story viewer" [ref=e285]
+          - img [ref=e287]
+        - link "Instagram carousel viewer" [ref=e289] [cursor=pointer]:
+          - generic "Instagram carousel viewer" [ref=e290]
+          - img [ref=e292]
+    - generic [ref=e87]:
+      - heading "How to use Instagram Story Viewer?" [level=2] [ref=e88]
+      - paragraph [ref=e89]: See below the three easy steps to use this Instagram Story Viewer. It saves time and energy.
+      - list [ref=e90]:
+        - listitem [ref=e91]:
+          - img "Copy the URL" [ref=e93]
+          - generic [ref=e94]:
+            - heading "Copy the URL" [level=3] [ref=e95]
+            - paragraph [ref=e96]:
+              - text: Open a post on where there is your favorite Instagram profile and copy the link.
+              - link "Story viewer download" [ref=e97] [cursor=pointer]:
+                - img [ref=e99]
+                - text: Story viewer download
+        - listitem [ref=e101]:
+          - img "Paste the link" [ref=e103]
+          - generic [ref=e104]:
+            - heading "Paste the link" [level=3] [ref=e105]
+            - paragraph [ref=e106]: Paste the link to the input line on the Instagram Story Viewer page. Remember to have the FastDl web page already opened.
+        - listitem [ref=e107]:
+          - img "View and Download" [ref=e109]
+          - generic [ref=e110]:
+            - heading "View and Download" [level=3] [ref=e111]
+            - paragraph [ref=e112]: Click the Download button to save the stories to your device.
+    - generic [ref=e77]:
+      - img "Instagram Stories Viewer" [ref=e79]
+      - generic [ref=e80]:
+        - heading "Instagram Stories Viewer" [level=2] [ref=e81]
+        - paragraph [ref=e82]:
+          - text: FastDl Instagram Stories Viewer is a complimentary tool that enables anonymous viewing of Instagram stories from public profiles without the need for Instagram user authentication. The platform offers a range of free features, allowing you to discreetly view stories without any extra steps, other than entering the user's Instagram handle.
+          - link "Instagram IGTV viewer" [ref=e83] [cursor=pointer]:
+            - img [ref=e85]
+            - text: Instagram IGTV viewer
+    - generic [ref=e113]:
+      - heading "View Instagram Stories from your address bar" [level=2] [ref=e114]
+      - generic [ref=e115]:
+        - img "Preview redirect" [ref=e117]
+        - list [ref=e118]:
+          - listitem [ref=e119]:
+            - paragraph [ref=e120]: Add f-d.app before any Instagram Story URL in your browser's address bar.
+          - listitem [ref=e121]:
+            - paragraph [ref=e122]: "For example: f-d.app/https://www.instagram.com/fastdl.app/reel/DO5tIDME6t-/"
+          - listitem [ref=e123]:
+            - paragraph [ref=e124]: Press Enter and you'll get the viewer page. View and download Stories anonymously in high quality.
+          - listitem [ref=e127]:
+            - paragraph [ref=e128]:
+              - text: Works on phones, tablets, and computers. No app, account, or Instagram login needed.
+              - link "Story download service" [ref=e129] [cursor=pointer]:
+                - img [ref=e131]
+                - text: Story download service
+    - generic [ref=e133]:
+      - heading "FastDl Story Viewer" [level=2] [ref=e134]
+      - paragraph [ref=e135]: An Instagram viewer is a third-party website or app that allows you to view Instagram posts, stories, and profiles anonymously without having an Instagram account or logging into one.
+      - list [ref=e136]:
+        - listitem [ref=e137]:
+          - generic [ref=e138]:
+            - heading "Instagram Story Viewer" [level=3] [ref=e139]
+            - paragraph [ref=e140]:
+              - text: Currently, Instagram users do not have the option to download or save stories, highlights, or reels from Instagram directly. However, thanks to the Instagram Stories viewer, users now have this option. Additionally, the FastDL Instagram Highlights viewer allows you to anonymously view public user stories regardless of the device you are using.
+              - link "Mobile download tool" [ref=e141] [cursor=pointer]:
+                - img [ref=e143]
+                - text: Mobile download tool
+          - img "Instagram Story Viewer" [ref=e146]
+    - generic [ref=e147]:
+      - heading "Frequently asked questions (FAQ)" [level=2] [ref=e148]
+      - paragraph [ref=e149]: This FAQ provides information on frequent questions or concerns about the fastdl.app instagram viewer. If you can't find the answer to your question, feel free to ask through email on our contact page.
+      - list [ref=e150]:
+        - listitem [ref=e151]:
+          - heading "Is it possible to use Instagram Story Viewer to my PC?" [level=3] [ref=e152]
+          - generic [ref=e154]:
+            - text: Of course, by all means. As an online service, FastDl works directly in your browser. Using this Instagram Story Viewer for your PC will not be a problem. Our stories downloader service is also available for tablets, Macs, and phones. Our photo downloading service is also available for tablets or phones.
+            - link "Instagram IGTV viewer" [ref=e155] [cursor=pointer]:
+              - img [ref=e157]
+              - text: Instagram IGTV viewer
+        - listitem [ref=e159]:
+          - heading "What type of file formats does FastDl support for downloading?" [level=3] [ref=e160]
+          - generic [ref=e162]: The most convenient these days is the JPG file format for downloading images. As for the videos, the MP4 file format is still considered the most popular worldwide, ensuring high quality and a small video file size.
+        - listitem [ref=e163]:
+          - heading "Is this Instagram Stories Viewer a free service?" [level=3] [ref=e164]
+          - generic [ref=e166]: Yes! Our Instagram picture downloader is completely FREE. No need for registration of an account or other types of paid service charging.
+        - listitem [ref=e167]:
+          - heading "What other devices are compatible with the FastDl downloader?" [level=3] [ref=e168]
+          - generic [ref=e170]: FastDl is a versatile web service. Whether you're on an iPad, iPhone, Android device, or any other platform, FastDl picture downloader works seamlessly. All other gadgets, including PCs, are fully supported by this photo downloader. All you need is a web browser to get started!
+        - listitem [ref=e171]:
+          - heading "How safe is to download Instagram Stories with FastDl?" [level=3] [ref=e172]
+          - generic [ref=e174]:
+            - text: It is safe! No fear to download Instagram stories with FastDl. Our safety policy says not to collect users' data using this tool. We care about your trust in us!
+            - link "Story viewer download" [ref=e175] [cursor=pointer]:
+              - img [ref=e177]
+              - text: Story viewer download
+    - iframe [ref=e295]:
+      
+  - contentinfo [ref=e179]:
+    - link "Go home" [ref=e180] [cursor=pointer]:
+      - /url: https://fastdl.app/en2
+      - img [ref=e181]
+    - generic [ref=e184]:
+      - list [ref=e185]:
+        - listitem [ref=e186]:
+          - link "Video" [ref=e187] [cursor=pointer]:
+            - /url: https://fastdl.app/video
+          - text: "|"
+        - listitem [ref=e188]:
+          - link "Photo" [ref=e189] [cursor=pointer]:
+            - /url: https://fastdl.app/photo
+          - text: "|"
+        - listitem [ref=e190]:
+          - link "Reels" [ref=e191] [cursor=pointer]:
+            - /url: https://fastdl.app/instagram-reels-download
+          - text: "|"
+        - listitem [ref=e192]:
+          - link "Story" [ref=e193] [cursor=pointer]:
+            - /url: https://fastdl.app/story-saver
+          - text: "|"
+        - listitem [ref=e194]: Viewer |
+        - listitem [ref=e195]:
+          - link "Igtv" [ref=e196] [cursor=pointer]:
+            - /url: https://fastdl.app/igtv
+          - text: "|"
+        - listitem [ref=e197]:
+          - link "Carousel" [ref=e198] [cursor=pointer]:
+            - /url: https://fastdl.app/carousel
+      - list [ref=e199]:
+        - listitem [ref=e200]:
+          - link "About FastDL" [ref=e201] [cursor=pointer]:
+            - /url: https://fastdl.app/fastdl
+          - text: "|"
+        - listitem [ref=e202]:
+          - link "Contact" [ref=e203] [cursor=pointer]:
+            - /url: https://fastdl.app/contact-us
+          - text: "|"
+        - listitem [ref=e204]:
+          - link "Privacy Policy" [ref=e205] [cursor=pointer]:
+            - /url: https://fastdl.app/privacy-policy
+          - text: "|"
+        - listitem [ref=e206]:
+          - link "Terms & Conditions" [ref=e207] [cursor=pointer]:
+            - /url: https://fastdl.app/terms-and-conditions
+      - list [ref=e208]:
+        - listitem [ref=e209]:
+          - link "Background Remover" [ref=e210] [cursor=pointer]:
+            - /url: https://background-remover.com/en/
+          - text: "|"
+        - listitem [ref=e211]:
+          - link "Pinterest Video Downloader" [ref=e212] [cursor=pointer]:
+            - /url: https://savefrompin.to/
+          - text: "|"
+        - listitem [ref=e213]:
+          - link "123Tik" [ref=e214] [cursor=pointer]:
+            - /url: https://123tik.com/en
+    - generic [ref=e215]:
+      - generic [ref=e216]:
+        - paragraph [ref=e217]: "follow us:"
+        - list [ref=e218]:
+          - listitem [ref=e219]:
+            - link "instagram" [ref=e220] [cursor=pointer]:
+              - /url: https://www.instagram.com/fastdl.app/
+              - img "instagram" [ref=e221]
+          - listitem [ref=e222]:
+            - link "facebook" [ref=e223] [cursor=pointer]:
+              - /url: https://www.facebook.com/groups/1413846933013992/
+              - img "facebook" [ref=e224]
+          - listitem [ref=e225]:
+            - link "youtube" [ref=e226] [cursor=pointer]:
+              - /url: https://www.youtube.com/@FastDLapp
+              - img "youtube" [ref=e227]
+          - listitem [ref=e228]:
+            - link "twitter" [ref=e229] [cursor=pointer]:
+              - /url: https://x.com/FastDLapp
+              - img "twitter" [ref=e230]
+          - listitem [ref=e231]:
+            - link "tiktok" [ref=e232] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@fastdl.app
+              - img "tiktok" [ref=e233]
+      - paragraph [ref=e234]: © 2020-2026 FastDl. All rights reserved.
+  - insertion [ref=e235]:
+    - iframe [ref=e238]:
+      - generic [active] [ref=f13e1]:
+        - generic [ref=f13e3]:
+          - link:
+            - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=CMY07YdYiav7PM7aLwuIPit--uAS85IHrdduRrK2UEfip3dTcExABIKzC7aABYPmq84OYEKAB5Pb06wPIAQOpAuSIgOXTFZc-qAMByAPJBKoEkQJP0DS33IJ59Ci5ogmEw1MoMwu1g8G92MHkOFODKQey5c-vscDIWjmBKwBrdZU9CKIbIC8VnLJ2e3rabvKY5XUniGSs6C_kMA5RQHrhBy5sQ4f9Ffqlqtjdrr0XvGFUsUqllIAHVdnRT5Qnjvt9HMKpRkSkPUy1qLMBiKh_TZEs4ZCfZ-k5Na9bS-_tUtsoI54a7ORWXhwd4kpltb34tCQUw-g6F0L61LWCXXdD1BrmBOjbBw1b3JqklTHqTa7yqrR2KDeCOEFt_Ro0s1ZIE0wYnzHpMBk1w8KuKsV101RLxSv5MbcN5uTa50sMZ1pGixaIe5b9421nPqcQo_Wsp9m3mWLl8XA4ilvK20Scr3Q4hnHABI_a3NqdBIgFr8bOsEmgBgOAB4SJixSoB6fMsQKoB-LYsQKoB6a-G6gHzM6xAqgH89EbqAeW2BuoB6qbsQKoB47OG6gHk9gbqAfw4BuoB-6WsQKoB_6esQKoB6--sQKoB9XJG6gH2baxAqgHmgaoB_-esQKoB9-fsQKoB_jCsQKoB_vCsQLYBwHSCDMIgGEQARifAzIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WK6R2Z2h8JQDYAGxCXQ9OuD0xt0UgAoBmAsByAsBogwDkAEBqg0CSUzIDQHqDRMIhIranaHwlAMVtoVQBh2Krw9H8A0CiA4J2BMK0BUBmBYByhYCCgD4FgGAFwGyFwQYAVAGuhcCOAGyGAkSAv1OGAMiAQDQGAHoGAHCGQIIAQ&ae=1&gclid=EAIaIQobChMIvoTanaHwlAMVtoVQBh2Krw9HEAEYASAAEgIr8fD_BwE&num=1&cid=CAQSiwIAEQoqgQj0SBY0vhhXNfZtefo1PqdbLHZmeKMWPtusOX94PSoCZuMC0scK61izBoAcB12QTfhdcM_vIftDLwV8Exf9aeXdAZfEB_-LywHusfsssvFJTZn5jSoHUGHxhWbI_ebUOyolySLN9vn6R2mV-0Ioe9nShh_Rtmkuq2CPcj5-0NDjBeu9jy7o_HVCPzagyJl3eqAs5Zk-t0rFZgilDGfG_61IVn_DpTn_8a9ftLISJGnrP7RtyN1IoviS2V8Rhgm4LoQoupA0KRRdsVOsK4PfVWL8NEHbIk3wuDF10vnisipTaCVA7Jyzzr4MXbIA5yZZvU1qELRnne4yauY5HRFsCO-KP4rDlz4YAQ&sig=AOD64_0Xdmbq4i7Yb0ep4F9JvMMW2QNOQA&client=ca-pub-5892669229376806&rf=2&nb=2&adurl=https://bible.new/%25d7%2594%25d7%2591%25d7%25a8%25d7%2599%25d7%25aa-%25d7%2594%25d7%2597%25d7%2593%25d7%25a9%25d7%2594-%25d7%259c%25d7%2594%25d7%2590%25d7%2596%25d7%25a0%25d7%2594/%3Ftw_source%3Dgoogle%26tw_adid%3D648463437980%26tw_campaign%3D19697738543%26tw_kwdid%3D%26gad_source%3D5%26gad_campaignid%3D19697738543%26gclid%3DEAIaIQobChMIvoTanaHwlAMVtoVQBh2Krw9HEAEYASAAEgIr8fD_BwE
+          - img [ref=f13e7] [cursor=pointer]
+          - button [ref=f13e9] [cursor=pointer]:
+            - img [ref=f13e10]
+        - iframe

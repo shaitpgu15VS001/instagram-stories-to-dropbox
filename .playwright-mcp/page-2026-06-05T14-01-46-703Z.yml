@@ -1,0 +1,365 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link [ref=e457] [cursor=pointer]:
+      - /url: https://fastdl.app/en2
+      - img [ref=e4]
+    - navigation [ref=e7]:
+      - link [ref=e458] [cursor=pointer]:
+        - /url: https://fastdl.app/faq
+        - text: FAQ Faq
+      - button [ref=e459] [cursor=pointer]:
+        - img [ref=e11]
+      - button [ref=e460] [cursor=pointer]:
+        - text: en
+        - img [ref=e15]
+  - main [ref=e17]:
+    - generic [ref=e18]:
+      - navigation [ref=e19]:
+        - link [ref=e461] [cursor=pointer]:
+          - /url: https://fastdl.app/video
+          - img [ref=e22]
+          - text: Video
+        - link [ref=e462] [cursor=pointer]:
+          - /url: https://fastdl.app/photo
+          - img [ref=e28]
+          - text: Photo
+        - link [ref=e463] [cursor=pointer]:
+          - /url: https://fastdl.app/instagram-reels-download
+          - img [ref=e34]
+          - text: Reels
+        - link [ref=e464] [cursor=pointer]:
+          - /url: https://fastdl.app/story-saver
+          - img [ref=e39]
+          - text: Story
+        - link [ref=e465] [cursor=pointer]:
+          - /url: https://fastdl.app/igtv
+          - img [ref=e45]
+          - text: Igtv
+        - link [ref=e466] [cursor=pointer]:
+          - /url: https://fastdl.app/carousel
+          - img [ref=e50]
+          - text: Carousel
+        - generic [ref=e54]:
+          - img [ref=e55]
+          - text: Viewer
+      - generic [ref=e59]:
+        - heading [level=1] [ref=e467]: Instagram Stories Viewer
+        - paragraph [ref=e61]: Anonymously Instagram Story Viewer
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - textbox [ref=e65]:
+            - /placeholder: Insert instagram link here
+            - text: cristiano
+          - button [ref=e468] [cursor=pointer]:
+            - img [ref=e240]
+            - text: Clear
+        - button [ref=e469] [cursor=pointer]: Download
+    - insertion [ref=e244]:
+      - generic [ref=e247]:
+        - heading [level=2] [ref=e470]: Discover more
+        - link [ref=e471] [cursor=pointer]:
+          - generic [ref=e472]: Instagram app alternatives
+          - img [ref=e253]
+        - link [ref=e473] [cursor=pointer]:
+          - generic [ref=e474]: Instagram handle search
+          - img [ref=e258]
+        - link [ref=e475] [cursor=pointer]:
+          - generic [ref=e476]: Photo & Image Sharing
+          - img [ref=e263]
+    - generic [ref=e296]:
+      - paragraph [ref=e297]: Search result
+      - generic [ref=e298]:
+        - generic [ref=e299]:
+          - generic [ref=e301]:
+            - img [ref=e477]
+            - img [ref=e304] [cursor=pointer]
+          - paragraph [ref=e308]:
+            - generic [ref=e309]: "@cristiano"
+            - link [ref=e310] [cursor=pointer]:
+              - /url: https://www.instagram.com/cristiano
+          - list [ref=e311]:
+            - listitem [ref=e312]:
+              - generic [ref=e313]: 4K
+              - generic [ref=e314]: posts
+            - listitem [ref=e315]:
+              - generic [ref=e316]: 665.4M
+              - generic [ref=e317]: followers
+            - listitem [ref=e318]:
+              - generic [ref=e319]: "633"
+              - generic [ref=e320]: following
+          - paragraph [ref=e321]: Cristiano Ronaldo
+        - list [ref=e322]:
+          - listitem [ref=e323]:
+            - button [ref=e478] [cursor=pointer]: posts
+          - listitem [ref=e325]:
+            - button [ref=e479] [cursor=pointer]: stories
+          - listitem [ref=e327]:
+            - button [ref=e480] [cursor=pointer]: highlights
+          - listitem [ref=e329]:
+            - button [ref=e481] [cursor=pointer]: reels
+        - list [ref=e482]:
+          - listitem [ref=e483]:
+            - generic [ref=e484] [cursor=pointer]:
+              - img [ref=e485]
+              - button [ref=e488]
+            - generic [ref=e489]:
+              - link [ref=e490] [cursor=pointer]:
+                - /url: https://media.fastdl.app/get?__sig=YdiyM0ugaGpkuREF4gcIqg&__expires=1780669303&uri=https%3A%2F%2Finstagram.fcgk30-1.fna.fbcdn.net%2Fo1%2Fv%2Ft2%2Ff2%2Fm78%2FAQPXClai4uvCoYNJBqnBMcEU0GhKaZL6z2zOaQJIGlSv6c3lQjvUy6RqxUZKR0OXRUgxRS1_d9kJLn8CyBRCrg8L_1echg716oueAXw.mp4%3F_nc_cat%3D108%26_nc_oc%3DAdpx21OY0Kk1-nYl9rjC2ynUrRRYjPx9ip1GCDKydK4iXDmbBYX133f2wwVGmUI26R0%26_nc_sid%3D5e9851%26_nc_ht%3Dinstagram.fcgk30-1.fna.fbcdn.net%26_nc_ohc%3DBvmD6kIJEnAQ7kNvwFHGUUq%26efg%3DeyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uU1RPUlkuQzIuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6MTg3Mzg3NDYwMTcwNTY0MjEsImFzc2V0X2FnZV9kYXlzIjowLCJ2aV91c2VjYXNlX2lkIjoxMDgyNiwiZHVyYXRpb25fcyI6NjAsInVybGdlbl9zb3VyY2UiOiJ3d3cifQ%253D%253D%26ccb%3D17-1%26vs%3Df0241f13c1c3a6fc%26_nc_vs%3DHBksFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzVDNEYyNjYwNkJFQjJBNDlGRDEzMTJBQTY0ODEzNzhBX3ZpZGVvX2Rhc2hpbml0Lm1wNBUAAsgBEgAVAhhRaWdfeHB2X3BsYWNlbWVudF9wZXJtYW5lbnRfdjIvN0Q0NkQ4NUUxOUI5RjNGNDFFOUQ2OERDOTE5MjhBODdfYXVkaW9fZGFzaGluaXQubXA0FQICyAESACgAGAAbAogHdXNlX29pbAExEnByb2dyZXNzaXZlX3JlY2lwZQExFQAAJsqakL7JsslCFQIoAkMyLBdATgAAAAAAABgSZGFzaF9iYXNlbGluZV8xX3YxEQB16AdllKkBAA%26_nc_gid%3DGVzpjtAXBj5v2HoosDG7Bg%26_nc_zt%3D28%26_nc_ss%3D7a22e%26oh%3D00_Af9Le7E4IGu5hc8NsZ7yFz7XSB0kx9ltmiDmdD0zFmoJgA%26oe%3D6A24A9AD&filename=AQPXClai4uvCoYNJBqnBMcEU0GhKaZL6z2zOaQJIGlSv6c3lQjvUy6RqxUZKR0OXRUgxRS1_d9kJLn8CyBRCrg8L_1echg71.mp4
+                - text: Download
+              - paragraph [ref=e492]: 21 hours ago
+    - insertion [ref=e273]:
+      - generic [ref=e276]:
+        - heading [level=2] [ref=e495]: Discover more
+        - link [ref=e496] [cursor=pointer]:
+          - generic [ref=e497]: Instagram viewer tool
+          - img [ref=e282]
+        - link [ref=e498] [cursor=pointer]:
+          - generic [ref=e499]: Instagram story viewer
+          - img [ref=e287]
+        - link [ref=e500] [cursor=pointer]:
+          - generic [ref=e501]: Instagram carousel viewer
+          - img [ref=e292]
+    - generic [ref=e87]:
+      - heading [level=2] [ref=e502]: How to use Instagram Story Viewer?
+      - paragraph [ref=e89]: See below the three easy steps to use this Instagram Story Viewer. It saves time and energy.
+      - list [ref=e90]:
+        - listitem [ref=e91]:
+          - img [ref=e503]
+          - generic [ref=e94]:
+            - heading [level=3] [ref=e504]: Copy the URL
+            - paragraph [ref=e96]:
+              - text: Open a post on where there is your favorite Instagram profile and copy the link.
+              - link [ref=e505] [cursor=pointer]:
+                - img [ref=e99]
+                - text: Story viewer download
+        - listitem [ref=e101]:
+          - img [ref=e506]
+          - generic [ref=e104]:
+            - heading [level=3] [ref=e507]: Paste the link
+            - paragraph [ref=e106]: Paste the link to the input line on the Instagram Story Viewer page. Remember to have the FastDl web page already opened.
+        - listitem [ref=e107]:
+          - img [ref=e508]
+          - generic [ref=e110]:
+            - heading [level=3] [ref=e509]: View and Download
+            - paragraph [ref=e112]: Click the Download button to save the stories to your device.
+    - generic [ref=e77]:
+      - img [ref=e510]
+      - generic [ref=e80]:
+        - heading [level=2] [ref=e511]: Instagram Stories Viewer
+        - paragraph [ref=e82]:
+          - text: FastDl Instagram Stories Viewer is a complimentary tool that enables anonymous viewing of Instagram stories from public profiles without the need for Instagram user authentication. The platform offers a range of free features, allowing you to discreetly view stories without any extra steps, other than entering the user's Instagram handle.
+          - link [ref=e512] [cursor=pointer]:
+            - img [ref=e85]
+            - text: Instagram IGTV viewer
+    - generic [ref=e113]:
+      - heading [level=2] [ref=e513]: View Instagram Stories from your address bar
+      - generic [ref=e115]:
+        - img [ref=e514]
+        - list [ref=e118]:
+          - listitem [ref=e119]:
+            - paragraph [ref=e120]: Add f-d.app before any Instagram Story URL in your browser's address bar.
+          - listitem [ref=e121]:
+            - paragraph [ref=e122]: "For example: f-d.app/https://www.instagram.com/fastdl.app/reel/DO5tIDME6t-/"
+          - listitem [ref=e123]:
+            - paragraph [ref=e124]: Press Enter and you'll get the viewer page. View and download Stories anonymously in high quality.
+          - listitem [ref=e127]:
+            - paragraph [ref=e128]:
+              - text: Works on phones, tablets, and computers. No app, account, or Instagram login needed.
+              - link [ref=e515] [cursor=pointer]:
+                - img [ref=e131]
+                - text: Story download service
+    - generic [ref=e133]:
+      - heading [level=2] [ref=e516]: FastDl Story Viewer
+      - paragraph [ref=e135]: An Instagram viewer is a third-party website or app that allows you to view Instagram posts, stories, and profiles anonymously without having an Instagram account or logging into one.
+      - list [ref=e136]:
+        - listitem [ref=e137]:
+          - generic [ref=e138]:
+            - heading [level=3] [ref=e517]: Instagram Story Viewer
+            - paragraph [ref=e140]:
+              - text: Currently, Instagram users do not have the option to download or save stories, highlights, or reels from Instagram directly. However, thanks to the Instagram Stories viewer, users now have this option. Additionally, the FastDL Instagram Highlights viewer allows you to anonymously view public user stories regardless of the device you are using.
+              - link [ref=e518] [cursor=pointer]:
+                - img [ref=e143]
+                - text: Mobile download tool
+          - img [ref=e519]
+    - generic [ref=e432]:
+      - generic [ref=e433]:
+        - heading [level=2] [ref=e520]: Download Faster with FastDL Chrome Extension
+        - list [ref=e435]:
+          - listitem [ref=e436]:
+            - img [ref=e521]
+            - text: One‑click downloads on Instagram
+          - listitem [ref=e438]:
+            - img [ref=e522]
+            - text: Supports photos, videos, reels, stories, carousels, and profile pictures
+          - listitem [ref=e440]:
+            - img [ref=e523]
+            - text: Best available quality from original post
+          - listitem [ref=e442]:
+            - img [ref=e524]
+            - text: Lightweight, fast, and easy to use without sign‑in
+        - link [ref=e525] [cursor=pointer]:
+          - /url: https://chromewebstore.google.com/detail/instagram-downloader-%E2%80%94-fa/miidjpmjpkbpefhnfcdcoolaaedfmlam
+          - text: Get started now
+      - generic [ref=e445]:
+        - button [ref=e526] [cursor=pointer]:
+          - img [ref=e527]
+        - img [ref=e528]
+    - generic [ref=e147]:
+      - heading [level=2] [ref=e529]: Frequently asked questions (FAQ)
+      - paragraph [ref=e149]: This FAQ provides information on frequent questions or concerns about the fastdl.app instagram viewer. If you can't find the answer to your question, feel free to ask through email on our contact page.
+      - list [ref=e150]:
+        - listitem [ref=e151]:
+          - heading [level=3] [ref=e530]: Is it possible to use Instagram Story Viewer to my PC?
+          - generic [ref=e154]:
+            - text: Of course, by all means. As an online service, FastDl works directly in your browser. Using this Instagram Story Viewer for your PC will not be a problem. Our stories downloader service is also available for tablets, Macs, and phones. Our photo downloading service is also available for tablets or phones.
+            - link [ref=e531] [cursor=pointer]:
+              - img [ref=e157]
+              - text: Instagram IGTV viewer
+        - listitem [ref=e159]:
+          - heading [level=3] [ref=e532]: What type of file formats does FastDl support for downloading?
+          - generic [ref=e162]: The most convenient these days is the JPG file format for downloading images. As for the videos, the MP4 file format is still considered the most popular worldwide, ensuring high quality and a small video file size.
+        - listitem [ref=e163]:
+          - heading [level=3] [ref=e533]: Is this Instagram Stories Viewer a free service?
+          - generic [ref=e166]: Yes! Our Instagram picture downloader is completely FREE. No need for registration of an account or other types of paid service charging.
+        - listitem [ref=e167]:
+          - heading [level=3] [ref=e534]: What other devices are compatible with the FastDl downloader?
+          - generic [ref=e170]: FastDl is a versatile web service. Whether you're on an iPad, iPhone, Android device, or any other platform, FastDl picture downloader works seamlessly. All other gadgets, including PCs, are fully supported by this photo downloader. All you need is a web browser to get started!
+        - listitem [ref=e171]:
+          - heading [level=3] [ref=e535]: How safe is to download Instagram Stories with FastDl?
+          - generic [ref=e174]:
+            - text: It is safe! No fear to download Instagram stories with FastDl. Our safety policy says not to collect users' data using this tool. We care about your trust in us!
+            - link [ref=e536] [cursor=pointer]:
+              - img [ref=e177]
+              - text: Story viewer download
+    - dialog [ref=e449]:
+      - generic [ref=e450]:
+        - insertion [ref=e452]:
+          - iframe [ref=e295]:
+            - generic [active] [ref=f32e1]:
+              - generic [ref=f32e6]:
+                - generic [ref=f32e7]:
+                  - generic "Take Profit Trader" [ref=f32e9]:
+                    - link "Withdraw Day 1 & Daily In PRO" [ref=f32e10] [cursor=pointer]:
+                      - /url: https://googleads.g.doubleclick.net/aclk?sa=l&ai=C-i6ZnNYiata4Cp-twuIPqJzg8QeLkPuwhwHT2I_t8hWq2KG56Q4QASCswu2gAWD5qvODmBCgAfaBwrUoyAEBqAMByAPLBKoElQJP0CejgwX3j0uaVvNBPdVSNLAy4uoQnbcXtPXrWrDI6vBEawdykVpsfFDDpg43H2tmRJYPckGCcz7p0Yea9EvaVIeYgFKfhtUu3LwxxYdiNYy5CORhUcXi5wZcJFe0qV0yqVErap0GX8UnFCWnmAGyoVyrxDmDE28169M-I84rGaaRUK55Y2ZSutJctkC6gvloGqKdBNBLl8WoLSlBNKljhBm2bO0AGsMULrhUbITJ_DRG1FP_6itlkBi_71-RJnnE_o6Eha-iMBAiMheQDQK0VLWV6lzY1au79Ktvto24a9XDyREKmGJ6ifPaBTIjdQ6MsX9X5u6YupY40glzYMWG6rG8pnADuNqY4VUBvDdt7bm73ttSwATX4qmm0gWIBezPuZZXgAf2uZKVA6gHp8yxAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgH1ckbqAfZtrECqAeaBqgH_56xAqgH35-xAqgH-MKxAqgH-8KxAtgHAdIIMwiAYRABGJ8DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYwZLBuaHwlANgAbEJfCBqrZMJwouACgGYCwHICwGqDQJJTMgNAeoNEwimg8K5ofCUAxWfllAGHSgOOH7wDQKIDgmwDq-r9vkY2BML0BUByhYCCgD4FgGAFwGyFxAYASoKNDMxMDQzMzI5MVAGuhcCOAGqGBcJAAAAAGivCUESCjQzMTA0MzMyOTEYAbIYCRIC704YASIBANAYAegYAcIZAggB&ae=1&gclid=EAIaIQobChMI1vbBuaHwlAMVn5ZQBh0oDjh-EAEYASAAEgIgUvD_BwE&num=1&cid=CAQSiwIAEQoqgdTebqZZ7t1fsSjqN7ApS3g-3Fn2pa_qruDXdqGpS-JrYR0FhV1BehWnj8z9POs28FTStBhOUtE6R0K7nXQEO1ZxYl1pjLwrNQBKQdNSvbpnbvRfSN7O7GhrOJRg0jQExKOyZMhHK7P7CJlAEajfCZ-Ed7v6yYvTKGxHUMFfKdGnXWQdptsXheX1KeWEVw9gh_zq3znkEvx-01X5VCSWc2AeCwX-gzr4mKGn6Z5pj29MayntgTFu6XW_k_WjKx6hvEyKLEJ4XlEbPBd3G6pNavI6f-ZV8G8CdcJi0lXQ_o68IEaDVS0avrAoHQIisnnT5wfhMF2igSnfNxIcM_dAS0BtvJ4-gfgYAQ&sig=AOD64_0n2OVGxv65GpKSzTqQwkMvgqTknw&client=ca-pub-5892669229376806&rf=1&nb=0&adurl=https://try.takeprofittrader.com/funded-trader-mff-nf30r2-0526%3Fgc_id%3D23396595761%26h_ad_id%3D%26gad_source%3D5%26gad_campaignid%3D23400966124%26gclid%3DEAIaIQobChMI1vbBuaHwlAMVn5ZQBh0oDjh-EAEYASAAEgIgUvD_BwE
+                  - generic [ref=f32e11]:
+                    - link "Ready to skip the scaling, daily loss, and payout waits? Withdraw day-1 + daily in PRO." [ref=f32e13] [cursor=pointer]:
+                      - /url: https://googleads.g.doubleclick.net/aclk?sa=l&ai=C-i6ZnNYiata4Cp-twuIPqJzg8QeLkPuwhwHT2I_t8hWq2KG56Q4QASCswu2gAWD5qvODmBCgAfaBwrUoyAEBqAMByAPLBKoElQJP0CejgwX3j0uaVvNBPdVSNLAy4uoQnbcXtPXrWrDI6vBEawdykVpsfFDDpg43H2tmRJYPckGCcz7p0Yea9EvaVIeYgFKfhtUu3LwxxYdiNYy5CORhUcXi5wZcJFe0qV0yqVErap0GX8UnFCWnmAGyoVyrxDmDE28169M-I84rGaaRUK55Y2ZSutJctkC6gvloGqKdBNBLl8WoLSlBNKljhBm2bO0AGsMULrhUbITJ_DRG1FP_6itlkBi_71-RJnnE_o6Eha-iMBAiMheQDQK0VLWV6lzY1au79Ktvto24a9XDyREKmGJ6ifPaBTIjdQ6MsX9X5u6YupY40glzYMWG6rG8pnADuNqY4VUBvDdt7bm73ttSwATX4qmm0gWIBezPuZZXgAf2uZKVA6gHp8yxAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgH1ckbqAfZtrECqAeaBqgH_56xAqgH35-xAqgH-MKxAqgH-8KxAtgHAdIIMwiAYRABGJ8DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYwZLBuaHwlANgAbEJfCBqrZMJwouACgGYCwHICwGqDQJJTMgNAeoNEwimg8K5ofCUAxWfllAGHSgOOH7wDQKIDgmwDq-r9vkY2BML0BUByhYCCgD4FgGAFwGyFxAYASoKNDMxMDQzMzI5MVAGuhcCOAGqGBcJAAAAAGivCUESCjQzMTA0MzMyOTEYAbIYCRIC704YASIBANAYAegYAcIZAggB&ae=1&gclid=EAIaIQobChMI1vbBuaHwlAMVn5ZQBh0oDjh-EAEYASAAEgIgUvD_BwE&num=1&cid=CAQSiwIAEQoqgdTebqZZ7t1fsSjqN7ApS3g-3Fn2pa_qruDXdqGpS-JrYR0FhV1BehWnj8z9POs28FTStBhOUtE6R0K7nXQEO1ZxYl1pjLwrNQBKQdNSvbpnbvRfSN7O7GhrOJRg0jQExKOyZMhHK7P7CJlAEajfCZ-Ed7v6yYvTKGxHUMFfKdGnXWQdptsXheX1KeWEVw9gh_zq3znkEvx-01X5VCSWc2AeCwX-gzr4mKGn6Z5pj29MayntgTFu6XW_k_WjKx6hvEyKLEJ4XlEbPBd3G6pNavI6f-ZV8G8CdcJi0lXQ_o68IEaDVS0avrAoHQIisnnT5wfhMF2igSnfNxIcM_dAS0BtvJ4-gfgYAQ&sig=AOD64_0n2OVGxv65GpKSzTqQwkMvgqTknw&client=ca-pub-5892669229376806&rf=1&nb=7&adurl=https://try.takeprofittrader.com/funded-trader-mff-nf30r2-0526%3Fgc_id%3D23396595761%26h_ad_id%3D%26gad_source%3D5%26gad_campaignid%3D23400966124%26gclid%3DEAIaIQobChMI1vbBuaHwlAMVn5ZQBh0oDjh-EAEYASAAEgIgUvD_BwE
+                    - link [ref=f32e14] [cursor=pointer]:
+                      - /url: https://googleads.g.doubleclick.net/aclk?sa=l&ai=C-i6ZnNYiata4Cp-twuIPqJzg8QeLkPuwhwHT2I_t8hWq2KG56Q4QASCswu2gAWD5qvODmBCgAfaBwrUoyAEBqAMByAPLBKoElQJP0CejgwX3j0uaVvNBPdVSNLAy4uoQnbcXtPXrWrDI6vBEawdykVpsfFDDpg43H2tmRJYPckGCcz7p0Yea9EvaVIeYgFKfhtUu3LwxxYdiNYy5CORhUcXi5wZcJFe0qV0yqVErap0GX8UnFCWnmAGyoVyrxDmDE28169M-I84rGaaRUK55Y2ZSutJctkC6gvloGqKdBNBLl8WoLSlBNKljhBm2bO0AGsMULrhUbITJ_DRG1FP_6itlkBi_71-RJnnE_o6Eha-iMBAiMheQDQK0VLWV6lzY1au79Ktvto24a9XDyREKmGJ6ifPaBTIjdQ6MsX9X5u6YupY40glzYMWG6rG8pnADuNqY4VUBvDdt7bm73ttSwATX4qmm0gWIBezPuZZXgAf2uZKVA6gHp8yxAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgH1ckbqAfZtrECqAeaBqgH_56xAqgH35-xAqgH-MKxAqgH-8KxAtgHAdIIMwiAYRABGJ8DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYwZLBuaHwlANgAbEJfCBqrZMJwouACgGYCwHICwGqDQJJTMgNAeoNEwimg8K5ofCUAxWfllAGHSgOOH7wDQKIDgmwDq-r9vkY2BML0BUByhYCCgD4FgGAFwGyFxAYASoKNDMxMDQzMzI5MVAGuhcCOAGqGBcJAAAAAGivCUESCjQzMTA0MzMyOTEYAbIYCRIC704YASIBANAYAegYAcIZAggB&ae=1&gclid=EAIaIQobChMI1vbBuaHwlAMVn5ZQBh0oDjh-EAEYASAAEgIgUvD_BwE&num=1&cid=CAQSiwIAEQoqgdTebqZZ7t1fsSjqN7ApS3g-3Fn2pa_qruDXdqGpS-JrYR0FhV1BehWnj8z9POs28FTStBhOUtE6R0K7nXQEO1ZxYl1pjLwrNQBKQdNSvbpnbvRfSN7O7GhrOJRg0jQExKOyZMhHK7P7CJlAEajfCZ-Ed7v6yYvTKGxHUMFfKdGnXWQdptsXheX1KeWEVw9gh_zq3znkEvx-01X5VCSWc2AeCwX-gzr4mKGn6Z5pj29MayntgTFu6XW_k_WjKx6hvEyKLEJ4XlEbPBd3G6pNavI6f-ZV8G8CdcJi0lXQ_o68IEaDVS0avrAoHQIisnnT5wfhMF2igSnfNxIcM_dAS0BtvJ4-gfgYAQ&sig=AOD64_0n2OVGxv65GpKSzTqQwkMvgqTknw&client=ca-pub-5892669229376806&rf=1&nb=8&adurl=https://try.takeprofittrader.com/funded-trader-mff-nf30r2-0526%3Fgc_id%3D23396595761%26h_ad_id%3D%26gad_source%3D5%26gad_campaignid%3D23400966124%26gclid%3DEAIaIQobChMI1vbBuaHwlAMVn5ZQBh0oDjh-EAEYASAAEgIgUvD_BwE
+                      - img [ref=f32e15]
+                - generic "Take Profit Trader" [ref=f32e17]:
+                  - link "Take Profit Trader" [ref=f32e18] [cursor=pointer]:
+                    - /url: https://googleads.g.doubleclick.net/aclk?sa=l&ai=C-i6ZnNYiata4Cp-twuIPqJzg8QeLkPuwhwHT2I_t8hWq2KG56Q4QASCswu2gAWD5qvODmBCgAfaBwrUoyAEBqAMByAPLBKoElQJP0CejgwX3j0uaVvNBPdVSNLAy4uoQnbcXtPXrWrDI6vBEawdykVpsfFDDpg43H2tmRJYPckGCcz7p0Yea9EvaVIeYgFKfhtUu3LwxxYdiNYy5CORhUcXi5wZcJFe0qV0yqVErap0GX8UnFCWnmAGyoVyrxDmDE28169M-I84rGaaRUK55Y2ZSutJctkC6gvloGqKdBNBLl8WoLSlBNKljhBm2bO0AGsMULrhUbITJ_DRG1FP_6itlkBi_71-RJnnE_o6Eha-iMBAiMheQDQK0VLWV6lzY1au79Ktvto24a9XDyREKmGJ6ifPaBTIjdQ6MsX9X5u6YupY40glzYMWG6rG8pnADuNqY4VUBvDdt7bm73ttSwATX4qmm0gWIBezPuZZXgAf2uZKVA6gHp8yxAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgH1ckbqAfZtrECqAeaBqgH_56xAqgH35-xAqgH-MKxAqgH-8KxAtgHAdIIMwiAYRABGJ8DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYwZLBuaHwlANgAbEJfCBqrZMJwouACgGYCwHICwGqDQJJTMgNAeoNEwimg8K5ofCUAxWfllAGHSgOOH7wDQKIDgmwDq-r9vkY2BML0BUByhYCCgD4FgGAFwGyFxAYASoKNDMxMDQzMzI5MVAGuhcCOAGqGBcJAAAAAGivCUESCjQzMTA0MzMyOTEYAbIYCRIC704YASIBANAYAegYAcIZAggB&ae=1&gclid=EAIaIQobChMI1vbBuaHwlAMVn5ZQBh0oDjh-EAEYASAAEgIgUvD_BwE&num=1&cid=CAQSiwIAEQoqgdTebqZZ7t1fsSjqN7ApS3g-3Fn2pa_qruDXdqGpS-JrYR0FhV1BehWnj8z9POs28FTStBhOUtE6R0K7nXQEO1ZxYl1pjLwrNQBKQdNSvbpnbvRfSN7O7GhrOJRg0jQExKOyZMhHK7P7CJlAEajfCZ-Ed7v6yYvTKGxHUMFfKdGnXWQdptsXheX1KeWEVw9gh_zq3znkEvx-01X5VCSWc2AeCwX-gzr4mKGn6Z5pj29MayntgTFu6XW_k_WjKx6hvEyKLEJ4XlEbPBd3G6pNavI6f-ZV8G8CdcJi0lXQ_o68IEaDVS0avrAoHQIisnnT5wfhMF2igSnfNxIcM_dAS0BtvJ4-gfgYAQ&sig=AOD64_0n2OVGxv65GpKSzTqQwkMvgqTknw&client=ca-pub-5892669229376806&rf=1&nb=1&adurl=https://try.takeprofittrader.com/funded-trader-mff-nf30r2-0526%3Fgc_id%3D23396595761%26h_ad_id%3D%26gad_source%3D5%26gad_campaignid%3D23400966124%26gclid%3DEAIaIQobChMI1vbBuaHwlAMVn5ZQBh0oDjh-EAEYASAAEgIgUvD_BwE
+              - img [ref=f32e22] [cursor=pointer]
+              - button [ref=f32e24] [cursor=pointer]:
+                - img [ref=f32e25]
+              - iframe
+        - button [ref=e537] [cursor=pointer]: Close
+  - contentinfo [ref=e179]:
+    - link [ref=e538] [cursor=pointer]:
+      - /url: https://fastdl.app/en2
+      - img [ref=e181]
+    - generic [ref=e184]:
+      - list [ref=e185]:
+        - listitem [ref=e186]:
+          - link [ref=e539] [cursor=pointer]:
+            - /url: https://fastdl.app/video
+            - text: Video
+          - text: "|"
+        - listitem [ref=e188]:
+          - link [ref=e540] [cursor=pointer]:
+            - /url: https://fastdl.app/photo
+            - text: Photo
+          - text: "|"
+        - listitem [ref=e190]:
+          - link [ref=e541] [cursor=pointer]:
+            - /url: https://fastdl.app/instagram-reels-download
+            - text: Reels
+          - text: "|"
+        - listitem [ref=e192]:
+          - link [ref=e542] [cursor=pointer]:
+            - /url: https://fastdl.app/story-saver
+            - text: Story
+          - text: "|"
+        - listitem [ref=e194]: Viewer |
+        - listitem [ref=e195]:
+          - link [ref=e543] [cursor=pointer]:
+            - /url: https://fastdl.app/igtv
+            - text: Igtv
+          - text: "|"
+        - listitem [ref=e197]:
+          - link [ref=e544] [cursor=pointer]:
+            - /url: https://fastdl.app/carousel
+            - text: Carousel
+      - list [ref=e199]:
+        - listitem [ref=e200]:
+          - link [ref=e545] [cursor=pointer]:
+            - /url: https://fastdl.app/fastdl
+            - text: About FastDL
+          - text: "|"
+        - listitem [ref=e202]:
+          - link [ref=e546] [cursor=pointer]:
+            - /url: https://fastdl.app/contact-us
+            - text: Contact
+          - text: "|"
+        - listitem [ref=e204]:
+          - link [ref=e547] [cursor=pointer]:
+            - /url: https://fastdl.app/privacy-policy
+            - text: Privacy Policy
+          - text: "|"
+        - listitem [ref=e206]:
+          - link [ref=e548] [cursor=pointer]:
+            - /url: https://fastdl.app/terms-and-conditions
+            - text: Terms & Conditions
+      - list [ref=e208]:
+        - listitem [ref=e209]:
+          - link [ref=e549] [cursor=pointer]:
+            - /url: https://background-remover.com/en/
+            - text: Background Remover
+          - text: "|"
+        - listitem [ref=e211]:
+          - link [ref=e550] [cursor=pointer]:
+            - /url: https://savefrompin.to/
+            - text: Pinterest Video Downloader
+          - text: "|"
+        - listitem [ref=e213]:
+          - link [ref=e551] [cursor=pointer]:
+            - /url: https://123tik.com/en
+            - text: 123Tik
+    - generic [ref=e215]:
+      - generic [ref=e216]:
+        - paragraph [ref=e217]: "follow us:"
+        - list [ref=e218]:
+          - listitem [ref=e219]:
+            - link [ref=e552] [cursor=pointer]:
+              - /url: https://www.instagram.com/fastdl.app/
+              - img [ref=e553]
+          - listitem [ref=e222]:
+            - link [ref=e554] [cursor=pointer]:
+              - /url: https://www.facebook.com/groups/1413846933013992/
+              - img [ref=e555]
+          - listitem [ref=e225]:
+            - link [ref=e556] [cursor=pointer]:
+              - /url: https://www.youtube.com/@FastDLapp
+              - img [ref=e557]
+          - listitem [ref=e228]:
+            - link [ref=e558] [cursor=pointer]:
+              - /url: https://x.com/FastDLapp
+              - img [ref=e559]
+          - listitem [ref=e231]:
+            - link [ref=e560] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@fastdl.app
+              - img [ref=e561]
+      - paragraph [ref=e234]: © 2020-2026 FastDl. All rights reserved.
+  - button [ref=e562] [cursor=pointer]:
+    - img [ref=e455]
+  - insertion [ref=e235]:
+    - iframe [ref=e238]:
+      - generic [active] [ref=f13e1]:
+        - generic [ref=f13e3]:
+          - link:
+            - /url: https://www.googleadservices.com/pagead/aclk?sa=L&ai=CMY07YdYiav7PM7aLwuIPit--uAS85IHrdduRrK2UEfip3dTcExABIKzC7aABYPmq84OYEKAB5Pb06wPIAQOpAuSIgOXTFZc-qAMByAPJBKoEkQJP0DS33IJ59Ci5ogmEw1MoMwu1g8G92MHkOFODKQey5c-vscDIWjmBKwBrdZU9CKIbIC8VnLJ2e3rabvKY5XUniGSs6C_kMA5RQHrhBy5sQ4f9Ffqlqtjdrr0XvGFUsUqllIAHVdnRT5Qnjvt9HMKpRkSkPUy1qLMBiKh_TZEs4ZCfZ-k5Na9bS-_tUtsoI54a7ORWXhwd4kpltb34tCQUw-g6F0L61LWCXXdD1BrmBOjbBw1b3JqklTHqTa7yqrR2KDeCOEFt_Ro0s1ZIE0wYnzHpMBk1w8KuKsV101RLxSv5MbcN5uTa50sMZ1pGixaIe5b9421nPqcQo_Wsp9m3mWLl8XA4ilvK20Scr3Q4hnHABI_a3NqdBIgFr8bOsEmgBgOAB4SJixSoB6fMsQKoB-LYsQKoB6a-G6gHzM6xAqgH89EbqAeW2BuoB6qbsQKoB47OG6gHk9gbqAfw4BuoB-6WsQKoB_6esQKoB6--sQKoB9XJG6gH2baxAqgHmgaoB_-esQKoB9-fsQKoB_jCsQKoB_vCsQLYBwHSCDMIgGEQARifAzIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WK6R2Z2h8JQDYAGxCXQ9OuD0xt0UgAoBmAsByAsBogwDkAEBqg0CSUzIDQHqDRMIhIranaHwlAMVtoVQBh2Krw9H8A0CiA4J2BMK0BUBmBYByhYCCgD4FgGAFwGyFwQYAVAGuhcCOAGyGAkSAv1OGAMiAQDQGAHoGAHCGQIIAQ&ae=1&gclid=EAIaIQobChMIvoTanaHwlAMVtoVQBh2Krw9HEAEYASAAEgIr8fD_BwE&num=1&cid=CAQSiwIAEQoqgQj0SBY0vhhXNfZtefo1PqdbLHZmeKMWPtusOX94PSoCZuMC0scK61izBoAcB12QTfhdcM_vIftDLwV8Exf9aeXdAZfEB_-LywHusfsssvFJTZn5jSoHUGHxhWbI_ebUOyolySLN9vn6R2mV-0Ioe9nShh_Rtmkuq2CPcj5-0NDjBeu9jy7o_HVCPzagyJl3eqAs5Zk-t0rFZgilDGfG_61IVn_DpTn_8a9ftLISJGnrP7RtyN1IoviS2V8Rhgm4LoQoupA0KRRdsVOsK4PfVWL8NEHbIk3wuDF10vnisipTaCVA7Jyzzr4MXbIA5yZZvU1qELRnne4yauY5HRFsCO-KP4rDlz4YAQ&sig=AOD64_0Xdmbq4i7Yb0ep4F9JvMMW2QNOQA&client=ca-pub-5892669229376806&rf=2&nb=2&adurl=https://bible.new/%25d7%2594%25d7%2591%25d7%25a8%25d7%2599%25d7%25aa-%25d7%2594%25d7%2597%25d7%2593%25d7%25a9%25d7%2594-%25d7%259c%25d7%2594%25d7%2590%25d7%2596%25d7%25a0%25d7%2594/%3Ftw_source%3Dgoogle%26tw_adid%3D648463437980%26tw_campaign%3D19697738543%26tw_kwdid%3D%26gad_source%3D5%26gad_campaignid%3D19697738543%26gclid%3DEAIaIQobChMIvoTanaHwlAMVtoVQBh2Krw9HEAEYASAAEgIr8fD_BwE
+          - img [ref=f13e7] [cursor=pointer]
+          - button [ref=f13e9] [cursor=pointer]:
+            - img [ref=f13e10]
+        - iframe

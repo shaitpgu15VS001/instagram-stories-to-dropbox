@@ -19,8 +19,8 @@ USER_AGENT = (
 )
 STORIES_DIR = Path("stories")
 PAGE_LOAD_TIMEOUT = 60000
-PROFILE_LOAD_TIMEOUT = 30000
-STORIES_LOAD_TIMEOUT = 15000
+PROFILE_LOAD_TIMEOUT = 60000
+STORIES_LOAD_TIMEOUT = 20000
 DOWNLOAD_TIMEOUT = 60
 MEDIA_EXTENSIONS = {".mp4", ".jpg", ".jpeg", ".png", ".webp", ".mov"}
 
@@ -61,8 +61,15 @@ class StoryDownloader:
         try:
             download_urls = self._fetch_story_urls(username)
         except PlaywrightTimeout:
-            logger.error(f"פג הזמן בטעינת fastdl.app עבור @{username}")
-            return {"success": False, "files": [], "error": "timeout"}
+            logger.warning(f"@{username}: timeout בחיפוש - מנסה שוב פעם אחת")
+            try:
+                download_urls = self._fetch_story_urls(username)
+            except PlaywrightTimeout:
+                logger.error(f"@{username}: timeout חוזר - מדלג")
+                return {"success": False, "files": [], "error": "timeout"}
+            except Exception as exc:
+                logger.error(f"שגיאה בגלישה ל-fastdl.app עבור @{username}: {exc}")
+                return {"success": False, "files": [], "error": str(exc)}
         except Exception as exc:
             logger.error(f"שגיאה בגלישה ל-fastdl.app עבור @{username}: {exc}")
             return {"success": False, "files": [], "error": str(exc)}
