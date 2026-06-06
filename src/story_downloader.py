@@ -20,9 +20,10 @@ USER_AGENT = (
 STORIES_DIR = Path("stories")
 PAGE_LOAD_TIMEOUT = 60000
 PROFILE_LOAD_TIMEOUT = 60000
-STORIES_LOAD_TIMEOUT = 20000
+STORIES_LOAD_TIMEOUT = 30000
 DOWNLOAD_TIMEOUT = 60
 MEDIA_EXTENSIONS = {".mp4", ".jpg", ".jpeg", ".png", ".webp", ".mov"}
+MAX_RETRIES, RETRYABLE, RETRY_DELAY = 3, {502, 503, 504}, 2
 
 
 class StoryDownloader:
@@ -75,7 +76,7 @@ class StoryDownloader:
             return {"success": False, "files": [], "error": str(exc)}
 
         if download_urls is None:
-            logger.warning(f"@{username}: משתמש פרטי או לא קיים")
+            logger.warning(f"@{username}: לא נמצא מידע (פרטי/לא קיים/טעינה איטית)")
             return {"success": False, "files": [], "error": "user_not_found"}
         if not download_urls:
             logger.info(f"@{username}: אין סטוריז פעילים כרגע")
@@ -189,18 +190,25 @@ class StoryDownloader:
         downloaded = []
         total = len(urls)
         for idx, url in enumerate(urls, 1):
-            try:
-                response = requests.get(url, timeout=DOWNLOAD_TIMEOUT)
-                response.raise_for_status()
-                filename = self._make_filename(url, response, idx)
-                filepath = user_dir / filename
-                filepath.write_bytes(response.content)
-                downloaded.append(filepath)
-                logger.debug(f"  [{idx}/{total}] הורד {filename}")
-            except requests.RequestException as exc:
-                logger.warning(f"  [{idx}/{total}] שגיאת רשת: {exc}")
-            except OSError as exc:
-                logger.warning(f"  [{idx}/{total}] שגיאת כתיבה: {exc}")
+            for attempt in range(1, MAX_RETRIES + 1):
+                try:
+                    response = requests.get(url, timeout=DOWNLOAD_TIMEOUT)
+                    response.raise_for_status()
+                    filename = self._make_filename(url, response, idx)
+                    filepath = user_dir / filename
+                    filepath.write_bytes(response.content)
+                    downloaded.append(filepath)
+                    logger.debug(f"  [{idx}/{total}] הורד {filename}")
+                    break
+                except requests.HTTPError as exc:
+                    code = exc.response.status_code if exc.response else 0
+                    if code not in RETRYABLE or attempt == MAX_RETRIES:
+                        logger.warning(f"  [{idx}/{total}] שגיאת רשת: {exc}")
+                        break
+                    time.sleep(RETRY_DELAY)
+                except (requests.RequestException, OSError) as exc:
+                    logger.warning(f"  [{idx}/{total}] שגיאה: {exc}")
+                    break
         return downloaded
 
     def _make_filename(self, url, response, idx):
