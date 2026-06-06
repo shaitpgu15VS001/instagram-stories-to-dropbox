@@ -82,7 +82,7 @@ class StoryDownloader:
             logger.info(f"@{username}: אין סטוריז פעילים כרגע")
             return {"success": True, "files": [], "error": None}
 
-        files = self._download_files(download_urls, user_dir)
+        files = self._download_files(download_urls, user_dir, username)
         if not files:
             return {"success": False, "files": [], "error": "download_failed"}
         logger.success(f"@{username}: הורדו {len(files)} קבצים")
@@ -145,11 +145,14 @@ class StoryDownloader:
                 except PlaywrightTimeout:
                     return []
 
-                urls = page.eval_on_selector_all(
-                    ".button__download",
-                    "els => els.map(el => el.href).filter(h => h && h.includes('media.fastdl.app'))",
-                )
-                return list(dict.fromkeys(urls))
+                items = page.evaluate("""() => Array.from(document.querySelectorAll('.profile-media-list__item'))
+                    .map(li => {
+                        const r = li.getBoundingClientRect();
+                        return {u: li.querySelector('.button__download')?.href, x: r.x, y: r.y, t: li.querySelector('.media-content__meta-time')?.title};
+                    })
+                    .filter(s => s.u)""")
+                items.sort(key=lambda s: (-s['x'], s['y']))
+                return items
             finally:
                 browser.close()
 
@@ -186,18 +189,27 @@ class StoryDownloader:
         except Exception:
             pass
 
-    def _download_files(self, urls, user_dir):
+    def _download_files(self, stories, user_dir, username):
         downloaded = []
-        total = len(urls)
-        for idx, url in enumerate(urls, 1):
+        total = len(stories)
+        for idx, s in enumerate(stories, 1):
+            url = s['u']
             for attempt in range(1, MAX_RETRIES + 1):
                 try:
-                    response = requests.get(url, timeout=DOWNLOAD_TIMEOUT)
-                    response.raise_for_status()
-                    filename = self._make_filename(url, response, idx)
-                    filepath = user_dir / filename
-                    filepath.write_bytes(response.content)
-                    downloaded.append(filepath)
+                    r = requests.get(url, timeout=DOWNLOAD_TIMEOUT)
+                    r.raise_for_status()
+                    ct = r.headers.get("content-type", "").lower()
+                    ext = ".mp4" if "mp4" in ct or "video" in ct else ".png" if "png" in ct else ".webp" if "webp" in ct else ".jpg"
+                    m = re.match(r"(\d+)\.(\d+)\.(\d+),?\s+(\d+):(\d+):(\d+)", s.get('t') or "")
+                    if m:
+                        d, mo, y, h, mi, sec = m.groups()
+                        ts = f"{y}-{int(mo):02d}-{int(d):02d}_{int(h):02d}-{int(mi):02d}-{int(sec):02d}"
+                        filename = f"{username}-{ts}{ext}"
+                    else:
+                        filename = self._make_filename(url, r, idx)
+                    p = user_dir / filename
+                    p.write_bytes(r.content)
+                    downloaded.append(p)
                     logger.debug(f"  [{idx}/{total}] הורד {filename}")
                     break
                 except requests.HTTPError as exc:
@@ -213,7 +225,8 @@ class StoryDownloader:
 
     def _make_filename(self, url, response, idx):
         params = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
-        ext = self._ext_from_content_type(response.headers.get("content-type", ""))
+        ct = response.headers.get("content-type", "").lower()
+        ext = ".mp4" if "mp4" in ct or "video" in ct else ".png" if "png" in ct else ".webp" if "webp" in ct else ".jpg"
         if "filename" in params:
             name = urllib.parse.unquote(params["filename"][0])
             if not Path(name).suffix:
@@ -221,23 +234,11 @@ class StoryDownloader:
             return name
         return f"story_{int(time.time())}_{idx}{ext}"
 
-    @staticmethod
-    def _ext_from_content_type(content_type):
-        ct = (content_type or "").lower()
-        if "mp4" in ct or "video" in ct:
-            return ".mp4"
-        if "png" in ct:
-            return ".png"
-        if "webp" in ct:
-            return ".webp"
-        return ".jpg"
-
     def extract_story_id(self, filename):
-        name = Path(filename).stem
-        match = re.match(r"^(\d{10,25})$", name)
-        if match:
-            return match.group(1)
-        return name
+        m = re.search(r"-(\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})", filename)
+        if m:
+            return m.group(1)
+        return Path(filename).stem
 
     def cleanup(self, username=None):
         if username:
