@@ -1,0 +1,463 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - link [ref=e484] [cursor=pointer]:
+      - /url: https://fastdl.app/en2
+      - img [ref=e4]
+    - navigation [ref=e7]:
+      - link [ref=e485] [cursor=pointer]:
+        - /url: https://fastdl.app/faq
+        - text: FAQ Faq
+      - button [ref=e486] [cursor=pointer]:
+        - img [ref=e11]
+      - button [ref=e487] [cursor=pointer]:
+        - text: en
+        - img [ref=e15]
+  - main [ref=e17]:
+    - generic [ref=e18]:
+      - navigation [ref=e19]:
+        - link [ref=e488] [cursor=pointer]:
+          - /url: https://fastdl.app/video
+          - img [ref=e22]
+          - text: Video
+        - link [ref=e489] [cursor=pointer]:
+          - /url: https://fastdl.app/photo
+          - img [ref=e28]
+          - text: Photo
+        - link [ref=e490] [cursor=pointer]:
+          - /url: https://fastdl.app/instagram-reels-download
+          - img [ref=e34]
+          - text: Reels
+        - link [ref=e491] [cursor=pointer]:
+          - /url: https://fastdl.app/story-saver
+          - img [ref=e39]
+          - text: Story
+        - link [ref=e492] [cursor=pointer]:
+          - /url: https://fastdl.app/igtv
+          - img [ref=e45]
+          - text: Igtv
+        - link [ref=e493] [cursor=pointer]:
+          - /url: https://fastdl.app/carousel
+          - img [ref=e50]
+          - text: Carousel
+        - generic [ref=e54]:
+          - img [ref=e55]
+          - text: Viewer
+      - generic [ref=e59]:
+        - heading [level=1] [ref=e494]: Instagram Stories Viewer
+        - paragraph [ref=e61]: Anonymously Instagram Story Viewer
+      - generic [ref=e62]:
+        - generic [ref=e63]:
+          - textbox [active] [ref=e65]:
+            - /placeholder: Insert instagram link here
+            - text: israel_bidur
+          - button [ref=e495] [cursor=pointer]:
+            - img [ref=e233]
+            - text: Clear
+        - button [ref=e496] [cursor=pointer]: Download
+    - insertion [ref=e498]:
+      - iframe [ref=e500]:
+        - generic [ref=f56e13]:
+          - link [ref=f56e17] [cursor=pointer]:
+            - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=Z9sVeGAAAAAAAAAAeJzj4uV4dXaznQCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aC6d-f1e3--sNeglGDwYiXY8WSBg0BEAE0AQCuRyff&dt=3&et=2&f=qj5lCREBAAAAAAAAeJzjONVzYte1nZt2GwpcPTrpIpvEo6M3T-zcePdQkBYHB6MAhwSTAoORJAeDAIMEgwKDBoMBgwWDKwMQeDAEMEQwWLFxKAoISTA6aXH8-Lj0y_9Ln18FC_xt3nn_3YkL28sl4GJKXGmJxSUpOXqJBQUZzYxFfFxcHCu4hJjLchIlGARYGhjZuhi5JJoYNbYyGnBYMExi1OaAO0SAzUra2dE12NXXPzM3O8o0KqK8xMjH1DFZN8rc1bE4imEGI-MCRoZNjCxABzPuZNzSqXawc3eT3UFG6_v-vdPzJtmfYGR4wcj8gZHxB-NK_gYmhg4mxklMvBwrljRoCIAIiRNsC5gYVjAteT6fAwBnX19D&rt=1&sgn=L6OFHsnQendJXe08rAcQBafd260y48gVdFhHUM1dV_Q%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=jnUWvwkAAAAAAAAAeJzjTAODd_YAD5sDmw,,
+            - img [ref=f56e20]
+          - generic [ref=f56e23]:
+            - generic [ref=f56e25]:
+              - generic [ref=f56e26]:
+                - link "kualastyle.com" [ref=f56e27] [cursor=pointer]:
+                  - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=Z9sVeGAAAAAAAAAAeJzj4uV4dXaznQCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aC6d-f1e3--sNeglGDwYiXY8WSBg0BEAE0AQCuRyff&dt=3&et=2&f=qj5lCREBAAAAAAAAeJzjONVzYte1nZt2GwpcPTrpIpvEo6M3T-zcePdQkBYHB6MAhwSTAoORJAeDAIMEgwKDBoMBgwWDKwMQeDAEMEQwWLFxKAoISTA6aXH8-Lj0y_9Ln18FC_xt3nn_3YkL28sl4GJKXGmJxSUpOXqJBQUZzYxFfFxcHCu4hJjLchIlGARYGhjZuhi5JJoYNbYyGnBYMExi1OaAO0SAzUra2dE12NXXPzM3O8o0KqK8xMjH1DFZN8rc1bE4imEGI-MCRoZNjCxABzPuZNzSqXawc3eT3UFG6_v-vdPzJtmfYGR4wcj8gZHxB-NK_gYmhg4mxklMvBwrljRoCIAIiRNsC5gYVjAteT6fAwBnX19D&rt=1&sgn=L6OFHsnQendJXe08rAcQBafd260y48gVdFhHUM1dV_Q%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=jnUWvwkAAAAAAAAAeJzjTAODd_YAD5sDmw,,
+                  - generic [ref=f56e31]: kualastyle.com
+                - generic [ref=f56e33]: מודעה
+              - button [ref=f56e35] [cursor=pointer]:
+                - generic:
+                  - img
+            - link "STIGSKO | מעמד האכלה ארגונומי - עץ אלון טבעי עץ אלון…" [ref=f56e39] [cursor=pointer]:
+              - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=Z9sVeGAAAAAAAAAAeJzj4uV4dXaznQCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aC6d-f1e3--sNeglGDwYiXY8WSBg0BEAE0AQCuRyff&dt=3&et=2&f=qj5lCREBAAAAAAAAeJzjONVzYte1nZt2GwpcPTrpIpvEo6M3T-zcePdQkBYHB6MAhwSTAoORJAeDAIMEgwKDBoMBgwWDKwMQeDAEMEQwWLFxKAoISTA6aXH8-Lj0y_9Ln18FC_xt3nn_3YkL28sl4GJKXGmJxSUpOXqJBQUZzYxFfFxcHCu4hJjLchIlGARYGhjZuhi5JJoYNbYyGnBYMExi1OaAO0SAzUra2dE12NXXPzM3O8o0KqK8xMjH1DFZN8rc1bE4imEGI-MCRoZNjCxABzPuZNzSqXawc3eT3UFG6_v-vdPzJtmfYGR4wcj8gZHxB-NK_gYmhg4mxklMvBwrljRoCIAIiRNsC5gYVjAteT6fAwBnX19D&rt=1&sgn=L6OFHsnQendJXe08rAcQBafd260y48gVdFhHUM1dV_Q%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=jnUWvwkAAAAAAAAAeJzjTAODd_YAD5sDmw,,
+              - generic [ref=f56e40]: STIGSKO | מעמד האכלה ארגונומי - עץ אלון טבעי עץ אלון…
+            - link "295 ₪ 310 ₪" [ref=f56e42] [cursor=pointer]:
+              - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=Z9sVeGAAAAAAAAAAeJzj4uV4dXaznQCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aC6d-f1e3--sNeglGDwYiXY8WSBg0BEAE0AQCuRyff&dt=3&et=2&f=qj5lCREBAAAAAAAAeJzjONVzYte1nZt2GwpcPTrpIpvEo6M3T-zcePdQkBYHB6MAhwSTAoORJAeDAIMEgwKDBoMBgwWDKwMQeDAEMEQwWLFxKAoISTA6aXH8-Lj0y_9Ln18FC_xt3nn_3YkL28sl4GJKXGmJxSUpOXqJBQUZzYxFfFxcHCu4hJjLchIlGARYGhjZuhi5JJoYNbYyGnBYMExi1OaAO0SAzUra2dE12NXXPzM3O8o0KqK8xMjH1DFZN8rc1bE4imEGI-MCRoZNjCxABzPuZNzSqXawc3eT3UFG6_v-vdPzJtmfYGR4wcj8gZHxB-NK_gYmhg4mxklMvBwrljRoCIAIiRNsC5gYVjAteT6fAwBnX19D&rt=1&sgn=L6OFHsnQendJXe08rAcQBafd260y48gVdFhHUM1dV_Q%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=jnUWvwkAAAAAAAAAeJzjTAODd_YAD5sDmw,,
+              - generic [ref=f56e43]: 295 ₪
+              - generic [ref=f56e44]: 310 ₪
+            - link "למידע נוסף" [ref=f56e47] [cursor=pointer]:
+              - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=Z9sVeGAAAAAAAAAAeJzj4uV4dXaznQCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aC6d-f1e3--sNeglGDwYiXY8WSBg0BEAE0AQCuRyff&dt=3&et=2&f=qj5lCREBAAAAAAAAeJzjONVzYte1nZt2GwpcPTrpIpvEo6M3T-zcePdQkBYHB6MAhwSTAoORJAeDAIMEgwKDBoMBgwWDKwMQeDAEMEQwWLFxKAoISTA6aXH8-Lj0y_9Ln18FC_xt3nn_3YkL28sl4GJKXGmJxSUpOXqJBQUZzYxFfFxcHCu4hJjLchIlGARYGhjZuhi5JJoYNbYyGnBYMExi1OaAO0SAzUra2dE12NXXPzM3O8o0KqK8xMjH1DFZN8rc1bE4imEGI-MCRoZNjCxABzPuZNzSqXawc3eT3UFG6_v-vdPzJtmfYGR4wcj8gZHxB-NK_gYmhg4mxklMvBwrljRoCIAIiRNsC5gYVjAteT6fAwBnX19D&rt=1&sgn=L6OFHsnQendJXe08rAcQBafd260y48gVdFhHUM1dV_Q%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=jnUWvwkAAAAAAAAAeJzjTAODd_YAD5sDmw,,
+              - generic [ref=f56e48]: למידע נוסף
+    - generic [ref=e501]:
+      - paragraph [ref=e502]: Search result
+      - generic [ref=e503]:
+        - generic [ref=e504]:
+          - generic [ref=e506]:
+            - img [ref=e507]
+            - img [ref=e509] [cursor=pointer]
+          - paragraph [ref=e513]:
+            - generic [ref=e514]: "@israel_bidur"
+            - link [ref=e515] [cursor=pointer]:
+              - /url: https://www.instagram.com/israel_bidur
+          - list [ref=e516]:
+            - listitem [ref=e517]:
+              - generic [ref=e518]: 8K
+              - generic [ref=e519]: posts
+            - listitem [ref=e520]:
+              - generic [ref=e521]: 1.7M
+              - generic [ref=e522]: followers
+            - listitem [ref=e523]:
+              - generic [ref=e524]: 1K
+              - generic [ref=e525]: following
+          - paragraph [ref=e526]: 𝗜𝗦𝗥𝗔𝗘𝗟 𝗕𝗜𝗗𝗨𝗥 ★ ישראל בידור
+          - generic [ref=e527]:
+            - link [ref=e528] [cursor=pointer]:
+              - /url: "#"
+              - text: "@israel_sport_official"
+            - link [ref=e529] [cursor=pointer]:
+              - /url: "#"
+              - text: "@israel.business"
+            - link [ref=e530] [cursor=pointer]:
+              - /url: "#"
+              - text: "@lsrael.music"
+            - link [ref=e531] [cursor=pointer]:
+              - /url: "#"
+              - text: "@israel_bidur_gaming"
+            - link [ref=e532] [cursor=pointer]:
+              - /url: "#"
+              - text: "@israel.bishul"
+            - link [ref=e533] [cursor=pointer]:
+              - /url: "#"
+              - text: "@lsrael_office"
+            - link [ref=e534] [cursor=pointer]:
+              - /url: "#"
+              - text: "@sulika.news"
+            - text: לתרומה לעמותת ״להושיט יד״👇🏻
+        - list [ref=e535]:
+          - listitem [ref=e536]:
+            - button [ref=e537] [cursor=pointer]: posts
+          - listitem [ref=e538]:
+            - button [ref=e539] [cursor=pointer]: stories
+          - listitem [ref=e540]:
+            - button [ref=e541] [cursor=pointer]: highlights
+          - listitem [ref=e542]:
+            - button [ref=e543] [cursor=pointer]: reels
+        - list [ref=e544]:
+          - listitem [ref=e545]:
+            - generic [ref=e546] [cursor=pointer]:
+              - img [ref=e698]
+              - button [ref=e701]
+            - generic [ref=e547]:
+              - paragraph [ref=e548]: ⁨ האיחוד שידענו שאנחנו צריכים 🥹 כוכבי ״כפולה״ מתאחדים על במת המופע של נועה קירל באמפי MAX 🤩🎤 ‪@n...
+              - link [ref=e702] [cursor=pointer]:
+                - /url: https://media.fastdl.app/get?__sig=1uZQch-gQjQC1NkqU_p9Hg&__expires=1780787077&uri=https%3A%2F%2Fscontent-iad3-2.cdninstagram.com%2Fo1%2Fv%2Ft2%2Ff2%2Fm86%2FAQN75OKjEUVbLF3y6aFKLUlvaEIuXmJ9U_VsdnPxaBLco3zjK_WRpjvFY12PksH2gU6rWHqOKSXJ-3TUEYyz9PTPiEI4A7h8zsst_y4.mp4%3F_nc_cat%3D103%26_nc_sid%3D5e9851%26_nc_ht%3Dscontent-iad3-2.cdninstagram.com%26_nc_ohc%3D8SGb1h7EIO8Q7kNvwHyu3x7%26efg%3DeyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0xJUFMuQzMuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6MTAwNTUxNTMwNTQ4OTgzNywiYXNzZXRfYWdlX2RheXMiOjEsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjozNCwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9%26ccb%3D17-1%26vs%3Dadc3fa345eed9b2a%26_nc_vs%3DHBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC82MzQ0NTAxREQ0MTI1Mjk5MjA1NzY3MDdERjdGOUZCMF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0YzNDBCQ0M2OTRFMENDNTAyQUExQ0U5MzZEOTFEQzg4X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACba1szp2KDJAxUCKAJDMywXQEFMzMzMzM0YEmRhc2hfYmFzZWxpbmVfMV92MREAdf4HZeadAQA%26_nc_gid%3Div0E-g457o5jgPvCMssPzw%26_nc_ss%3D7a22e%26_nc_zt%3D28%26oh%3D00_Af_rWiWBpLtQtmYBtx-QEPszNnOJ0PHSIzDnOTfNnfKHYA%26oe%3D6A25C890&filename=AQN75OKjEUVbLF3y6aFKLUlvaEIuXmJ9U_VsdnPxaBLco3zjK_WRpjvFY12PksH2gU6rWHqOKSXJ-3TUEYyz9PTPiEI4A7h8.mp4
+                - text: Download
+              - generic [ref=e549]:
+                - generic [ref=e550]:
+                  - paragraph [ref=e551]: 36k
+                  - paragraph [ref=e553]: "217"
+                - paragraph [ref=e555]: 2 days ago
+          - listitem [ref=e557]:
+            - generic [ref=e558] [cursor=pointer]:
+              - img [ref=e703]
+              - button [ref=e706]
+            - generic [ref=e559]:
+              - paragraph [ref=e560]: שליחי וולט - רוצים לטוס לחצי הגמר במונדיאל???? ⚽️😍 ״שער הזהב״ יוצא לדרך - כל שליח שיבצע לפחות 50 מ...
+              - link [ref=e707] [cursor=pointer]:
+                - /url: https://media.fastdl.app/get?__sig=qeA-FUh2mwUgrxrxocIJeQ&__expires=1780787077&uri=https%3A%2F%2Fscontent-iad6-1.cdninstagram.com%2Fo1%2Fv%2Ft2%2Ff2%2Fm86%2FAQOW4KJ9Tq5OMqnV60CMLflso3aZzOKkdI86LVgxDv4BhN_YEieid78xXqW9TAYD-1GmoQyEeT1ZIu01uDnsumr5kxzf0VGKhDJz30w.mp4%3F_nc_cat%3D106%26_nc_sid%3D5e9851%26_nc_ht%3Dscontent-iad6-1.cdninstagram.com%26_nc_ohc%3Dx9A7dptj6okQ7kNvwHzluF3%26efg%3DeyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0xJUFMuQzMuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6OTIyNTk5NDQwNzk2MjM4LCJhc3NldF9hZ2VfZGF5cyI6MiwidmlfdXNlY2FzZV9pZCI6MTAwOTksImR1cmF0aW9uX3MiOjIwLCJ1cmxnZW5fc291cmNlIjoid3d3In0%253D%26ccb%3D17-1%26vs%3D47a20126a6368756%26_nc_vs%3DHBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9FOTRENjU1REYwODI4RURDRjk1RTM0MjEyREJBMDFBNl92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzJFNERDNTJFMzI5QUM3QzAwQjMwMkRDMzM4RTc5QkFBX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACacqYK_rcajAxUCKAJDMywXQDR64UeuFHsYEmRhc2hfYmFzZWxpbmVfMV92MREAdf4HZeadAQA%26_nc_gid%3Div0E-g457o5jgPvCMssPzw%26_nc_ss%3D7a22e%26_nc_zt%3D28%26oh%3D00_Af8o0a2WPlNIcbMXFJaWdwWu6NSPGcbdH4xZRnsRiNxTkw%26oe%3D6A25F577&filename=AQOW4KJ9Tq5OMqnV60CMLflso3aZzOKkdI86LVgxDv4BhN_YEieid78xXqW9TAYD-1GmoQyEeT1ZIu01uDnsumr5kxzf0VGK.mp4
+                - text: Download
+              - generic [ref=e561]:
+                - paragraph [ref=e563]: "175"
+                - paragraph [ref=e565]: 3 days ago
+          - listitem [ref=e567]:
+            - generic [ref=e568] [cursor=pointer]:
+              - img [ref=e708]
+              - button [ref=e711]
+            - generic [ref=e569]:
+              - paragraph [ref=e570]: "⁨ ⁨ ⁩ תשלחו לאקס/ית שילמדו לפרגן כמו נייט 😝 נייט על האקסית ליה נגה ובן זוגה דביר: ״הם מושלמים, אני..."
+              - link [ref=e712] [cursor=pointer]:
+                - /url: https://media.fastdl.app/get?__sig=bIx18Cdb-po81F1uBE4JAQ&__expires=1780787077&uri=https%3A%2F%2Fscontent-iad3-2.cdninstagram.com%2Fo1%2Fv%2Ft2%2Ff2%2Fm86%2FAQPadTVBnKs6EhFBjvgGuffSgeovO7eFdtthbaTkNTQNtK1tX8eCgHc9PYxGolEyqeoPHIlSS3oR-SPmnLP3L9OBfNF4xszsUiDHgvc.mp4%3F_nc_cat%3D105%26_nc_sid%3D5e9851%26_nc_ht%3Dscontent-iad3-2.cdninstagram.com%26_nc_ohc%3DE57IbigvXWIQ7kNvwGpwCEC%26efg%3DeyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0xJUFMuQzMuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6MTQ3NDU0ODk4NzI2Mzk3OCwiYXNzZXRfYWdlX2RheXMiOjQsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjozNiwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9%26ccb%3D17-1%26vs%3Dc697050aec61b19%26_nc_vs%3DHBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9BRTRGRkZENjg1QUVCOTlEOEVCMDk5QjkwNjNDRTI5RF92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyL0I1NEI2RUVBQ0IyMEE4RjFDRjA0OTMzNDkyNzkwRkE5X2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbU77eJhsaeBRUCKAJDMywXQEIiDEm6XjUYEmRhc2hfYmFzZWxpbmVfMV92MREAdf4HZeadAQA%26_nc_gid%3Div0E-g457o5jgPvCMssPzw%26_nc_ss%3D7a22e%26_nc_zt%3D28%26oh%3D00_Af_OPPaVgr-bi31ECwesYzFMdAJemg3_dCO5DE5soqPFvg%26oe%3D6A25DC86&filename=AQPadTVBnKs6EhFBjvgGuffSgeovO7eFdtthbaTkNTQNtK1tX8eCgHc9PYxGolEyqeoPHIlSS3oR-SPmnLP3L9OBfNF4xszs.mp4
+                - text: Download
+              - generic [ref=e571]:
+                - generic [ref=e572]:
+                  - paragraph [ref=e573]: 43k
+                  - paragraph [ref=e575]: "436"
+                - paragraph [ref=e577]: 4 days ago
+          - listitem [ref=e579]:
+            - generic [ref=e580] [cursor=pointer]:
+              - img [ref=e713]
+              - button [ref=e716]
+            - generic [ref=e581]:
+              - paragraph [ref=e582]: ⁨ ⁨ ⁨ רוצים לזכות בסמארטפון Google Pixel 10??? 😱🎁👇🏼 מגוון פיצ׳רים חדשים ולוק משודרג שאסור לכם ל...
+              - link [ref=e717] [cursor=pointer]:
+                - /url: https://media.fastdl.app/get?__sig=2ko3xr1EXQrVt7Ytp7rxMg&__expires=1780787077&uri=https%3A%2F%2Fscontent-iad3-2.cdninstagram.com%2Fo1%2Fv%2Ft2%2Ff2%2Fm86%2FAQMTuEQ9ujMkrQG8PN0vCQdr4SwIWVWZNUwx6QGsAmmQRJUjFBvF9nXfh9jbojnRAm0TGFYTwJtCsJ8jfGVF9HoAClNjmDLCnqFPQzY.mp4%3F_nc_cat%3D103%26_nc_sid%3D5e9851%26_nc_ht%3Dscontent-iad3-2.cdninstagram.com%26_nc_ohc%3DsXFoaNY6J-cQ7kNvwFV26n6%26efg%3DeyJ2ZW5jb2RlX3RhZyI6Inhwdl9wcm9ncmVzc2l2ZS5JTlNUQUdSQU0uQ0xJUFMuQzMuNzIwLmRhc2hfYmFzZWxpbmVfMV92MSIsInhwdl9hc3NldF9pZCI6MTg5MzA1MTA1MTM1NTU3NywiYXNzZXRfYWdlX2RheXMiOjQsInZpX3VzZWNhc2VfaWQiOjEwMDk5LCJkdXJhdGlvbl9zIjo4MSwidXJsZ2VuX3NvdXJjZSI6Ind3dyJ9%26ccb%3D17-1%26vs%3Db913f4e8831a645b%26_nc_vs%3DHBksFQIYUmlnX3hwdl9yZWVsc19wZXJtYW5lbnRfc3JfcHJvZC9GODRFOEFGNTEzMUE2MDk2OUJCNjQ4RjdEMjBGODdBMV92aWRlb19kYXNoaW5pdC5tcDQVAALIARIAFQIYUWlnX3hwdl9wbGFjZW1lbnRfcGVybWFuZW50X3YyLzYzNEQ5RDFDODM2OEM1M0YzM0ZGNTk3NTIzQzVCQzhCX2F1ZGlvX2Rhc2hpbml0Lm1wNBUCAsgBEgAoABgAGwKIB3VzZV9vaWwBMRJwcm9ncmVzc2l2ZV9yZWNpcGUBMRUAACbytqm3ie7cBhUCKAJDMywXQFRGZmZmZmYYEmRhc2hfYmFzZWxpbmVfMV92MREAdf4HZeadAQA%26_nc_gid%3Div0E-g457o5jgPvCMssPzw%26_nc_ss%3D7a22e%26_nc_zt%3D28%26oh%3D00_Af83_Q-f7Qfb71r-37AkHiZogBnm39r5rNUxRhU6IMbt4g%26oe%3D6A25D220&filename=AQMTuEQ9ujMkrQG8PN0vCQdr4SwIWVWZNUwx6QGsAmmQRJUjFBvF9nXfh9jbojnRAm0TGFYTwJtCsJ8jfGVF9HoAClNjmDLC.mp4
+                - text: Download
+              - generic [ref=e583]:
+                - generic [ref=e584]:
+                  - paragraph [ref=e585]: 5k
+                  - paragraph [ref=e587]: "172"
+                - paragraph [ref=e589]: 5 days ago
+          - listitem [ref=e591]:
+            - generic [ref=e592] [cursor=pointer]:
+              - img [ref=e718]
+              - button [ref=e720]
+            - generic [ref=e593]:
+              - paragraph [ref=e594]: הכי מרגש שיש!!! 😍😍😍 ספיר וליאור הורים לשלושה!!! אח קטן לסאן ומון המושלמים ❤️...
+              - link [ref=e721] [cursor=pointer]:
+                - /url: https://media.fastdl.app/get?__sig=2wdH8k1w8wpTlQORKEKGyA&__expires=1780787077&uri=https%3A%2F%2Fscontent-iad3-1.cdninstagram.com%2Fv%2Ft51.82787-15%2F710756937_18599483119054486_1804185126906449812_n.jpg%3Fstp%3Ddst-jpg_e35_p640x640_sh2.08_tt6%26efg%3DeyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4zMjY1LnNkci5yZWd1bGFyX3Bob3RvLmMyIn0%26_nc_ht%3Dscontent-iad3-1.cdninstagram.com%26_nc_cat%3D110%26_nc_oc%3DQ6cZ2gEsXKKDeFZejkHGp__YeePrPOqfPAb35m0XEBTZOY1itJil80b4f6X9wIYCSTwpF3It1qaxIHmXPu9ezw2ZBsuE%26_nc_ohc%3DYHDKIEl0DtoQ7kNvwGrWB1v%26_nc_gid%3Div0E-g457o5jgPvCMssPzw%26edm%3DAPU89FABAAAA%26ccb%3D7-5%26oh%3D00_Af-8xWbiBT_Mxg8giNWM8WDTGI75jXXvXJmGnRGp8HySaQ%26oe%3D6A29BA3F%26_nc_sid%3Dbc0c2c&filename=710756937_18599483119054486_1804185126906449812_n..jpg
+                - text: Download
+              - generic [ref=e595]:
+                - generic [ref=e596]:
+                  - paragraph [ref=e597]: 51k
+                  - paragraph [ref=e599]: "150"
+                - paragraph [ref=e601]: 6 days ago
+          - listitem [ref=e603]:
+            - generic [ref=e604] [cursor=pointer]:
+              - img [ref=e722]
+              - button [ref=e724]
+            - generic [ref=e605]:
+              - paragraph [ref=e606]: הלםםם 😵 המודחת ה- 16 של העונה היא הודיה!!!! 😳 מה דעתכם?...
+              - link [ref=e725] [cursor=pointer]:
+                - /url: https://media.fastdl.app/get?__sig=se_r31NwdScQ_hoZxCMu2A&__expires=1780787077&uri=https%3A%2F%2Fscontent-iad3-1.cdninstagram.com%2Fv%2Ft51.82787-15%2F708993504_18599200153054486_9126986952822559958_n.jpg%3Fstp%3Ddst-jpg_e35_p640x640_sh2.08_tt6%26efg%3DeyJ2ZW5jb2RlX3RhZyI6ImltYWdlX3VybGdlbi4zMjc1LnNkci5yZWd1bGFyX3Bob3RvLmMyIn0%26_nc_ht%3Dscontent-iad3-1.cdninstagram.com%26_nc_cat%3D110%26_nc_oc%3DQ6cZ2gEsXKKDeFZejkHGp__YeePrPOqfPAb35m0XEBTZOY1itJil80b4f6X9wIYCSTwpF3It1qaxIHmXPu9ezw2ZBsuE%26_nc_ohc%3DcspRbzmVSF8Q7kNvwHGP8xn%26_nc_gid%3Div0E-g457o5jgPvCMssPzw%26edm%3DAPU89FABAAAA%26ccb%3D7-5%26oh%3D00_Af96sInzHz55PJnzPBNyLRK2KwLgDb586n2DifVbQV6qBg%26oe%3D6A29BE5D%26_nc_sid%3Dbc0c2c&filename=708993504_18599200153054486_9126986952822559958_n..jpg
+                - text: Download
+              - generic [ref=e607]:
+                - generic [ref=e608]:
+                  - paragraph [ref=e609]: 65k
+                  - paragraph [ref=e611]: 4k
+                - paragraph [ref=e613]: 1 weeks ago
+    - insertion [ref=e617]:
+      - generic [ref=e620]:
+        - heading [level=2] [ref=e622]: Discover more
+        - link [ref=e623] [cursor=pointer]:
+          - generic [ref=e624]: Instagram app alternatives
+          - img [ref=e626]
+        - link [ref=e628] [cursor=pointer]:
+          - generic [ref=e629]: Photo & Image Sharing
+          - img [ref=e631]
+        - link [ref=e633] [cursor=pointer]:
+          - generic [ref=e634]: Instagram viewer tool
+          - img [ref=e636]
+    - generic [ref=e83]:
+      - heading [level=2] [ref=e638]: How to use Instagram Story Viewer?
+      - paragraph [ref=e85]: See below the three easy steps to use this Instagram Story Viewer. It saves time and energy.
+      - list [ref=e86]:
+        - listitem [ref=e87]:
+          - img [ref=e639]
+          - generic [ref=e90]:
+            - heading [level=3] [ref=e640]: Copy the URL
+            - paragraph [ref=e92]:
+              - text: Open a post on where there is your favorite Instagram profile and copy the link.
+              - link [ref=e641] [cursor=pointer]:
+                - img [ref=e95]
+                - text: Instagram IGTV viewer
+        - listitem [ref=e97]:
+          - img [ref=e642]
+          - generic [ref=e100]:
+            - heading [level=3] [ref=e643]: Paste the link
+            - paragraph [ref=e102]: Paste the link to the input line on the Instagram Story Viewer page. Remember to have the FastDl web page already opened.
+        - listitem [ref=e103]:
+          - img [ref=e644]
+          - generic [ref=e106]:
+            - heading [level=3] [ref=e645]: View and Download
+            - paragraph [ref=e108]: Click the Download button to save the stories to your device.
+    - generic [ref=e77]:
+      - img [ref=e646]
+      - generic [ref=e80]:
+        - heading [level=2] [ref=e647]: Instagram Stories Viewer
+        - paragraph [ref=e82]: FastDl Instagram Stories Viewer is a complimentary tool that enables anonymous viewing of Instagram stories from public profiles without the need for Instagram user authentication. The platform offers a range of free features, allowing you to discreetly view stories without any extra steps, other than entering the user's Instagram handle.
+    - generic [ref=e109]:
+      - heading [level=2] [ref=e648]: View Instagram Stories from your address bar
+      - generic [ref=e111]:
+        - img [ref=e649]
+        - list [ref=e114]:
+          - listitem [ref=e115]:
+            - paragraph [ref=e116]: Add f-d.app before any Instagram Story URL in your browser's address bar.
+          - listitem [ref=e117]:
+            - paragraph [ref=e118]: "For example: f-d.app/https://www.instagram.com/fastdl.app/reel/DO5tIDME6t-/"
+          - listitem [ref=e119]:
+            - paragraph [ref=e120]:
+              - text: Press Enter and you'll get the viewer page. View and download Stories anonymously in high quality.
+              - link [ref=e650] [cursor=pointer]:
+                - img [ref=e123]
+                - text: Story viewer download
+          - listitem [ref=e127]:
+            - paragraph [ref=e128]: Works on phones, tablets, and computers. No app, account, or Instagram login needed.
+    - generic [ref=e129]:
+      - heading [level=2] [ref=e651]: FastDl Story Viewer
+      - paragraph [ref=e131]: An Instagram viewer is a third-party website or app that allows you to view Instagram posts, stories, and profiles anonymously without having an Instagram account or logging into one.
+      - list [ref=e132]:
+        - listitem [ref=e133]:
+          - generic [ref=e134]:
+            - heading [level=3] [ref=e652]: Instagram Story Viewer
+            - paragraph [ref=e136]:
+              - text: Currently, Instagram users do not have the option to download or save stories, highlights, or reels from Instagram directly. However, thanks to the Instagram Stories viewer, users now have this option. Additionally, the FastDL Instagram Highlights viewer allows you to anonymously view public user stories regardless of the device you are using.
+              - link [ref=e653] [cursor=pointer]:
+                - img [ref=e139]
+                - text: Story download service
+          - img [ref=e654]
+    - generic [ref=e250]:
+      - generic [ref=e251]:
+        - heading [level=2] [ref=e655]: Download Faster with FastDL Chrome Extension
+        - list [ref=e253]:
+          - listitem [ref=e254]:
+            - img [ref=e656]
+            - text: One‑click downloads on Instagram
+          - listitem [ref=e256]:
+            - img [ref=e657]
+            - text: Supports photos, videos, reels, stories, carousels, and profile pictures
+          - listitem [ref=e258]:
+            - img [ref=e658]
+            - text: Best available quality from original post
+          - listitem [ref=e260]:
+            - img [ref=e659]
+            - text: Lightweight, fast, and easy to use without sign‑in
+        - link [ref=e660] [cursor=pointer]:
+          - /url: https://chromewebstore.google.com/detail/instagram-downloader-%E2%80%94-fa/miidjpmjpkbpefhnfcdcoolaaedfmlam
+          - text: Get started now
+      - generic [ref=e263]:
+        - button [ref=e661] [cursor=pointer]:
+          - img [ref=e662]
+        - img [ref=e663]
+    - generic [ref=e143]:
+      - heading [level=2] [ref=e664]: Frequently asked questions (FAQ)
+      - paragraph [ref=e145]: This FAQ provides information on frequent questions or concerns about the fastdl.app instagram viewer. If you can't find the answer to your question, feel free to ask through email on our contact page.
+      - list [ref=e146]:
+        - listitem [ref=e147]:
+          - heading [level=3] [ref=e665]: Is it possible to use Instagram Story Viewer to my PC?
+          - generic [ref=e150]: Of course, by all means. As an online service, FastDl works directly in your browser. Using this Instagram Story Viewer for your PC will not be a problem. Our stories downloader service is also available for tablets, Macs, and phones. Our photo downloading service is also available for tablets or phones.
+        - listitem [ref=e151]:
+          - heading [level=3] [ref=e666]: What type of file formats does FastDl support for downloading?
+          - generic [ref=e154]:
+            - text: The most convenient these days is the JPG file format for downloading images. As for the videos, the MP4 file format is still considered the most popular worldwide, ensuring high quality and a small video file size.
+            - link [ref=e667] [cursor=pointer]:
+              - img [ref=e157]
+              - text: Browser download extension
+        - listitem [ref=e159]:
+          - heading [level=3] [ref=e668]: Is this Instagram Stories Viewer a free service?
+          - generic [ref=e162]: Yes! Our Instagram picture downloader is completely FREE. No need for registration of an account or other types of paid service charging.
+        - listitem [ref=e163]:
+          - heading [level=3] [ref=e669]: What other devices are compatible with the FastDl downloader?
+          - generic [ref=e166]: FastDl is a versatile web service. Whether you're on an iPad, iPhone, Android device, or any other platform, FastDl picture downloader works seamlessly. All other gadgets, including PCs, are fully supported by this photo downloader. All you need is a web browser to get started!
+        - listitem [ref=e167]:
+          - heading [level=3] [ref=e670]: How safe is to download Instagram Stories with FastDl?
+          - generic [ref=e170]: It is safe! No fear to download Instagram stories with FastDl. Our safety policy says not to collect users' data using this tool. We care about your trust in us!
+    - dialog [ref=e726]:
+      - generic [ref=e727]:
+        - insertion [ref=e729]:
+          - iframe [ref=e672]:
+            - generic [ref=f58e13]:
+              - link [ref=f58e17] [cursor=pointer]:
+                - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=A0irLWAAAAAAAAAAeJzj4uW4v2WrrQCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aC6d-f1e3--sNeglGDwYiX4-7G9eoCIAJoAgCIwygz&dt=3&et=2&f=bOMP7REBAAAAAAAAeJzjmNXbcezDzk27DQWuHp10kU3i0dGbJ3ZuvHsoSIuDg1GAQ4JJgcFIkoNBgEGCQYFBg8GAwYLBlQEIPBgCGCIYrNg4FAWEJBidtDh-fFz65f-lz6-CBf5v2nO-8UXfyWIJuJgSV1picUlKjl5iQUFGM2MRHxcXxxYWIebixGIJBgGWBka2LkYuiSZGja2MBhwWDJMYtTngDhFgs5J2dnQNdvX1z8zNjjKNiigvMfIxdUzWjTJ3dSyOYpjByLiAkWETIwvQwYw7GSfunjPv1cQKu4OMuzx5mLTb2-xPMDK8YGT-wMj4g3ElfwMTQwcT4yQmXo67G9erC4AIiRNsC5gYVjAteT6fAwDQP17S&rt=1&sgn=d-4uEGRPCtg303Wsgi84c2wBWKlna3MGDnu1UB2Jgn0%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+                - img [ref=f58e20]
+              - generic [ref=f58e23]:
+                - generic [ref=f58e25]:
+                  - generic [ref=f58e26]:
+                    - link "kualastyle.com" [ref=f58e27] [cursor=pointer]:
+                      - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=A0irLWAAAAAAAAAAeJzj4uW4v2WrrQCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aC6d-f1e3--sNeglGDwYiX4-7G9eoCIAJoAgCIwygz&dt=3&et=2&f=bOMP7REBAAAAAAAAeJzjmNXbcezDzk27DQWuHp10kU3i0dGbJ3ZuvHsoSIuDg1GAQ4JJgcFIkoNBgEGCQYFBg8GAwYLBlQEIPBgCGCIYrNg4FAWEJBidtDh-fFz65f-lz6-CBf5v2nO-8UXfyWIJuJgSV1picUlKjl5iQUFGM2MRHxcXxxYWIebixGIJBgGWBka2LkYuiSZGja2MBhwWDJMYtTngDhFgs5J2dnQNdvX1z8zNjjKNiigvMfIxdUzWjTJ3dSyOYpjByLiAkWETIwvQwYw7GSfunjPv1cQKu4OMuzx5mLTb2-xPMDK8YGT-wMj4g3ElfwMTQwcT4yQmXo67G9erC4AIiRNsC5gYVjAteT6fAwDQP17S&rt=1&sgn=d-4uEGRPCtg303Wsgi84c2wBWKlna3MGDnu1UB2Jgn0%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+                      - generic [ref=f58e31]: kualastyle.com
+                    - generic [ref=f58e33]: מודעה
+                  - button [ref=f58e35] [cursor=pointer]:
+                    - generic:
+                      - img
+                - link "STIGSKO | מעמד האכלה ארגונומי - עץ אלון טבעי עץ אלון…" [ref=f58e39] [cursor=pointer]:
+                  - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=A0irLWAAAAAAAAAAeJzj4uW4v2WrrQCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aC6d-f1e3--sNeglGDwYiX4-7G9eoCIAJoAgCIwygz&dt=3&et=2&f=bOMP7REBAAAAAAAAeJzjmNXbcezDzk27DQWuHp10kU3i0dGbJ3ZuvHsoSIuDg1GAQ4JJgcFIkoNBgEGCQYFBg8GAwYLBlQEIPBgCGCIYrNg4FAWEJBidtDh-fFz65f-lz6-CBf5v2nO-8UXfyWIJuJgSV1picUlKjl5iQUFGM2MRHxcXxxYWIebixGIJBgGWBka2LkYuiSZGja2MBhwWDJMYtTngDhFgs5J2dnQNdvX1z8zNjjKNiigvMfIxdUzWjTJ3dSyOYpjByLiAkWETIwvQwYw7GSfunjPv1cQKu4OMuzx5mLTb2-xPMDK8YGT-wMj4g3ElfwMTQwcT4yQmXo67G9erC4AIiRNsC5gYVjAteT6fAwDQP17S&rt=1&sgn=d-4uEGRPCtg303Wsgi84c2wBWKlna3MGDnu1UB2Jgn0%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+                  - generic [ref=f58e40]: STIGSKO | מעמד האכלה ארגונומי - עץ אלון טבעי עץ אלון…
+                - link "295 ₪ 310 ₪" [ref=f58e42] [cursor=pointer]:
+                  - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=A0irLWAAAAAAAAAAeJzj4uW4v2WrrQCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aC6d-f1e3--sNeglGDwYiX4-7G9eoCIAJoAgCIwygz&dt=3&et=2&f=bOMP7REBAAAAAAAAeJzjmNXbcezDzk27DQWuHp10kU3i0dGbJ3ZuvHsoSIuDg1GAQ4JJgcFIkoNBgEGCQYFBg8GAwYLBlQEIPBgCGCIYrNg4FAWEJBidtDh-fFz65f-lz6-CBf5v2nO-8UXfyWIJuJgSV1picUlKjl5iQUFGM2MRHxcXxxYWIebixGIJBgGWBka2LkYuiSZGja2MBhwWDJMYtTngDhFgs5J2dnQNdvX1z8zNjjKNiigvMfIxdUzWjTJ3dSyOYpjByLiAkWETIwvQwYw7GSfunjPv1cQKu4OMuzx5mLTb2-xPMDK8YGT-wMj4g3ElfwMTQwcT4yQmXo67G9erC4AIiRNsC5gYVjAteT6fAwDQP17S&rt=1&sgn=d-4uEGRPCtg303Wsgi84c2wBWKlna3MGDnu1UB2Jgn0%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+                  - generic [ref=f58e43]: 295 ₪
+                  - generic [ref=f58e44]: 310 ₪
+                - link "למידע נוסף" [ref=f58e47] [cursor=pointer]:
+                  - /url: https://eu.asas.yango.com/dsp/event?bi=ZoFaPywAAAAAAAAAeJwBLADT_wiM3IGBnKq2vxoQzB8Y-xgg1qL8MzINCIIYEICt4OX3zbjgSzjvGUDMH1gC0xoUhA%2C%2C&bl=A0irLWAAAAAAAAAAeJzj4uW4v2WrrQCIkDjBJoTKlZLkaNoxS05g4fqrsxglPp87Z6gAIjQYDRiURDhnzQSBk_aC6d-f1e3--sNeglGDwYiX4-7G9eoCIAJoAgCIwygz&dt=3&et=2&f=bOMP7REBAAAAAAAAeJzjmNXbcezDzk27DQWuHp10kU3i0dGbJ3ZuvHsoSIuDg1GAQ4JJgcFIkoNBgEGCQYFBg8GAwYLBlQEIPBgCGCIYrNg4FAWEJBidtDh-fFz65f-lz6-CBf5v2nO-8UXfyWIJuJgSV1picUlKjl5iQUFGM2MRHxcXxxYWIebixGIJBgGWBka2LkYuiSZGja2MBhwWDJMYtTngDhFgs5J2dnQNdvX1z8zNjjKNiigvMfIxdUzWjTJ3dSyOYpjByLiAkWETIwvQwYw7GSfunjPv1cQKu4OMuzx5mLTb2-xPMDK8YGT-wMj4g3ElfwMTQwcT4yQmXo67G9erC4AIiRNsC5gYVjAteT6fAwDQP17S&rt=1&sgn=d-4uEGRPCtg303Wsgi84c2wBWKlna3MGDnu1UB2Jgn0%2C&sgn_m=GW7cCxkAAAAAAAAAeJzjYkot4WIqKuFiTONiSsoE4hwuppQSAUYAQCgE7w%2C%2C&a=CQ8rmQAAAAAAAAAAeJwDAAAAAAE,
+                  - generic [ref=f58e48]: למידע נוסף
+        - button [ref=e730] [cursor=pointer]: Close
+  - contentinfo [ref=e171]:
+    - link [ref=e673] [cursor=pointer]:
+      - /url: https://fastdl.app/en2
+      - img [ref=e173]
+    - generic [ref=e176]:
+      - list [ref=e177]:
+        - listitem [ref=e178]:
+          - link [ref=e674] [cursor=pointer]:
+            - /url: https://fastdl.app/video
+            - text: Video
+          - text: "|"
+        - listitem [ref=e180]:
+          - link [ref=e675] [cursor=pointer]:
+            - /url: https://fastdl.app/photo
+            - text: Photo
+          - text: "|"
+        - listitem [ref=e182]:
+          - link [ref=e676] [cursor=pointer]:
+            - /url: https://fastdl.app/instagram-reels-download
+            - text: Reels
+          - text: "|"
+        - listitem [ref=e184]:
+          - link [ref=e677] [cursor=pointer]:
+            - /url: https://fastdl.app/story-saver
+            - text: Story
+          - text: "|"
+        - listitem [ref=e186]: Viewer |
+        - listitem [ref=e187]:
+          - link [ref=e678] [cursor=pointer]:
+            - /url: https://fastdl.app/igtv
+            - text: Igtv
+          - text: "|"
+        - listitem [ref=e189]:
+          - link [ref=e679] [cursor=pointer]:
+            - /url: https://fastdl.app/carousel
+            - text: Carousel
+      - list [ref=e191]:
+        - listitem [ref=e192]:
+          - link [ref=e680] [cursor=pointer]:
+            - /url: https://fastdl.app/fastdl
+            - text: About FastDL
+          - text: "|"
+        - listitem [ref=e194]:
+          - link [ref=e681] [cursor=pointer]:
+            - /url: https://fastdl.app/contact-us
+            - text: Contact
+          - text: "|"
+        - listitem [ref=e196]:
+          - link [ref=e682] [cursor=pointer]:
+            - /url: https://fastdl.app/privacy-policy
+            - text: Privacy Policy
+          - text: "|"
+        - listitem [ref=e198]:
+          - link [ref=e683] [cursor=pointer]:
+            - /url: https://fastdl.app/terms-and-conditions
+            - text: Terms & Conditions
+      - list [ref=e200]:
+        - listitem [ref=e201]:
+          - link [ref=e684] [cursor=pointer]:
+            - /url: https://background-remover.com/en/
+            - text: Background Remover
+          - text: "|"
+        - listitem [ref=e203]:
+          - link [ref=e685] [cursor=pointer]:
+            - /url: https://savefrompin.to/
+            - text: Pinterest Video Downloader
+          - text: "|"
+        - listitem [ref=e205]:
+          - link [ref=e686] [cursor=pointer]:
+            - /url: https://123tik.com/en
+            - text: 123Tik
+    - generic [ref=e207]:
+      - generic [ref=e208]:
+        - paragraph [ref=e209]: "follow us:"
+        - list [ref=e210]:
+          - listitem [ref=e211]:
+            - link [ref=e687] [cursor=pointer]:
+              - /url: https://www.instagram.com/fastdl.app/
+              - img [ref=e688]
+          - listitem [ref=e214]:
+            - link [ref=e689] [cursor=pointer]:
+              - /url: https://www.facebook.com/groups/1413846933013992/
+              - img [ref=e690]
+          - listitem [ref=e217]:
+            - link [ref=e691] [cursor=pointer]:
+              - /url: https://www.youtube.com/@FastDLapp
+              - img [ref=e692]
+          - listitem [ref=e220]:
+            - link [ref=e693] [cursor=pointer]:
+              - /url: https://x.com/FastDLapp
+              - img [ref=e694]
+          - listitem [ref=e223]:
+            - link [ref=e695] [cursor=pointer]:
+              - /url: https://www.tiktok.com/@fastdl.app
+              - img [ref=e696]
+      - paragraph [ref=e226]: © 2020-2026 FastDl. All rights reserved.
+  - button [ref=e697] [cursor=pointer]:
+    - img [ref=e396]
+  - insertion [ref=e227]

@@ -3,6 +3,7 @@ import re
 import shutil
 import time
 import urllib.parse
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import requests
@@ -137,18 +138,16 @@ class StoryDownloader:
                 )
                 self._close_popups(page)
                 try:
-                    page.wait_for_selector(
-                        ".media-content--story",
-                        timeout=STORIES_LOAD_TIMEOUT,
-                        state="visible",
-                    )
+                    page.wait_for_selector(".media-content--story", timeout=STORIES_LOAD_TIMEOUT, state="visible")
+                    page.wait_for_selector(".media-content__meta-time", timeout=STORIES_LOAD_TIMEOUT, state="visible")
                 except PlaywrightTimeout:
                     return []
 
                 items = page.evaluate("""() => Array.from(document.querySelectorAll('.profile-media-list__item'))
                     .map(li => {
                         const r = li.getBoundingClientRect();
-                        return {u: li.querySelector('.button__download')?.href, x: r.x, y: r.y, t: li.querySelector('.media-content__meta-time')?.title};
+                        const t = li.querySelector('.media-content__meta-time');
+                        return {u: li.querySelector('.button__download')?.href, x: r.x, y: r.y, t: t?.title, txt: t?.innerText?.trim()};
                     })
                     .filter(s => s.u)""")
                 items.sort(key=lambda s: (-s['x'], s['y']))
@@ -191,7 +190,6 @@ class StoryDownloader:
 
     def _download_files(self, stories, user_dir, username):
         downloaded = []
-        total = len(stories)
         for idx, s in enumerate(stories, 1):
             url = s['u']
             for attempt in range(1, MAX_RETRIES + 1):
@@ -200,39 +198,34 @@ class StoryDownloader:
                     r.raise_for_status()
                     ct = r.headers.get("content-type", "").lower()
                     ext = ".mp4" if "mp4" in ct or "video" in ct else ".png" if "png" in ct else ".webp" if "webp" in ct else ".jpg"
+                    ts = None
                     m = re.match(r"(\d+)\.(\d+)\.(\d+),?\s+(\d+):(\d+):(\d+)", s.get('t') or "")
                     if m:
                         d, mo, y, h, mi, sec = m.groups()
                         ts = f"{y}-{int(mo):02d}-{int(d):02d}_{int(h):02d}-{int(mi):02d}-{int(sec):02d}"
-                        filename = f"{username}-{ts}{ext}"
-                    else:
-                        filename = self._make_filename(url, r, idx)
+                    if not ts and (rm := re.search(r'(\d+)\s*(minute|hour|day)', s.get('txt') or '')):
+                        n, u = int(rm[1]), rm[2]
+                        ts = (datetime.now(timezone.utc) - {"m": timedelta(minutes=n), "h": timedelta(hours=n), "d": timedelta(days=n)}[u[0]]).strftime("%Y-%m-%d_%H-%M-%S")
+                    if not ts and (em := re.search(r'__expires=(\d+)', url)):
+                        ts = datetime.fromtimestamp(int(em[1]), tz=timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
+                    if not ts:
+                        ts = f"unknown_{int(time.time())}_{idx}"
+                    filename = f"{username}-{ts}{ext}"
                     p = user_dir / filename
                     p.write_bytes(r.content)
                     downloaded.append(p)
-                    logger.debug(f"  [{idx}/{total}] הורד {filename}")
+                    logger.debug(f"  [{idx}/{len(stories)}] הורד {filename}")
                     break
                 except requests.HTTPError as exc:
                     code = exc.response.status_code if exc.response else 0
                     if code not in RETRYABLE or attempt == MAX_RETRIES:
-                        logger.warning(f"  [{idx}/{total}] שגיאת רשת: {exc}")
+                        logger.warning(f"  [{idx}/{len(stories)}] שגיאת רשת: {exc}")
                         break
                     time.sleep(RETRY_DELAY)
                 except (requests.RequestException, OSError) as exc:
-                    logger.warning(f"  [{idx}/{total}] שגיאה: {exc}")
+                    logger.warning(f"  [{idx}/{len(stories)}] שגיאה: {exc}")
                     break
         return downloaded
-
-    def _make_filename(self, url, response, idx):
-        params = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
-        ct = response.headers.get("content-type", "").lower()
-        ext = ".mp4" if "mp4" in ct or "video" in ct else ".png" if "png" in ct else ".webp" if "webp" in ct else ".jpg"
-        if "filename" in params:
-            name = urllib.parse.unquote(params["filename"][0])
-            if not Path(name).suffix:
-                name = f"{name}{ext}"
-            return name
-        return f"story_{int(time.time())}_{idx}{ext}"
 
     def extract_story_id(self, filename):
         m = re.search(r"-(\d{4}-\d{2}-\d{2}_\d{2}-\d{2}-\d{2})", filename)
