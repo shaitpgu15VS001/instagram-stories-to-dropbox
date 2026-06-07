@@ -51,6 +51,17 @@
 
 הפרויקט משתמש ב-`fastdl.app` להורדת סטוריז:
 
+| שירות אחסון | סטטוס | מימוש | תיעוד |
+|---|---|---|---|---|
+| **Dropbox** | ✅ פעיל (ברירת מחדל) | `dropbox_uploader.py` | SETUP.md חלק 2 |
+| **OneDrive** | ✅ פעיל | `rclone_uploader.py` (דרך rclone) | SETUP.md חלק 2.5 |
+
+הבחירה בין Dropbox ל-OneDrive נעשית דרך משתנה הסביבה `STORAGE_BACKEND` (ברירת מחדל: `dropbox`).
+
+---
+
+### אתרים נתמכים
+
 | אתר | סטטוס | תפקיד | תיעוד |
 |---|---|---|---|
 | **fastdl.app** | ✅ פעיל | קוד ראשי ב-`story_downloader.py` | ראה סלקטורים למטה |
@@ -94,6 +105,7 @@ instagram-stories-to-dropbox/
 ├── src/                                       ← קוד Python
 │   ├── main.py                                ← נקודת כניסה ראשית
 │   ├── dropbox_uploader.py                    ← טיפול בדרופבוקס
+│   ├── rclone_uploader.py                     ← טיפול ב-OneDrive (דרך rclone)
 │   ├── story_downloader.py                    ← הורדת סטוריז (fastdl.app)
 │   ├── state_manager.py                       ← מניעת כפילויות
 │   └── logger.py                              ← לוגים

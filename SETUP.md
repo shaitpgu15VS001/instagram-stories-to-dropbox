@@ -104,6 +104,75 @@ Write-Host "`nשמור אותו במקום בטוח! לא תראה אותו שו
 
 ---
 
+## 🗂️ חלק 2.5: חיבור OneDrive דרך rclone
+
+**דלג על חלק זה אם אתה מעוניין להשתמש רק ב-Dropbox.**
+
+במקום ליצור אפליקציה ב-Azure (שחסום עבורך), נשתמש ב-**rclone** - כלי חינמי שכבר יש לו Client ID מובנה. rclone יתחבר ל-OneDrive שלך, ינהל את ה-Refresh Token בעצמו, ואנחנו נשתמש בו מה-Python.
+
+### שלב 1: התקנת rclone במחשב שלך
+פתח PowerShell והרץ:
+```powershell
+winget install rclone
+```
+💡 אם `winget` לא מותקן, הורד מ-<https://rclone.org/downloads/> והתקן ידנית.
+
+### שלב 2: יצירת קובץ תצורה ל-OneDrive
+1. הפעל את rclone config:
+```powershell
+rclone config
+```
+2. תראה תפריט. בצע:
+   - לחץ `n` (new remote) → Enter
+   - שם: `onedrive` → Enter
+   - מספר: בחר את המספר של **Microsoft OneDrive** (בדרך כלל `23`) → Enter
+   - Client ID: השאר ריק (Enter)
+   - Client Secret: השאר ריק (Enter)
+   - תתבצע פתיחת דפדפן. התחבר לחשבון Microsoft שלך ואשר.
+   - אחרי האישור, תבחר **OneDrive Personal** (או Business לפי הצורך) → המספר המתאים
+   - תבחר את הכונן שלך (בדרך כלל 0)
+   - לחץ `y` (Yes) לאישור
+   - לחץ `q` (quit) לסיום
+
+✅ נוצר קובץ `rclone.conf` בתיקיית המשתמש שלך.
+
+### שלב 3: מציאת קובץ התצורה
+הקובץ נמצא ב:
+```powershell
+notepad $env:USERPROFILE\.config\rclone\rclone.conf
+```
+הקובץ נראה בערך ככה:
+```
+[onedrive]
+type = onedrive
+token = {"access_token":"...","refresh_token":"...","token_type":"Bearer","expiry":"..."}
+drive_id = ...
+drive_type = personal
+```
+
+### שלב 4: המרה ל-base64 ושמירה ב-GitHub Secrets
+1. הרש ב-PowerShell:
+```powershell
+$content = Get-Content "$env:USERPROFILE\.config\rclone\rclone.conf" -Raw
+$bytes = [Text.Encoding]::UTF8.GetBytes($content)
+$base64 = [Convert]::ToBase64String($bytes)
+Write-Host $base64 -ForegroundColor Cyan
+```
+2. **העתק** את המחרוזת הארוכה שיצאה.
+3. עבור ל-GitHub → Settings → Secrets and variables → Actions → **New repository secret**
+4. הוסף Secret:
+   - **Name**: `RCLONE_CONF_BASE64`
+   - **Secret**: הדבק את המחרוזת מהשלב הקודם
+   - לחץ **Add secret**
+
+### שלב 5: הגדרת שירות ברירת מחדל
+אם אתה רוצה ש-OneDrive יהיה ברירת המחדל במקום Dropbox:
+1. פתח את `.github/workflows/sync.yml` ב-GitHub
+2. שנה `STORAGE_BACKEND: 'dropbox'` ל-`STORAGE_BACKEND: 'onedrive'`
+3. שמור (Commit)
+
+---
+
 ## 🐙 חלק 3: יצירת חשבון GitHub
 
 אם כבר יש לך חשבון GitHub - דלג לחלק 4.

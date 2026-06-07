@@ -57,6 +57,29 @@ git push -u origin main
 - Secret: הדבק את ה-Refresh Token שלך
 - לחץ **Add secret**
 
+
+**אם התקנת גם OneDrive (ראה SETUP.md חלק 2.5), הוסף גם:**
+
+**סוד רביעי:**
+- Name: `RCLONE_CONF_BASE64`
+- Secret: הדבק את קובץ `rclone.conf` שהומר ל-base64
+- לחץ **Add secret**
+
+---
+
+## ⚙️ חלק 5.5: בחירת שירות אחסון ברירת מחדל
+
+הפרויקט תומך בשני שירותי אחסון: **Dropbox** (ברירת מחדל) ו-**OneDrive**.
+
+כדי לבחור איזה שירות ישמש כברירת מחדל:
+1. בריפו ב-GitHub, לחץ על **Actions** → לחץ על **Download Instagram Stories to Dropbox** → ... → **Workflow file** (או נווט ישירות לקובץ `.github/workflows/sync.yml`)
+2. לחץ על **Edit** (עיפרון)
+3. מצא את השורה: `STORAGE_BACKEND: 'dropbox'`
+4. שנה ל-`STORAGE_BACKEND: 'onedrive'` כדי להשתמש ב-OneDrive
+5. לחץ **Commit changes** (כחול-ירוק למעלה)
+
+💡 **טיפ**: הריצה הידנית משתמשת תמיד בברירת המחדל שבחרת. כדי להריץ עם השירות השני, שנה זמנית את `STORAGE_BACKEND` ב-`sync.yml`, הרץ ידנית, ואז החזר אחורה.
+
 ---
 
 ## 👥 חלק 6: הוספת שמות משתמשים

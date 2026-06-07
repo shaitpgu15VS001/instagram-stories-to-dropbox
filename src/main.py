@@ -7,6 +7,7 @@ from pathlib import Path
 
 from .dropbox_uploader import DropboxUploader
 from .logger import logger
+from .rclone_uploader import RcloneUploader
 from .state_manager import StateManager
 from .story_downloader import StoryDownloader
 
@@ -106,15 +107,29 @@ def main():
     if force_redownload:
         logger.warning("מצב כפוי: כל הקבצים יועלו מחדש ללא בדיקת כפילויות")
 
-    app_key = os.environ.get("DROPBOX_APP_KEY")
-    app_secret = os.environ.get("DROPBOX_APP_SECRET")
-    refresh_token = os.environ.get("DROPBOX_REFRESH_TOKEN")
+    storage_backend = os.environ.get("STORAGE_BACKEND", "dropbox").lower()
+    logger.info(f"שירות אחסון: {storage_backend}")
 
-    if not all([app_key, app_secret, refresh_token]):
-        logger.error(
-            "חסרים משתני סביבה. יש להגדיר DROPBOX_APP_KEY, DROPBOX_APP_SECRET, DROPBOX_REFRESH_TOKEN"
-        )
-        sys.exit(1)
+    if storage_backend == "onedrive":
+        rclone_config = os.environ.get("RCLONE_CONF_PATH", "rclone.conf")
+        if not os.environ.get("RCLONE_CONF_PATH") and not os.path.exists("rclone.conf"):
+            logger.error(
+                "חסר קובץ תצורת rclone ל-OneDrive. "
+                "יש להגדיר RCLONE_CONF_BASE64 ב-Secrets (ראה SETUP.md)"
+            )
+            sys.exit(1)
+        uploader = RcloneUploader(config_path=rclone_config)
+    else:
+        app_key = os.environ.get("DROPBOX_APP_KEY")
+        app_secret = os.environ.get("DROPBOX_APP_SECRET")
+        dbx_refresh_token = os.environ.get("DROPBOX_REFRESH_TOKEN")
+        if not all([app_key, app_secret, dbx_refresh_token]):
+            logger.error(
+                "חסרים משתני סביבה. "
+                "יש להגדיר DROPBOX_APP_KEY, DROPBOX_APP_SECRET, DROPBOX_REFRESH_TOKEN"
+            )
+            sys.exit(1)
+        uploader = DropboxUploader(app_key, app_secret, dbx_refresh_token)
 
     usernames = load_usernames()
     if not usernames:
@@ -123,7 +138,6 @@ def main():
 
     state = StateManager()
     downloader = StoryDownloader()
-    uploader = DropboxUploader(app_key, app_secret, refresh_token)
 
     if not downloader.check_binary():
         logger.error("Playwright לא מותקן כראוי. בדוק את שלב ההתקנה ב-workflow.")
