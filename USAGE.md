@@ -62,7 +62,7 @@ git push -u origin main
 
 **סוד רביעי:**
 - Name: `RCLONE_CONF_BASE64`
-- Secret: הדבק את קובץ `rclone.conf` שהומר ל-base64
+- Secret: הדבק את המחרוזת הארוכה שיצאה מהמרת `rclone.conf` ל-base64
 - לחץ **Add secret**
 
 ---

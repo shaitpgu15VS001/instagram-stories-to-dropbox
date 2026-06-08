@@ -117,41 +117,100 @@ winget install rclone
 ```
 💡 אם `winget` לא מותקן, הורד מ-<https://rclone.org/downloads/> והתקן ידנית.
 
-### שלב 2: יצירת קובץ תצורה ל-OneDrive
-1. הפעל את rclone config:
+### שלב 2: יצירת קובץ תצורה ל-OneDrive (שלב אחר שלב)
+
+#### 2.1 קבלת Token מ-Microsoft (בלי לפתוח דפדפן אוטומטי)
+
+הפקודה הבאה **לא תפתח** דפדפן לבד - היא תיתן לך קישור או קוד, ואתה תעתיק אותם ידנית לדפדפן שאתה רוצה (Edge, Chrome, Firefox - מה שבא לך):
+
+```powershell
+rclone authorize "onedrive" --auth-no-open-browser
+```
+
+#### 2.2 מה יופיע במסך?
+
+תראה משהו כזה:
+```
+Opening authorization URL in your browser (or copy it manually):
+https://login.microsoftonline.com/common/oauth2/authorize?client_id=...
+
+Or open https://microsoft.com/devicelogin and enter the code: ABCDEF123
+```
+
+יש שני תרחישים:
+- **קישור ארוך** (הכי נפוץ) - תעתיק אותו ותדביק בדפדפן
+- **קוד קצר (ABCDEF123) + קישור microsoft.com/devicelogin** - תפתח את הקישור בדפדפן, תזין את הקוד
+
+#### 2.3 מה עושים בדפדפן?
+
+1. תפתח את הדפדפן שאתה רוצה (Edge, Chrome, Firefox - זה לא משנה)
+2. תדביק את הקישור (או תפתח `microsoft.com/devicelogin` ותזין את הקוד)
+3. תתחבר לחשבון Microsoft שלך (זה שאליו אתה רוצה להעלות את הסטוריז)
+4. תופיע הודעה: **"rclone מבקש גישה לקבצים שלך"**
+   - תלחץ **"כן"** או **"Accept"**
+   - זה נותן ל-rclone גישה רק לקבצים שלך ב-OneDrive (לא לסיסמה, לא למיילים, לא לשום דבר אחר)
+5. הדפדפן יגיד **"You can close this window"** - תסגור אותו
+
+#### 2.4 חזרה ל-PowerShell
+
+אחרי שאישרת בדפדפן, ה-PowerShell יראה:
+```
+Successfully authorized.
+
+Paste the following into the config...
+------PASTE START------
+{"access_token":"...", "refresh_token":"...", "token_type":"Bearer", "expiry":"..."}
+------PASTE END------
+```
+
+**תעתיק** את כל הטקסט בין `PASTE START` ל-`PASTE END` (כולל הסוגריים `{}`). זה ה-token שלך.
+
+#### 2.5 שימוש ב-rclone config (הדרך שעובדת)
+
+עכשיו נשתמש בתפריט של rclone כדי ליצור את קובץ התצורה המלא (עם `drive_id` ו-`drive_type` ש-rclone צריך):
+
 ```powershell
 rclone config
 ```
-2. תראה תפריט. בצע:
-   - לחץ `n` (new remote) → Enter
-   - שם: `onedrive` → Enter
-   - מספר: בחר את המספר של **Microsoft OneDrive** (בדרך כלל `23`) → Enter
-   - Client ID: השאר ריק (Enter)
-   - Client Secret: השאר ריק (Enter)
-   - תתבצע פתיחת דפדפן. התחבר לחשבון Microsoft שלך ואשר.
-   - אחרי האישור, תבחר **OneDrive Personal** (או Business לפי הצורך) → המספר המתאים
-   - תבחר את הכונן שלך (בדרך כלל 0)
-   - לחץ `y` (Yes) לאישור
-   - לחץ `q` (quit) לסיום
 
-✅ נוצר קובץ `rclone.conf` בתיקיית המשתמש שלך.
+תראה תפריט. בצע לפי הסדר:
+1. **תמחק את הרמיט הישן** (אם קיים):
+   - הקש **d** (delete) → Enter
+   - כתוב `onedrive` → Enter
+2. **תיצור רמיט חדש**:
+   - הקש **n** (new remote) → Enter
+   - Name: כתוב `onedrive` → Enter
+3. **בחירת סוג אחסון**:
+   - תראה רשימה ארוכה של שירותים
+   - תקליד את המספר של **Microsoft OneDrive** (בדרך כלל `23`) → Enter
+4. **פרטי אפליקציה**:
+   - Client Id: **השאר ריק** (Enter)
+   - Client Secret: **השאר ריק** (Enter)
+5. **"Use auto config?"** → תענה **N** (no) → Enter
+   - זה אומר ל-rclone: "אל תפתח דפדפן לבד, אני אדביק את ה-token ידנית"
+6. **"Got a code?"** → **תדביק** את כל המחרוזת שהעתקת בשלב 2.4 → Enter
+7. **"Choose drive type:"** → **1** (OneDrive Personal) → Enter
+   ⚠️ אם אתה משתמש ב-OneDrive של עבודה/לימודים, תבחר **2** (OneDrive Business)
+8. **"config_driveid"** → תופיע רשימה של כוננים. תבחר את המספר של **OneDrive (personal)** (אצלך זה היה 3) → Enter
+   (זה הכונן האישי שלך, לא תיקיות משותפות)
+9. **אשר** → הקש **y** (yes) → Enter
+10. **צא** → הקש **q** (quit) → Enter
 
-### שלב 3: מציאת קובץ התצורה
-הקובץ נמצא ב:
+#### 2.6 לוודא שהכול עובד
+
+הרץ:
 ```powershell
-notepad $env:USERPROFILE\.config\rclone\rclone.conf
+rclone ls onedrive:
 ```
-הקובץ נראה בערך ככה:
-```
-[onedrive]
-type = onedrive
-token = {"access_token":"...","refresh_token":"...","token_type":"Bearer","expiry":"..."}
-drive_id = ...
-drive_type = personal
-```
+אם לא קיבלת שגיאה (גם אם הרשימה ריקה) - זה עובד!
 
-### שלב 4: המרה ל-base64 ושמירה ב-GitHub Secrets
-1. הרש ב-PowerShell:
+אם קיבלת שגיאה, חוזרים לשלב 2.5 ובוחרים מספר כונן אחר. אצל רוב האנשים זה 0 או 1 או 3.
+
+### שלב 3: המרה ל-base64 ושמירה ב-GitHub Secrets
+
+💡 **מה זה base64?** פשוט דרך להפוך קובץ למחרוזת אחת שאין בעיה להעתיק ולהדביק ב-GitHub. ככה שומרים את קובץ ה-config בתור Secret.
+
+1. הרץ ב-PowerShell:
 ```powershell
 $content = Get-Content "$env:USERPROFILE\.config\rclone\rclone.conf" -Raw
 $bytes = [Text.Encoding]::UTF8.GetBytes($content)
@@ -165,7 +224,7 @@ Write-Host $base64 -ForegroundColor Cyan
    - **Secret**: הדבק את המחרוזת מהשלב הקודם
    - לחץ **Add secret**
 
-### שלב 5: הגדרת שירות ברירת מחדל
+### שלב 4: הגדרת שירות ברירת מחדל
 אם אתה רוצה ש-OneDrive יהיה ברירת המחדל במקום Dropbox:
 1. פתח את `.github/workflows/sync.yml` ב-GitHub
 2. שנה `STORAGE_BACKEND: 'dropbox'` ל-`STORAGE_BACKEND: 'onedrive'`

@@ -63,7 +63,7 @@ class RcloneUploader:
         for attempt in range(1, self.MAX_RETRIES + 1):
             try:
                 result = self._run_rclone(
-                    ["copy", str(local_path), dest],
+                    ["copyto", str(local_path), dest],
                     timeout=300,
                 )
                 if result.returncode == 0:
