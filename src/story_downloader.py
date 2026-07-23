@@ -45,12 +45,13 @@ class StoryDownloader:
             )
             return False
 
-    def download_stories(self, username):
+    def download_stories(self, username, folder_name=None):
         username = username.strip().lstrip("@")
         if not username:
             return {"success": False, "files": [], "error": "שם משתמש ריק"}
 
-        user_dir = self.output_dir / username
+        target_name = folder_name or username
+        user_dir = self.output_dir / target_name
         user_dir.mkdir(parents=True, exist_ok=True)
         for item in user_dir.iterdir():
             try:
@@ -233,9 +234,10 @@ class StoryDownloader:
             return m.group(1)
         return Path(filename).stem
 
-    def cleanup(self, username=None):
-        if username:
-            target = self.output_dir / username
+    def cleanup(self, username=None, folder_name=None):
+        target_name = folder_name or username
+        if target_name:
+            target = self.output_dir / target_name
             if target.exists():
                 shutil.rmtree(target, ignore_errors=True)
         else:

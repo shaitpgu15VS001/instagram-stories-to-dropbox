@@ -24,19 +24,36 @@ def load_usernames(file_path=USERNAMES_FILE):
         logger.error(f"קובץ שמות המשתמשים לא נמצא: {path}")
         return []
 
-    usernames = []
+    entries = []
     with open(path, "r", encoding="utf-8") as f:
         for line in f:
             line = line.strip()
             if not line or line.startswith("#"):
                 continue
-            username = line.lstrip("@").strip()
-            if username:
-                usernames.append(username)
+            if "|" in line:
+                parts = [p.strip() for p in line.split("|", 1)]
+                display_name = parts[0].strip()
+                username = parts[1].lstrip("@").strip()
+                if not display_name:
+                    display_name = username
+                if not username:
+                    continue
+            else:
+                username = line.lstrip("@").strip()
+                if not username:
+                    continue
+                display_name = username
+            entries.append((display_name, username))
 
-    unique = list(dict.fromkeys(usernames))
-    logger.info(f"נטענו {len(unique)} שמות משתמש ייחודיים")
-    return unique
+    seen = {}
+    unique_entries = []
+    for display_name, username in entries:
+        if username not in seen:
+            seen[username] = True
+            unique_entries.append((display_name, username))
+
+    logger.info(f"נטענו {len(unique_entries)} שמות משתמש ייחודיים")
+    return unique_entries
 
 
 def get_today_str():
@@ -47,10 +64,10 @@ def random_delay():
     return random.randint(MIN_DELAY_BETWEEN_USERS, MAX_DELAY_BETWEEN_USERS)
 
 
-def process_user(username, downloader, uploader, state, force_redownload):
+def process_user(username, downloader, uploader, state, force_redownload, folder_name=None):
     logger.section(f"מעבד את @{username}")
 
-    result = downloader.download_stories(username)
+    result = downloader.download_stories(username, folder_name=folder_name)
     if not result["success"]:
         logger.warning(f"דילוג על @{username} עקב שגיאה: {result.get('error')}")
         return {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": result.get("error")}
@@ -60,7 +77,7 @@ def process_user(username, downloader, uploader, state, force_redownload):
         return {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": None}
 
     today = get_today_str()
-    folder_path = uploader.get_folder_path_for_date(today, username)
+    folder_path = uploader.get_folder_path_for_date(today, folder_name or username)
 
     stats = {"downloaded": len(files), "uploaded": 0, "skipped": 0, "error": None}
 
@@ -131,8 +148,8 @@ def main():
             sys.exit(1)
         uploader = DropboxUploader(app_key, app_secret, dbx_refresh_token)
 
-    usernames = load_usernames()
-    if not usernames:
+    user_entries = load_usernames()
+    if not user_entries:
         logger.error("לא נמצאו שמות משתמשים ב-usernames.txt")
         sys.exit(1)
 
@@ -155,12 +172,12 @@ def main():
         "files_skipped": 0,
     }
 
-    total = len(usernames)
-    for idx, username in enumerate(usernames, 1):
+    total = len(user_entries)
+    for idx, (display_name, username) in enumerate(user_entries, 1):
         logger.progress(idx, total, prefix="התקדמות")
         stats = {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": None}
         try:
-            stats = process_user(username, downloader, uploader, state, force_redownload)
+            stats = process_user(username, downloader, uploader, state, force_redownload, folder_name=display_name)
             total_stats["users_processed"] += 1
             total_stats["files_downloaded"] += stats.get("downloaded", 0)
             total_stats["files_uploaded"] += stats.get("uploaded", 0)
@@ -171,7 +188,7 @@ def main():
             logger.error(f"שגיאה לא צפויה בעיבוד @{username}: {exc}")
             total_stats["users_failed"] += 1
 
-        downloader.cleanup(username)
+        downloader.cleanup(folder_name=display_name)
 
         if idx < total:
             if stats.get("error") == "rate_limit":

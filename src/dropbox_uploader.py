@@ -176,9 +176,9 @@ class DropboxUploader:
             logger.warning(f"שגיאה בבדיקת קיום קובץ: {exc}")
             return False
 
-    def get_folder_path_for_date(self, date_str, username):
-        safe_username = self._sanitize(username)
-        return f"/Instagram/{date_str}/{safe_username}"
+    def get_folder_path_for_date(self, date_str, folder_name):
+        safe_folder = self._sanitize(folder_name)
+        return f"/Instagram/{date_str}/{safe_folder}"
 
     @staticmethod
     def _sanitize(name):
