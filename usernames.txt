@@ -3,6 +3,3 @@
 # אם אין |, שם התיקייה = שם המשתמש
 ישראל בידור | israel_bidur
 natgeo
-nike
-instagram
-cristiano
