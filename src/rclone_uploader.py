@@ -5,15 +5,13 @@ from pathlib import Path
 from .logger import logger
 
 
-RCLONE_NAME = "onedrive"
-
-
 class RcloneUploader:
 
     MAX_RETRIES = 3
     RETRY_DELAY = 5
 
-    def __init__(self, config_path="rclone.conf"):
+    def __init__(self, remote_name="onedrive", config_path="rclone.conf"):
+        self.remote_name = remote_name
         self.config_path = str(config_path)
         self._rclone_checked = False
 
@@ -58,7 +56,7 @@ class RcloneUploader:
         if remote_path.startswith("/"):
             remote_path = remote_path[1:]
 
-        dest = f"{RCLONE_NAME}:{remote_path}"
+        dest = f"{self.remote_name}:{remote_path}"
 
         for attempt in range(1, self.MAX_RETRIES + 1):
             try:
@@ -93,7 +91,7 @@ class RcloneUploader:
             return True
         try:
             result = self._run_rclone(
-                ["mkdir", f"{RCLONE_NAME}:{folder_path}"],
+                ["mkdir", f"{self.remote_name}:{folder_path}"],
                 timeout=30,
             )
             return result.returncode == 0
@@ -109,7 +107,7 @@ class RcloneUploader:
         if not parent or parent == ".":
             parent = ""
         try:
-            rclone_path = f"{RCLONE_NAME}:{parent}" if parent else f"{RCLONE_NAME}:"
+            rclone_path = f"{self.remote_name}:{parent}" if parent else f"{self.remote_name}:"
             result = self._run_rclone(
                 ["lsjson", rclone_path],
                 timeout=30,

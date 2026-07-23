@@ -32,53 +32,41 @@ git push -u origin main
 
 ---
 
-## 🔐 חלק 5: הגדרת Secrets
+## 🔐 חלק 5: הגדרת Secret יחיד
+
+המערכת משתמשת ב-**Secret אחד בלבד** — קובץ תצורת rclone שמכיל את כל חיבורי הענן.
 
 ### שלב 1: כניסה להגדרות
 1. בריפו שיצרת, לחץ על **Settings** (למעלה)
 2. בתפריט השמאלי, לחץ על **Secrets and variables** → **Actions**
 3. לחץ על **New repository secret**
 
-### שלב 2: הוספת 3 סודות
-לחץ **New repository secret** שלוש פעמים, והוסף:
-
-**סוד ראשון:**
-- Name: `DROPBOX_APP_KEY`
-- Secret: הדבק את ה-App Key שלך
+### שלב 2: הוספת Secret יחיד
+- **Name**: `RCLONE_CONF`
+- **Secret**: הדבק את **כל תוכן** קובץ `rclone.conf` שלך (ראה SETUP.md חלק 2)
 - לחץ **Add secret**
 
-**סוד שני:**
-- Name: `DROPBOX_APP_SECRET`
-- Secret: הדבק את ה-App Secret שלך
-- לחץ **Add secret**
-
-**סוד שלישי:**
-- Name: `DROPBOX_REFRESH_TOKEN`
-- Secret: הדבק את ה-Refresh Token שלך
-- לחץ **Add secret**
-
-
-**אם התקנת גם OneDrive (ראה SETUP.md חלק 2.5), הוסף גם:**
-
-**סוד רביעי:**
-- Name: `RCLONE_CONF_BASE64`
-- Secret: הדבק את המחרוזת הארוכה שיצאה מהמרת `rclone.conf` ל-base64
-- לחץ **Add secret**
+✅ סיימת! אין צורך ביותר Secrets.
 
 ---
 
-## ⚙️ חלק 5.5: בחירת שירות אחסון ברירת מחדל
+## ⚙️ חלק 5.5: בחירת אחסון ברירת מחדל
 
-הפרויקט תומך בשני שירותי אחסון: **Dropbox** (ברירת מחדל) ו-**OneDrive**.
+### דרך א: קובץ STORAGE_BACKEND.txt (פשוט)
+ערוך את הקובץ `STORAGE_BACKEND.txt` וכתוב את שם החיבור:
+```
+dropbox
+```
+או:
+```
+onedrive
+```
+שמור וקדם ל-repo (Commit).
 
-כדי לבחור איזה שירות ישמש כברירת מחדל:
-1. בריפו ב-GitHub, לחץ על **Actions** → לחץ על **Download Instagram Stories to Dropbox** → ... → **Workflow file** (או נווט ישירות לקובץ `.github/workflows/sync.yml`)
-2. לחץ על **Edit** (עיפרון)
-3. מצא את השורה: `STORAGE_BACKEND: 'dropbox'`
-4. שנה ל-`STORAGE_BACKEND: 'onedrive'` כדי להשתמש ב-OneDrive
-5. לחץ **Commit changes** (כחול-ירוק למעלה)
+### דרך ב: בהרצה ידנית (עוקף זמנית)
+כשלוחצים **Run workflow**, יש שדה אופציונלי **Storage backend** — אפשר להזין שם חיבור שונה להרצה הספציפית.
 
-💡 **טיפ**: הריצה הידנית משתמשת תמיד בברירת המחדל שבחרת. כדי להריץ עם השירות השני, שנה זמנית את `STORAGE_BACKEND` ב-`sync.yml`, הרץ ידנית, ואז החזר אחורה.
+💡 בלוג תראה: `נמצאו אחסונים: [dropbox, onedrive]` ואחר כך `נבחר אחסון: dropbox`.
 
 ---
 

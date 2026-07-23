@@ -13,6 +13,11 @@ on:
         options:
           - 'false'
           - 'true'
+      storage_backend:
+        description: 'שם חיבור הענן (להרצה זו בלבד, עוקף את STORAGE_BACKEND.txt)'
+        required: false
+        default: ''
+        type: string
 
 concurrency:
   group: instagram-stories-sync
@@ -56,17 +61,14 @@ jobs:
 
       - name: שחזור קובץ תצורת rclone
         env:
-          RCLONE_CONF_BASE64: ${{ secrets.RCLONE_CONF_BASE64 }}
-        if: env.RCLONE_CONF_BASE64 != ''
-        run: echo "$RCLONE_CONF_BASE64" | base64 -d > rclone.conf
+          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+        if: env.RCLONE_CONF != ''
+        run: printf '%s' "$RCLONE_CONF" > rclone.conf
 
       - name: הרצת הסנכרון
         env:
-          DROPBOX_APP_KEY: ${{ secrets.DROPBOX_APP_KEY }}
-          DROPBOX_APP_SECRET: ${{ secrets.DROPBOX_APP_SECRET }}
-          DROPBOX_REFRESH_TOKEN: ${{ secrets.DROPBOX_REFRESH_TOKEN }}
-          RCLONE_CONF_BASE64: ${{ secrets.RCLONE_CONF_BASE64 }}
-          STORAGE_BACKEND: 'dropbox'
+          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+          STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
           FORCE_REDOWNLOAD: ${{ github.event.inputs.force_redownload || 'false' }}
           LOG_LEVEL: DEBUG
         run: |

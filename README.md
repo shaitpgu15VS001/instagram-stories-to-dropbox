@@ -53,10 +53,11 @@
 
 | שירות אחסון | סטטוס | מימוש | תיעוד |
 |---|---|---|---|---|
-| **Dropbox** | ✅ פעיל (ברירת מחדל) | `dropbox_uploader.py` | SETUP.md חלק 2 |
-| **OneDrive** | ✅ פעיל | `rclone_uploader.py` (דרך rclone) | SETUP.md חלק 2.5 |
+| **Dropbox** | ✅ פעיל | `rclone_uploader.py` | SETUP.md חלק 2 |
+| **OneDrive** | ✅ פעיל | `rclone_uploader.py` | SETUP.md חלק 2 |
+| **כל ענן שנתמך ב-rclone** | ✅ | `rclone_uploader.py` | SETUP.md חלק 2 |
 
-הבחירה בין Dropbox ל-OneDrive נעשית דרך משתנה הסביבה `STORAGE_BACKEND` (ברירת מחדל: `dropbox`).
+כל חיבורי הענן מרוכזים בקובץ `rclone.conf` אחד. הבחירה ביניהם נעשית בקובץ `STORAGE_BACKEND.txt`.
 
 ---
 
@@ -112,6 +113,9 @@ instagram-stories-to-dropbox/
 ├── docs/                                      ← תיעוד
 │   └── FASTDL_GUIDE.md                        ← מדריך מלא ל-fastdl.app
 ├── usernames.txt                              ← רשימת שמות משתמש (לעריכה)
+├── usernames.csv                              ← רשימת שמות משתמש בפורמט CSV
+├── STORAGE_BACKEND.txt                        ← אחסון ברירת מחדל (dropbox / onedrive / ...)
+├── rclone.conf                                ← תצורת חיבור לעננים (נוצר מ-Secret)
 ├── requirements.txt                           ← תלויות Python
 ├── README.md                                  ← הקובץ הזה
 ├── SETUP.md                                   ← מדריך ההתקנה
@@ -124,10 +128,10 @@ instagram-stories-to-dropbox/
 ## 🔒 אבטחה ופרטיות
 
 - ✅ כל הסיסמאות והטוקנים מאוחסנים ב-**GitHub Secrets** - מוצפנים ולא גלויים
+- ✅ Secret יחיד (`RCLONE_CONF`) מכיל את כל חיבורי הענן
 - ✅ אף אחד אחר לא יכול לראות את הקבצים בריפו אם הוא Private
-- ✅ Dropbox מקבל גישה רק לקבצים שהאפליקציה יוצרת
 - ⚠️ אל תשתף את הריפו עם אנשים אחרים אם הוא Public
-- 💡 אם אתה חושד שמישהו קיבל גישה - תוכל לבטל את ה-Refresh Token ב-Dropbox App Console
+- 💡 אם אתה חושד שמישהו קיבל גישה - תוכל לבטל את הגישה דרך חשבון הענן שלך
 
 ---
 

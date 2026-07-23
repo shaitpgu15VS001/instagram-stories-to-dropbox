@@ -6,7 +6,6 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 
-from .dropbox_uploader import DropboxUploader
 from .logger import logger
 from .rclone_uploader import RcloneUploader
 from .state_manager import StateManager
@@ -16,6 +15,8 @@ from .story_downloader import StoryDownloader
 USERNAMES_FILE = "usernames.txt"
 USERNAMES_CSV = "usernames.csv"
 USERNAMES_XLSX = "usernames.xlsx"
+STORAGE_BACKEND_FILE = "STORAGE_BACKEND.txt"
+RCLONE_CONF_FILE = "rclone.conf"
 MIN_DELAY_BETWEEN_USERS = 2
 MAX_DELAY_BETWEEN_USERS = 3
 DELAY_AFTER_ERROR = 30
@@ -155,6 +156,30 @@ def random_delay():
     return random.randint(MIN_DELAY_BETWEEN_USERS, MAX_DELAY_BETWEEN_USERS)
 
 
+def _detect_remotes(config_path=RCLONE_CONF_FILE):
+    path = Path(config_path)
+    if not path.exists():
+        return []
+    remotes = []
+    with open(path, "r", encoding="utf-8") as f:
+        for line in f:
+            line = line.strip()
+            if line.startswith("[") and line.endswith("]"):
+                name = line[1:-1].strip()
+                if name:
+                    remotes.append(name)
+    return remotes
+
+
+def _read_default_remote(file_path=STORAGE_BACKEND_FILE):
+    path = Path(file_path)
+    if path.exists():
+        name = path.read_text(encoding="utf-8").strip()
+        if name:
+            return name
+    return None
+
+
 def process_user(username, downloader, uploader, state, force_redownload, folder_name=None):
     logger.section(f"מעבד את @{username}")
 
@@ -215,29 +240,31 @@ def main():
     if force_redownload:
         logger.warning("מצב כפוי: כל הקבצים יועלו מחדש ללא בדיקת כפילויות")
 
-    storage_backend = os.environ.get("STORAGE_BACKEND", "dropbox").lower()
-    logger.info(f"שירות אחסון: {storage_backend}")
+    remote_from_env = os.environ.get("STORAGE_BACKEND", "").strip().lower()
+    remote_from_file = _read_default_remote()
+    remote_from_env = remote_from_env if remote_from_env else (remote_from_file or "")
 
-    if storage_backend == "onedrive":
-        rclone_config = os.environ.get("RCLONE_CONF_PATH", "rclone.conf")
-        if not os.environ.get("RCLONE_CONF_PATH") and not os.path.exists("rclone.conf"):
-            logger.error(
-                "חסר קובץ תצורת rclone ל-OneDrive. "
-                "יש להגדיר RCLONE_CONF_BASE64 ב-Secrets (ראה SETUP.md)"
+    available = _detect_remotes()
+    if not available:
+        logger.error("לא נמצאו אחסונים בענן. יש להגדיר rclone.conf (ראה SETUP.md)")
+        sys.exit(1)
+
+    logger.info(f"אחסונים זמינים: {available}")
+
+    if remote_from_env:
+        if remote_from_env not in available:
+            logger.warning(
+                f"האחסון המבוקש '{remote_from_env}' לא נמצא ב-rclone.conf. "
+                f"אפשרויות: {available}. בוחר אוטומטית..."
             )
-            sys.exit(1)
-        uploader = RcloneUploader(config_path=rclone_config)
+            selected = available[0]
+        else:
+            selected = remote_from_env
     else:
-        app_key = os.environ.get("DROPBOX_APP_KEY")
-        app_secret = os.environ.get("DROPBOX_APP_SECRET")
-        dbx_refresh_token = os.environ.get("DROPBOX_REFRESH_TOKEN")
-        if not all([app_key, app_secret, dbx_refresh_token]):
-            logger.error(
-                "חסרים משתני סביבה. "
-                "יש להגדיר DROPBOX_APP_KEY, DROPBOX_APP_SECRET, DROPBOX_REFRESH_TOKEN"
-            )
-            sys.exit(1)
-        uploader = DropboxUploader(app_key, app_secret, dbx_refresh_token)
+        selected = available[0]
+
+    logger.info(f"נבחר אחסון: {selected}")
+    uploader = RcloneUploader(remote_name=selected, config_path=RCLONE_CONF_FILE)
 
     user_entries = load_usernames()
     if not user_entries:
@@ -252,7 +279,7 @@ def main():
         sys.exit(1)
 
     if not uploader.connect():
-        logger.error("לא ניתן להתחבר לדרופבוקס. בדוק את ה-Secrets.")
+        logger.error(f"לא ניתן להתחבר לאחסון '{selected}'. בדוק את rclone.conf.")
         sys.exit(1)
 
     total_stats = {
