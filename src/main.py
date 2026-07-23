@@ -47,24 +47,32 @@ def _parse_txt(path):
 
 def _parse_csv(path):
     entries = []
-    with open(path, "r", encoding="utf-8-sig") as f:
-        reader = csv.reader(f)
-        header = next(reader, None)
-        if not header:
-            return entries
-        username_col = 0
-        display_col = 1 if len(header) > 1 else None
-        for row in reader:
-            if not row or not row[0].strip():
-                continue
-            username = row[username_col].strip().lstrip("@")
-            if not username:
-                continue
-            if display_col is not None and len(row) > display_col and row[display_col].strip():
-                display_name = row[display_col].strip()
-            else:
-                display_name = username
-            entries.append((display_name, username))
+    encodings = ["utf-8-sig", "utf-8", "cp1255", "cp1252", "latin-1"]
+    for enc in encodings:
+        try:
+            with open(path, "r", encoding=enc) as f:
+                reader = csv.reader(f)
+                header = next(reader, None)
+                if not header:
+                    return entries
+                username_col = 0
+                display_col = 1 if len(header) > 1 else None
+                for row in reader:
+                    if not row or not row[0].strip():
+                        continue
+                    username = row[username_col].strip().lstrip("@")
+                    if not username:
+                        continue
+                    if display_col is not None and len(row) > display_col and row[display_col].strip():
+                        display_name = row[display_col].strip()
+                    else:
+                        display_name = username
+                    entries.append((display_name, username))
+            break
+        except UnicodeDecodeError:
+            continue
+    else:
+        logger.warning(f"לא ניתן לקרוא את {path} באף קידוד")
     return entries
 
 
