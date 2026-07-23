@@ -1,3 +1,4 @@
+import csv
 import os
 import random
 import sys
@@ -13,17 +14,14 @@ from .story_downloader import StoryDownloader
 
 
 USERNAMES_FILE = "usernames.txt"
+USERNAMES_CSV = "usernames.csv"
+USERNAMES_XLSX = "usernames.xlsx"
 MIN_DELAY_BETWEEN_USERS = 2
 MAX_DELAY_BETWEEN_USERS = 3
 DELAY_AFTER_ERROR = 30
 
 
-def load_usernames(file_path=USERNAMES_FILE):
-    path = Path(file_path)
-    if not path.exists():
-        logger.error(f"קובץ שמות המשתמשים לא נמצא: {path}")
-        return []
-
+def _parse_txt(path):
     entries = []
     with open(path, "r", encoding="utf-8") as f:
         for line in f:
@@ -32,7 +30,7 @@ def load_usernames(file_path=USERNAMES_FILE):
                 continue
             if "|" in line:
                 parts = [p.strip() for p in line.split("|", 1)]
-                display_name = parts[0].strip()
+                display_name = parts[0]
                 username = parts[1].lstrip("@").strip()
                 if not display_name:
                     display_name = username
@@ -44,15 +42,100 @@ def load_usernames(file_path=USERNAMES_FILE):
                     continue
                 display_name = username
             entries.append((display_name, username))
+    return entries
 
-    seen = {}
+
+def _parse_csv(path):
+    entries = []
+    with open(path, "r", encoding="utf-8-sig") as f:
+        reader = csv.reader(f)
+        header = next(reader, None)
+        if not header:
+            return entries
+        username_col = 0
+        display_col = 1 if len(header) > 1 else None
+        for row in reader:
+            if not row or not row[0].strip():
+                continue
+            username = row[username_col].strip().lstrip("@")
+            if not username:
+                continue
+            if display_col is not None and len(row) > display_col and row[display_col].strip():
+                display_name = row[display_col].strip()
+            else:
+                display_name = username
+            entries.append((display_name, username))
+    return entries
+
+
+def _parse_xlsx(path):
+    entries = []
+    try:
+        import openpyxl
+    except ImportError:
+        logger.error("openpyxl לא מותקן. הרץ: pip install openpyxl")
+        return entries
+    try:
+        wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
+        ws = wb.active
+        rows = list(ws.iter_rows(values_only=True))
+        if not rows:
+            return entries
+        header = rows[0]
+        username_col = 0
+        display_col = 1 if len(header) > 1 else None
+        for row in rows[1:]:
+            if not row or not row[username_col]:
+                continue
+            username = str(row[username_col]).strip().lstrip("@")
+            if not username:
+                continue
+            if display_col is not None and len(row) > display_col and row[display_col]:
+                display_name = str(row[display_col]).strip()
+            else:
+                display_name = username
+            entries.append((display_name, username))
+        wb.close()
+    except Exception as exc:
+        logger.warning(f"שגיאה בקריאת {path}: {exc}")
+    return entries
+
+
+def load_usernames():
+    all_entries = []
+
+    txt_path = Path(USERNAMES_FILE)
+    if txt_path.exists():
+        entries = _parse_txt(txt_path)
+        all_entries.extend(entries)
+        logger.info(f"נקראו {len(entries)} משתמשים מ-{USERNAMES_FILE}")
+    else:
+        logger.debug(f"קובץ {USERNAMES_FILE} לא קיים, מדלג")
+
+    csv_path = Path(USERNAMES_CSV)
+    if csv_path.exists():
+        entries = _parse_csv(csv_path)
+        all_entries.extend(entries)
+        logger.info(f"נקראו {len(entries)} משתמשים מ-{USERNAMES_CSV}")
+
+    xlsx_path = Path(USERNAMES_XLSX)
+    if xlsx_path.exists():
+        entries = _parse_xlsx(xlsx_path)
+        all_entries.extend(entries)
+        logger.info(f"נקראו {len(entries)} משתמשים מ-{USERNAMES_XLSX}")
+
+    if not all_entries:
+        logger.error("לא נמצאו שמות משתמש באף קובץ (txt/csv/xlsx)")
+        return []
+
+    seen = set()
     unique_entries = []
-    for display_name, username in entries:
+    for display_name, username in all_entries:
         if username not in seen:
-            seen[username] = True
+            seen.add(username)
             unique_entries.append((display_name, username))
 
-    logger.info(f"נטענו {len(unique_entries)} שמות משתמש ייחודיים")
+    logger.info(f"נטענו {len(unique_entries)} שמות משתמש ייחודיים (סה\"כ)")
     return unique_entries
 
 
@@ -150,7 +233,7 @@ def main():
 
     user_entries = load_usernames()
     if not user_entries:
-        logger.error("לא נמצאו שמות משתמשים ב-usernames.txt")
+        logger.error("לא נמצאו שמות משתמשים באף קובץ (usernames.txt / usernames.csv / usernames.xlsx)")
         sys.exit(1)
 
     state = StateManager()
