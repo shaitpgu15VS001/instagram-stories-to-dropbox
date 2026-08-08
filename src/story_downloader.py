@@ -51,6 +51,7 @@ class StoryDownloader:
             return {"success": False, "files": [], "error": "שם משתמש ריק"}
 
         target_name = folder_name or username
+        logger.info(f"DOWNLOAD REQUEST username={username} folder_name={folder_name} target_dir={self.output_dir / target_name}")
         user_dir = self.output_dir / target_name
         user_dir.mkdir(parents=True, exist_ok=True)
         for item in user_dir.iterdir():

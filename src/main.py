@@ -337,6 +337,7 @@ def _read_default_remote(file_path=STORAGE_BACKEND_FILE):
 
 def process_user(username, downloader, uploader, state, force_redownload, folder_name=None):
     logger.section(f"מעבד את @{username}")
+    logger.info(f"PROCESSING username={username} folder_name={folder_name}")
 
     result = downloader.download_stories(username, folder_name=folder_name)
     if not result["success"]:
@@ -366,6 +367,8 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
             continue
 
         logger.info(f"  [{idx}/{len(files)}] מעלה: {local_file.name}")
+        folder_path = uploader.get_folder_path_for_date(today, folder_name or username)
+        logger.info(f"UPLOAD DESTINATION username={username} folder_name={folder_name} destination={folder_path}/{local_file.name}")
         success = uploader.upload_file(local_file, dropbox_path)
 
         if success:
@@ -435,6 +438,10 @@ def main():
         logger.info(f'סה"כ כפילויות: {load_stats.get("total_duplicates", 0)}')
     logger.info(f"משתמשים שנשארו לעיבוד: {len(user_entries)}")
 
+    logger.section("🔗 מיפוי משתמשים")
+    for idx, (display_name, username) in enumerate(user_entries, 1):
+        logger.info(f"  {idx}. username={username}, folder_name={display_name}")
+
     state = StateManager()
     downloader = StoryDownloader()
 
@@ -459,7 +466,7 @@ def main():
         logger.progress(idx, total, prefix="התקדמות")
         stats = {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": None}
         try:
-            stats = process_user(username, downloader, uploader, state, force_redownload, folder_name=username)
+            stats = process_user(username, downloader, uploader, state, force_redownload, folder_name=display_name)
             total_stats["users_processed"] += 1
             total_stats["files_downloaded"] += stats.get("downloaded", 0)
             total_stats["files_uploaded"] += stats.get("uploaded", 0)
