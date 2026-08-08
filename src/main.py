@@ -1,10 +1,12 @@
 import csv
 import os
 import random
+import re
 import sys
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlsplit
 
 from .logger import logger
 from .rclone_uploader import RcloneUploader
@@ -22,120 +24,260 @@ MAX_DELAY_BETWEEN_USERS = 3
 DELAY_AFTER_ERROR = 30
 
 
+INSTAGRAM_HOSTS = {"instagram.com", "www.instagram.com", "m.instagram.com", "instagr.am"}
+USERNAME_PATTERN = re.compile(r"^[A-Za-z0-9](?:[A-Za-z0-9._]{0,28}[A-Za-z0-9_])?$")
+HEADER_HINTS = {"username", "user", "account", "instagram", "name", "display"}
+
+
+def _normalize_username(raw):
+    if raw is None:
+        return None
+    value = str(raw).strip()
+    if not value:
+        return None
+    value = value.split()[0].strip()
+    value = value.lstrip("@").strip()
+    if not value:
+        return None
+
+    candidate = value
+    lower_value = candidate.lower()
+    if lower_value.startswith(("http://", "https://")) or lower_value.startswith("www.") or "instagram.com" in lower_value or "instagr.am" in lower_value:
+        if not re.match(r"^https?://", lower_value):
+            candidate = "https://" + candidate
+        try:
+            parts = urlsplit(candidate)
+        except Exception:
+            return None
+        host = (parts.hostname or "").lower()
+        if host not in INSTAGRAM_HOSTS:
+            return None
+        segments = [seg for seg in (parts.path or "").split("/") if seg.strip()]
+        if not segments:
+            return None
+        username = segments[0]
+    elif "/" in candidate:
+        username = candidate.split("/", 1)[0]
+    else:
+        username = candidate
+
+    username = str(username).strip().lstrip("@").strip().lower().rstrip(".")
+    if not username:
+        return None
+    if any(char in username for char in " \\/:@"):  # invalid path or username chars
+        return None
+    if not USERNAME_PATTERN.match(username):
+        return None
+    return username
+
+
+def _is_header_row(row_values):
+    values = [str(value).strip().lower() for value in row_values if value is not None and str(value).strip()]
+    if not values:
+        return False
+    return all(any(hint in value for hint in HEADER_HINTS) for value in values)
+
+
+def _normalize_row_name(row):
+    if not row:
+        return None, None
+
+    first_cell = row[0] if len(row) > 0 else None
+    username = _normalize_username(first_cell) if first_cell is not None else None
+    if username:
+        display_name = str(row[1]).strip() if len(row) > 1 and row[1] is not None and str(row[1]).strip() else username
+        return username, display_name
+
+    for extra in row[1:]:
+        if extra is None:
+            continue
+        username = _normalize_username(extra)
+        if username:
+            return username, username
+
+    return None, None
+
+
+def _build_source_summary(source_name, stats):
+    logger.info(f"{source_name}:")
+    logger.info(f"  {stats['raw_records']} רשומות")
+    logger.info(f"  {stats['valid_records']} משתמשים תקינים")
+    if stats["invalid_records"]:
+        logger.info(f"  {stats['invalid_records']} רשומות לא תקינות")
+    if stats["duplicate_count"]:
+        logger.info(f"  {stats['duplicate_count']} כפילויות הוסרו")
+    for example in stats.get("examples", []):
+        logger.info(f"  {example}")
+
+
 def _parse_txt(path):
     entries = []
+    stats = {
+        "raw_records": 0,
+        "valid_records": 0,
+        "invalid_records": 0,
+        "duplicate_count": 0,
+        "examples": [],
+    }
+    seen = set()
+
     with open(path, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
+        for lineno, line in enumerate(f, start=1):
+            raw_line = line.rstrip("\n")
+            line = raw_line.strip()
             if not line or line.startswith("#"):
                 continue
+            stats["raw_records"] += 1
             if "|" in line:
                 parts = [p.strip() for p in line.split("|", 1)]
-                display_name = parts[0]
-                username = parts[1].lstrip("@").strip()
-                if not display_name:
-                    display_name = username
-                if not username:
-                    continue
+                display_name = parts[0] or parts[1]
+                username = _normalize_username(parts[1])
             else:
-                username = line.lstrip("@").strip()
-                if not username:
-                    continue
-                display_name = username
+                display_name = line
+                username = _normalize_username(line)
+
+            if not username:
+                stats["invalid_records"] += 1
+                if len(stats["examples"]) < 5:
+                    stats["examples"].append(f"שורה {lineno}: רשומה לא תקינה → {raw_line}")
+                continue
+            if username in seen:
+                stats["duplicate_count"] += 1
+                continue
+            seen.add(username)
+            stats["valid_records"] += 1
+            if len(stats["examples"]) < 5 and line.lower().startswith(("http://", "https://", "www.", "instagram.com", "instagr.am")):
+                stats["examples"].append(f"שורה {lineno}: URL זוהה → {username}")
             entries.append((display_name, username))
-    return entries
+
+    if stats["raw_records"] or stats["examples"]:
+        _build_source_summary("TXT", stats)
+    return entries, stats
 
 
 def _parse_csv(path):
     entries = []
+    stats = {
+        "raw_records": 0,
+        "valid_records": 0,
+        "invalid_records": 0,
+        "duplicate_count": 0,
+        "examples": [],
+    }
+    seen = set()
     encodings = ["utf-8-sig", "utf-8", "cp1255", "cp1252", "latin-1"]
+
     for enc in encodings:
         try:
             with open(path, "r", encoding=enc) as f:
                 reader = csv.reader(f)
-                header = next(reader, None)
-                if not header:
-                    return entries
-                username_col = 0
-                display_col = 1 if len(header) > 1 else None
-                for row in reader:
-                    if not row or not row[0].strip():
+                for row_num, row in enumerate(reader, start=1):
+                    if not row or all(not str(cell).strip() for cell in row):
                         continue
-                    username = row[username_col].strip().lstrip("@")
+                    if row_num == 1 and _is_header_row(row):
+                        continue
+                    stats["raw_records"] += 1
+                    username, display_name = _normalize_row_name(row)
+                    raw_value = next((str(cell).strip() for cell in row if cell is not None and str(cell).strip()), "")
                     if not username:
+                        stats["invalid_records"] += 1
+                        if len(stats["examples"]) < 5:
+                            stats["examples"].append(f"שורה {row_num}: רשומה לא תקינה → {raw_value}")
                         continue
-                    if display_col is not None and len(row) > display_col and row[display_col].strip():
-                        display_name = row[display_col].strip()
-                    else:
-                        display_name = username
+                    if username in seen:
+                        stats["duplicate_count"] += 1
+                        continue
+                    seen.add(username)
+                    stats["valid_records"] += 1
+                    if len(stats["examples"]) < 5 and raw_value.lower().startswith(("http://", "https://", "www.", "instagram.com", "instagr.am")):
+                        stats["examples"].append(f"שורה {row_num}: URL זוהה → {username}")
                     entries.append((display_name, username))
             break
         except UnicodeDecodeError:
             continue
     else:
         logger.warning(f"לא ניתן לקרוא את {path} באף קידוד")
-    return entries
+    if stats["raw_records"] or stats["examples"]:
+        _build_source_summary("CSV", stats)
+    return entries, stats
 
 
 def _parse_xlsx(path):
     entries = []
+    stats = {
+        "raw_records": 0,
+        "valid_records": 0,
+        "invalid_records": 0,
+        "duplicate_count": 0,
+        "examples": [],
+    }
+    seen = set()
     try:
         import openpyxl
     except ImportError:
         logger.error("openpyxl לא מותקן. הרץ: pip install openpyxl")
-        return entries
+        return entries, stats
     try:
         wb = openpyxl.load_workbook(path, read_only=True, data_only=True)
         ws = wb.active
-        rows = list(ws.iter_rows(values_only=True))
-        if not rows:
-            return entries
-        header = rows[0]
-        username_col = 0
-        display_col = 1 if len(header) > 1 else None
-        for row in rows[1:]:
-            if not row or not row[username_col]:
+        for row_num, row in enumerate(ws.iter_rows(values_only=True), start=1):
+            if not row or all(cell is None or not str(cell).strip() for cell in row):
                 continue
-            username = str(row[username_col]).strip().lstrip("@")
+            if row_num == 1 and _is_header_row(row):
+                continue
+            stats["raw_records"] += 1
+            username, display_name = _normalize_row_name(row)
+            raw_value = next((str(cell).strip() for cell in row if cell is not None and str(cell).strip()), "")
             if not username:
+                stats["invalid_records"] += 1
+                if len(stats["examples"]) < 5:
+                    stats["examples"].append(f"שורה {row_num}: רשומה לא תקינה → {raw_value}")
                 continue
-            if display_col is not None and len(row) > display_col and row[display_col]:
-                display_name = str(row[display_col]).strip()
-            else:
-                display_name = username
+            if username in seen:
+                stats["duplicate_count"] += 1
+                continue
+            seen.add(username)
+            stats["valid_records"] += 1
+            if len(stats["examples"]) < 5 and raw_value.lower().startswith(("http://", "https://", "www.", "instagram.com", "instagr.am")):
+                stats["examples"].append(f"שורה {row_num}: URL זוהה → {username}")
             entries.append((display_name, username))
         wb.close()
     except Exception as exc:
         logger.warning(f"שגיאה בקריאת {path}: {exc}")
-    return entries
+    if stats["raw_records"] or stats["examples"]:
+        _build_source_summary("XLSX", stats)
+    return entries, stats
 
 
 def load_usernames():
     all_entries = []
+    source_stats = {}
+
+    logger.section("📥 טוען שמות משתמשים")
 
     txt_path = Path(USERNAMES_FILE)
     if txt_path.exists():
-        entries = _parse_txt(txt_path)
+        entries, stats = _parse_txt(txt_path)
         all_entries.extend(entries)
-        logger.info(f"נקראו {len(entries)} משתמשים מ-{USERNAMES_FILE}")
+        source_stats["TXT"] = stats
     else:
         logger.debug(f"קובץ {USERNAMES_FILE} לא קיים, מדלג")
 
     csv_path = Path(USERNAMES_CSV)
     if csv_path.exists():
-        entries = _parse_csv(csv_path)
+        entries, stats = _parse_csv(csv_path)
         all_entries.extend(entries)
-        logger.info(f"נקראו {len(entries)} משתמשים מ-{USERNAMES_CSV}")
+        source_stats["CSV"] = stats
 
     xlsx_path = Path(USERNAMES_XLSX)
     if xlsx_path.exists():
-        entries = _parse_xlsx(xlsx_path)
+        entries, stats = _parse_xlsx(xlsx_path)
         all_entries.extend(entries)
-        logger.info(f"נקראו {len(entries)} משתמשים מ-{USERNAMES_XLSX}")
+        source_stats["XLSX"] = stats
 
     if not all_entries:
         logger.error("לא נמצאו שמות משתמש באף קובץ (txt/csv/xlsx)")
-        return []
+        return [], {}
 
     seen = set()
     unique_entries = []
@@ -144,8 +286,21 @@ def load_usernames():
             seen.add(username)
             unique_entries.append((display_name, username))
 
+    global_duplicates = len(all_entries) - len(unique_entries)
+    load_stats = {
+        "sources": source_stats,
+        "total_raw_records": sum(stats["raw_records"] for stats in source_stats.values()),
+        "total_valid_records": sum(stats["valid_records"] for stats in source_stats.values()),
+        "total_invalid_records": sum(stats["invalid_records"] for stats in source_stats.values()),
+        "total_duplicates": global_duplicates,
+        "unique_usernames": len(unique_entries),
+    }
+
     logger.info(f"נטענו {len(unique_entries)} שמות משתמש ייחודיים (סה\"כ)")
-    return unique_entries
+    if global_duplicates:
+        logger.info(f"{global_duplicates} כפילויות נוספות הוסרו חוצות קבצים")
+
+    return unique_entries, load_stats
 
 
 def get_today_str():
@@ -266,10 +421,19 @@ def main():
     logger.info(f"נבחר אחסון: {selected}")
     uploader = RcloneUploader(remote_name=selected, config_path=RCLONE_CONF_FILE)
 
-    user_entries = load_usernames()
+    user_entries, load_stats = load_usernames()
     if not user_entries:
         logger.error("לא נמצאו שמות משתמשים באף קובץ (usernames.txt / usernames.csv / usernames.xlsx)")
         sys.exit(1)
+
+    logger.section("📄 סיכום טעינת משתמשים")
+    logger.info(f'סה"כ רשומות: {load_stats.get("total_raw_records", 0)}')
+    logger.info(f'סה"כ משתמשים תקינים: {load_stats.get("total_valid_records", 0)}')
+    if load_stats.get('total_invalid_records', 0):
+        logger.info(f'סה"כ רשומות לא תקינות: {load_stats.get("total_invalid_records", 0)}')
+    if load_stats.get('total_duplicates', 0):
+        logger.info(f'סה"כ כפילויות: {load_stats.get("total_duplicates", 0)}')
+    logger.info(f"משתמשים שנשארו לעיבוד: {len(user_entries)}")
 
     state = StateManager()
     downloader = StoryDownloader()
@@ -295,7 +459,7 @@ def main():
         logger.progress(idx, total, prefix="התקדמות")
         stats = {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": None}
         try:
-            stats = process_user(username, downloader, uploader, state, force_redownload, folder_name=display_name)
+            stats = process_user(username, downloader, uploader, state, force_redownload, folder_name=username)
             total_stats["users_processed"] += 1
             total_stats["files_downloaded"] += stats.get("downloaded", 0)
             total_stats["files_uploaded"] += stats.get("uploaded", 0)
