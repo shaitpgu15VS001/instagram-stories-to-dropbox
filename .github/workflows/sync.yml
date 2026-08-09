@@ -63,22 +63,11 @@ jobs:
             state-json-cache-v1-
             state-json-cache-v1
 
-      - name: Debug: state.json summary after restore
+      - name: "Debug: state.json summary after restore"
         if: always()
         run: |
           if [ -f state.json ]; then
-            python - <<'PY'
-import json
-from pathlib import Path
-s=json.load(open('state.json'))
-users = s.get('uploaded_files',{})
-total_entries = sum(len(v) for v in users.values())
-pre_count = sum(1 for v in users.values() for e in v if e.get('pre_download_id'))
-print('state.exists=1')
-print('tracked_users=', len(users))
-print('total_entries=', total_entries)
-print('entries_with_pre_download_id=', pre_count)
-PY
+            python -c "import json; s=json.load(open('state.json')); users=s.get('uploaded_files',{}); total_entries=sum(len(v) for v in users.values()); pre_count=sum(1 for v in users.values() for e in v if e.get('pre_download_id')); print('state.exists=1'); print('tracked_users=', len(users)); print('total_entries=', total_entries); print('entries_with_pre_download_id=', pre_count)"
           else
             echo "state.exists=0"
           fi
