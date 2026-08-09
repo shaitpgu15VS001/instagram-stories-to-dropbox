@@ -36,4 +36,10 @@
 - קבצי קלט מצופים: `usernames.txt`, `usernames.csv`, `usernames.xlsx`.
 - קבצי תצורה: `rclone.conf`, `STORAGE_BACKEND.txt`.
 
-אם תרצו, אוסיף קבצי הנחיה נוספים (לרבות `.github/copilot-instructions.md`) שמכילים פקודות CI, דלפק בדיקות ומה לשמור כ־PR template.
+
+## Agent Guidance (מה חשוב לדעת)
+
+- קבצי הנחיה נוספים: ראה [`.github/copilot-instructions.md`](.github/copilot-instructions.md) — הוראות ריצה קצרות, בדיקות וחוקים חשובים לסוכני AI.
+- לפני כל שינוי שמתייחס ל־storage או ל־`state.json`, בדוק את ה־workflow `.github/workflows/sync.yml` ועמוד על כך ש־`state.json` נשמר ב־`<remote>:.instagram-sync/state.json` ולא באמצעות `actions/cache`.
+- הפעל בדיקות: `python -m pytest -q`. ודא שה־YAML של ה־workflow תקין לפני הרצת CI.
+- אל תתחיל שינויים גדולים ללא הסכמה מפורשת — הצע ומסמך את השינוי בקצרה.

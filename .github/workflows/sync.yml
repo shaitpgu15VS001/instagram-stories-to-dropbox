@@ -63,7 +63,7 @@ jobs:
           STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
         run: |
           set -euo pipefail
-          requested="$(printf '%s' "$STORAGE_BACKEND" | tr -d '\r' | tr '[:upper:]' '[:lower:]')"
+          requested="$(printf '%s' "$STORAGE_BACKEND" | tr -d '\r')"
           if [ -z "$requested" ] && [ -f STORAGE_BACKEND.txt ]; then
             requested="$(tr -d '\r\n' < STORAGE_BACKEND.txt | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
           fi
@@ -83,19 +83,19 @@ jobs:
             exit 1
           fi
 
-          if [ -n "$requested" ]; then
-            if printf '%s\n' "$remotes" | grep -Fxq "$requested"; then
-              echo "remote=$requested" >> "$GITHUB_OUTPUT"
-              exit 0
-            fi
-            selected="$(printf '%s\n' "$remotes" | sed -n '1p')"
-            echo "warning: requested storage backend '$requested' not found in rclone.conf; falling back to first available remote '$selected'" >&2
-            echo "remote=$selected" >> "$GITHUB_OUTPUT"
-            exit 0
+          if [ -z "$requested" ]; then
+            echo 'error: no STORAGE_BACKEND configured' >&2
+            echo "available remotes: $remotes" >&2
+            exit 1
           fi
 
-          selected="$(printf '%s\n' "$remotes" | sed -n '1p')"
-          echo "remote=$selected" >> "$GITHUB_OUTPUT"
+          if ! printf '%s\n' "$remotes" | grep -Fxq "$requested"; then
+            echo "error: requested storage backend '$requested' not found in rclone.conf" >&2
+            echo "available remotes: $remotes" >&2
+            exit 1
+          fi
+
+          echo "remote=$requested" >> "$GITHUB_OUTPUT"
 
       - name: שחזור state.json מה־remote אם קיים
         run: |
@@ -105,16 +105,19 @@ jobs:
             echo 'rclone.conf is missing' >&2
             exit 1
           fi
+          if ! rclone listremotes --config rclone.conf | grep -Fxq "${remote}:"; then
+            echo "Could not access remote '${remote}' via rclone" >&2
+            exit 1
+          fi
+          if ! rclone lsd "${remote}:" --config rclone.conf >/dev/null 2>&1; then
+            echo "Remote '${remote}' is configured but not accessible via rclone" >&2
+            exit 1
+          fi
           if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
             rclone copyto "${remote}:.instagram-sync/state.json" state.json --config rclone.conf
             echo "Restored state.json from ${remote}:.instagram-sync/state.json"
           else
-            if rclone listremotes --config rclone.conf | grep -Fxq "${remote}"; then
-              echo "Remote state.json not found; starting fresh"
-            else
-              echo "Could not access remote '${remote}' via rclone" >&2
-              exit 1
-            fi
+            echo "Remote state.json not found; starting fresh"
           fi
 
       - name: Validate restored state.json if present
