@@ -51,32 +51,141 @@ jobs:
       - name: התקנת rclone
         run: curl -sSL https://rclone.org/install.sh | sudo bash
 
-      - name: שחזור קובץ ה-state מהרצה הקודמת
-        uses: actions/cache@v4
-        with:
-          path: state.json
-          # Use a unique primary key per run to avoid restoring an old immutable cache
-          key: state-json-cache-v1-${{ github.run_id }}
-          # If exact key not found, restore the most recent cache that matches this prefix.
-          # actions/cache will pick the latest created cache matching the restore-keys.
-          restore-keys: |
-            state-json-cache-v1-
-            state-json-cache-v1
+      - name: שחזור קובץ תצורת rclone
+        env:
+          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+        if: env.RCLONE_CONF != ''
+        run: printf '%s' "$RCLONE_CONF" > rclone.conf
+
+      - name: Resolve remote backend for stories and state persistence
+        id: resolve-remote
+        env:
+          STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
+        run: |
+          remote=$(python - <<'PY'
+          import os
+          import pathlib
+          import sys
+
+          env_remote = os.environ.get('STORAGE_BACKEND', '').strip().lower()
+          file_remote = None
+          storage_file = pathlib.Path('STORAGE_BACKEND.txt')
+          if storage_file.exists():
+              file_remote = storage_file.read_text(encoding='utf-8').strip() or None
+
+          requested = env_remote if env_remote else file_remote
+          config_path = pathlib.Path('rclone.conf')
+          if not config_path.exists():
+              print('error: rclone.conf is missing', file=sys.stderr)
+              sys.exit(1)
+
+          remotes = []
+          for line in config_path.read_text(encoding='utf-8').splitlines():
+              line = line.strip()
+              if line.startswith('[') and line.endswith(']'):
+                  name = line[1:-1].strip()
+                  if name:
+                      remotes.append(name)
+
+          if not remotes:
+              print('error: no remotes found in rclone.conf', file=sys.stderr)
+              sys.exit(1)
+
+          selected = None
+          if requested:
+              if requested in remotes:
+                  selected = requested
+              else:
+                  print(
+                      f"warning: requested storage backend '{requested}' not found; "
+                      f"falling back to first available remote '{remotes[0]}'",
+                      file=sys.stderr,
+                  )
+                  selected = remotes[0]
+          else:
+              selected = remotes[0]
+
+          print(selected)
+          PY
+          echo "remote=$remote" >> "$GITHUB_OUTPUT"
+
+      - name: שחזור state.json מה־remote אם קיים
+        run: |
+          set -e
+          remote="${{ steps.resolve-remote.outputs.remote }}"
+          if [ ! -f rclone.conf ]; then
+            echo 'rclone.conf is missing' >&2
+            exit 1
+          fi
+          if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
+            rclone copyto "${remote}:.instagram-sync/state.json" state.json --config rclone.conf
+            echo "Restored state.json from ${remote}:.instagram-sync/state.json"
+          else
+            if rclone listremotes --config rclone.conf | grep -Fxq "${remote}"; then
+              echo "Remote state.json not found; starting fresh"
+            else
+              echo "Could not access remote '${remote}' via rclone" >&2
+              exit 1
+            fi
+          fi
+
+      - name: Validate restored state.json if present
+        run: |
+          if [ ! -f state.json ]; then
+            echo 'No state.json restored; starting fresh'
+            exit 0
+          fi
+          python - <<'PY'
+          import json
+          import pathlib
+          import sys
+
+          path = pathlib.Path('state.json')
+          try:
+              data = json.loads(path.read_text(encoding='utf-8'))
+          except Exception as exc:
+              print(f'Invalid JSON in restored state.json: {exc}', file=sys.stderr)
+              sys.exit(1)
+
+          if not isinstance(data, dict):
+              print('restored state.json root must be a JSON object', file=sys.stderr)
+              sys.exit(1)
+          if not isinstance(data.get('version'), int):
+              print('restored state.json.version must be an integer', file=sys.stderr)
+              sys.exit(1)
+          if 'uploaded_files' not in data or not isinstance(data['uploaded_files'], dict):
+              print('restored state.json.uploaded_files must be an object', file=sys.stderr)
+              sys.exit(1)
+
+          for username, entries in data['uploaded_files'].items():
+              if not isinstance(username, str):
+                  print('restored state.json.uploaded_files keys must be strings', file=sys.stderr)
+                  sys.exit(1)
+              if not isinstance(entries, list):
+                  print(f'restored uploaded_files[{username}] must be a list', file=sys.stderr)
+                  sys.exit(1)
+              for entry in entries:
+                  if not isinstance(entry, dict):
+                      print('Each restored uploaded entry must be an object', file=sys.stderr)
+                      sys.exit(1)
+                  if 'filename' not in entry or 'dropbox_path' not in entry:
+                      print('Each restored upload entry must contain filename and dropbox_path', file=sys.stderr)
+                      sys.exit(1)
+                  if not isinstance(entry['filename'], str) or not isinstance(entry['dropbox_path'], str):
+                      print('restored filename and dropbox_path must be strings', file=sys.stderr)
+                      sys.exit(1)
+                  if 'instagram_id' not in entry and 'pre_download_id' not in entry:
+                      print('Each restored entry must include instagram_id or pre_download_id', file=sys.stderr)
+                      sys.exit(1)
+          PY
 
       - name: "Debug: state.json summary after restore"
-        if: always()
         run: |
           if [ -f state.json ]; then
             python -c "import json; s=json.load(open('state.json')); users=s.get('uploaded_files',{}); total_entries=sum(len(v) for v in users.values()); pre_count=sum(1 for v in users.values() for e in v if e.get('pre_download_id')); print('state.exists=1'); print('tracked_users=', len(users)); print('total_entries=', total_entries); print('entries_with_pre_download_id=', pre_count)"
           else
             echo "state.exists=0"
           fi
-
-      - name: שחזור קובץ תצורת rclone
-        env:
-          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
-        if: env.RCLONE_CONF != ''
-        run: printf '%s' "$RCLONE_CONF" > rclone.conf
 
       - name: הרצת הסנכרון
         env:
@@ -87,16 +196,61 @@ jobs:
         run: |
           python -m src.main
 
-      - name: שמירת קובץ ה-state המעודכן
-        uses: actions/cache/save@v4
+      - name: Validate and upload local state.json to remote
         if: always()
-        with:
-          path: state.json
-          # Save under a unique key per run
-          key: state-json-cache-v1-${{ github.run_id }}
-          restore-keys: |
-            state-json-cache-v1-
-            state-json-cache-v1
+        run: |
+          set -e
+          remote="${{ steps.resolve-remote.outputs.remote }}"
+          if [ ! -f state.json ]; then
+            echo 'No local state.json to upload'
+            exit 0
+          fi
+          python - <<'PY'
+          import json
+          import pathlib
+          import sys
+
+          path = pathlib.Path('state.json')
+          try:
+              data = json.loads(path.read_text(encoding='utf-8'))
+          except Exception as exc:
+              print(f'Invalid JSON in state.json: {exc}', file=sys.stderr)
+              sys.exit(1)
+
+          if not isinstance(data, dict):
+              print('state.json root must be a JSON object', file=sys.stderr)
+              sys.exit(1)
+          if not isinstance(data.get('version'), int):
+              print('state.json.version must be an integer', file=sys.stderr)
+              sys.exit(1)
+          if 'uploaded_files' not in data or not isinstance(data['uploaded_files'], dict):
+              print('state.json.uploaded_files must be an object', file=sys.stderr)
+              sys.exit(1)
+
+          for username, entries in data['uploaded_files'].items():
+              if not isinstance(username, str):
+                  print('state.json.uploaded_files keys must be strings', file=sys.stderr)
+                  sys.exit(1)
+              if not isinstance(entries, list):
+                  print(f'uploaded_files[{username}] must be a list', file=sys.stderr)
+                  sys.exit(1)
+              for entry in entries:
+                  if not isinstance(entry, dict):
+                      print('Each uploaded entry must be an object', file=sys.stderr)
+                      sys.exit(1)
+                  if 'filename' not in entry or 'dropbox_path' not in entry:
+                      print('Each upload entry must contain filename and dropbox_path', file=sys.stderr)
+                      sys.exit(1)
+                  if not isinstance(entry['filename'], str) or not isinstance(entry['dropbox_path'], str):
+                      print('filename and dropbox_path must be strings', file=sys.stderr)
+                      sys.exit(1)
+                  if 'instagram_id' not in entry and 'pre_download_id' not in entry:
+                      print('Each entry must include instagram_id or pre_download_id', file=sys.stderr)
+                      sys.exit(1)
+          PY
+          rclone mkdir "${remote}:.instagram-sync" --config rclone.conf
+          rclone copyto state.json "${remote}:.instagram-sync/state.json" --config rclone.conf
+          echo "Uploaded state.json to ${remote}:.instagram-sync/state.json"
 
       - name: ניקוי קבצים זמניים
         if: always()
