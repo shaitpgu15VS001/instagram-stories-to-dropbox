@@ -96,6 +96,8 @@ def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
     setting the env var `SCROLL_DEBUG=1`.
     """
     debug = os.environ.get('SCROLL_DEBUG') == '1'
+    # Unconditional diagnostic log: helps verify this function is reached in CI
+    logger.info("scroll-collector: entered (SCROLL_DEBUG=%s)" % ("1" if debug else "0"))
     prev = -1
     iter_count = 0
     stop_reason = None
@@ -173,6 +175,8 @@ def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
         .filter(s => s.u)""")
 
     final_count = len(items) if isinstance(items, list) else page.evaluate("() => document.querySelectorAll('.profile-media-list__item').length")
+    # Unconditional final diagnostic log so CI always records whether scrolling returned items
+    logger.info(f"scroll-collector: finished iter_count={iter_count} stop_reason={stop_reason} final_count={final_count}")
     if debug:
         logger.info(f"scroll-debug finished iter_count={iter_count} stop_reason={stop_reason} final_count={final_count}")
     return items
