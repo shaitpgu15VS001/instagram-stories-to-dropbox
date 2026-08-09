@@ -152,6 +152,15 @@ class StoryDownloader:
         else:
             to_download = download_urls
 
+        # If state filtering removed all available stories, treat this as success
+        # (no downloads required) rather than a download failure. This specifically
+        # handles the case where `download_urls` was non-empty but every item was
+        # skipped due to `state.is_uploaded(...)`.
+        if state and download_urls and not to_download:
+            if existing_files:
+                return {"success": True, "files": existing_files, "error": None}
+            return {"success": True, "files": [], "error": None}
+
         new_files = self._download_files(to_download, user_dir, username)
         # new_files is list of dicts {'path': Path, 'pre_download_id': str}
         if new_files is None:
