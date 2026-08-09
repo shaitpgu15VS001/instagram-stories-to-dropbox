@@ -1,4 +1,5 @@
 """מוריד סטוריז מ-Instagram דרך fastdl.app"""
+import os
 import re
 import shutil
 import time
@@ -10,26 +11,6 @@ import requests
 from playwright.sync_api import TimeoutError as PlaywrightTimeout, sync_playwright
 from urllib.parse import urlparse, parse_qs, unquote
 import json
-
-
-def extract_pre_download_id(href):
-    """Extract canonical uri_path from a FastDL download href before downloading.
-
-    Returns the path component of the decoded `uri` query parameter, or None.
-    """
-    if not href:
-        return None
-    try:
-        parsed = urlparse(href)
-        qs = parse_qs(parsed.query)
-        uri = qs.get('uri', [''])[0]
-        if not uri:
-            return None
-        uri_decoded = unquote(uri)
-        inner = urlparse(uri_decoded)
-        return inner.path if inner.path else None
-    except Exception:
-        return None
 
 from .logger import logger
 
@@ -49,8 +30,23 @@ MEDIA_EXTENSIONS = {".mp4", ".jpg", ".jpeg", ".png", ".webp", ".mov"}
 MAX_RETRIES, RETRYABLE, RETRY_DELAY = 3, {502, 503, 504}, 2
 
 
+def extract_pre_download_id(href):
+    if not href:
+        return None
+    try:
+        parsed = urlparse(href)
+        qs = parse_qs(parsed.query)
+        uri = qs.get('uri', [''])[0]
+        if not uri:
+            return None
+        uri_decoded = unquote(uri)
+        inner = urlparse(uri_decoded)
+        return inner.path if inner.path else None
+    except Exception:
+        return None
+
+
 def _parse_meta_timestamp(s):
-    """Parse timestamp from an item dict (tries absolute t, relative txt, __expires in url)."""
     t = s.get('t') or ''
     txt = s.get('txt') or ''
     if t:
@@ -82,39 +78,91 @@ def _parse_meta_timestamp(s):
 
 
 def _sort_items_chronologically(items):
-    # Attach parsed timestamp if available
     for it in items:
         it['_parsed_ts'] = _parse_meta_timestamp(it)
-    # If any item has a parsed timestamp, sort by it ascending (oldest first)
     if any(it.get('_parsed_ts') for it in items):
         items.sort(key=lambda s: (s.get('_parsed_ts') is None, s.get('_parsed_ts') or datetime.max.replace(tzinfo=timezone.utc)))
         return items
-    # Fallback: group by row (y) then x (left->right)
     ROW_TOL = 30.0
     items.sort(key=lambda s: (round(s.get('y', 0) / ROW_TOL), s.get('x', 0)))
     return items
 
 
 def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
+    """Scroll the page to load more `.profile-media-list__item` elements.
+
+    This function intentionally does not change behavior; it only performs
+    scrolling and returns the collected items. Debug logging can be enabled by
+    setting the env var `SCROLL_DEBUG=1`.
+    """
+    debug = os.environ.get('SCROLL_DEBUG') == '1'
     prev = -1
-    for _ in range(max_scrolls):
+    iter_count = 0
+    stop_reason = None
+    for i in range(1, max_scrolls + 1):
+        iter_count = i
         try:
-            count = page.evaluate("() => document.querySelectorAll('.profile-media-list__item').length")
-        except Exception:
-            count = 0
-        if count == prev:
-            break
-        prev = count
-        try:
-            page.evaluate(
-                "() => { const items = document.querySelectorAll('.profile-media-list__item'); if (items.length) { items[items.length-1].scrollIntoView(); return true; } return false; }"
+            pre = page.evaluate(
+                "() => { const items = document.querySelectorAll('.profile-media-list__item'); const count = items.length; const winY = window.scrollY || window.pageYOffset; const docH = document.documentElement ? document.documentElement.scrollHeight : 0; const bodyH = document.body ? document.body.scrollHeight : 0; let container = null; if (items.length) { let el = items[0]; while (el) { const s = window.getComputedStyle(el); if (s.overflowY === 'auto' || s.overflowY === 'scroll') { container = {tag: el.tagName, class: el.className, scrollTop: el.scrollTop, scrollHeight: el.scrollHeight, clientHeight: el.clientHeight}; break; } el = el.parentElement; } } return {count, winY, docH, bodyH, container}; }"
             )
         except Exception:
-            pass
+            pre = {'count': 0, 'winY': None, 'docH': None, 'bodyH': None, 'container': None}
+
+        count = pre.get('count', 0)
+        if debug:
+            logger.info(f"scroll-debug iter={i} pre_count={count} pre_winY={pre.get('winY')} pre_docH={pre.get('docH')} pre_bodyH={pre.get('bodyH')} container={'yes' if pre.get('container') else 'no'})")
+
+        if count == prev:
+            stop_reason = 'count_stable'
+            break
+
+        prev = count
+
+        found_last = False
+        scrolled = False
+        try:
+            found_last = page.evaluate("() => { const items = document.querySelectorAll('.profile-media-list__item'); return items.length > 0; }")
+            if found_last:
+                scrolled = page.evaluate(
+                    "() => { const items = document.querySelectorAll('.profile-media-list__item'); if (items.length) { const before = {winY: window.scrollY || window.pageYOffset, docH: document.documentElement ? document.documentElement.scrollHeight : 0, bodyH: document.body ? document.body.scrollHeight : 0}; items[items.length-1].scrollIntoView(); const after = {winY: window.scrollY || window.pageYOffset, docH: document.documentElement ? document.documentElement.scrollHeight : 0, bodyH: document.body ? document.body.scrollHeight : 0}; return {before, after}; } return null; }"
+                )
+        except Exception:
+            scrolled = False
+
+        if debug:
+            logger.info(f"scroll-debug iter={i} found_last={found_last} scrolled={'yes' if scrolled else 'no'})")
+
+        try:
+            post = page.evaluate(
+                "() => { const items = document.querySelectorAll('.profile-media-list__item'); const count = items.length; const winY = window.scrollY || window.pageYOffset; const docH = document.documentElement ? document.documentElement.scrollHeight : 0; const bodyH = document.body ? document.body.scrollHeight : 0; let container = null; if (items.length) { let el = items[0]; while (el) { const s = window.getComputedStyle(el); if (s.overflowY === 'auto' || s.overflowY === 'scroll') { container = {tag: el.tagName, class: el.className, scrollTop: el.scrollTop, scrollHeight: el.scrollHeight, clientHeight: el.clientHeight}; break; } el = el.parentElement; } } return {count, winY, docH, bodyH, container}; }"
+            )
+        except Exception:
+            post = {'count': 0, 'winY': None, 'docH': None, 'bodyH': None, 'container': None}
+
+        if debug:
+            logger.info(f"scroll-debug iter={i} post_count_after_scroll={post.get('count')} post_winY={post.get('winY')} post_docH={post.get('docH')} post_bodyH={post.get('bodyH')} container={'yes' if post.get('container') else 'no'})")
+
         try:
             page.wait_for_timeout(wait_ms)
         except Exception:
             time.sleep(wait_ms / 1000.0)
+
+        try:
+            waited = page.evaluate(
+                "() => { const items = document.querySelectorAll('.profile-media-list__item'); const count = items.length; const winY = window.scrollY || window.pageYOffset; const docH = document.documentElement ? document.documentElement.scrollHeight : 0; const bodyH = document.body ? document.body.scrollHeight : 0; let container = null; if (items.length) { let el = items[0]; while (el) { const s = window.getComputedStyle(el); if (s.overflowY === 'auto' || s.overflowY === 'scroll') { container = {tag: el.tagName, class: el.className, scrollTop: el.scrollTop, scrollHeight: el.scrollHeight, clientHeight: el.clientHeight}; break; } el = el.parentElement; } } return {count, winY, docH, bodyH, container}; }"
+            )
+        except Exception:
+            waited = {'count': 0, 'winY': None, 'docH': None, 'bodyH': None, 'container': None}
+
+        if debug:
+            logger.info(f"scroll-debug iter={i} waited_count={waited.get('count')} waited_winY={waited.get('winY')} waited_docH={waited.get('docH')} waited_bodyH={waited.get('bodyH')} container={'yes' if waited.get('container') else 'no'})")
+
+        if waited.get('count') == prev:
+            stop_reason = 'count_stable'
+            break
+
+    else:
+        stop_reason = 'max_scrolls'
 
     items = page.evaluate("""() => Array.from(document.querySelectorAll('.profile-media-list__item'))
         .map(li => {
@@ -123,6 +171,10 @@ def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
             return {u: li.querySelector('.button__download')?.href, x: r.x, y: r.y, t: t?.title, txt: t?.innerText?.trim()};
         })
         .filter(s => s.u)""")
+
+    final_count = len(items) if isinstance(items, list) else page.evaluate("() => document.querySelectorAll('.profile-media-list__item').length")
+    if debug:
+        logger.info(f"scroll-debug finished iter_count={iter_count} stop_reason={stop_reason} final_count={final_count}")
     return items
 
 
@@ -145,11 +197,7 @@ class StoryDownloader:
             return False
 
     def download_stories(self, username, folder_name=None):
-        # Backwards-compatible signature: if caller wants pre-download skipping, pass a `state` via keyword
-        # New callers may call: download_stories(username, folder_name=..., state=state_manager)
         state = None
-        # allow state passed as kw in older-style calls; inspect kwargs if present
-        # (function kept simple; callers pass state explicitly)
         username = username.strip().lstrip("@")
         if not username:
             return {"success": False, "files": [], "error": "שם משתמש ריק"}
@@ -158,14 +206,10 @@ class StoryDownloader:
         logger.info(f"DOWNLOAD REQUEST username={username} folder_name={folder_name} target_dir={self.output_dir / target_name}")
         user_dir = self.output_dir / target_name
         user_dir.mkdir(parents=True, exist_ok=True)
-        # Preserve existing files from previous runs. Do not delete them here.
         existing_files = [p for p in sorted(user_dir.iterdir()) if p.is_file()] if user_dir.exists() else []
 
         logger.info(f"מוריד סטוריז עבור @{username}...")
         try:
-            # support optional state parameter passed by caller
-            # callers using keyword args will pass `state` to this function
-            # (we can't access kwargs here, so allow caller to call with attribute set)
             download_urls = self._fetch_story_urls(username)
         except PlaywrightTimeout:
             logger.warning(f"@{username}: timeout בחיפוש - מנסה שוב פעם אחת")
@@ -173,7 +217,6 @@ class StoryDownloader:
                 download_urls = self._fetch_story_urls(username)
             except PlaywrightTimeout:
                 logger.error(f"@{username}: timeout חוזר - מדלג")
-                # If there are existing files, return them as pending for upload
                 if existing_files:
                     return {"success": True, "files": existing_files, "error": None}
                 return {"success": False, "files": [], "error": "timeout"}
@@ -196,25 +239,18 @@ class StoryDownloader:
 
         if not download_urls:
             logger.info(f"@{username}: אין סטוריז פעילים כרגע")
-            # If there are existing files from a previous run, return them for processing
             if existing_files:
                 return {"success": True, "files": existing_files, "error": None}
             return {"success": True, "files": [], "error": None}
 
-        # Default: no pre-download skipping
         new_files_meta = {}
-
-        # If caller provided an attached state on this instance, it should be set as attribute
         state = getattr(self, "state_manager", None)
-
-        # If state is present, perform pre-download check and skip items before downloading
         if state:
             filtered = []
             for s in download_urls:
                 url = s.get("u")
                 pre_id = extract_pre_download_id(url)
                 if pre_id:
-                    # check per-username + pre_download_id
                     if state.is_uploaded(username, pre_id):
                         logger.info(f"[SKIP] Story already uploaded: {pre_id}")
                         continue
@@ -222,31 +258,23 @@ class StoryDownloader:
                         logger.info(f"[NEW] Story not found in state: {pre_id}")
                 else:
                     logger.warning("[WARN] Could not extract pre-download ID; using legacy flow")
-                # include story for download
                 s["pre_download_id"] = pre_id
                 filtered.append(s)
             to_download = filtered
         else:
             to_download = download_urls
 
-        # If state filtering removed all available stories, treat this as success
-        # (no downloads required) rather than a download failure. This specifically
-        # handles the case where `download_urls` was non-empty but every item was
-        # skipped due to `state.is_uploaded(...)`.
         if state and download_urls and not to_download:
             if existing_files:
                 return {"success": True, "files": existing_files, "error": None}
             return {"success": True, "files": [], "error": None}
 
         new_files = self._download_files(to_download, user_dir, username)
-        # new_files is list of dicts {'path': Path, 'pre_download_id': str}
         if new_files is None:
-            # download failed; if existing files exist, return them, else report failure
             if existing_files:
                 return {"success": True, "files": existing_files, "error": None}
             return {"success": False, "files": [], "error": "download_failed"}
 
-        # new_files may be returned as list of dicts with metadata
         files_return = []
         meta_map = {}
         for nf in new_files:
@@ -260,7 +288,6 @@ class StoryDownloader:
             if p:
                 meta_map[p.name] = pid
 
-        # Combine existing files and new files, avoiding duplicates by name
         existing_names = {p.name for p in existing_files}
         combined = list(existing_files) + [p for p in files_return if p.name not in existing_names]
         if not combined:
@@ -322,87 +349,6 @@ class StoryDownloader:
                 except PlaywrightTimeout:
                     return []
 
-                # Ensure we load more items by scrolling until the count stabilizes
-                def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
-                    prev = -1
-                    for _ in range(max_scrolls):
-                        try:
-                            count = page.evaluate("() => document.querySelectorAll('.profile-media-list__item').length")
-                        except Exception:
-                            count = 0
-                        if count == prev:
-                            break
-                        prev = count
-                        # Scroll the last item into view to trigger lazy loading
-                        try:
-                            page.evaluate(
-                                "() => { const items = document.querySelectorAll('.profile-media-list__item'); if (items.length) { items[items.length-1].scrollIntoView(); return true; } return false; }"
-                            )
-                        except Exception:
-                            pass
-                        # wait a bit for network / render
-                        try:
-                            page.wait_for_timeout(wait_ms)
-                        except Exception:
-                            time.sleep(wait_ms / 1000.0)
-
-                    # After scrolling, collect all items
-                    items = page.evaluate("""() => Array.from(document.querySelectorAll('.profile-media-list__item'))
-                        .map(li => {
-                            const r = li.getBoundingClientRect();
-                            const t = li.querySelector('.media-content__meta-time');
-                            return {u: li.querySelector('.button__download')?.href, x: r.x, y: r.y, t: t?.title, txt: t?.innerText?.trim()};
-                        })
-                        .filter(s => s.u)""")
-                    return items
-
-                def _parse_meta_timestamp(s):
-                    # Try absolute timestamp in t (e.g., '1.2.2023, 12:34:56' or '01.02.2023, 12:34:56')
-                    t = s.get('t') or ''
-                    txt = s.get('txt') or ''
-                    if t:
-                        m = re.match(r"(\d{1,2})\.(\d{1,2})\.(\d{4}),?\s+(\d{1,2}):(\d{2}):(\d{2})", t)
-                        if m:
-                            d, mo, y, h, mi, sec = m.groups()
-                            try:
-                                return datetime(int(y), int(mo), int(d), int(h), int(mi), int(sec), tzinfo=timezone.utc)
-                            except Exception:
-                                pass
-                    # Try relative times in txt like '5 minutes ago' or '5 minute'
-                    rm = re.search(r"(\d+)\s*(minute|minutes|hour|hours|day|days)", txt)
-                    if rm:
-                        n = int(rm.group(1))
-                        unit = rm.group(2)
-                        if unit.startswith('minute'):
-                            return datetime.now(timezone.utc) - timedelta(minutes=n)
-                        if unit.startswith('hour'):
-                            return datetime.now(timezone.utc) - timedelta(hours=n)
-                        if unit.startswith('day'):
-                            return datetime.now(timezone.utc) - timedelta(days=n)
-                    # Try expires param in URL if present
-                    if s.get('u'):
-                        em = re.search(r'__expires=(\d+)', s.get('u'))
-                        if em:
-                            try:
-                                return datetime.fromtimestamp(int(em[1]), tz=timezone.utc)
-                            except Exception:
-                                pass
-                    return None
-
-                def _sort_items_chronologically(items):
-                    # Attach parsed timestamp if available
-                    for it in items:
-                        it['_parsed_ts'] = _parse_meta_timestamp(it)
-                    # If any item has a parsed timestamp, sort by it ascending (oldest first)
-                    if any(it.get('_parsed_ts') for it in items):
-                        # Items without timestamp go to the end; stable sort
-                        items.sort(key=lambda s: (s.get('_parsed_ts') is None, s.get('_parsed_ts') or datetime.max.replace(tzinfo=timezone.utc)))
-                        return items
-                    # Fallback: group by row (y) then x (left->right)
-                    ROW_TOL = 30.0
-                    items.sort(key=lambda s: (round(s.get('y', 0) / ROW_TOL), s.get('x', 0)))
-                    return items
-
                 items = _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500)
                 items = _sort_items_chronologically(items)
                 return items
@@ -427,7 +373,7 @@ class StoryDownloader:
                 pass
         try:
             removed = page.evaluate("""() => {
-                const cands = document.querySelectorAll('[class*=\"hook_panel\"], [class*=\"popup\"], [class*=\"overlay\"]');
+                const cands = document.querySelectorAll('[class*="hook_panel"], [class*="popup"], [class*="overlay"]');
                 for (const c of cands) {
                     const r = c.getBoundingClientRect();
                     if (r.width > window.innerWidth * 0.7 && r.height > window.innerHeight * 0.7) {
@@ -467,7 +413,6 @@ class StoryDownloader:
                     filename = f"{username}-{ts}{ext}"
                     p = user_dir / filename
                     p.write_bytes(r.content)
-                    # Return path along with optional pre_download_id if present
                     downloaded.append({"path": p, "pre_download_id": s.get("pre_download_id")})
                     logger.debug(f"  [{idx}/{len(stories)}] הורד {filename}")
                     break

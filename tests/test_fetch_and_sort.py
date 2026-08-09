@@ -23,6 +23,9 @@ class FakePage:
 
     def evaluate(self, js):
         s = js.strip()
+        if 'return {count' in s or ('document.querySelectorAll' in s and 'winY' in s):
+            # return a metrics dict
+            return {'count': self.counts[self.idx], 'winY': 0, 'docH': 1000, 'bodyH': 1000, 'container': None}
         if 'document.querySelectorAll' in s and '.length' in s:
             # first time return initial count, subsequent calls return final count
             self._length_called += 1
