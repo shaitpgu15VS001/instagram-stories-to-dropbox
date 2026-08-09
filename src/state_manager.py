@@ -61,9 +61,15 @@ class StateManager:
 
     def is_uploaded(self, username, story_id):
         user_files = self.state["uploaded_files"].get(username, [])
-        return any(item.get("instagram_id") == story_id for item in user_files)
+        for item in user_files:
+            # Backwards-compatible checks: match by existing instagram_id or new pre_download_id
+            if item.get("instagram_id") == story_id:
+                return True
+            if item.get("pre_download_id") and item.get("pre_download_id") == story_id:
+                return True
+        return False
 
-    def mark_uploaded(self, username, story_id, filename, dropbox_path, published_at=None):
+    def mark_uploaded(self, username, story_id, filename, dropbox_path, published_at=None, pre_download_id=None):
         if username not in self.state["uploaded_files"]:
             self.state["uploaded_files"][username] = []
 
@@ -74,6 +80,9 @@ class StateManager:
             "published_at": published_at,
             "uploaded_at": datetime.utcnow().isoformat() + "Z",
         }
+        # Optionally store the pre-download identifier (uri_path) for faster skip-before-download
+        if pre_download_id:
+            entry["pre_download_id"] = pre_download_id
 
         self.state["uploaded_files"][username].append(entry)
         logger.debug(f"סומן כהועלה: {username}/{filename}")

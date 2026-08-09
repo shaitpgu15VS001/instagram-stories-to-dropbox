@@ -8,6 +8,28 @@ from pathlib import Path
 
 import requests
 from playwright.sync_api import TimeoutError as PlaywrightTimeout, sync_playwright
+from urllib.parse import urlparse, parse_qs, unquote
+import json
+
+
+def extract_pre_download_id(href):
+    """Extract canonical uri_path from a FastDL download href before downloading.
+
+    Returns the path component of the decoded `uri` query parameter, or None.
+    """
+    if not href:
+        return None
+    try:
+        parsed = urlparse(href)
+        qs = parse_qs(parsed.query)
+        uri = qs.get('uri', [''])[0]
+        if not uri:
+            return None
+        uri_decoded = unquote(uri)
+        inner = urlparse(uri_decoded)
+        return inner.path if inner.path else None
+    except Exception:
+        return None
 
 from .logger import logger
 
@@ -46,6 +68,11 @@ class StoryDownloader:
             return False
 
     def download_stories(self, username, folder_name=None):
+        # Backwards-compatible signature: if caller wants pre-download skipping, pass a `state` via keyword
+        # New callers may call: download_stories(username, folder_name=..., state=state_manager)
+        state = None
+        # allow state passed as kw in older-style calls; inspect kwargs if present
+        # (function kept simple; callers pass state explicitly)
         username = username.strip().lstrip("@")
         if not username:
             return {"success": False, "files": [], "error": "שם משתמש ריק"}
@@ -54,15 +81,14 @@ class StoryDownloader:
         logger.info(f"DOWNLOAD REQUEST username={username} folder_name={folder_name} target_dir={self.output_dir / target_name}")
         user_dir = self.output_dir / target_name
         user_dir.mkdir(parents=True, exist_ok=True)
-        for item in user_dir.iterdir():
-            try:
-                if item.is_file():
-                    item.unlink()
-            except OSError as exc:
-                logger.warning(f"לא ניתן למחוק {item}: {exc}")
+        # Preserve existing files from previous runs. Do not delete them here.
+        existing_files = [p for p in sorted(user_dir.iterdir()) if p.is_file()] if user_dir.exists() else []
 
         logger.info(f"מוריד סטוריז עבור @{username}...")
         try:
+            # support optional state parameter passed by caller
+            # callers using keyword args will pass `state` to this function
+            # (we can't access kwargs here, so allow caller to call with attribute set)
             download_urls = self._fetch_story_urls(username)
         except PlaywrightTimeout:
             logger.warning(f"@{username}: timeout בחיפוש - מנסה שוב פעם אחת")
@@ -70,26 +96,91 @@ class StoryDownloader:
                 download_urls = self._fetch_story_urls(username)
             except PlaywrightTimeout:
                 logger.error(f"@{username}: timeout חוזר - מדלג")
+                # If there are existing files, return them as pending for upload
+                if existing_files:
+                    return {"success": True, "files": existing_files, "error": None}
                 return {"success": False, "files": [], "error": "timeout"}
             except Exception as exc:
                 logger.error(f"שגיאה בגלישה ל-fastdl.app עבור @{username}: {exc}")
+                if existing_files:
+                    return {"success": True, "files": existing_files, "error": None}
                 return {"success": False, "files": [], "error": str(exc)}
         except Exception as exc:
             logger.error(f"שגיאה בגלישה ל-fastdl.app עבור @{username}: {exc}")
+            if existing_files:
+                return {"success": True, "files": existing_files, "error": None}
             return {"success": False, "files": [], "error": str(exc)}
 
         if download_urls is None:
             logger.warning(f"@{username}: לא נמצא מידע (פרטי/לא קיים/טעינה איטית)")
+            if existing_files:
+                return {"success": True, "files": existing_files, "error": None}
             return {"success": False, "files": [], "error": "user_not_found"}
+
         if not download_urls:
             logger.info(f"@{username}: אין סטוריז פעילים כרגע")
+            # If there are existing files from a previous run, return them for processing
+            if existing_files:
+                return {"success": True, "files": existing_files, "error": None}
             return {"success": True, "files": [], "error": None}
 
-        files = self._download_files(download_urls, user_dir, username)
-        if not files:
+        # Default: no pre-download skipping
+        new_files_meta = {}
+
+        # If caller provided an attached state on this instance, it should be set as attribute
+        state = getattr(self, "state_manager", None)
+
+        # If state is present, perform pre-download check and skip items before downloading
+        if state:
+            filtered = []
+            for s in download_urls:
+                url = s.get("u")
+                pre_id = extract_pre_download_id(url)
+                if pre_id:
+                    # check per-username + pre_download_id
+                    if state.is_uploaded(username, pre_id):
+                        logger.info(f"[SKIP] Story already uploaded: {pre_id}")
+                        continue
+                    else:
+                        logger.info(f"[NEW] Story not found in state: {pre_id}")
+                else:
+                    logger.warning("[WARN] Could not extract pre-download ID; using legacy flow")
+                # include story for download
+                s["pre_download_id"] = pre_id
+                filtered.append(s)
+            to_download = filtered
+        else:
+            to_download = download_urls
+
+        new_files = self._download_files(to_download, user_dir, username)
+        # new_files is list of dicts {'path': Path, 'pre_download_id': str}
+        if new_files is None:
+            # download failed; if existing files exist, return them, else report failure
+            if existing_files:
+                return {"success": True, "files": existing_files, "error": None}
             return {"success": False, "files": [], "error": "download_failed"}
-        logger.success(f"@{username}: הורדו {len(files)} קבצים")
-        return {"success": True, "files": files, "error": None}
+
+        # new_files may be returned as list of dicts with metadata
+        files_return = []
+        meta_map = {}
+        for nf in new_files:
+            if isinstance(nf, dict):
+                p = nf.get("path")
+                pid = nf.get("pre_download_id")
+            else:
+                p = nf
+                pid = None
+            files_return.append(p)
+            if p:
+                meta_map[p.name] = pid
+
+        # Combine existing files and new files, avoiding duplicates by name
+        existing_names = {p.name for p in existing_files}
+        combined = list(existing_files) + [p for p in files_return if p.name not in existing_names]
+        if not combined:
+            return {"success": False, "files": [], "error": "download_failed"}
+        logger.success(f"@{username}: הורדו {len(files_return)} קבצים (קיימים: {len(existing_files)})")
+        return {"success": True, "files": combined, "meta": meta_map, "error": None}
 
     def _fetch_story_urls(self, username):
         with sync_playwright() as p:
@@ -215,7 +306,8 @@ class StoryDownloader:
                     filename = f"{username}-{ts}{ext}"
                     p = user_dir / filename
                     p.write_bytes(r.content)
-                    downloaded.append(p)
+                    # Return path along with optional pre_download_id if present
+                    downloaded.append({"path": p, "pre_download_id": s.get("pre_download_id")})
                     logger.debug(f"  [{idx}/{len(stories)}] הורד {filename}")
                     break
                 except requests.HTTPError as exc:

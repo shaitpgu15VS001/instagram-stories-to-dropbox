@@ -4,9 +4,11 @@ from pathlib import Path
 
 from .logger import logger
 
+class InfrastructureError(Exception):
+    """Raised when rclone reports a non-retryable infrastructure error."""
+
 
 class RcloneUploader:
-
     MAX_RETRIES = 3
     RETRY_DELAY = 5
 
@@ -68,8 +70,26 @@ class RcloneUploader:
                     size = local_path.stat().st_size
                     logger.debug(f"הועלה בהצלחה: {remote_path} ({size} בייטים)")
                     return True
-                err = result.stderr.strip()
+                err = (result.stderr or "").strip()
+                err_l = err.lower()
                 logger.warning(f"rclone copy נכשל (ניסיון {attempt}): {err}")
+
+                # Detect non-retryable infrastructure/auth errors
+                non_retryable_tokens = [
+                    "401",
+                    "403",
+                    "permission denied",
+                    "authentication",
+                    "auth",
+                    "invalid token",
+                    "failed to create file system",
+                    "failed to create backend",
+                    "access denied",
+                ]
+                if any(tok in err_l for tok in non_retryable_tokens) or result.returncode in (2, 5):
+                    logger.error(f"rclone reported an infrastructure error: {err}")
+                    raise InfrastructureError(err)
+
                 if attempt < self.MAX_RETRIES:
                     import time
                     time.sleep(self.RETRY_DELAY)

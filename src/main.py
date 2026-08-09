@@ -9,7 +9,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 
 from .logger import logger
-from .rclone_uploader import RcloneUploader
+from .rclone_uploader import RcloneUploader, InfrastructureError
 from .state_manager import StateManager
 from .story_downloader import StoryDownloader
 
@@ -339,6 +339,12 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
     logger.section(f"מעבד את @{username}")
     logger.info(f"PROCESSING username={username} folder_name={folder_name}")
 
+    # ensure downloader has access to state for pre-download skipping
+    try:
+        downloader.state_manager = state
+    except Exception:
+        pass
+
     result = downloader.download_stories(username, folder_name=folder_name)
     if not result["success"]:
         logger.warning(f"דילוג על @{username} עקב שגיאה: {result.get('error')}")
@@ -353,11 +359,13 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
 
     stats = {"downloaded": len(files), "uploaded": 0, "skipped": 0, "error": None}
 
+    meta = result.get('meta', {})
     for idx, local_file in enumerate(files, 1):
         story_id = downloader.extract_story_id(local_file.name)
+        pre_id = meta.get(local_file.name)
         dropbox_path = f"{folder_path}/{local_file.name}"
-
-        if not force_redownload and state.is_uploaded(username, story_id):
+        # Check both legacy instagram_id and new pre_download_id (uri_path)
+        if not force_redownload and (pre_id and state.is_uploaded(username, pre_id) or (not pre_id and state.is_uploaded(username, story_id))):
             logger.info(f"  [{idx}/{len(files)}] כבר הועלה: {local_file.name}")
             stats["skipped"] += 1
             try:
@@ -377,12 +385,21 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
                 story_id=story_id,
                 filename=local_file.name,
                 dropbox_path=dropbox_path,
+                pre_download_id=pre_id,
             )
-            stats["uploaded"] += 1
+            saved = False
             try:
-                local_file.unlink()
-            except OSError:
-                pass
+                state.save()
+                saved = True
+            except Exception as exc:
+                logger.error(f"שגיאה בשמירת state אחרי העלאה: {exc}")
+                # Do not delete local file if state wasn't persisted
+            stats["uploaded"] += 1
+            if saved:
+                try:
+                    local_file.unlink()
+                except OSError:
+                    pass
         else:
             logger.error(f"  נכשל בהעלאת {local_file.name}")
             stats["error"] = "upload_failed"
@@ -473,6 +490,13 @@ def main():
             total_stats["files_skipped"] += stats.get("skipped", 0)
             if stats.get("error"):
                 total_stats["users_failed"] += 1
+        except InfrastructureError as exc:
+            logger.error(f"שגיאת תשתית קריטית ב-upload: {exc}")
+            try:
+                state.save()
+            except Exception:
+                logger.error("נכשלה שמירת state בזמן טיפול בשגיאת תשתית")
+            sys.exit(1)
         except Exception as exc:
             logger.error(f"שגיאה לא צפויה בעיבוד @{username}: {exc}")
             total_stats["users_failed"] += 1
