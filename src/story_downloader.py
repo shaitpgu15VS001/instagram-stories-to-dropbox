@@ -49,6 +49,83 @@ MEDIA_EXTENSIONS = {".mp4", ".jpg", ".jpeg", ".png", ".webp", ".mov"}
 MAX_RETRIES, RETRYABLE, RETRY_DELAY = 3, {502, 503, 504}, 2
 
 
+def _parse_meta_timestamp(s):
+    """Parse timestamp from an item dict (tries absolute t, relative txt, __expires in url)."""
+    t = s.get('t') or ''
+    txt = s.get('txt') or ''
+    if t:
+        m = re.match(r"(\d{1,2})\.(\d{1,2})\.(\d{4}),?\s+(\d{1,2}):(\d{2}):(\d{2})", t)
+        if m:
+            d, mo, y, h, mi, sec = m.groups()
+            try:
+                return datetime(int(y), int(mo), int(d), int(h), int(mi), int(sec), tzinfo=timezone.utc)
+            except Exception:
+                pass
+    rm = re.search(r"(\d+)\s*(minute|minutes|hour|hours|day|days)", txt)
+    if rm:
+        n = int(rm.group(1))
+        unit = rm.group(2)
+        if unit.startswith('minute'):
+            return datetime.now(timezone.utc) - timedelta(minutes=n)
+        if unit.startswith('hour'):
+            return datetime.now(timezone.utc) - timedelta(hours=n)
+        if unit.startswith('day'):
+            return datetime.now(timezone.utc) - timedelta(days=n)
+    if s.get('u'):
+        em = re.search(r'__expires=(\d+)', s.get('u'))
+        if em:
+            try:
+                return datetime.fromtimestamp(int(em[1]), tz=timezone.utc)
+            except Exception:
+                pass
+    return None
+
+
+def _sort_items_chronologically(items):
+    # Attach parsed timestamp if available
+    for it in items:
+        it['_parsed_ts'] = _parse_meta_timestamp(it)
+    # If any item has a parsed timestamp, sort by it ascending (oldest first)
+    if any(it.get('_parsed_ts') for it in items):
+        items.sort(key=lambda s: (s.get('_parsed_ts') is None, s.get('_parsed_ts') or datetime.max.replace(tzinfo=timezone.utc)))
+        return items
+    # Fallback: group by row (y) then x (left->right)
+    ROW_TOL = 30.0
+    items.sort(key=lambda s: (round(s.get('y', 0) / ROW_TOL), s.get('x', 0)))
+    return items
+
+
+def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
+    prev = -1
+    for _ in range(max_scrolls):
+        try:
+            count = page.evaluate("() => document.querySelectorAll('.profile-media-list__item').length")
+        except Exception:
+            count = 0
+        if count == prev:
+            break
+        prev = count
+        try:
+            page.evaluate(
+                "() => { const items = document.querySelectorAll('.profile-media-list__item'); if (items.length) { items[items.length-1].scrollIntoView(); return true; } return false; }"
+            )
+        except Exception:
+            pass
+        try:
+            page.wait_for_timeout(wait_ms)
+        except Exception:
+            time.sleep(wait_ms / 1000.0)
+
+    items = page.evaluate("""() => Array.from(document.querySelectorAll('.profile-media-list__item'))
+        .map(li => {
+            const r = li.getBoundingClientRect();
+            const t = li.querySelector('.media-content__meta-time');
+            return {u: li.querySelector('.button__download')?.href, x: r.x, y: r.y, t: t?.title, txt: t?.innerText?.trim()};
+        })
+        .filter(s => s.u)""")
+    return items
+
+
 class StoryDownloader:
 
     def __init__(self, output_dir=STORIES_DIR):
@@ -245,14 +322,89 @@ class StoryDownloader:
                 except PlaywrightTimeout:
                     return []
 
-                items = page.evaluate("""() => Array.from(document.querySelectorAll('.profile-media-list__item'))
-                    .map(li => {
-                        const r = li.getBoundingClientRect();
-                        const t = li.querySelector('.media-content__meta-time');
-                        return {u: li.querySelector('.button__download')?.href, x: r.x, y: r.y, t: t?.title, txt: t?.innerText?.trim()};
-                    })
-                    .filter(s => s.u)""")
-                items.sort(key=lambda s: (-s['x'], s['y']))
+                # Ensure we load more items by scrolling until the count stabilizes
+                def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
+                    prev = -1
+                    for _ in range(max_scrolls):
+                        try:
+                            count = page.evaluate("() => document.querySelectorAll('.profile-media-list__item').length")
+                        except Exception:
+                            count = 0
+                        if count == prev:
+                            break
+                        prev = count
+                        # Scroll the last item into view to trigger lazy loading
+                        try:
+                            page.evaluate(
+                                "() => { const items = document.querySelectorAll('.profile-media-list__item'); if (items.length) { items[items.length-1].scrollIntoView(); return true; } return false; }"
+                            )
+                        except Exception:
+                            pass
+                        # wait a bit for network / render
+                        try:
+                            page.wait_for_timeout(wait_ms)
+                        except Exception:
+                            time.sleep(wait_ms / 1000.0)
+
+                    # After scrolling, collect all items
+                    items = page.evaluate("""() => Array.from(document.querySelectorAll('.profile-media-list__item'))
+                        .map(li => {
+                            const r = li.getBoundingClientRect();
+                            const t = li.querySelector('.media-content__meta-time');
+                            return {u: li.querySelector('.button__download')?.href, x: r.x, y: r.y, t: t?.title, txt: t?.innerText?.trim()};
+                        })
+                        .filter(s => s.u)""")
+                    return items
+
+                def _parse_meta_timestamp(s):
+                    # Try absolute timestamp in t (e.g., '1.2.2023, 12:34:56' or '01.02.2023, 12:34:56')
+                    t = s.get('t') or ''
+                    txt = s.get('txt') or ''
+                    if t:
+                        m = re.match(r"(\d{1,2})\.(\d{1,2})\.(\d{4}),?\s+(\d{1,2}):(\d{2}):(\d{2})", t)
+                        if m:
+                            d, mo, y, h, mi, sec = m.groups()
+                            try:
+                                return datetime(int(y), int(mo), int(d), int(h), int(mi), int(sec), tzinfo=timezone.utc)
+                            except Exception:
+                                pass
+                    # Try relative times in txt like '5 minutes ago' or '5 minute'
+                    rm = re.search(r"(\d+)\s*(minute|minutes|hour|hours|day|days)", txt)
+                    if rm:
+                        n = int(rm.group(1))
+                        unit = rm.group(2)
+                        if unit.startswith('minute'):
+                            return datetime.now(timezone.utc) - timedelta(minutes=n)
+                        if unit.startswith('hour'):
+                            return datetime.now(timezone.utc) - timedelta(hours=n)
+                        if unit.startswith('day'):
+                            return datetime.now(timezone.utc) - timedelta(days=n)
+                    # Try expires param in URL if present
+                    if s.get('u'):
+                        em = re.search(r'__expires=(\d+)', s.get('u'))
+                        if em:
+                            try:
+                                return datetime.fromtimestamp(int(em[1]), tz=timezone.utc)
+                            except Exception:
+                                pass
+                    return None
+
+                def _sort_items_chronologically(items):
+                    # Attach parsed timestamp if available
+                    for it in items:
+                        it['_parsed_ts'] = _parse_meta_timestamp(it)
+                    # If any item has a parsed timestamp, sort by it ascending (oldest first)
+                    if any(it.get('_parsed_ts') for it in items):
+                        # Items without timestamp go to the end; stable sort
+                        items.sort(key=lambda s: (s.get('_parsed_ts') is None, s.get('_parsed_ts') or datetime.max.replace(tzinfo=timezone.utc)))
+                        return items
+                    # Fallback: group by row (y) then x (left->right)
+                    ROW_TOL = 30.0
+                    items.sort(key=lambda s: (round(s.get('y', 0) / ROW_TOL), s.get('x', 0)))
+                    return items
+
+                items = _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500)
+                items = _sort_items_chronologically(items)
                 return items
             finally:
                 browser.close()
