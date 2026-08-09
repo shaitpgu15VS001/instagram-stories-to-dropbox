@@ -62,52 +62,40 @@ jobs:
         env:
           STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
         run: |
-          remote=$(python - <<'PY'
-          import os
-          import pathlib
-          import sys
+          set -euo pipefail
+          requested="$(printf '%s' "$STORAGE_BACKEND" | tr -d '\r' | tr '[:upper:]' '[:lower:]')"
+          if [ -z "$requested" ] && [ -f STORAGE_BACKEND.txt ]; then
+            requested="$(tr -d '\r\n' < STORAGE_BACKEND.txt | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+          fi
 
-          env_remote = os.environ.get('STORAGE_BACKEND', '').strip().lower()
-          file_remote = None
-          storage_file = pathlib.Path('STORAGE_BACKEND.txt')
-          if storage_file.exists():
-              file_remote = storage_file.read_text(encoding='utf-8').strip() or None
+          if [ ! -f rclone.conf ]; then
+            if [ -n "$requested" ]; then
+              echo 'error: STORAGE_BACKEND configured but rclone.conf is missing' >&2
+            else
+              echo 'error: no STORAGE_BACKEND configured and rclone.conf is missing' >&2
+            fi
+            exit 1
+          fi
 
-          requested = env_remote if env_remote else file_remote
-          config_path = pathlib.Path('rclone.conf')
-          if not config_path.exists():
-              print('error: rclone.conf is missing', file=sys.stderr)
-              sys.exit(1)
+          remotes=$(grep -E '^\[.*\]$' rclone.conf | sed -E 's/^\[(.*)\]$/\1/' | tr -d '\r')
+          if [ -z "$remotes" ]; then
+            echo 'error: no remotes found in rclone.conf' >&2
+            exit 1
+          fi
 
-          remotes = []
-          for line in config_path.read_text(encoding='utf-8').splitlines():
-              line = line.strip()
-              if line.startswith('[') and line.endswith(']'):
-                  name = line[1:-1].strip()
-                  if name:
-                      remotes.append(name)
+          if [ -n "$requested" ]; then
+            if printf '%s\n' "$remotes" | grep -Fxq "$requested"; then
+              echo "remote=$requested" >> "$GITHUB_OUTPUT"
+              exit 0
+            fi
+            selected="$(printf '%s\n' "$remotes" | sed -n '1p')"
+            echo "warning: requested storage backend '$requested' not found in rclone.conf; falling back to first available remote '$selected'" >&2
+            echo "remote=$selected" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
 
-          if not remotes:
-              print('error: no remotes found in rclone.conf', file=sys.stderr)
-              sys.exit(1)
-
-          selected = None
-          if requested:
-              if requested in remotes:
-                  selected = requested
-              else:
-                  print(
-                      f"warning: requested storage backend '{requested}' not found; "
-                      f"falling back to first available remote '{remotes[0]}'",
-                      file=sys.stderr,
-                  )
-                  selected = remotes[0]
-          else:
-              selected = remotes[0]
-
-          print(selected)
-          PY
-          echo "remote=$remote" >> "$GITHUB_OUTPUT"
+          selected="$(printf '%s\n' "$remotes" | sed -n '1p')"
+          echo "remote=$selected" >> "$GITHUB_OUTPUT"
 
       - name: שחזור state.json מה־remote אם קיים
         run: |
@@ -197,7 +185,7 @@ jobs:
           python -m src.main
 
       - name: Validate and upload local state.json to remote
-        if: always()
+        if: ${{ always() && steps.resolve-remote.outcome == 'success' }}
         run: |
           set -e
           remote="${{ steps.resolve-remote.outputs.remote }}"
