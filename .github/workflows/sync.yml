@@ -55,9 +55,33 @@ jobs:
         uses: actions/cache@v4
         with:
           path: state.json
-          key: state-json-cache-v1
+          # Use a unique primary key per run to avoid restoring an old immutable cache
+          key: state-json-cache-v1-${{ github.run_id }}
+          # If exact key not found, restore the most recent cache that matches this prefix.
+          # actions/cache will pick the latest created cache matching the restore-keys.
           restore-keys: |
+            state-json-cache-v1-
             state-json-cache-v1
+
+      - name: Debug: state.json summary after restore
+        if: always()
+        run: |
+          if [ -f state.json ]; then
+            python - <<'PY'
+import json
+from pathlib import Path
+s=json.load(open('state.json'))
+users = s.get('uploaded_files',{})
+total_entries = sum(len(v) for v in users.values())
+pre_count = sum(1 for v in users.values() for e in v if e.get('pre_download_id'))
+print('state.exists=1')
+print('tracked_users=', len(users))
+print('total_entries=', total_entries)
+print('entries_with_pre_download_id=', pre_count)
+PY
+          else
+            echo "state.exists=0"
+          fi
 
       - name: שחזור קובץ תצורת rclone
         env:
@@ -79,8 +103,10 @@ jobs:
         if: always()
         with:
           path: state.json
+          # Save under a unique key per run
           key: state-json-cache-v1-${{ github.run_id }}
           restore-keys: |
+            state-json-cache-v1-
             state-json-cache-v1
 
       - name: ניקוי קבצים זמניים
