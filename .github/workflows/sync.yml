@@ -184,7 +184,9 @@ jobs:
           STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
           FORCE_REDOWNLOAD: ${{ github.event.inputs.force_redownload || 'false' }}
           LOG_LEVEL: DEBUG
+          SCROLL_DEBUG: '1'
         run: |
+          echo "SCROLL_DEBUG=$SCROLL_DEBUG"
           python -m src.main
 
       - name: Validate and upload local state.json to remote

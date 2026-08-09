@@ -98,11 +98,35 @@ def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
     debug = os.environ.get('SCROLL_DEBUG') == '1'
     # Unconditional diagnostic log: helps verify this function is reached in CI
     logger.info("scroll-collector: entered (SCROLL_DEBUG=%s)" % ("1" if debug else "0"))
+
+    # attach a lightweight network request capture for audit (non-intrusive)
+    requests_seen = []
+    try:
+        def _on_request(req):
+            try:
+                requests_seen.append(req.url)
+            except Exception:
+                pass
+
+        try:
+            page.on("request", _on_request)
+        except Exception:
+            pass
+    except Exception:
+        requests_seen = []
+
     prev = -1
     iter_count = 0
     stop_reason = None
+
     for i in range(1, max_scrolls + 1):
         iter_count = i
+        # record request count before this iteration
+        try:
+            req_count_before = len(requests_seen)
+        except Exception:
+            req_count_before = 0
+
         try:
             pre = page.evaluate(
                 "() => { const items = document.querySelectorAll('.profile-media-list__item'); const count = items.length; const winY = window.scrollY || window.pageYOffset; const docH = document.documentElement ? document.documentElement.scrollHeight : 0; const bodyH = document.body ? document.body.scrollHeight : 0; let container = null; if (items.length) { let el = items[0]; while (el) { const s = window.getComputedStyle(el); if (s.overflowY === 'auto' || s.overflowY === 'scroll') { container = {tag: el.tagName, class: el.className, scrollTop: el.scrollTop, scrollHeight: el.scrollHeight, clientHeight: el.clientHeight}; break; } el = el.parentElement; } } return {count, winY, docH, bodyH, container}; }"
@@ -111,8 +135,16 @@ def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
             pre = {'count': 0, 'winY': None, 'docH': None, 'bodyH': None, 'container': None}
 
         count = pre.get('count', 0)
+
+        try:
+            last_rect_before = page.evaluate(
+                "() => { const items = document.querySelectorAll('.profile-media-list__item'); if (!items.length) return null; const r = items[items.length-1].getBoundingClientRect(); return {x: r.x, y: r.y, width: r.width, height: r.height}; }"
+            )
+        except Exception:
+            last_rect_before = None
+
         if debug:
-            logger.info(f"scroll-debug iter={i} pre_count={count} pre_winY={pre.get('winY')} pre_docH={pre.get('docH')} pre_bodyH={pre.get('bodyH')} container={'yes' if pre.get('container') else 'no'})")
+            logger.info(f"scroll-debug iter={i} pre_count={count} pre_winY={pre.get('winY')} pre_docH={pre.get('docH')} pre_bodyH={pre.get('bodyH')} container={'yes' if pre.get('container') else 'no'} last_rect={last_rect_before}")
 
         if count == prev:
             stop_reason = 'count_stable'
@@ -141,8 +173,15 @@ def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
         except Exception:
             post = {'count': 0, 'winY': None, 'docH': None, 'bodyH': None, 'container': None}
 
+        try:
+            last_rect_after = page.evaluate(
+                "() => { const items = document.querySelectorAll('.profile-media-list__item'); if (!items.length) return null; const r = items[items.length-1].getBoundingClientRect(); return {x: r.x, y: r.y, width: r.width, height: r.height}; }"
+            )
+        except Exception:
+            last_rect_after = None
+
         if debug:
-            logger.info(f"scroll-debug iter={i} post_count_after_scroll={post.get('count')} post_winY={post.get('winY')} post_docH={post.get('docH')} post_bodyH={post.get('bodyH')} container={'yes' if post.get('container') else 'no'})")
+            logger.info(f"scroll-debug iter={i} post_count_after_scroll={post.get('count')} post_winY={post.get('winY')} post_docH={post.get('docH')} post_bodyH={post.get('bodyH')} container={'yes' if post.get('container') else 'no'} last_rect={last_rect_after}")
 
         try:
             page.wait_for_timeout(wait_ms)
@@ -156,8 +195,18 @@ def _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500):
         except Exception:
             waited = {'count': 0, 'winY': None, 'docH': None, 'bodyH': None, 'container': None}
 
+        try:
+            req_count_after_wait = len(requests_seen)
+        except Exception:
+            req_count_after_wait = 0
+
         if debug:
-            logger.info(f"scroll-debug iter={i} waited_count={waited.get('count')} waited_winY={waited.get('winY')} waited_docH={waited.get('docH')} waited_bodyH={waited.get('bodyH')} container={'yes' if waited.get('container') else 'no'})")
+            try:
+                reqs_before = req_count_before if 'req_count_before' in locals() else 0
+                new_reqs = requests_seen[reqs_before:req_count_after_wait]
+            except Exception:
+                new_reqs = []
+            logger.info(f"scroll-debug iter={i} waited_count={waited.get('count')} waited_winY={waited.get('winY')} waited_docH={waited.get('docH')} waited_bodyH={waited.get('bodyH')} container={'yes' if waited.get('container') else 'no'} new_requests={len(new_reqs)} sample_requests={new_reqs[:5]}")
 
         if waited.get('count') == prev:
             stop_reason = 'count_stable'

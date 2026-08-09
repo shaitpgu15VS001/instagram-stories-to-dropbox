@@ -410,6 +410,7 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
 def main():
     logger.section("🚀 מתחיל סנכרון סטוריז מאינסטגרם לדרופבוקס")
     logger.info(f"זמן התחלה: {datetime.now(timezone.utc).isoformat()}")
+    logger.info(f"SCROLL_DEBUG={os.environ.get('SCROLL_DEBUG')}")
 
     force_redownload = os.environ.get("FORCE_REDOWNLOAD", "false").lower() == "true"
     if force_redownload:
