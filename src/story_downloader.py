@@ -215,6 +215,7 @@ class StoryDownloader:
         logger.info(f"מוריד סטוריז עבור @{username}...")
         try:
             download_urls = self._fetch_story_urls(username)
+            logger.info(f"items_found_before_state_filter username={username} count={len(download_urls) if download_urls is not None else 'None'}")
         except PlaywrightTimeout:
             logger.warning(f"@{username}: timeout בחיפוש - מנסה שוב פעם אחת")
             try:
@@ -267,6 +268,10 @@ class StoryDownloader:
             to_download = filtered
         else:
             to_download = download_urls
+
+        # Diagnostic log: number of items after applying state filter
+        logger.info(f"items_after_state_filter username={username} count={len(to_download) if to_download else 0}")
+        
 
         if state and download_urls and not to_download:
             if existing_files:
