@@ -299,28 +299,47 @@ class StoryDownloader:
 
         new_files_meta = {}
         state = getattr(self, "state_manager", None)
+        summary = {
+            "found": 0,
+            "skipped": 0,
+            "matched_by_pre_download_id": 0,
+            "matched_by_instagram_id": 0,
+            "new": 0,
+        }
         if state:
             filtered = []
             for s in download_urls:
                 url = s.get("u")
                 pre_id = extract_pre_download_id(url)
                 if pre_id:
-                    if state.is_uploaded(username, pre_id):
-                        logger.info(f"[SKIP] Story already uploaded: {pre_id}")
+                    matched_type, item = state.find_uploaded_entry(username, pre_id)
+                    if item is not None:
+                        summary["found"] += 1
+                        summary["skipped"] += 1
+                        summary[f"matched_by_{matched_type}"] += 1
+                        logger.info(
+                            f"[SKIP] username={username} pre_download_id={pre_id} matched_by={matched_type} "
+                            f"state_value={item.get(matched_type)} filename={item.get('filename')} uploaded_at={item.get('uploaded_at')}"
+                        )
                         continue
-                    else:
-                        logger.info(f"[NEW] Story not found in state: {pre_id}")
+                    logger.info(f"[NEW] Story not found in state: {pre_id}")
                 else:
                     logger.warning("[WARN] Could not extract pre-download ID; using legacy flow")
                 s["pre_download_id"] = pre_id
                 filtered.append(s)
+                summary["new"] += 1
             to_download = filtered
         else:
             to_download = download_urls
 
         # Diagnostic log: number of items after applying state filter
         logger.info(f"items_after_state_filter username={username} count={len(to_download) if to_download else 0}")
-        
+        if state:
+            logger.info(
+                f"summary username={username} found={summary['found']} skipped={summary['skipped']} "
+                f"matched_by_pre_download_id={summary['matched_by_pre_download_id']} "
+                f"matched_by_instagram_id={summary['matched_by_instagram_id']} new={summary['new']}"
+            )
 
         if state and download_urls and not to_download:
             if existing_files:

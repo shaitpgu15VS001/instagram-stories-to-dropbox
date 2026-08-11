@@ -59,15 +59,19 @@ class StateManager:
         except OSError as exc:
             logger.error(f"שגיאה בשמירת state: {exc}")
 
-    def is_uploaded(self, username, story_id):
+    def find_uploaded_entry(self, username, story_id):
         user_files = self.state["uploaded_files"].get(username, [])
         for item in user_files:
             # Backwards-compatible checks: match by existing instagram_id or new pre_download_id
             if item.get("instagram_id") == story_id:
-                return True
+                return "instagram_id", item
             if item.get("pre_download_id") and item.get("pre_download_id") == story_id:
-                return True
-        return False
+                return "pre_download_id", item
+        return None, None
+
+    def is_uploaded(self, username, story_id):
+        _, item = self.find_uploaded_entry(username, story_id)
+        return item is not None
 
     def mark_uploaded(self, username, story_id, filename, dropbox_path, published_at=None, pre_download_id=None):
         if username not in self.state["uploaded_files"]:
