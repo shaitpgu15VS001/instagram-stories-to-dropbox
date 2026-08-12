@@ -104,12 +104,14 @@ class FastDLStoriesAPI:
                     """,
                     {"sel": "#search-form-input", "val": username},
                 )
-                page.click("#searchFormButton", force=True, timeout=timeout * 1000)
-
-                response = page.wait_for_response(
-                    lambda r: STORIES_API_PATH in r.url and r.request.method == "POST",
+                response_future = page.wait_for_event(
+                    "response",
+                    predicate=lambda r: STORIES_API_PATH in r.url and r.request.method == "POST",
                     timeout=20000,
                 )
+                page.click("#searchFormButton", force=True, timeout=timeout * 1000)
+
+                response = response_future
                 if response.status != 200:
                     return None
                 body = response.json()

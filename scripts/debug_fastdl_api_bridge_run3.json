@@ -14,5 +14,6 @@
   "debug_resource_urls": [
     "https://api-wh.fastdl.app/api/v1/instagram/userInfo",
     "https://api-wh.fastdl.app/api/v1/instagram/postsV2"
-  ]
+  ],
+  "search_input_set": true
 }
