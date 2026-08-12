@@ -109,6 +109,26 @@ class FastDLStoriesAPI:
                 context = browser.new_context(user_agent=USER_AGENT, viewport={"width": 1280, "height": 900}, locale="en-US")
                 page = context.new_page()
                 page.set_default_timeout(timeout * 1000)
+
+                request_seen = {"value": False, "method": None, "url": None}
+                response_seen = {"value": False, "status": None, "url": None, "content_type": None}
+
+                def on_request(req):
+                    if STORIES_API_PATH in req.url and req.method == "POST":
+                        request_seen["value"] = True
+                        request_seen["method"] = req.method
+                        request_seen["url"] = req.url
+
+                def on_response(resp):
+                    if STORIES_API_PATH in resp.url and resp.request.method == "POST":
+                        response_seen["value"] = True
+                        response_seen["status"] = resp.status
+                        response_seen["url"] = resp.url
+                        response_seen["content_type"] = (resp.headers.get("content-type") or resp.headers.get("Content-Type"))
+
+                page.on("request", on_request)
+                page.on("response", on_response)
+
                 page.goto(VIEWER_URL, wait_until="domcontentloaded", timeout=timeout * 1000)
                 page.wait_for_selector("#search-form-input", state="visible", timeout=timeout * 1000)
                 page.evaluate(
@@ -139,6 +159,25 @@ class FastDLStoriesAPI:
                     timeout=20000,
                 )
                 page.click("#searchFormButton", force=True, timeout=timeout * 1000)
+
+                if request_seen["value"]:
+                    __import__("src.logger", fromlist=["logger"]).logger.info(
+                        f"STORIES_API_REQUEST = SEEN username={username} method={request_seen['method']} url={request_seen['url']}"
+                    )
+                else:
+                    __import__("src.logger", fromlist=["logger"]).logger.info(
+                        f"STORIES_API_REQUEST = NOT_SEEN username={username}"
+                    )
+
+                if response_seen["value"]:
+                    __import__("src.logger", fromlist=["logger"]).logger.info(
+                        f"STORIES_API_RESPONSE = SEEN username={username} status={response_seen['status']} content_type={response_seen['content_type']} url={response_seen['url']}"
+                    )
+                else:
+                    __import__("src.logger", fromlist=["logger"]).logger.info(
+                        f"STORIES_API_RESPONSE = NOT_SEEN username={username}"
+                    )
+
                 response = response_future
                 if response.status != 200:
                     log_failure("waiting_for_response", TimeoutError(f"API bridge timeout stage=waiting_for_response timeout_seconds={20000}"), timeout_seconds=20000, response=response)
