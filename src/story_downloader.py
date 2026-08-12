@@ -373,64 +373,104 @@ class StoryDownloader:
         return {"success": True, "files": combined, "meta": meta_map, "error": None}
 
     def _fetch_story_urls(self, username):
-        with sync_playwright() as p:
-            browser = p.chromium.launch(
-                headless=True,
-                args=["--no-sandbox", "--disable-dev-shm-usage"],
+        # API-first: try FastDL Stories API. Do not automatically run the DOM
+        # fallback if the API fails or returns no usable items.
+        try:
+            from .fastdl_api import FastDLStoriesAPI
+            api = FastDLStoriesAPI()
+            api_items = api.fetch_stories(username)
+            if api_items is not None:
+                logger.info(f"Using FastDL Stories API, items={len(api_items)}")
+                normalized = []
+                for it in api_items:
+                    normalized.append({
+                        'u': it.get('u'),
+                        't': None,
+                        'txt': None,
+                    })
+                if normalized:
+                    return normalized
+                logger.warning(
+                    "FastDL Stories API returned no usable items. "
+                    "DOM extraction logic is preserved and available at src/story_downloader.py::_fetch_story_urls. "
+                    "See docs/FASTDL_STORIES_ARCHITECTURE.md for selectors, flow and historical findings."
+                )
+                return None
+        except Exception as exc:
+            logger.error(
+                "FastDL Stories API failed. DOM extraction logic is preserved and available at src/story_downloader.py::_fetch_story_urls. "
+                "See docs/FASTDL_STORIES_ARCHITECTURE.md for selectors, flow and historical findings."
             )
-            try:
-                context = browser.new_context(
-                    user_agent=USER_AGENT,
-                    viewport={"width": 1280, "height": 720},
-                    locale="en-US",
+            logger.debug(f"FastDL API error: {exc}")
+            return None
+
+        logger.warning(
+            "FastDL Stories API failed. DOM extraction logic is preserved and available at src/story_downloader.py::_fetch_story_urls. "
+            "See docs/FASTDL_STORIES_ARCHITECTURE.md for selectors, flow and historical findings."
+        )
+        return None
+
+        # The DOM extraction logic is intentionally preserved below for future
+        # reference, but it is not executed automatically from the API-first path.
+        if False:
+            with sync_playwright() as p:
+                browser = p.chromium.launch(
+                    headless=True,
+                    args=["--no-sandbox", "--disable-dev-shm-usage"],
                 )
-                page = context.new_page()
-                page.goto(VIEWER_URL, timeout=PAGE_LOAD_TIMEOUT, wait_until="domcontentloaded")
-                page.wait_for_selector(
-                    "#search-form-input",
-                    timeout=PROFILE_LOAD_TIMEOUT,
-                    state="visible",
-                )
-                page.fill("#search-form-input", username)
-                page.click("#searchFormButton")
                 try:
-                    page.wait_for_selector(
-                        ".user-info", timeout=PROFILE_LOAD_TIMEOUT, state="visible"
+                    context = browser.new_context(
+                        user_agent=USER_AGENT,
+                        viewport={"width": 1280, "height": 720},
+                        locale="en-US",
                     )
-                except PlaywrightTimeout:
-                    return None
+                    page = context.new_page()
+                    page.goto(VIEWER_URL, timeout=PAGE_LOAD_TIMEOUT, wait_until="domcontentloaded")
+                    page.wait_for_selector(
+                        "#search-form-input",
+                        timeout=PROFILE_LOAD_TIMEOUT,
+                        state="visible",
+                    )
+                    page.fill("#search-form-input", username)
+                    page.click("#searchFormButton")
+                    try:
+                        page.wait_for_selector(
+                            ".user-info", timeout=PROFILE_LOAD_TIMEOUT, state="visible"
+                        )
+                    except PlaywrightTimeout:
+                        return None
 
-                stories_tab = page.locator(
-                    "button.tabs-component__button"
-                ).filter(has_text="Stories")
-                if stories_tab.count() == 0:
-                    return []
-                self._close_popups(page)
-                page.evaluate(
-                    """() => {
-                        const bs = document.querySelectorAll('button.tabs-component__button');
-                        for (const b of bs) {
-                            if (b.innerText.toLowerCase().includes('stories')) {
-                                b.scrollIntoView();
-                                b.click();
-                                return true;
+                    stories_tab = page.locator(
+                        "button.tabs-component__button"
+                    ).filter(has_text="Stories")
+                    if stories_tab.count() == 0:
+                        return []
+                    self._close_popups(page)
+                    page.evaluate(
+                        """() => {
+                            const bs = document.querySelectorAll('button.tabs-component__button');
+                            for (const b of bs) {
+                                if (b.innerText.toLowerCase().includes('stories')) {
+                                    b.scrollIntoView();
+                                    b.click();
+                                    return true;
+                                }
                             }
-                        }
-                        return false;
-                    }"""
-                )
-                self._close_popups(page)
-                try:
-                    page.wait_for_selector(".media-content--story", timeout=STORIES_LOAD_TIMEOUT, state="visible")
-                    page.wait_for_selector(".media-content__meta-time", timeout=STORIES_LOAD_TIMEOUT, state="visible")
-                except PlaywrightTimeout:
-                    return []
+                            return false;
+                        }"""
+                    )
+                    self._close_popups(page)
+                    try:
+                        page.wait_for_selector(".media-content--story", timeout=STORIES_LOAD_TIMEOUT, state="visible")
+                        page.wait_for_selector(".media-content__meta-time", timeout=STORIES_LOAD_TIMEOUT, state="visible")
+                    except PlaywrightTimeout:
+                        return []
 
-                items = _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500)
-                items = _sort_items_chronologically(items)
-                return items
-            finally:
-                browser.close()
+                    items = _collect_items_with_scroll(page, max_scrolls=25, wait_ms=500)
+                    items = _sort_items_chronologically(items)
+                    return items
+                finally:
+                    browser.close()
 
     def _close_popups(self, page):
         for sel in [

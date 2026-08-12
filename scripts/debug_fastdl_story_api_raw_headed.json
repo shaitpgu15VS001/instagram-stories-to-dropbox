@@ -1,0 +1,209 @@
+{
+  "label": "headed",
+  "headless": false,
+  "requests": [],
+  "responses": [],
+  "page_states": [
+    {
+      "step": "loaded",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {},
+      "sessionStorage": {}
+    },
+    {
+      "step": "after_search",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "_ym_synced": "{\"com\":29774828}",
+        "_ym_retryReqs": "{}",
+        "_ym_wv2rf:98849895:0": "1",
+        "_ym98849895_lsid": "1353120126739",
+        "country": "cz",
+        "_ym_uid": "\"178648970020627956\"",
+        "_ym98849895:0_reqNum": "1",
+        "lastCheckUpdate": "1786489700483"
+      },
+      "sessionStorage": {
+        "__ym_tab_guid": "1d9264df-2dfa-205e-d7b9-17ca87cd713f"
+      }
+    },
+    {
+      "step": "after_click_stories",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "_ym_synced": "{\"com\":29774828}",
+        "_ym_retryReqs": "{}",
+        "_ym_wv2rf:98849895:0": "1",
+        "_ym98849895_lsid": "1353120126739",
+        "country": "cz",
+        "_ym_uid": "\"178648970020627956\"",
+        "_ym98849895:0_reqNum": "1",
+        "lastCheckUpdate": "1786489700483"
+      },
+      "sessionStorage": {
+        "__ym_tab_guid": "1d9264df-2dfa-205e-d7b9-17ca87cd713f"
+      }
+    },
+    {
+      "step": "scroll_1",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "_ym_synced": "{\"com\":29774828}",
+        "_ym_retryReqs": "{}",
+        "_ym_wv2rf:98849895:0": "1",
+        "_ym98849895_lsid": "1353120126739",
+        "country": "cz",
+        "_ym_uid": "\"178648970020627956\"",
+        "_ym98849895:0_reqNum": "1",
+        "lastCheckUpdate": "1786489700483"
+      },
+      "sessionStorage": {
+        "__ym_tab_guid": "1d9264df-2dfa-205e-d7b9-17ca87cd713f"
+      }
+    },
+    {
+      "step": "scroll_2",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "_ym_synced": "{\"com\":29774828}",
+        "_ym_retryReqs": "{}",
+        "_ym_wv2rf:98849895:0": "1",
+        "_ym98849895_lsid": "1353120126739",
+        "_ym98849895_lastHit": "1786489716062",
+        "country": "cz",
+        "_ym_uid": "\"178648970020627956\"",
+        "_ym98849895:0_reqNum": "2",
+        "lastCheckUpdate": "1786489700483"
+      },
+      "sessionStorage": {
+        "__ym_tab_guid": "1d9264df-2dfa-205e-d7b9-17ca87cd713f"
+      }
+    },
+    {
+      "step": "scroll_3",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "_ym_synced": "{\"com\":29774828}",
+        "_ym_retryReqs": "{}",
+        "_ym_wv2rf:98849895:0": "1",
+        "_ym98849895_lsid": "1353120126739",
+        "_ym98849895_lastHit": "1786489716062",
+        "country": "cz",
+        "_ym_uid": "\"178648970020627956\"",
+        "_ym98849895:0_reqNum": "2",
+        "lastCheckUpdate": "1786489700483"
+      },
+      "sessionStorage": {
+        "__ym_tab_guid": "1d9264df-2dfa-205e-d7b9-17ca87cd713f"
+      }
+    },
+    {
+      "step": "scroll_4",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "_ym_synced": "{\"com\":29774828}",
+        "_ym_retryReqs": "{}",
+        "_ym_wv2rf:98849895:0": "1",
+        "_ym98849895_lsid": "1353120126739",
+        "_ym98849895_lastHit": "1786489716062",
+        "country": "cz",
+        "_ym_uid": "\"178648970020627956\"",
+        "_ym98849895:0_reqNum": "2",
+        "lastCheckUpdate": "1786489700483"
+      },
+      "sessionStorage": {
+        "__ym_tab_guid": "1d9264df-2dfa-205e-d7b9-17ca87cd713f"
+      }
+    },
+    {
+      "step": "scroll_5",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "_ym_synced": "{\"com\":29774828}",
+        "_ym_retryReqs": "{}",
+        "_ym_wv2rf:98849895:0": "1",
+        "_ym98849895_lsid": "1353120126739",
+        "_ym98849895_lastHit": "1786489716062",
+        "country": "cz",
+        "_ym_uid": "\"178648970020627956\"",
+        "_ym98849895:0_reqNum": "2",
+        "lastCheckUpdate": "1786489700483"
+      },
+      "sessionStorage": {
+        "__ym_tab_guid": "1d9264df-2dfa-205e-d7b9-17ca87cd713f"
+      }
+    },
+    {
+      "step": "final",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "_ym_synced": "{\"com\":29774828}",
+        "_ym_retryReqs": "{}",
+        "_ym_wv2rf:98849895:0": "1",
+        "_ym98849895_lsid": "1353120126739",
+        "_ym98849895_lastHit": "1786489716062",
+        "country": "cz",
+        "_ym_uid": "\"178648970020627956\"",
+        "_ym98849895:0_reqNum": "2",
+        "lastCheckUpdate": "1786489700483"
+      },
+      "sessionStorage": {
+        "__ym_tab_guid": "1d9264df-2dfa-205e-d7b9-17ca87cd713f"
+      }
+    }
+  ]
+}

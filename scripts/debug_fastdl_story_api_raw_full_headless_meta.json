@@ -1,0 +1,38 @@
+{
+  "label": "headless",
+  "headless": true,
+  "response_saved": true,
+  "response_file": "C:\\Users\\user-01\\Downloads\\Construction-apps\\Construction\\Github-Actions-Download-Stories\\scripts\\debug_fastdl_story_api_raw_full_headless.bin",
+  "json_file": "C:\\Users\\user-01\\Downloads\\Construction-apps\\Construction\\Github-Actions-Download-Stories\\scripts\\debug_fastdl_story_api_raw_full_headless.json",
+  "response_metadata": {
+    "url": "https://api-wh.fastdl.app/api/v1/instagram/stories",
+    "status": 200,
+    "headers": {
+      "x-robots-tag": "noindex",
+      "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+      "content-encoding": "br",
+      "cf-cache-status": "DYNAMIC",
+      "etag": "W/\"17b307-xof45M18rawEMLQPRIm6f6kIf/U\"",
+      "access-control-allow-credentials": "true",
+      "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=anN6GkXdLMjdrka5iVvhane5yVyjWthz%2B%2BIafMNB9T2WyCrjZG4CvOKFNF0tTrVcxSaC1q578gOQGN6OV9iLX652oLd8u7wP5XOKGUhH6r2QqqB9wCj0id%2FgXygclbU5fYIX\"}]}",
+      "cf-ray": "a29c11975cc2a0f5-PRG",
+      "access-control-allow-origin": "https://fastdl.app",
+      "alt-svc": "h3=\":443\"; ma=86400",
+      "date": "Wed, 12 Aug 2026 02:32:19 GMT",
+      "content-type": "application/json; charset=utf-8",
+      "vary": "Origin, Accept-Encoding",
+      "server": "cloudflare"
+    },
+    "body_length": 1553159
+  },
+  "page_events": [
+    {
+      "step": "loaded",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "title": "Instagram Stories Viewer - Anonymous Instagram Story Viewer",
+      "webdriver": true,
+      "story_items": 6
+    }
+  ],
+  "error": null
+}

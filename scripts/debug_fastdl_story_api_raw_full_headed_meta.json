@@ -1,0 +1,10 @@
+{
+  "label": "headed",
+  "headless": false,
+  "response_saved": false,
+  "response_file": null,
+  "json_file": null,
+  "response_metadata": null,
+  "page_events": [],
+  "error": "timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\".profile-media-list__item\") to be visible\n"
+}

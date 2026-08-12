@@ -1,0 +1,50 @@
+{
+  "total": 35,
+  "downloadable_count": 35,
+  "images": 1,
+  "videos": 34,
+  "test_succeeded": 3,
+  "test_total": 3,
+  "cookies_required": false,
+  "special_headers_required": false,
+  "urls_ephemeral": true,
+  "duplicates": 0,
+  "samples": [
+    {
+      "idx": 0,
+      "result": {
+        "ok": true,
+        "status": 200,
+        "content_type": "video/mp4",
+        "content_length": 1066781,
+        "saved": true,
+        "is_media_prefix": true,
+        "requires_cookie_or_special": false
+      }
+    },
+    {
+      "idx": 17,
+      "result": {
+        "ok": true,
+        "status": 200,
+        "content_type": "video/mp4",
+        "content_length": 9022380,
+        "saved": true,
+        "is_media_prefix": true,
+        "requires_cookie_or_special": false
+      }
+    },
+    {
+      "idx": 34,
+      "result": {
+        "ok": true,
+        "status": 200,
+        "content_type": "video/mp4",
+        "content_length": 5483256,
+        "saved": true,
+        "is_media_prefix": true,
+        "requires_cookie_or_special": false
+      }
+    }
+  ]
+}

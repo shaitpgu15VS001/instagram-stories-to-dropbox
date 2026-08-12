@@ -1,0 +1,140 @@
+{
+  "label": "headless",
+  "headless": true,
+  "requests": [],
+  "responses": [],
+  "page_states": [
+    {
+      "step": "loaded",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {},
+      "sessionStorage": {}
+    },
+    {
+      "step": "after_search",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "country": "cz",
+        "lastCheckUpdate": "1786489671469"
+      },
+      "sessionStorage": {}
+    },
+    {
+      "step": "after_click_stories",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "country": "cz",
+        "lastCheckUpdate": "1786489671469"
+      },
+      "sessionStorage": {}
+    },
+    {
+      "step": "scroll_1",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "country": "cz",
+        "lastCheckUpdate": "1786489671469"
+      },
+      "sessionStorage": {}
+    },
+    {
+      "step": "scroll_2",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "country": "cz",
+        "lastCheckUpdate": "1786489671469"
+      },
+      "sessionStorage": {}
+    },
+    {
+      "step": "scroll_3",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "country": "cz",
+        "lastCheckUpdate": "1786489671469"
+      },
+      "sessionStorage": {}
+    },
+    {
+      "step": "scroll_4",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "country": "cz",
+        "lastCheckUpdate": "1786489671469"
+      },
+      "sessionStorage": {}
+    },
+    {
+      "step": "scroll_5",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "country": "cz",
+        "lastCheckUpdate": "1786489671469"
+      },
+      "sessionStorage": {}
+    },
+    {
+      "step": "final",
+      "webdriver": true,
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "story_items": 0,
+      "download_buttons": 0,
+      "meta_times": 0,
+      "story_item_texts": [],
+      "localStorage": {
+        "country": "cz",
+        "lastCheckUpdate": "1786489671469"
+      },
+      "sessionStorage": {}
+    }
+  ]
+}
