@@ -291,6 +291,11 @@ class StoryDownloader:
                 "DOM extraction remains archived in src/story_downloader.py and docs/FASTDL_STORIES_ARCHITECTURE.md; "
                 "it is not executed automatically from the API-first flow."
             )
+            logger.error(
+                f"FastDL API bridge failure username={username} stage=api_bridge_result "
+                "exception_type=api_error exception_message=No usable stories returned from API bridge; "
+                "returning api_error and leaving DOM archived as maintenance-only knowledge."
+            )
             if existing_files:
                 return {"success": True, "files": existing_files, "error": None}
             return {"success": False, "files": [], "error": "api_error"}
@@ -407,10 +412,17 @@ class StoryDownloader:
             )
             return None
         except Exception as exc:
+            stage = "waiting_for_response" if isinstance(exc, PlaywrightTimeout) else "api_bridge"
+            timeout_value = 20 if isinstance(exc, PlaywrightTimeout) else None
             logger.error(
-                "FastDL Stories API/bridge error. DOM extraction remains archived and is not executed automatically. "
-                "DOM archive path: src/story_downloader.py::_fetch_story_urls; docs/FASTDL_STORIES_ARCHITECTURE.md. "
-                f"Error: {exc}"
+                "FastDL API bridge failure username=%s stage=%s exception_type=%s exception_message=%s%s "
+                "DOM extraction remains archived and is not executed automatically. "
+                "DOM archive path: src/story_downloader.py::_fetch_story_urls; docs/FASTDL_STORIES_ARCHITECTURE.md.",
+                username,
+                stage,
+                type(exc).__name__,
+                str(exc),
+                f" timeout_seconds={timeout_value}" if timeout_value is not None else "",
             )
             return None
 

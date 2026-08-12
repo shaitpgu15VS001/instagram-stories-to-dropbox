@@ -74,8 +74,37 @@ class FastDLStoriesAPI:
         return self._fetch_stories_with_playwright(username, timeout=timeout)
 
     def _fetch_stories_with_playwright(self, username: str, timeout: int = 10) -> Optional[List[Dict[str, Any]]]:
+        def log_failure(stage: str, exc: Exception, timeout_seconds: Optional[int] = None, response: Optional[Any] = None):
+            exc_type = type(exc).__name__
+            exc_message = str(exc)
+            details = [
+                f"username={username}",
+                f"stage={stage}",
+                f"exception_type={exc_type}",
+                f"exception_message={exc_message}",
+            ]
+            if timeout_seconds is not None:
+                details.append(f"timeout_seconds={timeout_seconds}")
+            if response is not None:
+                status = getattr(response, "status", None)
+                url = getattr(response, "url", None)
+                headers = getattr(response, "headers", {}) or {}
+                content_type = headers.get("content-type") or headers.get("Content-Type")
+                if status is not None:
+                    details.append(f"http_status={status}")
+                if url:
+                    details.append(f"response_url={url}")
+                if content_type:
+                    details.append(f"content_type={content_type}")
+            logger = __import__("src.logger", fromlist=["logger"]).logger
+            logger.error("FastDL API bridge failure: " + "; ".join(details))
+
         with sync_playwright() as p:
-            browser = p.chromium.launch(headless=True, args=["--no-sandbox", "--disable-dev-shm-usage"])
+            try:
+                browser = p.chromium.launch(headless=True, args=["--no-sandbox", "--disable-dev-shm-usage"])
+            except Exception as exc:
+                log_failure("browser_launch", exc, timeout_seconds=timeout)
+                return None
             try:
                 context = browser.new_context(user_agent=USER_AGENT, viewport={"width": 1280, "height": 900}, locale="en-US")
                 page = context.new_page()
@@ -110,12 +139,31 @@ class FastDLStoriesAPI:
                     timeout=20000,
                 )
                 page.click("#searchFormButton", force=True, timeout=timeout * 1000)
-
                 response = response_future
                 if response.status != 200:
+                    log_failure("waiting_for_response", TimeoutError(f"API bridge timeout stage=waiting_for_response timeout_seconds={20000}"), timeout_seconds=20000, response=response)
                     return None
                 body = response.json()
-                return self.parse_stories(body)
+                items = self.parse_stories(body)
+                if items is None:
+                    log_failure("parsing", ValueError("API response parsed to no usable stories"), timeout_seconds=timeout, response=response)
+                    return None
+                return items
+            except PlaywrightTimeout as exc:
+                log_failure("waiting_for_response", exc, timeout_seconds=timeout)
+                return None
+            except Exception as exc:
+                stage = "search"
+                if "wait_for_event" in str(exc) or "wait_for_response" in str(exc):
+                    stage = "waiting_for_response"
+                elif "page.goto" in str(exc):
+                    stage = "page_navigation"
+                elif "querySelector" in str(exc) or "input" in str(exc):
+                    stage = "search"
+                elif "response.json" in str(exc) or "parse_stories" in str(exc):
+                    stage = "parsing"
+                log_failure(stage, exc, timeout_seconds=timeout)
+                return None
             finally:
                 browser.close()
 
