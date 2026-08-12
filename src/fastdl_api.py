@@ -139,7 +139,9 @@ class FastDLStoriesAPI:
                 page.on("response", on_response)
                 listener_attached = True
 
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.goto start")
                 page.goto(VIEWER_URL, wait_until="domcontentloaded", timeout=timeout * 1000)
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.goto done")
                 page_url_before_search = page.url
                 page.wait_for_selector("#search-form-input", state="visible", timeout=timeout * 1000)
                 page.evaluate(
@@ -150,42 +152,34 @@ class FastDLStoriesAPI:
                     }
                     """
                 )
-                page.evaluate(
-                    """
-                    (data) => {
-                        const input = document.querySelector(data.sel);
-                        if (!input) return false;
-                        input.focus();
-                        input.value = data.val;
-                        input.dispatchEvent(new Event('input', { bubbles: true }));
-                        input.dispatchEvent(new Event('change', { bubbles: true }));
-                        return input.value === data.val;
-                    }
-                    """,
-                    {"sel": "#search-form-input", "val": username},
-                )
-                response_future = page.wait_for_event(
-                    "response",
-                    predicate=lambda r: STORIES_API_PATH in r.url and r.request.method == "POST",
-                    timeout=20000,
-                )
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.fill start")
+                page.fill("#search-form-input", username)
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.fill done")
                 search_click_started = True
-                try:
-                    page.click("#searchFormButton", force=True, timeout=timeout * 1000)
-                    search_click_completed = True
-                except Exception as exc:
-                    __import__("src.logger", fromlist=["logger"]).logger.error(
-                        "NETWORK_DIAGNOSTIC: "
-                        f"LISTENER_ATTACHED={str(listener_attached).lower()} "
-                        f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
-                        f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
-                        f"STORIES_API_REQUEST_SEEN={str(request_seen['value']).lower()} "
-                        f"STORIES_API_RESPONSE_SEEN={str(response_seen['value']).lower()} "
-                        f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
-                        f"PAGE_URL_AFTER_SEARCH={page.url} "
-                        f"exception_type={type(exc).__name__} exception_message={exc}"
-                    )
-                    raise
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE response_waiter create start")
+                with page.expect_response(
+                    lambda response: STORIES_API_PATH in response.url and response.request.method == "POST",
+                    timeout=20000,
+                ) as response_info:
+                    __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.click start")
+                    try:
+                        page.click("#searchFormButton", force=True, timeout=timeout * 1000)
+                        search_click_completed = True
+                    except Exception as exc:
+                        __import__("src.logger", fromlist=["logger"]).logger.error(
+                            "NETWORK_DIAGNOSTIC: "
+                            f"LISTENER_ATTACHED={str(listener_attached).lower()} "
+                            f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
+                            f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
+                            f"STORIES_API_REQUEST_SEEN={str(request_seen['value']).lower()} "
+                            f"STORIES_API_RESPONSE_SEEN={str(response_seen['value']).lower()} "
+                            f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
+                            f"PAGE_URL_AFTER_SEARCH={page.url} "
+                            f"exception_type={type(exc).__name__} exception_message={exc}"
+                        )
+                        raise
+                    __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.click done")
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE response_waiter create done")
                 page_url_after_search = page.url
 
                 if request_seen["value"]:
@@ -197,8 +191,9 @@ class FastDLStoriesAPI:
                         f"STORIES_API_RESPONSE_STATUS={response_seen['status']} STORIES_API_RESPONSE_CONTENT_TYPE={response_seen['content_type']}"
                     )
 
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE wait_for_response start")
                 try:
-                    response = response_future
+                    response = response_info.value
                 except Exception as exc:
                     __import__("src.logger", fromlist=["logger"]).logger.error(
                         "NETWORK_DIAGNOSTIC: "
@@ -212,6 +207,7 @@ class FastDLStoriesAPI:
                         f"exception_type={type(exc).__name__} exception_message={exc}"
                     )
                     raise
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE wait_for_response done")
 
                 if response.status != 200:
                     __import__("src.logger", fromlist=["logger"]).logger.error(
