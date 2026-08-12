@@ -82,12 +82,12 @@ Debug / investigation assets
 Each script contains a one-line description at top explaining its purpose.
 
 Integration note:
-- The production downloader now prefers the API-first path through
-  `src/fastdl_api.py` using browser-signed Stories API capture.
-- If the API path fails or returns zero usable items, the DOM extraction logic
-  remains preserved in `src/story_downloader.py::_fetch_story_urls` and
-  `src/story_downloader.py::_collect_items_with_scroll`, but it is not executed
-  automatically from the API-first flow.
+- The production downloader is currently API-first and uses
+  `src/fastdl_api.py` with a browser-signed Stories API capture.
+- The DOM extraction is intentionally archived research material and is not
+  executed automatically when the API path fails or returns zero usable items.
+- The preserved DOM logic remains in `src/story_downloader.py::_fetch_story_urls`
+  and `src/story_downloader.py::_collect_items_with_scroll` for future work only.
 
 How the downloader now works (summary)
 -------------------------------------

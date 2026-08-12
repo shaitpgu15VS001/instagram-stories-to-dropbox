@@ -92,18 +92,17 @@ class FastDLStoriesAPI:
                 )
                 page.evaluate(
                     """
-                    (sel, val) => {
-                        const input = document.querySelector(sel);
+                    (data) => {
+                        const input = document.querySelector(data.sel);
                         if (!input) return false;
                         input.focus();
-                        input.value = val;
+                        input.value = data.val;
                         input.dispatchEvent(new Event('input', { bubbles: true }));
                         input.dispatchEvent(new Event('change', { bubbles: true }));
-                        return input.value === val;
+                        return input.value === data.val;
                     }
                     """,
-                    "#search-form-input",
-                    username,
+                    {"sel": "#search-form-input", "val": username},
                 )
                 page.click("#searchFormButton", force=True, timeout=timeout * 1000)
 

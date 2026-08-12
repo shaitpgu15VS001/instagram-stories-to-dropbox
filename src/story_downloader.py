@@ -286,10 +286,14 @@ class StoryDownloader:
             return {"success": False, "files": [], "error": str(exc)}
 
         if download_urls is None:
-            logger.warning(f"@{username}: לא נמצא מידע (פרטי/לא קיים/טעינה איטית)")
+            logger.warning(
+                f"@{username}: FastDL API/bridge failed or returned no usable stories. "
+                "DOM extraction remains archived in src/story_downloader.py and docs/FASTDL_STORIES_ARCHITECTURE.md; "
+                "it is not executed automatically from the API-first flow."
+            )
             if existing_files:
                 return {"success": True, "files": existing_files, "error": None}
-            return {"success": False, "files": [], "error": "user_not_found"}
+            return {"success": False, "files": [], "error": "api_error"}
 
         if not download_urls:
             logger.info(f"@{username}: אין סטוריז פעילים כרגע")
@@ -380,7 +384,7 @@ class StoryDownloader:
             api = FastDLStoriesAPI()
             api_items = api.fetch_stories(username)
             if api_items is not None:
-                logger.info(f"Using FastDL Stories API, items={len(api_items)}")
+                logger.info(f"FastDL Stories API success with stories, items={len(api_items)}")
                 normalized = []
                 for it in api_items:
                     normalized.append({
@@ -391,22 +395,28 @@ class StoryDownloader:
                 if normalized:
                     return normalized
                 logger.warning(
-                    "FastDL Stories API returned no usable items. "
-                    "DOM extraction logic is preserved and available at src/story_downloader.py::_fetch_story_urls. "
-                    "See docs/FASTDL_STORIES_ARCHITECTURE.md for selectors, flow and historical findings."
+                    "FastDL Stories API success but 0 usable stories returned. "
+                    "DOM extraction remains archived and is not executed automatically. "
+                    "DOM archive path: src/story_downloader.py::_fetch_story_urls; docs/FASTDL_STORIES_ARCHITECTURE.md."
                 )
                 return None
+            logger.warning(
+                "FastDL Stories API/bridge error or empty response. "
+                "DOM extraction remains archived and is not executed automatically. "
+                "DOM archive path: src/story_downloader.py::_fetch_story_urls; docs/FASTDL_STORIES_ARCHITECTURE.md."
+            )
+            return None
         except Exception as exc:
             logger.error(
-                "FastDL Stories API failed. DOM extraction logic is preserved and available at src/story_downloader.py::_fetch_story_urls. "
-                "See docs/FASTDL_STORIES_ARCHITECTURE.md for selectors, flow and historical findings."
+                "FastDL Stories API/bridge error. DOM extraction remains archived and is not executed automatically. "
+                "DOM archive path: src/story_downloader.py::_fetch_story_urls; docs/FASTDL_STORIES_ARCHITECTURE.md. "
+                f"Error: {exc}"
             )
-            logger.debug(f"FastDL API error: {exc}")
             return None
 
         logger.warning(
-            "FastDL Stories API failed. DOM extraction logic is preserved and available at src/story_downloader.py::_fetch_story_urls. "
-            "See docs/FASTDL_STORIES_ARCHITECTURE.md for selectors, flow and historical findings."
+            "FastDL Stories API/bridge error. DOM extraction remains archived and is not executed automatically. "
+            "DOM archive path: src/story_downloader.py::_fetch_story_urls; docs/FASTDL_STORIES_ARCHITECTURE.md."
         )
         return None
 

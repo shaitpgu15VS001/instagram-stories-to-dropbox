@@ -292,7 +292,7 @@ def main():
     print('story_count', result['story_count'])
     print('dom_count', result['dom_count'])
     print('download_urls', len(result['download_urls']))
-    print('test_results', [f"{r['kind']} {r['status']} size={r.get('size')}" for r in result['test_results']])
+    print('test_results', [f"{r.get('kind')} {r.get('status')} size={r.get('size')}" for r in result['test_results']])
     if result['api_requests']:
         first = result['api_requests'][0]
         print('request_method', first['method'])
