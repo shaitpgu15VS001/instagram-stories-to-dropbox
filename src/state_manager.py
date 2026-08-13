@@ -1,7 +1,7 @@
 import json
 import os
 import tempfile
-from datetime import datetime
+from datetime import datetime, timezone
 from pathlib import Path
 
 from .logger import logger
@@ -33,16 +33,27 @@ class StateManager:
         try:
             with open(self.state_path, "r", encoding="utf-8") as f:
                 data = json.load(f)
-            if data.get("version") != STATE_VERSION:
-                logger.warning("גרסת state שונתה, מתחיל מחדש")
-                return _empty_state()
-            return data
         except (json.JSONDecodeError, OSError) as exc:
             logger.warning(f"שגיאה בקריאת state: {exc}. מתחיל מחדש.")
             return _empty_state()
 
+        if not isinstance(data, dict):
+            logger.warning("state root must be a JSON object; starting fresh")
+            return _empty_state()
+
+        if data.get("version") != STATE_VERSION:
+            logger.warning("גרסת state שונתה, מתחיל מחדש")
+            return _empty_state()
+
+        uploaded_files = data.get("uploaded_files")
+        if not isinstance(uploaded_files, dict):
+            logger.warning("state.uploaded_files is invalid or missing; starting fresh")
+            return _empty_state()
+
+        return data
+
     def save(self):
-        self.state["last_updated"] = datetime.utcnow().isoformat() + "Z"
+        self.state["last_updated"] = datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
         try:
             self.state_path.parent.mkdir(parents=True, exist_ok=True)
             fd, tmp_path = tempfile.mkstemp(
@@ -82,7 +93,7 @@ class StateManager:
             "filename": filename,
             "dropbox_path": dropbox_path,
             "published_at": published_at,
-            "uploaded_at": datetime.utcnow().isoformat() + "Z",
+            "uploaded_at": datetime.now(timezone.utc).isoformat().replace("+00:00", "Z"),
         }
         # Optionally store the pre-download identifier (uri_path) for faster skip-before-download
         if pre_download_id:

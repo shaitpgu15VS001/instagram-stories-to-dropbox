@@ -1,0 +1,214 @@
+{
+  "browser_info": {
+    "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "cookies": [
+      {
+        "name": "CF_SSStikUiExpSample",
+        "value": "75",
+        "domain": "fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "CF_SSStikUiExp",
+        "value": "inactive",
+        "domain": "fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "uid",
+        "value": "aa45660a206da8fb",
+        "domain": ".fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "_ga",
+        "value": "GA1.1.91264216.1786658461",
+        "domain": ".fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "country",
+        "value": "cz",
+        "domain": ".fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "tzLanding",
+        "value": "13",
+        "domain": ".fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "adsForm",
+        "value": "98",
+        "domain": ".fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "adsAfterSearch",
+        "value": "87",
+        "domain": ".fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "adsPopupClick",
+        "value": "95",
+        "domain": ".fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "errorFallbackPopup",
+        "value": "25",
+        "domain": ".fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "exp_errorFallbackTZ_ab",
+        "value": "tz",
+        "domain": ".fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "FCCDCF",
+        "value": "%5Bnull%2Cnull%2Cnull%2Cnull%2Cnull%2Cnull%2C%5B%5B32%2C%22%5B%5C%22a311c595-cf79-4498-adc6-1d18c9a8849d%5C%22%2C%5B1786658462%2C4000000%5D%5D%22%5D%5D%5D",
+        "domain": ".fastdl.app",
+        "path": "/"
+      },
+      {
+        "name": "_ga_YV37DLSFKW",
+        "value": "GS2.1.s1786658460$o1$g0$t1786658463$j57$l0$h0",
+        "domain": ".fastdl.app",
+        "path": "/"
+      }
+    ],
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "origin": "https://fastdl.app",
+    "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "api_request": null,
+    "story_count": null,
+    "api_response": null,
+    "media_urls": []
+  },
+  "results": [
+    {
+      "label": "curl_cffi_no_cookie_chrome120",
+      "status": 401,
+      "content_type": "application/json; charset=utf-8",
+      "json": true,
+      "cf_challenge": true,
+      "body_sample": "{\"error\":\"Unauthorized\",\"code\":\"REQUEST_SIGNATURE_EXPIRED\",\"message\":\"Blocked request with invalid signature\"}",
+      "headers": {
+        "date": "Thu, 13 Aug 2026 22:00:57 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "110",
+        "access-control-allow-credentials": "true",
+        "access-control-allow-origin": "https://fastdl.app",
+        "etag": "W/\"6e-gYpB3ikGw6C6+U1hioIwOrlSwlA\"",
+        "vary": "Origin, Accept-Encoding",
+        "x-robots-tag": "noindex",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=lBH%2FZXNFUsdFeUrM34dEXBpt0EBAqzeHniWXcN1m7cLIqEgQvNqjwjiDaEwHc%2FQi8Sed628t28Uyx85y8yxDgLnAANiawkPsTPcNtDnq2S9mFGNV%2B%2Bu7neQfRsk7B2xRcg%2F1\"}]}",
+        "server": "cloudflare",
+        "cf-ray": "a2aafedd2b9f5591-TLV",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      }
+    },
+    {
+      "label": "curl_cffi_no_cookie_chrome131",
+      "status": 401,
+      "content_type": "application/json; charset=utf-8",
+      "json": true,
+      "cf_challenge": true,
+      "body_sample": "{\"error\":\"Unauthorized\",\"code\":\"REQUEST_SIGNATURE_EXPIRED\",\"message\":\"Blocked request with invalid signature\"}",
+      "headers": {
+        "date": "Thu, 13 Aug 2026 22:00:57 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "110",
+        "access-control-allow-credentials": "true",
+        "access-control-allow-origin": "https://fastdl.app",
+        "etag": "W/\"6e-gYpB3ikGw6C6+U1hioIwOrlSwlA\"",
+        "vary": "Origin, Accept-Encoding",
+        "x-robots-tag": "noindex",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=vj3Lz6vmgtfAvQHfHfDJ0SLlQ2lP2mkryhWu52HBDxoErEc82MpQCEsAVlGLteSMjiL0b1YbHbrHrvhPEpDizxhODBM%2FtQDClSRbDzdOSku6TIhFzq5liuck%2Bk4%2Bq9i55dJ4dCUL1GQcY4L5Vai%2B\"}]}",
+        "server": "cloudflare",
+        "cf-ray": "a2aafedfea23da54-TLV",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      }
+    },
+    {
+      "label": "curl_cffi_with_browser_cookies_chrome120",
+      "status": 401,
+      "content_type": "application/json; charset=utf-8",
+      "json": true,
+      "cf_challenge": true,
+      "body_sample": "{\"error\":\"Unauthorized\",\"code\":\"REQUEST_SIGNATURE_EXPIRED\",\"message\":\"Blocked request with invalid signature\"}",
+      "headers": {
+        "date": "Thu, 13 Aug 2026 22:01:43 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "110",
+        "access-control-allow-credentials": "true",
+        "access-control-allow-origin": "https://fastdl.app",
+        "etag": "W/\"6e-gYpB3ikGw6C6+U1hioIwOrlSwlA\"",
+        "vary": "Origin, Accept-Encoding",
+        "x-robots-tag": "noindex",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=kW5arzGIZshjy7MR%2FOu1u11xYGJTzILDSp%2FQ%2Ft0oHGMhi2%2BgkazaAUVK%2F5QApD1CUQWl0iHczp6toem4Rbx18Hcq4Vf6ijv9suydodhcCLlJgxGkJ7OJpIsV7xMhYhWKg5p3AUcDHYSrGN2SLB9R\"}]}",
+        "server": "cloudflare",
+        "cf-ray": "a2aafffc1d309b09-TLV",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      }
+    },
+    {
+      "label": "curl_cffi_with_browser_cookies_chrome131",
+      "status": 401,
+      "content_type": "application/json; charset=utf-8",
+      "json": true,
+      "cf_challenge": true,
+      "body_sample": "{\"error\":\"Unauthorized\",\"code\":\"REQUEST_SIGNATURE_EXPIRED\",\"message\":\"Blocked request with invalid signature\"}",
+      "headers": {
+        "date": "Thu, 13 Aug 2026 22:01:43 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "110",
+        "access-control-allow-credentials": "true",
+        "access-control-allow-origin": "https://fastdl.app",
+        "etag": "W/\"6e-gYpB3ikGw6C6+U1hioIwOrlSwlA\"",
+        "vary": "Origin, Accept-Encoding",
+        "x-robots-tag": "noindex",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=%2F%2BZJPxwraqn%2F%2BACdKGjEWN78DADjoCquOIfqX90Zrlri53XUvvDqb3TLqCNEOg7Zfrw%2FJiI7oAS1jJHCLGSplITemaJ4%2F0xwqRLRD2DptmOvcXz0Fb%2FsYY%2F5ytFkigyPS0oeXAFUnH5XGxwq4KMp\"}]}",
+        "server": "cloudflare",
+        "cf-ray": "a2aafffe4f949b09-TLV",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      }
+    },
+    {
+      "label": "curl_cffi_with_browser_cookies_headers",
+      "status": 401,
+      "content_type": "application/json; charset=utf-8",
+      "json": true,
+      "cf_challenge": true,
+      "body_sample": "{\"error\":\"Unauthorized\",\"code\":\"REQUEST_SIGNATURE_EXPIRED\",\"message\":\"Blocked request with invalid signature\"}",
+      "headers": {
+        "date": "Thu, 13 Aug 2026 22:01:43 GMT",
+        "content-type": "application/json; charset=utf-8",
+        "content-length": "110",
+        "access-control-allow-credentials": "true",
+        "access-control-allow-origin": "https://fastdl.app",
+        "etag": "W/\"6e-gYpB3ikGw6C6+U1hioIwOrlSwlA\"",
+        "vary": "Origin, Accept-Encoding",
+        "x-robots-tag": "noindex",
+        "cf-cache-status": "DYNAMIC",
+        "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+        "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=ePsNfAjtKTFgedlWirRtph3N32oYms%2FAAbagwbsPqoJ%2B8Vc0jhe333Olnc63y9L8FA3Ql8wFvTExNKUV%2FMNrNYQ%2FW7ftVFvKBIWDxhwcf6fbFR3yYK1NwX58HaUuZikv%2BNfnmLi%2FqZFw61SbGwpH\"}]}",
+        "server": "cloudflare",
+        "cf-ray": "a2ab0000883025c7-TLV",
+        "alt-svc": "h3=\":443\"; ma=86400"
+      }
+    }
+  ]
+}

@@ -1,0 +1,441 @@
+[
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "resourceType": "document",
+    "frame": "about:blank",
+    "headers": {
+      "accept-language": "en-US",
+      "upgrade-insecure-requests": "1",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": "\"Windows\""
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/css/app.css?id=45b9f3ad76c03732a646e081c14b6116",
+    "resourceType": "stylesheet",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "origin": "https://fastdl.app",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/fallback-ads/logo.svg",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/fallback-ads/fastdl.svg",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/text/card_index.webp",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/instruction/redirect.webp",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/social-link/instagram.svg",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/social-link/facebook.svg",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/social-link/youtube.svg",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/social-link/twitter.svg",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/social-link/tiktok.svg",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://www.googletagmanager.com/gtag/js?id=G-YV37DLSFKW",
+    "resourceType": "script",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/js/app.js?id=1c9f7202636d32bfb0b5a89124be3624",
+    "resourceType": "script",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5892669229376806",
+    "resourceType": "script",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "origin": "https://fastdl.app",
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/instruction/copy.webp",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/instruction/paste.webp",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/instruction/download.webp",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/images/features/reels_downloader.webp",
+    "resourceType": "image",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202608070101/show_ads_impl.js",
+    "resourceType": "script",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "POST",
+    "url": "https://region1.google-analytics.com/g/collect?v=2&tid=G-YV37DLSFKW&gtm=45je68c0v9181054722za200zd9181054722&_p=1786647760121&gcd=13l3l3l2l1l1&npa=1&dma_cps=a&dma=1&are=1&cid=950351090.1786647761&frm=0&ngs=1&pscdl=noapi&rcb=16&sr=1500x1200&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&_s=1&tag_exp=115938466~115938469~118395335~118897920~118897930~119367802~119367810~119527019~119896802&sid=1786647761&sct=1&seg=0&dl=https%3A%2F%2Ffastdl.app%2Fen2%2Finstagram-anonymously-viewer&dt=Instagram%20Stories%20Viewer%20-%20Anonymous%20Instagram%20Story%20Viewer&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=2260",
+    "resourceType": "fetch",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/get_country_code",
+    "resourceType": "fetch",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fundingchoicesmessages.google.com/i/ca-pub-5892669229376806?href=https%3A%2F%2Ffastdl.app%2Fen2%2Finstagram-anonymously-viewer&ers=2",
+    "resourceType": "script",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/js/312.js?ch=eb9e5179fda7215f.js",
+    "resourceType": "script",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/js/506.js?ch=605bf3222aa140b1.js",
+    "resourceType": "script",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/js/141.js?ch=12585d25ce7106dc.js",
+    "resourceType": "script",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/js/277.js?ch=78c7d73e58fda568.js",
+    "resourceType": "script",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "POST",
+    "url": "https://fastdl.app/cdn-cgi/rum?",
+    "resourceType": "xhr",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "content-type": "application/json",
+      "sec-ch-ua-mobile": "?0",
+      "accept-language": "en-US"
+    },
+    "postData": "{\"memory\":{\"totalJSHeapSize\":12700000,\"usedJSHeapSize\":10000000,\"jsHeapSizeLimit\":2330000000},\"resources\":[],\"referrer\":\"\",\"eventType\":1,\"firstPaint\":916,\"firstContentfulPaint\":916,\"startTime\":1786647759223.3,\"versions\":{\"fl\":\"2024.11.0\",\"js\":\"2026.6.0\",\"timings\":2},\"pageloadId\":\"fc8d29b0-142b-46a0-85f0-ac572bf820c3\",\"location\":\"https://fastdl.app/en2/instagram-anonymously-viewer\",\"nt\":\"navigate\",\"timingsV2\":{\"nextHopProtocol\":\"h2\",\"domainLookupStart\":1.300000011920929,\"domainLookupEnd\":1.300000011920929,\"connectStart\":14.400000005960464,\"connectEnd\":309.40000000596046,\"requestStart\":313.1000000089407,\"responseStart\":564.9000000059605,\"responseEnd\":613.6000000089407,\"domInteractive\":930.2000000029802,\"domComplete\":4127.9000000059605,\"loadEventStart\":4128,\"loadEventEnd\":4128.20000000298,\"finalResponseHeadersStart\":564.9000000059605,\"firstInterimResponseStart\":0,\"transferSize\":15025,\"decodedBodySize\":62605},\"dt\":\"\",\"siteToken\":\"f22e27932d9c455eada252c8e35ab11d\",\"st\":2}"
+  },
+  {
+    "method": "GET",
+    "url": "https://fastdl.app/css/media-search-controller.css?id=de467cb64d023fa36ce2bbcb4f11febe",
+    "resourceType": "stylesheet",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "accept-language": "en-US",
+      "sec-ch-ua-mobile": "?0"
+    },
+    "postData": null
+  },
+  {
+    "method": "POST",
+    "url": "https://region1.google-analytics.com/g/collect?v=2&tid=G-YV37DLSFKW&gtm=45je68c0v9181054722za200zd9181054722&_p=1786647760121&gcd=13l3l3l2l1l1&npa=1&dma_cps=a&dma=1&_eu=AAAAAAQ&are=1&cid=950351090.1786647761&frm=0&ngs=1&pscdl=noapi&rcb=16&sr=1500x1200&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=19.0.0&uaw=0&ul=en-us&tag_exp=115938466~115938469~118395335~118897920~118897930~119367802~119367810~119527019~119896802&sid=1786647761&sct=1&seg=0&dl=https%3A%2F%2Ffastdl.app%2Fen2%2Finstagram-anonymously-viewer&dt=Instagram%20Stories%20Viewer%20-%20Anonymous%20Instagram%20Story%20Viewer&_s=2&tfd=7284",
+    "resourceType": "fetch",
+    "frame": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "headers": {
+      "sec-ch-ua-platform": "\"Windows\"",
+      "referer": "https://fastdl.app/",
+      "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/148.0.7778.96 Safari/537.36",
+      "sec-ch-ua": "\"Chromium\";v=\"148\", \"HeadlessChrome\";v=\"148\", \"Not/A)Brand\";v=\"99\"",
+      "content-type": "text/plain;charset=UTF-8",
+      "sec-ch-ua-mobile": "?0",
+      "accept-language": "en-US"
+    },
+    "postData": "en=theme_loaded_light_system&_ee=1&_et=8\r\nen=exp_start&_ee=1&ep.experiment=adsPopupClick&_et=517\r\nen=exp_start&_ee=1&ep.experiment=adsForm&_et=2\r\nen=exp_start&_ee=1&ep.experiment=errorFallbackPopup&_et=5\r\nen=exp_start&_ee=1&ep.experiment=adsAfterSearch&_et=4"
+  }
+]

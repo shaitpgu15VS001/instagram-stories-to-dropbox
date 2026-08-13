@@ -235,6 +235,77 @@ class StoryDownloader:
 
     def __init__(self, output_dir=STORIES_DIR):
         self.output_dir = Path(output_dir)
+        self._playwright = None
+        self._browser = None
+        self._context = None
+
+    def _ensure_browser_context(self):
+        if self._context is not None:
+            return self._context
+        try:
+            self._playwright = __import__('playwright.sync_api', fromlist=['sync_playwright']).sync_playwright().start()
+            self._browser = self._playwright.chromium.launch(
+                headless=True,
+                args=["--no-sandbox", "--disable-dev-shm-usage"],
+            )
+            self._context = self._browser.new_context(
+                user_agent=USER_AGENT,
+                viewport={"width": 1280, "height": 900},
+                locale="en-US",
+            )
+            return self._context
+        except Exception as exc:
+            logger.error(f"FastDL browser context init failed: {type(exc).__name__}: {exc}")
+            raise
+
+    def _close_browser_context(self):
+        try:
+            if self._context is not None:
+                self._context.close()
+                self._context = None
+        except Exception:
+            pass
+        try:
+            if self._browser is not None:
+                self._browser.close()
+                self._browser = None
+        except Exception:
+            pass
+        try:
+            if self._playwright is not None:
+                self._playwright.stop()
+                self._playwright = None
+        except Exception:
+            pass
+
+    def _download_media_via_browser_context(self, url, timeout_seconds=60):
+        context = self._ensure_browser_context()
+        try:
+            response = context.request.get(
+                url,
+                timeout=timeout_seconds * 1000,
+                headers={
+                    "User-Agent": USER_AGENT,
+                    "Accept": "*/*",
+                    "Referer": "https://fastdl.app/",
+                },
+            )
+            status = getattr(response, "status", None)
+            if status is None or status >= 400:
+                raise requests.HTTPError(f"fastdl browser-context media fetch failed: status={status}")
+            content = response.body()
+            if not content:
+                raise ValueError("empty response body from browser-context download")
+            headers = getattr(response, "headers", {}) or {}
+            return {
+                "content": content,
+                "content_type": headers.get("content-type") or "",
+                "final_url": getattr(response, "url", url),
+                "status": status,
+            }
+        except Exception:
+            logger.warning("FastDL browser-context media download failed for url=%s; no requests fallback is attempted by default", url)
+            raise
 
     def check_binary(self):
         try:
@@ -533,10 +604,19 @@ class StoryDownloader:
             url = s['u']
             for attempt in range(1, MAX_RETRIES + 1):
                 try:
-                    r = requests.get(url, timeout=DOWNLOAD_TIMEOUT)
-                    r.raise_for_status()
-                    ct = r.headers.get("content-type", "").lower()
-                    ext = ".mp4" if "mp4" in ct or "video" in ct else ".png" if "png" in ct else ".webp" if "webp" in ct else ".jpg"
+                    media = self._download_media_via_browser_context(url, timeout_seconds=DOWNLOAD_TIMEOUT)
+                    content = media["content"]
+                    ct = (media["content_type"] or "").lower()
+                    if "video" in ct or ".mp4" in url.lower() or "video/mp4" in ct:
+                        ext = ".mp4"
+                    elif "png" in ct or url.lower().endswith(".png"):
+                        ext = ".png"
+                    elif "webp" in ct or url.lower().endswith(".webp"):
+                        ext = ".webp"
+                    elif "jpeg" in ct or "jpg" in ct or url.lower().endswith((".jpg", ".jpeg")):
+                        ext = ".jpg"
+                    else:
+                        ext = ".bin"
                     ts = None
                     m = re.match(r"(\d+)\.(\d+)\.(\d+),?\s+(\d+):(\d+):(\d+)", s.get('t') or "")
                     if m:
@@ -551,18 +631,27 @@ class StoryDownloader:
                         ts = f"unknown_{int(time.time())}_{idx}"
                     filename = f"{username}-{ts}{ext}"
                     p = user_dir / filename
-                    p.write_bytes(r.content)
+                    p.write_bytes(content)
                     downloaded.append({"path": p, "pre_download_id": s.get("pre_download_id")})
+                    logger.info(
+                        "FASTDL_MEDIA_DOWNLOAD username=%s story_index=%s status=%s content_type=%s final_url=%s bytes=%s path=%s",
+                        username,
+                        idx,
+                        media["status"],
+                        media["content_type"],
+                        media["final_url"],
+                        len(content),
+                        str(p),
+                    )
                     logger.debug(f"  [{idx}/{len(stories)}] הורד {filename}")
                     break
-                except requests.HTTPError as exc:
-                    code = exc.response.status_code if exc.response else 0
-                    if code not in RETRYABLE or attempt == MAX_RETRIES:
-                        logger.warning(f"  [{idx}/{len(stories)}] שגיאת רשת: {exc}")
+                except (requests.HTTPError, ValueError, OSError) as exc:
+                    if attempt == MAX_RETRIES:
+                        logger.warning(f"  [{idx}/{len(stories)}] שגיאת הורדה ב-browser context: {exc}")
                         break
                     time.sleep(RETRY_DELAY)
-                except (requests.RequestException, OSError) as exc:
-                    logger.warning(f"  [{idx}/{len(stories)}] שגיאה: {exc}")
+                except Exception as exc:
+                    logger.warning(f"  [{idx}/{len(stories)}] שגיאה כללית בהורדה: {exc}")
                     break
         return downloaded
 
@@ -581,3 +670,4 @@ class StoryDownloader:
         else:
             if self.output_dir.exists():
                 shutil.rmtree(self.output_dir, ignore_errors=True)
+        self._close_browser_context()

@@ -1,0 +1,98 @@
+{
+  "script_urls": [
+    "https://www.googletagmanager.com/gtag/js?id=G-YV37DLSFKW",
+    "https://fastdl.app/js/app.js?id=1c9f7202636d32bfb0b5a89124be3624",
+    "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5892669229376806",
+    "https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496",
+    "https://mc.yandex.ru/metrika/tag.js",
+    "https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202608070101/show_ads_impl.js",
+    "https://fastdl.app/js/312.js?ch=eb9e5179fda7215f.js",
+    "https://fastdl.app/js/506.js?ch=605bf3222aa140b1.js",
+    "https://fastdl.app/js/141.js?ch=12585d25ce7106dc.js",
+    "https://fastdl.app/js/277.js?ch=78c7d73e58fda568.js",
+    "https://fundingchoicesmessages.google.com/i/ca-pub-5892669229376806?href=https%3A%2F%2Ffastdl.app%2Fen2%2Finstagram-anonymously-viewer&ers=2",
+    "https://fundingchoicesmessages.google.com/f/AGSKWxVMXb0ewGxOGmgr0ik_6shiNJcRiwEsnarqkVaIwWRuVGv-AiEDDBbui6mJ4MNoqY_u-YDSx1031Bhvi7y6PBEEY7GNDoT3EMQK8GjiAa74VX3flWCmOzuRvx25fqoz9vV3O1cNfA==?fccs=W251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLFsxNzg2NjQ3MDE0LDIxODAwMDAwMF0sbnVsbCxudWxsLG51bGwsW251bGwsWzddXSwiaHR0cHM6Ly9mYXN0ZGwuYXBwL2VuMi9pbnN0YWdyYW0tYW5vbnltb3VzbHktdmlld2VyIixudWxsLFtbOCwiM0tmcXFFZWUwX2MiXSxbOSwiZW4tVVMiXSxbMTgsIltbW251bGwsNjAzNl1dXSJdLFszNSwiMTc4NjY0NzAxNCJdLFsxOSwiMSJdLFsxNywiWzBdIl0sWzI0LCIiXSxbMjksImZhbHNlIl1dXQ"
+  ],
+  "script_hosts": {
+    "www.googletagmanager.com": 1,
+    "fastdl.app": 5,
+    "pagead2.googlesyndication.com": 2,
+    "static.cloudflareinsights.com": 1,
+    "mc.yandex.ru": 1,
+    "fundingchoicesmessages.google.com": 2
+  },
+  "request_log": [
+    {
+      "method": "GET",
+      "url": "https://www.googletagmanager.com/gtag/js?id=G-YV37DLSFKW",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://fastdl.app/js/app.js?id=1c9f7202636d32bfb0b5a89124be3624",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5892669229376806",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://mc.yandex.ru/metrika/tag.js",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://pagead2.googlesyndication.com/pagead/managed/js/adsense/m202608070101/show_ads_impl.js",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://fastdl.app/js/312.js?ch=eb9e5179fda7215f.js",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://fastdl.app/js/506.js?ch=605bf3222aa140b1.js",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://fastdl.app/js/141.js?ch=12585d25ce7106dc.js",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://fastdl.app/js/277.js?ch=78c7d73e58fda568.js",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://fundingchoicesmessages.google.com/i/ca-pub-5892669229376806?href=https%3A%2F%2Ffastdl.app%2Fen2%2Finstagram-anonymously-viewer&ers=2",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "method": "GET",
+      "url": "https://fundingchoicesmessages.google.com/f/AGSKWxVMXb0ewGxOGmgr0ik_6shiNJcRiwEsnarqkVaIwWRuVGv-AiEDDBbui6mJ4MNoqY_u-YDSx1031Bhvi7y6PBEEY7GNDoT3EMQK8GjiAa74VX3flWCmOzuRvx25fqoz9vV3O1cNfA==?fccs=W251bGwsbnVsbCxudWxsLG51bGwsbnVsbCxudWxsLFsxNzg2NjQ3MDE0LDIxODAwMDAwMF0sbnVsbCxudWxsLG51bGwsW251bGwsWzddXSwiaHR0cHM6Ly9mYXN0ZGwuYXBwL2VuMi9pbnN0YWdyYW0tYW5vbnltb3VzbHktdmlld2VyIixudWxsLFtbOCwiM0tmcXFFZWUwX2MiXSxbOSwiZW4tVVMiXSxbMTgsIltbW251bGwsNjAzNl1dXSJdLFszNSwiMTc4NjY0NzAxNCJdLFsxOSwiMSJdLFsxNywiWzBdIl0sWzI0LCIiXSxbMjksImZhbHNlIl1dXQ",
+      "resource_type": "script",
+      "frame": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    }
+  ]
+}
