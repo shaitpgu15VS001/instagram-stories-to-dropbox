@@ -1,0 +1,42 @@
+name: FastDL GitHub Verified Flow Diagnostic
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fastdl-verified-flow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.txt
+
+      - name: Install Playwright Chromium
+        run: python -m playwright install --with-deps chromium
+
+      - name: Run verified FastDL browser-flow diagnostic
+        id: diagnostic
+        run: |
+          python scripts/debug_fastdl_github_verified_flow.py --username israel_bidur
+
+      - name: Upload diagnostic artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: fastdl-github-verified-flow
+          path: scripts/debug_output/fastdl_github_verified_flow
+          if-no-files-found: warn

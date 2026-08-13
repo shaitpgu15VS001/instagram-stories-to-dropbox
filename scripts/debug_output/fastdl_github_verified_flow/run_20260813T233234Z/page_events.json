@@ -1,0 +1,37 @@
+[
+  {
+    "kind": "framenavigated",
+    "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "is_main": true,
+    "ts": "2026-08-13T23:32:36.524786+00:00"
+  },
+  {
+    "kind": "domcontentloaded",
+    "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+    "ts": "2026-08-13T23:32:37.099534+00:00"
+  },
+  {
+    "kind": "framenavigated",
+    "url": "about:blank",
+    "is_main": false,
+    "ts": "2026-08-13T23:32:38.409670+00:00"
+  },
+  {
+    "kind": "framenavigated",
+    "url": "about:blank",
+    "is_main": false,
+    "ts": "2026-08-13T23:32:39.046577+00:00"
+  },
+  {
+    "kind": "framenavigated",
+    "url": "about:blank",
+    "is_main": false,
+    "ts": "2026-08-13T23:32:39.050590+00:00"
+  },
+  {
+    "kind": "framenavigated",
+    "url": "about:blank",
+    "is_main": false,
+    "ts": "2026-08-13T23:32:39.052588+00:00"
+  }
+]
