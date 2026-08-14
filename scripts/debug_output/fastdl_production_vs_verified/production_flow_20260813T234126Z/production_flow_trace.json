@@ -1,0 +1,104 @@
+{
+  "flow": "production_path",
+  "run_started_at": "2026-08-13T23:41:26.841416+00:00",
+  "username": "israel_bidur",
+  "viewer_url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+  "stories_api_url": "https://api-wh.fastdl.app/api/v1/instagram/stories",
+  "browser_config": {
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "viewport": {
+      "width": 1280,
+      "height": 900
+    },
+    "locale": "en-US",
+    "launch_args": [
+      "--no-sandbox",
+      "--disable-dev-shm-usage"
+    ]
+  },
+  "steps": [
+    {
+      "stage": "page.goto",
+      "ts": "2026-08-13T23:41:28.228648+00:00"
+    },
+    {
+      "stage": "page.goto_done",
+      "url": "https://fastdl.app/en2/instagram-anonymously-viewer",
+      "ts": "2026-08-13T23:41:29.590761+00:00"
+    },
+    {
+      "stage": "wait_for_search_input",
+      "ts": "2026-08-13T23:41:29.590761+00:00"
+    },
+    {
+      "stage": "search_input_found",
+      "ts": "2026-08-13T23:41:30.196709+00:00"
+    },
+    {
+      "stage": "popup_cleanup_start",
+      "ts": "2026-08-13T23:41:30.196709+00:00"
+    },
+    {
+      "stage": "popup_cleanup_done",
+      "ts": "2026-08-13T23:41:30.207104+00:00"
+    },
+    {
+      "stage": "page.fill_start",
+      "ts": "2026-08-13T23:41:30.207104+00:00"
+    },
+    {
+      "stage": "page.fill_done",
+      "value_filled": "israel_bidur",
+      "ts": "2026-08-13T23:41:30.308885+00:00"
+    },
+    {
+      "stage": "expect_response_setup",
+      "ts": "2026-08-13T23:41:30.308885+00:00"
+    },
+    {
+      "stage": "page.click_start",
+      "ts": "2026-08-13T23:41:30.311886+00:00"
+    },
+    {
+      "stage": "page.click_done",
+      "ts": "2026-08-13T23:41:30.395743+00:00",
+      "url_after_click": "https://fastdl.app/en2/instagram-anonymously-viewer"
+    },
+    {
+      "stage": "waiting_for_expect_response",
+      "ts": "2026-08-13T23:41:30.395743+00:00"
+    },
+    {
+      "stage": "expect_response_failed",
+      "exception": "Timeout 20000ms exceeded while waiting for event \"response\"",
+      "ts": "2026-08-13T23:41:50.324317+00:00"
+    },
+    {
+      "stage": "exception_caught",
+      "exception": "Timeout 20000ms exceeded while waiting for event \"response\"",
+      "ts": "2026-08-13T23:41:50.324317+00:00"
+    }
+  ],
+  "events": {
+    "requests": [],
+    "responses": [],
+    "requestfailed": []
+  },
+  "stories_request": null,
+  "stories_response": null,
+  "success": false,
+  "failure_stage": "expect_response_timeout",
+  "failure_reason": "TimeoutError: Timeout 20000ms exceeded while waiting for event \"response\"",
+  "request_seen": {
+    "value": false,
+    "method": null,
+    "url": null
+  },
+  "response_seen": {
+    "value": false,
+    "status": null,
+    "url": null,
+    "content_type": null
+  },
+  "run_dir": "C:\\Users\\user-01\\Downloads\\Construction-apps\\Construction\\Github-Actions-Download-Stories\\scripts\\debug_output\\fastdl_production_vs_verified\\production_flow_20260813T234126Z"
+}

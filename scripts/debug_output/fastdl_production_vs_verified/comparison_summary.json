@@ -1,0 +1,11 @@
+{
+  "production_success": false,
+  "diagnostic_success": false,
+  "production_failure": "expect_response_timeout",
+  "diagnostic_failure": "unknown",
+  "key_difference": {
+    "production_path": "Uses page.expect_response(), no Stories tab click, no manual wait loop",
+    "diagnostic_path": "Uses manual response listener, clicks Stories tab, manual wait loop with 40s deadline"
+  },
+  "critical_observation": "If production fails but diagnostic succeeds, the difference is likely the Stories tab click"
+}

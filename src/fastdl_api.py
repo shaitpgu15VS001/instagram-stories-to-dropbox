@@ -156,29 +156,71 @@ class FastDLStoriesAPI:
                 page.fill("#search-form-input", username)
                 __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.fill done")
                 search_click_started = True
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.click start")
+                try:
+                    page.click("#searchFormButton", force=True, timeout=timeout * 1000)
+                    search_click_completed = True
+                except Exception as exc:
+                    __import__("src.logger", fromlist=["logger"]).logger.error(
+                        "NETWORK_DIAGNOSTIC: "
+                        f"LISTENER_ATTACHED={str(listener_attached).lower()} "
+                        f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
+                        f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
+                        f"STORIES_API_REQUEST_SEEN={str(request_seen['value']).lower()} "
+                        f"STORIES_API_RESPONSE_SEEN={str(response_seen['value']).lower()} "
+                        f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
+                        f"PAGE_URL_AFTER_SEARCH={page.url} "
+                        f"exception_type={type(exc).__name__} exception_message={exc}"
+                    )
+                    raise
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.click done")
+
+                # Wait for page to stabilize after search click (as verified by diagnostic)
+                time.sleep(2.5)
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE post-search sleep done")
+
+                # Clean up overlay/popup elements that may appear after search
+                page.evaluate(
+                    """
+                    () => {
+                        const selectors = ['.fc-dialog-overlay', '.fc-consent-root', '.overlay', '.modal', '.cookie-banner', '.fc__dialog', '.fc-cookie-banner', '[role=dialog]'];
+                        selectors.forEach(sel => document.querySelectorAll(sel).forEach(el => el.remove()));
+                    }
+                    """
+                )
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE post-search overlay cleanup done")
+
+                # Wait for Stories tab to become visible (critical for triggering Stories API)
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE wait_for_stories_tab start")
+                page.wait_for_selector("button.tabs-component__button", state="visible", timeout=30000)
+                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE wait_for_stories_tab done")
+
+                # Now start listening for Stories API response and click the Stories tab
                 __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE response_waiter create start")
                 with page.expect_response(
                     lambda response: STORIES_API_PATH in response.url and response.request.method == "POST",
                     timeout=20000,
                 ) as response_info:
-                    __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.click start")
-                    try:
-                        page.click("#searchFormButton", force=True, timeout=timeout * 1000)
-                        search_click_completed = True
-                    except Exception as exc:
-                        __import__("src.logger", fromlist=["logger"]).logger.error(
-                            "NETWORK_DIAGNOSTIC: "
-                            f"LISTENER_ATTACHED={str(listener_attached).lower()} "
-                            f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
-                            f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
-                            f"STORIES_API_REQUEST_SEEN={str(request_seen['value']).lower()} "
-                            f"STORIES_API_RESPONSE_SEEN={str(response_seen['value']).lower()} "
-                            f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
-                            f"PAGE_URL_AFTER_SEARCH={page.url} "
-                            f"exception_type={type(exc).__name__} exception_message={exc}"
-                        )
-                        raise
-                    __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.click done")
+                    __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE click_stories_tab start")
+                    # Click Stories tab using JavaScript (matches proven diagnostic flow)
+                    stories_tab_clicked = page.evaluate(
+                        """
+                        () => {
+                            const buttons = Array.from(document.querySelectorAll('button.tabs-component__button'));
+                            for (const button of buttons) {
+                                if (button.innerText && button.innerText.toLowerCase().includes('stories')) {
+                                    button.scrollIntoView();
+                                    button.click();
+                                    return true;
+                                }
+                            }
+                            return false;
+                        }
+                        """
+                    )
+                    if not stories_tab_clicked:
+                        __import__("src.logger", fromlist=["logger"]).logger.error("API_BRIDGE_STAGE stories_tab_not_found via evaluate")
+                    __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE click_stories_tab done")
                 __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE response_waiter create done")
                 page_url_after_search = page.url
 

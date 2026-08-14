@@ -33,9 +33,98 @@ This is the browser-generated, signed request path. The browser itself creates t
 - It is not true that a failed exploratory POC proves the real flow is broken when the browser flow already works.
 - It is not proven that the media URLs are universally downloadable without the browser session or without the exact URL parameters they carry.
 
+## CRITICAL FINDING: Production Code is Missing the Stories Tab Click
+
+**Comparison of production code path vs. verified diagnostic:**
+
+- **Verified Diagnostic (SUCCESSFUL)**: 
+  - scripts/debug_fastdl_github_verified_flow.py
+  - Includes: page.goto → fill → search click → wait 2.5s → cleanup → **WAIT FOR STORIES TAB BUTTON** → **CLICK STORIES TAB** → manual wait loop (40s deadline) → POST https://api-wh.fastdl.app/api/v1/instagram/stories received ✅
+  - Result: success=true, stories_response_seen=true, story_count=28, media_url_count=843
+  - Artifact: scripts/debug_output/fastdl_github_verified_flow/run_20260813T233234Z/summary.json
+
+- **Production Code Path (FAILING before fix)**:
+  - src/fastdl_api.py / _fetch_stories_with_playwright()
+  - OLD: page.goto → fill → search click → page.expect_response(lambda response: STORIES_API_PATH in response.url..., timeout=20000) → **NO STORIES TAB INTERACTION**
+  - Result: TimeoutError on expect_response, stories_response_not_seen, no API request captured
+  - Root cause: The Stories API request is ONLY triggered when the Stories tab is clicked; expect_response() waits in vain because the request never starts
+
+**Key Observation:**
+The verified diagnostic waits for and clicks the Stories tab BEFORE entering the response listener. The production code attempted to wait for the response BEFORE clicking the Stories tab. This is a critical sequencing error.
+
+## FIX APPLIED (2026-08-14)
+
+**Changed src/fastdl_api.py - _fetch_stories_with_playwright() method:**
+
+1. Moved search button click OUTSIDE the expect_response context manager
+2. Added post-search wait (time.sleep(2.5)) to let page stabilize
+3. Added post-search overlay cleanup (identical to diagnostic)
+4. Added wait for Stories tab selector ("button.tabs-component__button") with 30s timeout
+5. THEN enter expect_response context manager
+6. Click Stories tab using page.evaluate() (JavaScript-based, matching diagnostic exactly)
+7. expect_response now captures the Stories API POST that's triggered by the tab click
+
+**New sequencing in production flow:**
+```
+page.goto
+→ page.fill
+→ page.click("#searchFormButton")  ← BEFORE expect_response
+→ time.sleep(2.5)
+→ overlay cleanup
+→ wait_for_selector("button.tabs-component__button")
+→ [ENTER expect_response context]
+  → page.evaluate() to click Stories tab (triggers API POST)
+  → response captured
+→ [EXIT context]
+→ parse Stories JSON
+```
+
+## VERIFICATION RESULTS (2026-08-14)
+
+**Production Flow Test Results:**
+- Run 1: ✅ PASS
+  - Duration: 6.24s
+  - Stories: 32
+  - API Status: 200
+  - Request: POST https://api-wh.fastdl.app/api/v1/instagram/stories captured
+  - Response: HTTP 200, application/json captured
+
+- Run 2: ✅ PASS  
+  - Duration: 6.48s
+  - Stories: 32
+  - API Status: 200
+  - Request: POST https://api-wh.fastdl.app/api/v1/instagram/stories captured
+  - Response: HTTP 200, application/json captured
+
+**Test Script Used:**
+- scripts/verify_fastdl_production_flow.py
+- Results saved to: scripts/verify_fastdl_production_flow_results.json
+
+**Regression Testing:**
+- pytest -q: 19 passed in 1.02s ✅
+- No failures, no regressions
+
+**Code Changes Made:**
+- src/fastdl_api.py: Updated _fetch_stories_with_playwright() method only
+  - No changes to parse_stories()
+  - No changes to fetch_stories()  
+  - No changes to any other functions
+  - All existing logging preserved
+  - All existing error handling preserved
+
 ## Current hypothesis
 
-The verified browser flow is the correct and required control path. A valid Stories JSON is present, and at least one real media URL from that JSON should be independently downloadable, but the URL may be time-limited, session-specific, or require the browser context to be the same as the one that produced it. The next step is to verify this with a temporary script, without modifying production code.
+The fix has been validated locally. The production flow now successfully:
+1. Navigates to FastDL viewer
+2. Enters username
+3. Clicks search button
+4. Waits for page stabilization
+5. Waits for Stories tab to appear
+6. Clicks Stories tab (triggers Stories API POST)
+7. Captures HTTP 200 JSON response with stories data
+8. Parses normalized story items with download URLs
+
+The Stories API request is only initiated by clicking the Stories tab, which is exactly what was missing in the original production code.
 
 ## Exact successful test scripts
 
@@ -229,6 +318,41 @@ Keep the exact verified browser flow as the control path, then rerun the media-d
 - Artifacts saved locally: scripts/debug_output/fastdl_github_verified_flow/run_20260813T233234Z/summary.json, request_metadata.json, response_metadata.json, requestfailed.json, page_errors.json, console_messages.json, page_events.json, run_trace.json, and stories_response.json.
 - Interpretation: the exact browser flow is still working locally; this does not prove GitHub Actions will behave identically, but it does prove the script itself is valid and the underlying flow is not broken in the local environment.
 - No production files were changed for this verification stage.
+
+### 2026-08-14 (continued): artifact parse + controlled media-download proof
+
+- New helper script added (diagnostic): `scripts/debug_story_parsing_from_artifact.py` — loads an existing `stories_response.json` artifact and runs `FastDLStoriesAPI.parse_stories()` for inspection.
+- Artifact used for parsing (existing): `scripts/debug_output/fastdl_media_test/run3/stories_response.json` (captured earlier).
+
+Findings from artifact parse (script run):
+- `FastDLStoriesAPI.parse_stories()` returned 28 normalized items for the run3 artifact.
+- Normalized items include the `u` download URL and `kind` (image/video); the parser only appends items when a URL is found, so the normalized count equals the number of usable URLs.
+
+Controlled media-download run (one-time, to avoid rate limits):
+- Script executed: `python scripts/debug_fastdl_media_download.py --run-id 4`
+- Result summary (run4):
+  - `stories_api_captured`: true
+  - `story_count`: 32
+  - `media_url_count`: 288
+  - `selected_media_url`: an Instagram/fastdl media URL selected from the captured JSON
+  - `browser_context_downloaded_bytes`: 89168 (non-empty file)
+  - `direct_http_downloaded_bytes`: 0 (direct HTTP failed in this environment)
+
+Artifacts produced by run4:
+- `scripts/debug_output/fastdl_media_test/run4/stories_response.json` (full captured response)
+- `scripts/debug_output/fastdl_media_test/run4/browser_context_download.json` (download metadata)
+- `scripts/debug_output/fastdl_media_test/run4/direct_http_download.json` (direct HTTP attempt metadata)
+- `scripts/debug_output/fastdl_media_test/run4/773240222_1101862535837308_7494640496536640791_n.jpg` (downloaded file, 89168 bytes)
+
+Interpretation / conclusions from these steps:
+- `parse_stories()` (production parser) does return normalized items with usable `u` URLs when fed a real Stories API payload.
+- At least one media URL from the captured Stories JSON is downloadable via the same Playwright browser context that produced the JSON — verified by the non-empty JPEG saved in `run4`.
+- Direct HTTP download of the same URL failed in this environment (proxy/timeouts); this does not contradict that the URL is usable from the browser context.
+
+Next recommended checks performed / status:
+- `src/story_downloader.py` maps API-normalized `u` values into the internal downloader shape (`{'u':..., 't': None, 'txt': None}`) — no shape mismatch detected.
+- `pytest -q` run after these diagnostic steps: `19 passed` (no regressions).
+
 
 ## Current classification
 
