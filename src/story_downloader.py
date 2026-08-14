@@ -5,6 +5,7 @@ import shutil
 import time
 import urllib.parse
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 from pathlib import Path
 
 import requests
@@ -42,6 +43,27 @@ def extract_pre_download_id(href):
         uri_decoded = unquote(uri)
         inner = urlparse(uri_decoded)
         return inner.path if inner.path else None
+    except Exception:
+        return None
+
+
+def _is_jpeg(content: bytes) -> bool:
+    return bool(content and content[:2] == b"\xff\xd8")
+
+
+def _is_mp4(content: bytes) -> bool:
+    try:
+        return b"ftyp" in content[:4096]
+    except Exception:
+        return False
+
+
+def format_taken_at_for_filename(ta):
+    """Format unix timestamp `ta` into Israel local time filename fragment."""
+    try:
+        tz = ZoneInfo("Asia/Jerusalem")
+        dt = datetime.fromtimestamp(int(ta), tz=tz)
+        return dt.strftime("%Y-%m-%d_%H-%M-%S")
     except Exception:
         return None
 
@@ -467,18 +489,20 @@ class StoryDownloader:
                     # are deterministic and unique. The API provides
                     # `taken_at` as a unix timestamp inside `raw`.
                     taken = None
+                    ta_val = None
                     try:
                         raw = it.get('raw') or {}
                         ta = raw.get('taken_at')
                         if isinstance(ta, (int, float)):
-                            dt = datetime.fromtimestamp(int(ta), tz=timezone.utc)
-                            # match DOM-style format used elsewhere: D.M.Y, H:M:S
-                            taken = dt.strftime("%d.%m.%Y, %H:%M:%S")
+                            ta_val = int(ta)
                     except Exception:
-                        taken = None
+                        ta_val = None
+                    # Preserve raw unix timestamp as 'ta' when available. Formatting
+                    # to a human string is deferred until filename generation so
+                    # timezone handling can be explicit and reversible.
                     normalized.append({
                         'u': it.get('u'),
-                        't': taken,
+                        'ta': ta_val,
                         'txt': None,
                     })
                 if normalized:
@@ -620,6 +644,7 @@ class StoryDownloader:
                     media = self._download_media_via_browser_context(url, timeout_seconds=DOWNLOAD_TIMEOUT)
                     content = media["content"]
                     ct = (media["content_type"] or "").lower()
+                    # Prefer content-type and signatures over URL extension
                     if "video" in ct or ".mp4" in url.lower() or "video/mp4" in ct:
                         ext = ".mp4"
                     elif "png" in ct or url.lower().endswith(".png"):
@@ -631,19 +656,32 @@ class StoryDownloader:
                     else:
                         ext = ".bin"
                     ts = None
-                    m = re.match(r"(\d+)\.(\d+)\.(\d+),?\s+(\d+):(\d+):(\d+)", s.get('t') or "")
-                    if m:
-                        d, mo, y, h, mi, sec = m.groups()
-                        ts = f"{y}-{int(mo):02d}-{int(d):02d}_{int(h):02d}-{int(mi):02d}-{int(sec):02d}"
+                    # Prefer raw unix timestamp if available; format in Israel timezone
+                    if s.get('ta'):
+                        ts = format_taken_at_for_filename(s.get('ta'))
+                    # Fallbacks: relative text like '3 minutes ago'
                     if not ts and (rm := re.search(r'(\d+)\s*(minute|hour|day)', s.get('txt') or '')):
                         n, u = int(rm[1]), rm[2]
-                        ts = (datetime.now(timezone.utc) - {"m": timedelta(minutes=n), "h": timedelta(hours=n), "d": timedelta(days=n)}[u[0]]).strftime("%Y-%m-%d_%H-%M-%S")
+                        delta = timedelta(minutes=n) if u.startswith('minute') else (timedelta(hours=n) if u.startswith('hour') else timedelta(days=n))
+                        ts = (datetime.now(ZoneInfo('Asia/Jerusalem')) - delta).strftime("%Y-%m-%d_%H-%M-%S")
+                    # Fallback: use expires param in url (UTC -> convert to Israel timezone)
                     if not ts and (em := re.search(r'__expires=(\d+)', url)):
-                        ts = datetime.fromtimestamp(int(em[1]), tz=timezone.utc).strftime("%Y-%m-%d_%H-%M-%S")
+                        try:
+                            ts = format_taken_at_for_filename(int(em[1]))
+                        except Exception:
+                            ts = None
                     if not ts:
                         ts = f"unknown_{int(time.time())}_{idx}"
+
                     filename = f"{username}-{ts}{ext}"
                     p = user_dir / filename
+
+                    # Validate content matches expected media type before saving
+                    if ext == '.jpg' and not _is_jpeg(content):
+                        raise ValueError(f"content validation failed: expected JPEG but signature missing for url={url}")
+                    if ext == '.mp4' and not _is_mp4(content):
+                        raise ValueError(f"content validation failed: expected MP4 but 'ftyp' not found for url={url}")
+
                     p.write_bytes(content)
                     downloaded.append({"path": p, "pre_download_id": s.get("pre_download_id")})
                     logger.info(

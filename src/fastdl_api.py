@@ -365,20 +365,21 @@ class FastDLStoriesAPI:
                     if path in it and isinstance(it[path], str):
                         url = it[path]
                         break
-                # candidates inside image_versions2
-                if not url and isinstance(it.get("image_versions2"), dict):
-                    c = it["image_versions2"].get("candidates")
-                    if isinstance(c, list) and c:
-                        for key in ("url_downloadable", "url_wrapped", "url"):
-                            if key in c[0]:
-                                url = c[0][key]
-                                break
+                # Prefer video_versions when present (video should win over thumbnail)
                 if not url and isinstance(it.get("video_versions"), list) and it.get("video_versions"):
                     v0 = it.get("video_versions")[0]
                     if isinstance(v0, dict):
                         for key in ("url_downloadable", "url_wrapped", "url"):
                             if key in v0:
                                 url = v0[key]
+                                break
+                # Fallback to image versions only if no video url was found
+                if not url and isinstance(it.get("image_versions2"), dict):
+                    c = it["image_versions2"].get("candidates")
+                    if isinstance(c, list) and c:
+                        for key in ("url_downloadable", "url_wrapped", "url"):
+                            if key in c[0]:
+                                url = c[0][key]
                                 break
 
             if url:
