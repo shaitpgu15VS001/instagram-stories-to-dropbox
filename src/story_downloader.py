@@ -463,9 +463,22 @@ class StoryDownloader:
                 logger.info(f"FastDL Stories API success with stories, items={len(api_items)}")
                 normalized = []
                 for it in api_items:
+                    # Preserve API publish time when available so filenames
+                    # are deterministic and unique. The API provides
+                    # `taken_at` as a unix timestamp inside `raw`.
+                    taken = None
+                    try:
+                        raw = it.get('raw') or {}
+                        ta = raw.get('taken_at')
+                        if isinstance(ta, (int, float)):
+                            dt = datetime.fromtimestamp(int(ta), tz=timezone.utc)
+                            # match DOM-style format used elsewhere: D.M.Y, H:M:S
+                            taken = dt.strftime("%d.%m.%Y, %H:%M:%S")
+                    except Exception:
+                        taken = None
                     normalized.append({
                         'u': it.get('u'),
-                        't': None,
+                        't': taken,
                         'txt': None,
                     })
                 if normalized:

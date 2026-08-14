@@ -41,30 +41,55 @@ class Logger:
             print(formatted, flush=True)
 
     def debug(self, message):
+        if message is None:
+            message = ""
         self._print(
             self._format("DEBUG", Colors.CYAN, "🔍", message),
             self.LEVELS["debug"],
         )
 
-    def info(self, message):
+    def info(self, message, *args):
+        if args:
+            try:
+                message = message % args
+            except Exception:
+                message = f"{message} {' '.join(str(a) for a in args)}"
+        if message is None:
+            message = ""
         self._print(
             self._format("INFO", Colors.BLUE, "ℹ️ ", message),
             self.LEVELS["info"],
         )
 
     def success(self, message):
+        if message is None:
+            message = ""
         self._print(
             self._format("SUCCESS", Colors.GREEN, "✅", message),
             self.LEVELS["success"],
         )
 
-    def warning(self, message):
+    def warning(self, message, *args):
+        if args:
+            try:
+                message = message % args
+            except Exception:
+                message = f"{message} {' '.join(str(a) for a in args)}"
+        if message is None:
+            message = ""
         self._print(
             self._format("WARNING", Colors.YELLOW, "⚠️ ", message),
             self.LEVELS["warning"],
         )
 
-    def error(self, message):
+    def error(self, message, *args):
+        if args:
+            try:
+                message = message % args
+            except Exception:
+                message = f"{message} {' '.join(str(a) for a in args)}"
+        if message is None:
+            message = ""
         self._print(
             self._format("ERROR", Colors.RED, "❌", message),
             self.LEVELS["error"],
