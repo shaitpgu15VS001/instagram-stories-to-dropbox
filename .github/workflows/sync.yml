@@ -254,3 +254,10 @@ jobs:
         if: always()
         run: |
           echo "The run is complete. Check the logs above for more details."
+
+      - name: Upload debug artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug
+          path: debug/

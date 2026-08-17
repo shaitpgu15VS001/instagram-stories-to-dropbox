@@ -376,6 +376,15 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
 
         logger.info(f"  [{idx}/{len(files)}] מעלה: {local_file.name}")
         folder_path = uploader.get_folder_path_for_date(today, folder_name or username)
+            # Initialize debug logging files early. Non-fatal if it fails.
+            try:
+                run_id = os.environ.get("GITHUB_RUN_ID")
+                logger.init_debug(debug_dir="debug", run_id=run_id)
+            except Exception:
+                pass
+
+            start_ts = datetime.now(timezone.utc)
+            logger.info(f"זמן התחלה: {start_ts.isoformat()}")
         logger.info(f"UPLOAD DESTINATION username={username} folder_name={folder_name} destination={folder_path}/{local_file.name}")
         success = uploader.upload_file(local_file, dropbox_path)
 
