@@ -641,6 +641,7 @@ class StoryDownloader:
         for idx, s in enumerate(stories, 1):
             url = s['u']
             for attempt in range(1, MAX_RETRIES + 1):
+                start_ts = time.time()
                 try:
                     media = self._download_media_via_browser_context(url, timeout_seconds=DOWNLOAD_TIMEOUT)
                     content = media["content"]
@@ -697,12 +698,74 @@ class StoryDownloader:
                     )
                     logger.debug(f"  [{idx}/{len(stories)}] הורד {filename}")
                     break
-                except (requests.HTTPError, ValueError, OSError) as exc:
+                except (requests.HTTPError, ValueError, OSError, PlaywrightTimeout) as exc:
+                    # Compute duration and extract minimal signed-url info for diagnostics
+                    duration_ms = int((time.time() - start_ts) * 1000)
+                    try:
+                        parsed = urlparse(url)
+                        host = parsed.hostname
+                        qs = parse_qs(parsed.query)
+                        signed = any(k in parsed.query for k in ("__sig", "token", "access_token", "refresh_token"))
+                        expires_vals = qs.get("__expires") or qs.get("expires")
+                        expires_in = None
+                        if expires_vals:
+                            try:
+                                expires_ts = int(expires_vals[0])
+                                expires_in = int(expires_ts - time.time())
+                            except Exception:
+                                expires_in = None
+                    except Exception:
+                        host = None
+                        signed = False
+                        expires_in = None
+                    logger.info(
+                        "MEDIA_DOWNLOAD_DEBUG username=%s story_index=%s attempt=%s duration_ms=%s exception_type=%s timeout_seconds=%s signed_url=%s expires_in_seconds=%s host=%s",
+                        username,
+                        idx,
+                        attempt,
+                        duration_ms,
+                        type(exc).__name__,
+                        DOWNLOAD_TIMEOUT,
+                        str(signed).lower(),
+                        expires_in,
+                        host,
+                    )
                     if attempt == MAX_RETRIES:
-                        logger.warning(f"  [{idx}/{len(stories)}] שגיאת הורדה ב-browser context: {exc} E-DL-001")
+                        logger.warning(f"  [{idx}/{len(stories)}] שגיאת הורדה ב/browser context: {exc} E-DL-001")
                         break
                     time.sleep(RETRY_DELAY)
                 except Exception as exc:
+                    # General exception: log debug info and break (not retryable)
+                    duration_ms = int((time.time() - start_ts) * 1000)
+                    try:
+                        parsed = urlparse(url)
+                        host = parsed.hostname
+                        qs = parse_qs(parsed.query)
+                        signed = any(k in parsed.query for k in ("__sig", "token", "access_token", "refresh_token"))
+                        expires_vals = qs.get("__expires") or qs.get("expires")
+                        expires_in = None
+                        if expires_vals:
+                            try:
+                                expires_ts = int(expires_vals[0])
+                                expires_in = int(expires_ts - time.time())
+                            except Exception:
+                                expires_in = None
+                    except Exception:
+                        host = None
+                        signed = False
+                        expires_in = None
+                    logger.info(
+                        "MEDIA_DOWNLOAD_DEBUG username=%s story_index=%s attempt=%s duration_ms=%s exception_type=%s timeout_seconds=%s signed_url=%s expires_in_seconds=%s host=%s",
+                        username,
+                        idx,
+                        attempt,
+                        duration_ms,
+                        type(exc).__name__,
+                        DOWNLOAD_TIMEOUT,
+                        str(signed).lower(),
+                        expires_in,
+                        host,
+                    )
                     logger.warning(f"  [{idx}/{len(stories)}] שגיאה כללית בהורדה: {exc} E-DL-001")
                     break
         return downloaded
