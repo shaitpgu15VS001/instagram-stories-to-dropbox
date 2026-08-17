@@ -97,7 +97,8 @@ class FastDLStoriesAPI:
                 if content_type:
                     details.append(f"content_type={content_type}")
             logger = __import__("src.logger", fromlist=["logger"]).logger
-            logger.error("FastDL API bridge failure: " + "; ".join(details))
+            # Include an Error ID for FastDL bridge failures
+            logger.error("FastDL API bridge failure: " + "; ".join(details) + " E-FDL-001")
 
         with sync_playwright() as p:
             try:
@@ -262,9 +263,16 @@ class FastDLStoriesAPI:
                         f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
                         f"PAGE_URL_AFTER_SEARCH={page_url_after_search} "
                         f"STORIES_API_REQUEST_METHOD={request_seen['method']} STORIES_API_REQUEST_URL={request_seen['url']} "
-                        f"STORIES_API_RESPONSE_STATUS={response_seen['status']} STORIES_API_RESPONSE_CONTENT_TYPE={response_seen['content_type']}"
+                        f"STORIES_API_RESPONSE_STATUS={response_seen['status']} STORIES_API_RESPONSE_CONTENT_TYPE={response_seen['content_type']} E-FDL-002"
                     )
-                    log_failure("waiting_for_response", TimeoutError(f"API bridge timeout stage=waiting_for_response timeout_seconds={20000}"), timeout_seconds=20000, response=response)
+                    log_failure(
+                        "waiting_for_response",
+                        TimeoutError(
+                            f"API bridge timeout stage=waiting_for_response timeout_seconds={20000}"
+                        ),
+                        timeout_seconds=20000,
+                        response=response,
+                    )
                     return None
                 body = response.json()
                 items = self.parse_stories(body)

@@ -87,7 +87,7 @@ class RcloneUploader:
                     "access denied",
                 ]
                 if any(tok in err_l for tok in non_retryable_tokens) or result.returncode in (2, 5):
-                    logger.error(f"rclone reported an infrastructure error: {err}")
+                    logger.error(f"rclone reported an infrastructure error: {err} E-UP-001")
                     raise InfrastructureError(err)
 
                 if attempt < self.MAX_RETRIES:

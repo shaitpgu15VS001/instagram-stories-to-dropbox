@@ -364,6 +364,7 @@ class StoryDownloader:
                 download_urls = self._fetch_story_urls(username)
             except PlaywrightTimeout:
                 logger.error(f"@{username}: timeout חוזר - מדלג")
+                logger.error(f"@{username} FASTDL bridge timeout E-FDL-001")
                 if existing_files:
                     return {"success": True, "files": existing_files, "error": None}
                 return {"success": False, "files": [], "error": "timeout"}
@@ -373,7 +374,7 @@ class StoryDownloader:
                     return {"success": True, "files": existing_files, "error": None}
                 return {"success": False, "files": [], "error": str(exc)}
         except Exception as exc:
-            logger.error(f"שגיאה בגלישה ל-fastdl.app עבור @{username}: {exc}")
+            logger.error(f"שגיאה בגלישה ל-fastdl.app עבור @{username}: {exc} E-FDL-001")
             if existing_files:
                 return {"success": True, "files": existing_files, "error": None}
             return {"success": False, "files": [], "error": str(exc)}
@@ -698,11 +699,11 @@ class StoryDownloader:
                     break
                 except (requests.HTTPError, ValueError, OSError) as exc:
                     if attempt == MAX_RETRIES:
-                        logger.warning(f"  [{idx}/{len(stories)}] שגיאת הורדה ב-browser context: {exc}")
+                        logger.warning(f"  [{idx}/{len(stories)}] שגיאת הורדה ב-browser context: {exc} E-DL-001")
                         break
                     time.sleep(RETRY_DELAY)
                 except Exception as exc:
-                    logger.warning(f"  [{idx}/{len(stories)}] שגיאה כללית בהורדה: {exc}")
+                    logger.warning(f"  [{idx}/{len(stories)}] שגיאה כללית בהורדה: {exc} E-DL-001")
                     break
         return downloaded
 

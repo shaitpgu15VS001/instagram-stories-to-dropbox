@@ -68,7 +68,7 @@ class StateManager:
                     os.unlink(tmp_path)
                 raise
         except OSError as exc:
-            logger.error(f"שגיאה בשמירת state: {exc}")
+            logger.error(f"שגיאה בשמירת state: {exc} E-STATE-001")
 
     def find_uploaded_entry(self, username, story_id):
         user_files = self.state["uploaded_files"].get(username, [])

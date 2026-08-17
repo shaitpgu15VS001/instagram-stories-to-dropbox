@@ -337,6 +337,8 @@ def _read_default_remote(file_path=STORAGE_BACKEND_FILE):
 
 def process_user(username, downloader, uploader, state, force_redownload, folder_name=None):
     logger.section(f"מעבד את @{username}")
+    # Structured per-user start marker
+    logger.info(f"USER_START username={username} run_id={getattr(logger, 'run_id', 'local')}")
     logger.info(f"PROCESSING username={username} folder_name={folder_name}")
 
     # ensure downloader has access to state for pre-download skipping
@@ -347,8 +349,15 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
 
     result = downloader.download_stories(username, folder_name=folder_name)
     if not result["success"]:
-        logger.warning(f"דילוג על @{username} עקב שגיאה: {result.get('error')}")
-        return {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": result.get("error")}
+        err = result.get("error")
+        # Map known downloader errors to Error IDs
+        if isinstance(err, str) and ("api_error" in err or "timeout" in err):
+            err_id = "E-FDL-001"
+        else:
+            err_id = "E-DL-001"
+        logger.warning(f"דילוג על @{username} עקב שגיאה: {err} {err_id}")
+        logger.info(f"USER_FINISHED username={username} status=FAILED error_id={err_id}")
+        return {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": err, "error_id": err_id}
 
     files = result["files"]
     if not files:
@@ -392,7 +401,7 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
                 state.save()
                 saved = True
             except Exception as exc:
-                logger.error(f"שגיאה בשמירת state אחרי העלאה: {exc}")
+                logger.error(f"שגיאה בשמירת state אחרי העלאה: {exc} E-STATE-001")
                 # Do not delete local file if state wasn't persisted
             stats["uploaded"] += 1
             if saved:
@@ -401,9 +410,11 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
                 except OSError:
                     pass
         else:
-            logger.error(f"  נכשל בהעלאת {local_file.name}")
+            logger.error(f"  נכשל בהעלאת {local_file.name} E-UP-001")
             stats["error"] = "upload_failed"
+            stats["error_id"] = "E-UP-001"
 
+    logger.info(f"USER_FINISHED username={username} status=OK downloaded={stats['downloaded']} uploaded={stats['uploaded']} skipped={stats['skipped']}")
     return stats
 
 
@@ -487,6 +498,8 @@ def main():
         "files_skipped": 0,
     }
 
+    failed_users = []
+
     total = len(user_entries)
     for idx, (display_name, username) in enumerate(user_entries, 1):
         logger.progress(idx, total, prefix="התקדמות")
@@ -499,6 +512,7 @@ def main():
             total_stats["files_skipped"] += stats.get("skipped", 0)
             if stats.get("error"):
                 total_stats["users_failed"] += 1
+                failed_users.append((username, stats.get("error_id") or stats.get("error")))
         except InfrastructureError as exc:
             logger.error(f"שגיאת תשתית קריטית ב-upload: {exc}")
             try:
@@ -531,17 +545,44 @@ def main():
     logger.info(f"קבצים שדולגו (כבר היו): {total_stats['files_skipped']}")
     overall = state.get_stats()
     logger.info(f"סה\"כ קבצים במעקב: {overall['total_uploaded']} (עבור {overall['tracked_users']} משתמשים)")
-
     failed = total_stats["users_failed"]
     if failed == 0:
         logger.success("הסנכרון הסתיים בהצלחה - כל המשתמשים עובדו")
-        sys.exit(0)
+        exit_code = 0
     elif failed == total:
         logger.error(f"הסנכרון נכשל - כל {total} המשתמשים נכשלו")
-        sys.exit(1)
+        exit_code = 1
     else:
         logger.warning(f"הסנכרון הסתיים עם {failed} שגיאות מתוך {total} משתמשים")
-        sys.exit(0)
+        exit_code = 0
+
+    # Write debug summary (safe)
+    try:
+        import platform
+
+        end_ts = datetime.now(timezone.utc)
+        summary = {
+            "start_iso": start_ts.isoformat(),
+            "end_iso": end_ts.isoformat(),
+            "duration_seconds": int((end_ts - start_ts).total_seconds()),
+            "python_version": platform.python_version(),
+            "selected_backend": selected,
+            "users_loaded": len(user_entries),
+            "users_processed": total_stats.get("users_processed", 0),
+            "users_failed": total_stats.get("users_failed", 0),
+            "files_downloaded": total_stats.get("files_downloaded", 0),
+            "files_uploaded": total_stats.get("files_uploaded", 0),
+            "files_skipped": total_stats.get("files_skipped", 0),
+            "state_total_uploaded": overall.get("total_uploaded"),
+            "error_counts": getattr(logger, "error_counts", {}),
+            "failed_users": failed_users,
+            "status": ("SUCCESS" if failed == 0 else ("FAILED" if failed == total else "PARTIAL_SUCCESS")),
+        }
+        logger.write_summary(summary)
+    except Exception:
+        pass
+
+    sys.exit(exit_code)
 
 
 if __name__ == "__main__":

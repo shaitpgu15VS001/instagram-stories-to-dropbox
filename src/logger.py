@@ -211,6 +211,12 @@ class Logger:
             t = re.sub(r"(Cookie\s*[:=]\s*)([^\n\r]+)", r"\1[REDACTED]", t, flags=re.IGNORECASE)
             # redact token-like query params in URLs or bodies
             t = re.sub(r"([?&](?:__sig|_sig|__expires|expires|token|access_token|refresh_token|sig)=)[^&\s]+", r"\1[REDACTED]", t, flags=re.IGNORECASE)
+            # redact common key=value secrets first (password, token, access_token, refresh_token)
+            t = re.sub(r"(?i)(\b(?:password|pass|pwd|access_token|refresh_token|token)\b\s*[:=]\s*)([^\s,;]+)", r"\1[REDACTED]", t)
+            # redact inline Bearer tokens (also handle "Bearer token=...")
+            t = re.sub(r"(?i)\bBearer\s+(?:token=)?[A-Za-z0-9\-\._~]+=*", "Bearer [REDACTED]", t)
+            # redact signing params that may appear without ? or &
+            t = re.sub(r"(?i)(__sig|__t|_sig)\s*[=:]?\s*([^\s,;]+)", r"\1=[REDACTED]", t)
             # redact simple key: value patterns for common secrets
             t = re.sub(r"(rclone_config\s*[:=]\s*)([^\n\r]+)", r"\1[REDACTED]", t, flags=re.IGNORECASE)
             # Truncate excessively large JSON blobs
