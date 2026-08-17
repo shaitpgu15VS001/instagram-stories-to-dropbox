@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
     inputs:
       force_redownload:
-        description: 'האם להוריד הכל מחדש (ללא בדיקת כפילויות)?'
+        description: 'Should all files be downloaded again (without duplicate checks)?'
         required: false
         default: 'false'
         type: choice
@@ -14,7 +14,7 @@ on:
           - 'false'
           - 'true'
       storage_backend:
-        description: 'שם חיבור הענן (להרצה זו בלבד, עוקף את STORAGE_BACKEND.txt)'
+        description: 'Cloud connection name for this run only (overrides STORAGE_BACKEND.txt)'
         required: false
         default: ''
         type: string
@@ -31,27 +31,27 @@ jobs:
       contents: read
 
     steps:
-      - name: הורדת הקוד של הריפו
+      - name: Checkout repository code
         uses: actions/checkout@v4
 
-      - name: התקנת Python 3.11
+      - name: Install Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
           cache: 'pip'
 
-      - name: התקנת תלויות Python
+      - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: התקנת דפדפן Chromium עבור Playwright
+      - name: Install Chromium browser for Playwright
         run: playwright install --with-deps chromium
 
-      - name: התקנת rclone
+      - name: Install rclone
         run: curl -sSL https://rclone.org/install.sh | sudo bash
 
-      - name: שחזור קובץ תצורת rclone
+      - name: Restore rclone config file
         env:
           RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
         if: env.RCLONE_CONF != ''
@@ -97,7 +97,7 @@ jobs:
 
           echo "remote=$requested" >> "$GITHUB_OUTPUT"
 
-      - name: שחזור state.json מה־remote אם קיים
+      - name: Restore state.json from remote if it exists
         run: |
           set -e
           remote="${{ steps.resolve-remote.outputs.remote }}"
@@ -178,7 +178,7 @@ jobs:
             echo "state.exists=0"
           fi
 
-      - name: הרצת הסנכרון
+      - name: Run sync
         env:
           RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
           STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
@@ -245,12 +245,12 @@ jobs:
           rclone copyto state.json "${remote}:.instagram-sync/state.json" --config rclone.conf
           echo "Uploaded state.json to ${remote}:.instagram-sync/state.json"
 
-      - name: ניקוי קבצים זמניים
+      - name: Clean temporary files
         if: always()
         run: |
           rm -rf stories
 
-      - name: סיכום הרצה
+      - name: Run summary
         if: always()
         run: |
-          echo "ההרצה הסתיימה. עיין בלוגים למעלה לפרטים נוספים."
+          echo "The run is complete. Check the logs above for more details."
