@@ -3,7 +3,9 @@ import sys
 import re
 import json
 import threading
-from datetime import datetime
+import atexit
+import platform
+from datetime import datetime, timezone
 
 
 class Colors:
@@ -143,6 +145,11 @@ class Logger:
             self.debug_summary_path = os.path.join(self.debug_dir, "debug_summary.log")
             self._debug_full_fh = open(self.debug_full_path, "a", encoding="utf-8")
             self.run_id = run_id or os.environ.get("GITHUB_RUN_ID") or None
+            # record start time for possible early exit summary
+            try:
+                self._start_time = datetime.now(timezone.utc)
+            except Exception:
+                self._start_time = None
             # Write a small header
             hdr = f"[DEBUG_START] run_id={self.run_id or 'local'} start_ts={datetime.utcnow().isoformat()}Z"
             try:
@@ -151,9 +158,47 @@ class Logger:
                     self._debug_full_fh.flush()
             except Exception:
                 pass
+            # Register a safe atexit handler to write a minimal summary on early exit
+            try:
+                atexit.register(self._atexit_summary)
+            except Exception:
+                pass
         except Exception:
             # Do not fail startup if debug cannot be initialized
             self._debug_full_fh = None
+
+    def _atexit_summary(self):
+        try:
+            end = datetime.now(timezone.utc)
+            start_iso = None
+            duration = None
+            if getattr(self, "_start_time", None) is not None:
+                start_iso = self._start_time.isoformat()
+                duration = int((end - self._start_time).total_seconds())
+            summary = {
+                "start_iso": start_iso,
+                "end_iso": end.isoformat(),
+                "duration_seconds": duration,
+                "python_version": platform.python_version(),
+                "selected_backend": os.environ.get("STORAGE_BACKEND") or os.environ.get("DEFAULT_REMOTE") or None,
+                "users_loaded": None,
+                "users_processed": None,
+                "users_failed": None,
+                "files_downloaded": None,
+                "files_uploaded": None,
+                "files_skipped": None,
+                "state_total_uploaded": None,
+                "error_counts": getattr(self, "error_counts", {}),
+            }
+            # write summary safely
+            try:
+                with self._debug_lock:
+                    with open(self.debug_summary_path, "w", encoding="utf-8") as fh:
+                        fh.write(self._redact("\n".join([f"Run ID: {self.run_id or 'local'}", f"Start: {summary.get('start_iso')}", f"End: {summary.get('end_iso')}", f"DurationSeconds: {summary.get('duration_seconds')}", f"Python: {summary.get('python_version')}"])) )
+            except Exception:
+                pass
+        except Exception:
+            pass
 
     def _redact(self, text: str) -> str:
         try:
