@@ -34,3 +34,65 @@ def test_parse_capture_returns_items():
     assert isinstance(items, list)
     # in our authoritative capture we expect 35 items
     assert len(items) == 35
+
+
+def test_parse_empty_result_returns_empty_list():
+    items = FastDLStoriesAPI.parse_stories({"result": []})
+    assert items == []
+
+
+def test_parse_result_with_story_returns_normalized_items():
+    body = {
+        "result": [
+            {
+                "url_downloadable": "https://media.fastdl.app/get?uri=https%3A%2F%2Fscontent.cdninstagram.com%2Fv%2Fstory.mp4&__sig=ABC",
+                "taken_at": 1786200000,
+                "pk": "123",
+            }
+        ]
+    }
+    items = FastDLStoriesAPI.parse_stories(body)
+    assert isinstance(items, list) and len(items) == 1
+    assert items[0]["kind"] == "video"
+    assert ".mp4" in items[0]["u"]
+
+
+def test_parse_falls_back_to_data_when_result_is_none():
+    body = {
+        "result": None,
+        "data": [
+            {
+                "url_downloadable": "https://media.fastdl.app/get?uri=https%3A%2F%2Fscontent.cdninstagram.com%2Fv%2Fstory.jpg&__sig=ABC",
+                "pk": "456",
+            }
+        ],
+    }
+    items = FastDLStoriesAPI.parse_stories(body)
+    assert isinstance(items, list) and len(items) == 1
+    assert items[0]["kind"] == "image"
+
+
+def test_parse_unusable_response_returns_none():
+    assert FastDLStoriesAPI.parse_stories({}) is None
+
+
+def test_parse_message_only_returns_none():
+    assert FastDLStoriesAPI.parse_stories({"message": "no stories"}) is None
+
+
+def test_empty_result_is_no_stories_success(tmp_path, monkeypatch, capsys):
+    from src.story_downloader import StoryDownloader
+
+    monkeypatch.setattr(FastDLStoriesAPI, "fetch_stories", lambda self, username, timeout=10: [])
+    sd = StoryDownloader(output_dir=tmp_path / "stories")
+
+    urls = sd._fetch_story_urls("nouser")
+    assert urls == []
+
+    res = sd.download_stories("nouser")
+    assert res["success"] is True
+    assert res["error"] is None
+    out = capsys.readouterr().out
+    assert "אין סטוריז פעילים כרגע" in out
+    assert "E-FDL-001" not in out
+    assert "api_error" not in out

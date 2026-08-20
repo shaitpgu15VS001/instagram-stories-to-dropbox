@@ -508,12 +508,11 @@ class StoryDownloader:
                     })
                 if normalized:
                     return normalized
-                logger.warning(
-                    "FastDL Stories API success but 0 usable stories returned. "
-                    "DOM extraction remains archived and is not executed automatically. "
-                    "DOM archive path: src/story_downloader.py::_fetch_story_urls; docs/FASTDL_STORIES_ARCHITECTURE.md."
-                )
-                return None
+                # The API returned a valid response but there were no usable
+                # stories in it. Treat this as a normal, successful outcome
+                # meaning "no active stories" rather than an API failure.
+                logger.info(f"ℹ️ @{username}: אין סטוריז פעילים כרגע")
+                return []
             logger.warning(
                 "FastDL Stories API/bridge error or empty response. "
                 "DOM extraction remains archived and is not executed automatically. "

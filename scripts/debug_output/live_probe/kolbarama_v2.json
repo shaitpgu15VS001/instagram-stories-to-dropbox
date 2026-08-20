@@ -1,0 +1,179 @@
+{
+  "username": "kolbarama",
+  "stories_tab_clicked": false,
+  "request_count": 0,
+  "response_count": 0,
+  "requests": [],
+  "responses": [],
+  "dom_log": [
+    {
+      "t_rel": 1.02,
+      "phase": "input_ready",
+      "tabs": [],
+      "items": 0,
+      "spinner": false,
+      "dots": false,
+      "allButtons": [
+        "EN",
+        "Paste",
+        "Clear",
+        "Download"
+      ],
+      "url": "https://fastdl.app/en3yO/instagram-anonymously-viewer",
+      "hasProfile": false
+    },
+    {
+      "t_rel": 1.09,
+      "phase": "after_search_click",
+      "tabs": [],
+      "items": 0,
+      "spinner": false,
+      "dots": false,
+      "allButtons": [
+        "EN",
+        "Paste",
+        "Clear",
+        "Download"
+      ],
+      "url": "https://fastdl.app/en3yO/instagram-anonymously-viewer",
+      "hasProfile": false
+    },
+    {
+      "t_rel": 3.61,
+      "phase": "after_sleep_2.5",
+      "tabs": [],
+      "items": 0,
+      "spinner": false,
+      "dots": true,
+      "allButtons": [
+        "EN",
+        "Paste",
+        "Clear",
+        "Download",
+        "Learn more",
+        "Consent",
+        "Manage options",
+        "Vendor preferences",
+        "Accept all",
+        "Confirm choices",
+        "Accept all",
+        "Confirm choices",
+        "Close"
+      ],
+      "url": "https://fastdl.app/en3yO/instagram-anonymously-viewer",
+      "hasProfile": false
+    },
+    {
+      "t_rel": 23.78,
+      "phase": "after_tab_attempt",
+      "tabs": [],
+      "items": 0,
+      "spinner": false,
+      "dots": false,
+      "allButtons": [
+        "EN",
+        "Paste",
+        "Clear",
+        "Download"
+      ],
+      "url": "https://fastdl.app/en3yO/instagram-anonymously-viewer",
+      "hasProfile": false
+    },
+    {
+      "t_rel": 28.79,
+      "phase": "poll_5",
+      "tabs": [],
+      "items": 0,
+      "spinner": false,
+      "dots": false,
+      "allButtons": [
+        "EN",
+        "Paste",
+        "Clear",
+        "Download"
+      ],
+      "url": "https://fastdl.app/en3yO/instagram-anonymously-viewer",
+      "hasProfile": false
+    },
+    {
+      "t_rel": 33.79,
+      "phase": "poll_10",
+      "tabs": [],
+      "items": 0,
+      "spinner": false,
+      "dots": false,
+      "allButtons": [
+        "EN",
+        "Paste",
+        "Clear",
+        "Download"
+      ],
+      "url": "https://fastdl.app/en3yO/instagram-anonymously-viewer",
+      "hasProfile": false
+    },
+    {
+      "t_rel": 38.8,
+      "phase": "poll_15",
+      "tabs": [],
+      "items": 0,
+      "spinner": false,
+      "dots": false,
+      "allButtons": [
+        "EN",
+        "Paste",
+        "Clear",
+        "Download"
+      ],
+      "url": "https://fastdl.app/en3yO/instagram-anonymously-viewer",
+      "hasProfile": false
+    },
+    {
+      "t_rel": 43.81,
+      "phase": "poll_20",
+      "tabs": [],
+      "items": 0,
+      "spinner": false,
+      "dots": false,
+      "allButtons": [
+        "EN",
+        "Paste",
+        "Clear",
+        "Download"
+      ],
+      "url": "https://fastdl.app/en3yO/instagram-anonymously-viewer",
+      "hasProfile": false
+    },
+    {
+      "t_rel": 48.81,
+      "phase": "poll_25",
+      "tabs": [],
+      "items": 0,
+      "spinner": false,
+      "dots": false,
+      "allButtons": [
+        "EN",
+        "Paste",
+        "Clear",
+        "Download"
+      ],
+      "url": "https://fastdl.app/en3yO/instagram-anonymously-viewer",
+      "hasProfile": false
+    },
+    {
+      "t_rel": 53.82,
+      "phase": "poll_30",
+      "tabs": [],
+      "items": 0,
+      "spinner": false,
+      "dots": false,
+      "allButtons": [
+        "EN",
+        "Paste",
+        "Clear",
+        "Download"
+      ],
+      "url": "https://fastdl.app/en3yO/instagram-anonymously-viewer",
+      "hasProfile": false
+    }
+  ]
+}

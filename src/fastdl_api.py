@@ -68,7 +68,11 @@ class FastDLStoriesAPI:
             except Exception:
                 continue
             items = self.parse_stories(body)
-            if items:
+            # Preserve the distinction between `None` (parse/error) and
+            # an empty list (valid response with no usable stories). If
+            # `parse_stories` returns an empty list we should return it so
+            # callers can treat "no stories" as a valid outcome.
+            if items is not None:
                 return items
 
         return self._fetch_stories_with_playwright(username, timeout=timeout)
@@ -357,7 +361,9 @@ class FastDLStoriesAPI:
         if not isinstance(resp_json, dict):
             return None
         # Common observed shape: {'result': [ ... ]}
-        result = resp_json.get("result") or resp_json.get("data")
+        result = resp_json.get("result")
+        if result is None:
+            result = resp_json.get("data")
         if not isinstance(result, list):
             return None
 
