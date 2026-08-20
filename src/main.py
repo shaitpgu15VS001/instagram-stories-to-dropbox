@@ -348,20 +348,50 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
         pass
 
     result = downloader.download_stories(username, folder_name=folder_name)
+    # Observability fields from downloader (backward compatible defaults)
+    _outcome = result.get("outcome")
+    _stories_found = result.get("stories_found", 0) if isinstance(result.get("stories_found"), int) else 0
+    _pre_skipped = result.get("pre_skipped", 0) if isinstance(result.get("pre_skipped"), int) else 0
+    if _pre_skipped is None:
+        _pre_skipped = 0
+
     if not result["success"]:
         err = result.get("error")
-        # Map known downloader errors to Error IDs
-        if isinstance(err, str) and ("api_error" in err or "timeout" in err):
+        # Map known downloader errors to Error IDs and statuses (observability only)
+        err_str = err if isinstance(err, str) else str(err) if err else ""
+        outcome = _outcome or ""
+        if "api_error" in err_str or "timeout" in err_str or outcome in ("api_error",):
             err_id = "E-FDL-001"
-        else:
+            status = "API_ERROR"
+        elif "download_failed" in err_str or outcome in ("download_error",):
             err_id = "E-DL-001"
+            status = "DOWNLOAD_ERROR"
+        else:
+            # fallback: infer from error string
+            if "api" in err_str.lower() or "timeout" in err_str.lower():
+                err_id = "E-FDL-001"
+                status = "API_ERROR"
+            else:
+                err_id = "E-DL-001"
+                status = "DOWNLOAD_ERROR"
         logger.warning(f"דילוג על @{username} עקב שגיאה: {err} {err_id}")
-        logger.info(f"USER_FINISHED username={username} status=FAILED error_id={err_id}")
-        return {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": err, "error_id": err_id}
+        logger.info(f"USER_FINISHED username={username} status={status} error_id={err_id} error={err} stories={_stories_found} duplicates_skipped={_pre_skipped}")
+        return {"downloaded": 0, "uploaded": 0, "skipped": _pre_skipped, "pre_skipped": _pre_skipped, "stories_found": _stories_found, "outcome": _outcome, "error": err, "error_id": err_id, "status": status}
 
     files = result["files"]
+    # Success path but no files to upload -> distinguish NO_ACTIVE vs NO_NEW
     if not files:
-        return {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": None}
+        outcome = _outcome or ""
+        # Prefer outcome, fall back to counts
+        if outcome in ("no_new_stories", "no_new_stories_cached") or (_pre_skipped > 0 and _stories_found > 0):
+            status = "NO_NEW_STORIES"
+            logger.info(f"USER_FINISHED username={username} status={status} stories={_stories_found} downloaded=0 uploaded=0 skipped={_pre_skipped} duplicates_skipped={_pre_skipped}")
+            return {"downloaded": 0, "uploaded": 0, "skipped": _pre_skipped, "pre_skipped": _pre_skipped, "stories_found": _stories_found, "outcome": _outcome, "error": None, "status": status}
+        else:
+            # Default: no active stories (including cached variant)
+            status = "NO_ACTIVE_STORIES"
+            logger.info(f"USER_FINISHED username={username} status={status} stories=0 downloaded=0 uploaded=0 skipped={_pre_skipped} duplicates_skipped={_pre_skipped}")
+            return {"downloaded": 0, "uploaded": 0, "skipped": _pre_skipped, "pre_skipped": _pre_skipped, "stories_found": _stories_found, "outcome": _outcome, "error": None, "status": status}
 
     today = get_today_str()
     folder_path = uploader.get_folder_path_for_date(today, folder_name or username)
@@ -414,7 +444,40 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
             stats["error"] = "upload_failed"
             stats["error_id"] = "E-UP-001"
 
-    logger.info(f"USER_FINISHED username={username} status=OK downloaded={stats['downloaded']} uploaded={stats['uploaded']} skipped={stats['skipped']}")
+    # Determine final per-user status (observability)
+    if stats.get("error") == "upload_failed":
+        final_status = "UPLOAD_ERROR"
+        final_error_id = "E-UP-001"
+    elif stats.get("uploaded", 0) > 0:
+        final_status = "STORIES_FOUND"
+        final_error_id = None
+    elif stats.get("skipped", 0) > 0 and stats.get("downloaded", 0) > 0 and stats.get("uploaded", 0) == 0:
+        # All downloaded files were duplicates (post-upload filter)
+        final_status = "NO_NEW_STORIES"
+        final_error_id = None
+    else:
+        # Fallback: if we had files but nothing uploaded/skipped, treat as stories found if downloaded>0
+        # otherwise keep NO_ACTIVE/NO_NEW from earlier branches (should not reach here for files case)
+        final_status = "STORIES_FOUND" if stats.get("downloaded", 0) > 0 else "OTHER_ERROR"
+        final_error_id = None
+
+    duplicates_skipped = _pre_skipped + stats.get("skipped", 0)
+    if final_status == "UPLOAD_ERROR":
+        logger.info(f"USER_FINISHED username={username} status={final_status} error_id={final_error_id} stories={_stories_found} downloaded={stats['downloaded']} uploaded={stats['uploaded']} skipped={stats['skipped']} duplicates_skipped={duplicates_skipped}")
+    elif final_status == "STORIES_FOUND":
+        logger.info(f"USER_FINISHED username={username} status={final_status} stories={_stories_found} downloaded={stats['downloaded']} uploaded={stats['uploaded']} skipped={stats['skipped']} duplicates_skipped={duplicates_skipped}")
+    elif final_status == "NO_NEW_STORIES":
+        logger.info(f"USER_FINISHED username={username} status={final_status} stories={_stories_found} downloaded={stats['downloaded']} uploaded={stats['uploaded']} skipped={stats['skipped']} duplicates_skipped={duplicates_skipped}")
+    else:
+        logger.info(f"USER_FINISHED username={username} status={final_status} stories={_stories_found} downloaded={stats['downloaded']} uploaded={stats['uploaded']} skipped={stats['skipped']} duplicates_skipped={duplicates_skipped}")
+
+    # Enrich stats for aggregation
+    stats["status"] = final_status
+    stats["error_id"] = final_error_id if final_status == "UPLOAD_ERROR" else stats.get("error_id")
+    stats["stories_found"] = _stories_found
+    stats["pre_skipped"] = _pre_skipped
+    stats["duplicates_skipped"] = duplicates_skipped
+    stats["outcome"] = _outcome
     return stats
 
 
@@ -493,26 +556,66 @@ def main():
     total_stats = {
         "users_processed": 0,
         "users_failed": 0,
+        "users_successful": 0,
+        "users_stories_found": 0,
+        "users_no_active": 0,
+        "users_no_new": 0,
+        "users_api_error": 0,
+        "users_download_error": 0,
+        "users_upload_error": 0,
+        "users_other_error": 0,
         "files_downloaded": 0,
         "files_uploaded": 0,
         "files_skipped": 0,
+        "duplicates_skipped": 0,
+        "stories_found_total": 0,
     }
 
     failed_users = []
+    # Track per-status for detailed reporting
+    per_user_results = []
 
     total = len(user_entries)
     for idx, (display_name, username) in enumerate(user_entries, 1):
         logger.progress(idx, total, prefix="התקדמות")
-        stats = {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": None}
+        stats = {"downloaded": 0, "uploaded": 0, "skipped": 0, "error": None, "status": "OTHER_ERROR"}
         try:
             stats = process_user(username, downloader, uploader, state, force_redownload, folder_name=display_name)
             total_stats["users_processed"] += 1
             total_stats["files_downloaded"] += stats.get("downloaded", 0)
             total_stats["files_uploaded"] += stats.get("uploaded", 0)
             total_stats["files_skipped"] += stats.get("skipped", 0)
-            if stats.get("error"):
+            # duplicates = pre + post (reliable)
+            dup = stats.get("duplicates_skipped", stats.get("pre_skipped", 0) + stats.get("skipped", 0))
+            # fallback: if duplicates_skipped not set, compute
+            if "duplicates_skipped" not in stats:
+                dup = stats.get("pre_skipped", 0) + stats.get("skipped", 0)
+            total_stats["duplicates_skipped"] += dup if isinstance(dup, int) else 0
+            total_stats["stories_found_total"] += stats.get("stories_found", 0) if isinstance(stats.get("stories_found"), int) else 0
+
+            status = stats.get("status") or ("API_ERROR" if stats.get("error_id") == "E-FDL-001" else "DOWNLOAD_ERROR" if stats.get("error") else "STORIES_FOUND")
+            per_user_results.append((username, status, stats))
+            if status == "STORIES_FOUND":
+                total_stats["users_stories_found"] += 1
+            elif status == "NO_ACTIVE_STORIES":
+                total_stats["users_no_active"] += 1
+            elif status == "NO_NEW_STORIES":
+                total_stats["users_no_new"] += 1
+            elif status == "API_ERROR":
+                total_stats["users_api_error"] += 1
+            elif status == "DOWNLOAD_ERROR":
+                total_stats["users_download_error"] += 1
+            elif status == "UPLOAD_ERROR":
+                total_stats["users_upload_error"] += 1
+            else:
+                total_stats["users_other_error"] += 1
+
+            # failed = any *_ERROR
+            if status in ("API_ERROR", "DOWNLOAD_ERROR", "UPLOAD_ERROR", "OTHER_ERROR"):
                 total_stats["users_failed"] += 1
-                failed_users.append((username, stats.get("error_id") or stats.get("error")))
+                failed_users.append((username, status, stats.get("error_id") or stats.get("error") or status))
+            else:
+                total_stats["users_successful"] += 1
         except InfrastructureError as exc:
             logger.error(f"שגיאת תשתית קריטית ב-upload: {exc}")
             try:
@@ -523,6 +626,8 @@ def main():
         except Exception as exc:
             logger.error(f"שגיאה לא צפויה בעיבוד @{username}: {exc}")
             total_stats["users_failed"] += 1
+            per_user_results.append((username, "OTHER_ERROR", {"error": str(exc)}))
+            failed_users.append((username, "OTHER_ERROR", str(exc)))
 
         downloader.cleanup(folder_name=display_name)
 
@@ -538,14 +643,61 @@ def main():
     state.save()
 
     logger.section("📊 סיכום")
+    overall = state.get_stats()
+    # --- RUN SUMMARY (observability) ---
+    # Compute derived counters (backward compatible)
+    failed = total_stats["users_failed"]
+    successful = total_stats.get("users_successful", total_stats["users_processed"] - failed)
+    # Build human-readable box
+    def _fmt_line(label, value, width=20):
+        return f"{label:<20} {value}"
+
+    run_summary_lines = []
+    run_summary_lines.append("=" * 40)
+    run_summary_lines.append("RUN SUMMARY")
+    run_summary_lines.append("=" * 40)
+    run_summary_lines.append(_fmt_line("Users processed:", total_stats["users_processed"]))
+    run_summary_lines.append(_fmt_line("Successful:", successful))
+    run_summary_lines.append(_fmt_line("  STORIES_FOUND:", total_stats.get("users_stories_found", 0)))
+    run_summary_lines.append(_fmt_line("  NO_ACTIVE_STORIES:", total_stats.get("users_no_active", 0)))
+    run_summary_lines.append(_fmt_line("  NO_NEW_STORIES:", total_stats.get("users_no_new", 0)))
+    run_summary_lines.append(_fmt_line("Failed:", failed))
+    if total_stats.get("users_api_error", 0) or total_stats.get("users_download_error", 0) or total_stats.get("users_upload_error", 0):
+        run_summary_lines.append(_fmt_line("  API_ERROR:", total_stats.get("users_api_error", 0)))
+        run_summary_lines.append(_fmt_line("  DOWNLOAD_ERROR:", total_stats.get("users_download_error", 0)))
+        run_summary_lines.append(_fmt_line("  UPLOAD_ERROR:", total_stats.get("users_upload_error", 0)))
+    run_summary_lines.append(_fmt_line("Stories found:", total_stats.get("stories_found_total", 0)))
+    run_summary_lines.append(_fmt_line("Stories downloaded:", total_stats["files_downloaded"]))
+    run_summary_lines.append(_fmt_line("Files uploaded:", total_stats["files_uploaded"]))
+    run_summary_lines.append(_fmt_line("Duplicates skipped:", total_stats["duplicates_skipped"]))
+    run_summary_lines.append(f"State tracked: {overall['total_uploaded']} (for {overall['tracked_users']} users)")
+    run_summary_lines.append("=" * 40)
+
+    # Legacy summary lines for backward compatibility (existing tests/log parsers)
     logger.info(f"משתמשים שעובדו: {total_stats['users_processed']}/{total}")
-    logger.info(f"משתמשים עם שגיאות: {total_stats['users_failed']}")
+    logger.info(f"משתמשים עם שגיאות: {failed}")
     logger.info(f"קבצים שהורדו: {total_stats['files_downloaded']}")
     logger.info(f"קבצים שהועלו: {total_stats['files_uploaded']}")
     logger.info(f"קבצים שדולגו (כבר היו): {total_stats['files_skipped']}")
-    overall = state.get_stats()
     logger.info(f"סה\"כ קבצים במעקב: {overall['total_uploaded']} (עבור {overall['tracked_users']} משתמשים)")
-    failed = total_stats["users_failed"]
+
+    # Print boxed summary
+    for line in run_summary_lines:
+        logger.info(line)
+
+    if failed_users:
+        logger.info("Failed users:")
+        for entry in failed_users:
+            # entry is (username, status, error_id/error)
+            if len(entry) == 3:
+                uname, stat, eid = entry
+                logger.info(f"  - {uname} → {stat} → {eid}")
+            elif len(entry) == 2:
+                uname, eid = entry
+                logger.info(f"  - {uname} → {eid}")
+            else:
+                logger.info(f"  - {entry}")
+
     if failed == 0:
         logger.success("הסנכרון הסתיים בהצלחה - כל המשתמשים עובדו")
         exit_code = 0
@@ -555,6 +707,35 @@ def main():
     else:
         logger.warning(f"הסנכרון הסתיים עם {failed} שגיאות מתוך {total} משתמשים")
         exit_code = 0
+
+    # --- GitHub Step Summary (if available) ---
+    try:
+        gh_summary = os.environ.get("GITHUB_STEP_SUMMARY")
+        if gh_summary:
+            with open(gh_summary, "a", encoding="utf-8") as f:
+                f.write("## 📊 Run Summary\n\n")
+                f.write("| Metric | Count |\n|---|---|\n")
+                f.write(f"| Users processed | {total_stats['users_processed']} |\n")
+                f.write(f"| Successful | {successful} |\n")
+                f.write(f"| STORIES_FOUND | {total_stats.get('users_stories_found',0)} |\n")
+                f.write(f"| NO_ACTIVE_STORIES | {total_stats.get('users_no_active',0)} |\n")
+                f.write(f"| NO_NEW_STORIES | {total_stats.get('users_no_new',0)} |\n")
+                f.write(f"| Failed | {failed} |\n")
+                f.write(f"| Stories found (items) | {total_stats.get('stories_found_total',0)} |\n")
+                f.write(f"| Stories downloaded | {total_stats['files_downloaded']} |\n")
+                f.write(f"| Files uploaded | {total_stats['files_uploaded']} |\n")
+                f.write(f"| Duplicates skipped | {total_stats['duplicates_skipped']} |\n")
+                if failed_users:
+                    f.write("\n### Failed users\n")
+                    for entry in failed_users:
+                        if len(entry) == 3:
+                            uname, stat, eid = entry
+                            f.write(f"- **{uname}** → {stat} → `{eid}`\n")
+                        else:
+                            f.write(f"- {entry}\n")
+                f.write("\n")
+    except Exception:
+        pass
 
     # Write debug summary (safe)
     try:
@@ -570,12 +751,22 @@ def main():
             "users_loaded": len(user_entries),
             "users_processed": total_stats.get("users_processed", 0),
             "users_failed": total_stats.get("users_failed", 0),
+            "users_successful": total_stats.get("users_successful", 0),
+            "users_stories_found": total_stats.get("users_stories_found", 0),
+            "users_no_active": total_stats.get("users_no_active", 0),
+            "users_no_new": total_stats.get("users_no_new", 0),
+            "users_api_error": total_stats.get("users_api_error", 0),
+            "users_download_error": total_stats.get("users_download_error", 0),
+            "users_upload_error": total_stats.get("users_upload_error", 0),
+            "stories_found_total": total_stats.get("stories_found_total", 0),
             "files_downloaded": total_stats.get("files_downloaded", 0),
             "files_uploaded": total_stats.get("files_uploaded", 0),
             "files_skipped": total_stats.get("files_skipped", 0),
+            "duplicates_skipped": total_stats.get("duplicates_skipped", 0),
             "state_total_uploaded": overall.get("total_uploaded"),
             "error_counts": getattr(logger, "error_counts", {}),
             "failed_users": failed_users,
+            "per_user_results": per_user_results,
             "status": ("SUCCESS" if failed == 0 else ("FAILED" if failed == total else "PARTIAL_SUCCESS")),
         }
         logger.write_summary(summary)

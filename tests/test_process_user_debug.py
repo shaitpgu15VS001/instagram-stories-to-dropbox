@@ -52,7 +52,7 @@ def test_process_user_writes_user_markers_and_status_ok(tmp_path):
 
     content = (debug_dir / "debug_full.log").read_text(encoding="utf-8")
     assert "USER_START username=alice" in content
-    assert "USER_FINISHED username=alice status=OK" in content
+    assert "USER_FINISHED username=alice status=STORIES_FOUND" in content
 
 
 def test_logger_write_failure_does_not_crash(tmp_path, monkeypatch):

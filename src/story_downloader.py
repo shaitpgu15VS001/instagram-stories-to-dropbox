@@ -346,7 +346,7 @@ class StoryDownloader:
         state = None
         username = username.strip().lstrip("@")
         if not username:
-            return {"success": False, "files": [], "error": "שם משתמש ריק"}
+            return {"success": False, "files": [], "error": "שם משתמש ריק", "outcome": "invalid_username"}
 
         target_name = folder_name or username
         logger.info(f"DOWNLOAD REQUEST username={username} folder_name={folder_name} target_dir={self.output_dir / target_name}")
@@ -366,18 +366,18 @@ class StoryDownloader:
                 logger.error(f"@{username}: timeout חוזר - מדלג")
                 logger.error(f"@{username} FASTDL bridge timeout E-FDL-001")
                 if existing_files:
-                    return {"success": True, "files": existing_files, "error": None}
-                return {"success": False, "files": [], "error": "timeout"}
+                    return {"success": True, "files": existing_files, "error": None, "outcome": "api_error_cached", "stories_found": 0, "pre_skipped": 0}
+                return {"success": False, "files": [], "error": "timeout", "outcome": "api_error", "stories_found": 0, "pre_skipped": 0}
             except Exception as exc:
                 logger.error(f"שגיאה בגלישה ל-fastdl.app עבור @{username}: {exc}")
                 if existing_files:
-                    return {"success": True, "files": existing_files, "error": None}
-                return {"success": False, "files": [], "error": str(exc)}
+                    return {"success": True, "files": existing_files, "error": None, "outcome": "api_error_cached", "stories_found": 0, "pre_skipped": 0}
+                return {"success": False, "files": [], "error": str(exc), "outcome": "api_error", "stories_found": 0, "pre_skipped": 0}
         except Exception as exc:
             logger.error(f"שגיאה בגלישה ל-fastdl.app עבור @{username}: {exc} E-FDL-001")
             if existing_files:
-                return {"success": True, "files": existing_files, "error": None}
-            return {"success": False, "files": [], "error": str(exc)}
+                return {"success": True, "files": existing_files, "error": None, "outcome": "api_error_cached", "stories_found": 0, "pre_skipped": 0}
+            return {"success": False, "files": [], "error": str(exc), "outcome": "api_error", "stories_found": 0, "pre_skipped": 0}
 
         if download_urls is None:
             logger.warning(
@@ -391,14 +391,14 @@ class StoryDownloader:
                 "returning api_error and leaving DOM archived as maintenance-only knowledge."
             )
             if existing_files:
-                return {"success": True, "files": existing_files, "error": None}
-            return {"success": False, "files": [], "error": "api_error"}
+                return {"success": True, "files": existing_files, "error": None, "outcome": "api_error_cached", "stories_found": 0, "pre_skipped": 0}
+            return {"success": False, "files": [], "error": "api_error", "outcome": "api_error", "stories_found": 0, "pre_skipped": 0}
 
         if not download_urls:
             logger.info(f"@{username}: אין סטוריז פעילים כרגע")
             if existing_files:
-                return {"success": True, "files": existing_files, "error": None}
-            return {"success": True, "files": [], "error": None}
+                return {"success": True, "files": existing_files, "error": None, "outcome": "no_active_stories_cached", "stories_found": 0, "pre_skipped": 0}
+            return {"success": True, "files": [], "error": None, "outcome": "no_active_stories", "stories_found": 0, "pre_skipped": 0}
 
         new_files_meta = {}
         state = getattr(self, "state_manager", None)
@@ -446,14 +446,14 @@ class StoryDownloader:
 
         if state and download_urls and not to_download:
             if existing_files:
-                return {"success": True, "files": existing_files, "error": None}
-            return {"success": True, "files": [], "error": None}
+                return {"success": True, "files": existing_files, "error": None, "outcome": "no_new_stories_cached", "stories_found": len(download_urls), "pre_skipped": summary["skipped"]}
+            return {"success": True, "files": [], "error": None, "outcome": "no_new_stories", "stories_found": len(download_urls), "pre_skipped": summary["skipped"]}
 
         new_files = self._download_files(to_download, user_dir, username)
         if new_files is None:
             if existing_files:
-                return {"success": True, "files": existing_files, "error": None}
-            return {"success": False, "files": [], "error": "download_failed"}
+                return {"success": True, "files": existing_files, "error": None, "outcome": "download_error_cached", "stories_found": len(download_urls), "pre_skipped": summary["skipped"]}
+            return {"success": False, "files": [], "error": "download_failed", "outcome": "download_error", "stories_found": len(download_urls), "pre_skipped": summary["skipped"]}
 
         files_return = []
         meta_map = {}
@@ -471,9 +471,9 @@ class StoryDownloader:
         existing_names = {p.name for p in existing_files}
         combined = list(existing_files) + [p for p in files_return if p.name not in existing_names]
         if not combined:
-            return {"success": False, "files": [], "error": "download_failed"}
+            return {"success": False, "files": [], "error": "download_failed", "outcome": "download_error", "stories_found": len(download_urls), "pre_skipped": summary["skipped"]}
         logger.success(f"@{username}: הורדו {len(files_return)} קבצים (קיימים: {len(existing_files)})")
-        return {"success": True, "files": combined, "meta": meta_map, "error": None}
+        return {"success": True, "files": combined, "meta": meta_map, "error": None, "outcome": "stories_found", "stories_found": len(download_urls), "pre_skipped": summary["skipped"]}
 
     def _fetch_story_urls(self, username):
         # API-first: try FastDL Stories API. Do not automatically run the DOM
