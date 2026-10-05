@@ -1,0 +1,330 @@
+{
+  "storyCandidates": [
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    },
+    {
+      "tag": "DIV",
+      "cls": "story-gallery-item-type",
+      "txt": "Video",
+      "html": "<div class=\"story-gallery-item-type\"><span class=\"visually-hidden\">Video</span> <i aria-hidden=\"true\" class=\"fas fa-video\"></i></div>"
+    }
+  ],
+  "imgs": [
+    {
+      "src": "https://storynavigation.com/assets-st/img/svg/logo.svg",
+      "alt": "new logo"
+    },
+    {
+      "src": "https://cdn.storynavigation.com/?aHR0cHM6Ly9zY29udGVudC14eGMxLTEuY2RuaW5zdGFncmFtLmNvbS92L3Q1MS44Mjc4Ny0xOS83MzU3MTg1MDVfMTg2MTAzODUyMDMwNTQ0ODZfNjc0NjQzNzI3NTQxOTU2MzQwMV9uLmpwZz9fbmNfY2F0PTEmY2NiPTctNSZfbmNfc2lkPWJmN2ViNCZlZmc9ZXlKMlpXNWpiMlJsWDNSaFp5STZJbkJ5YjJacGJHVmZjR2xqTG5kM2R5NHhNRGd3TGtNekluMCUzRCZfbmNfb2hjPTcya1hUaFh5aFFnUTdrTnZ3SExRLTBLJl9uY19vYz1BZHBQNjJtODNqNUpPR2JsWmp0QXZJejc1VW9obTNBSmUwQzhhZkFNaE5YMGRfWWNpWGNOUkZoeXI3NENfeVZ4VWZJJl9uY196dD0yNCZfbmNfaHQ9c2NvbnRlbnQteHhjMS0xLmNkbmluc3RhZ3JhbS5jb20mX25jX2dpZD1Bd2ZJRHcxSUVUZ1gwWnNieEdYMEh3Jl9uY19zcz03YzJhOCZvaD0wMF9BUUhOejltQi1fS1dnTlA5TVZPQllxM2hoVXFIQ0J0N0sxUFk2aEdJSVNaVG9BJm9lPTZBOTM1Njkw",
+      "alt": "user image"
+    },
+    {
+      "src": "https://storynavigation.com/images/telegram-5662082_640.png",
+      "alt": "View stories in a Telegram bot"
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    },
+    {
+      "src": "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+      "alt": ""
+    }
+  ],
+  "vids": [],
+  "links": [
+    {
+      "href": "https://storynavigation.com/",
+      "text": ""
+    },
+    {
+      "href": "https://storynavigation.com/watch-stories",
+      "text": "View stories"
+    },
+    {
+      "href": "https://storynavigation.com/our-blog",
+      "text": "Blog"
+    },
+    {
+      "href": "https://storynavigation.com/project-features",
+      "text": "Features"
+    },
+    {
+      "href": "https://storynavigation.com/about-our-project",
+      "text": "About us"
+    },
+    {
+      "href": "https://storynavigation.com/contacts",
+      "text": "Contacts"
+    },
+    {
+      "href": "http://storynavigation.com/de-lang/user/israel_bidur",
+      "text": "de-lang"
+    },
+    {
+      "href": "http://storynavigation.com/user/israel_bidur",
+      "text": "en"
+    },
+    {
+      "href": "http://storynavigation.com/fr-lang/user/israel_bidur",
+      "text": "fr-lang"
+    },
+    {
+      "href": "http://storynavigation.com/it-lang/user/israel_bidur",
+      "text": "it-lang"
+    },
+    {
+      "href": "http://storynavigation.com/ru/user/israel_bidur",
+      "text": "ru"
+    },
+    {
+      "href": "https://storynavigation.com/watch-stories",
+      "text": "View stories"
+    },
+    {
+      "href": "https://storynavigation.com/our-blog",
+      "text": "Blog"
+    },
+    {
+      "href": "https://storynavigation.com/user/israel_bidur#",
+      "text": "en"
+    },
+    {
+      "href": "http://storynavigation.com/de-lang/user/israel_bidur",
+      "text": "de-lang"
+    },
+    {
+      "href": "http://storynavigation.com/fr-lang/user/israel_bidur",
+      "text": "fr-lang"
+    },
+    {
+      "href": "http://storynavigation.com/it-lang/user/israel_bidur",
+      "text": "it-lang"
+    },
+    {
+      "href": "http://storynavigation.com/ru/user/israel_bidur",
+      "text": "ru"
+    },
+    {
+      "href": "https://telegram.me/StoryViewersBot?start=undefinedpostlikesnavigation",
+      "text": "View Likes via Telegram"
+    },
+    {
+      "href": "https://telegram.me/StoryViewersBot?start=israel_biduruserfollowersnavigationsepnav508790485",
+      "text": "View @israel_bidur followers"
+    },
+    {
+      "href": "https://telegram.me/StoryViewersBot?start=israel_biduruserfollowingnavigation",
+      "text": "View who @israel_bidur is following on Instagram"
+    },
+    {
+      "href": "https://telegram.me/StoryViewersBot?start=israel_bidur",
+      "text": "Automatic story updates in the chat bot"
+    },
+    {
+      "href": "https://telegram.me/StoryViewersBot?start=israel_bidur",
+      "text": " Download and view highlights in a Telegram bot"
+    },
+    {
+      "href": "https://telegram.me/StoryViewersBot?start=israel_bidur",
+      "text": " Download posts in the chat bot"
+    },
+    {
+      "href": "https://telegram.me/StoryViewersBot?start=israel_bidur",
+      "text": " View Reels in the chat bot"
+    },
+    {
+      "href": "https://telegram.me/StoryViewersBot?start=israel_bidur",
+      "text": " View Tagged medias in the chat bot"
+    },
+    {
+      "href": "https://storynavigation.com/our-blog/instructions/how-and-why-you-need-to-promote-your-personal-brand-on-instagram",
+      "text": ""
+    },
+    {
+      "href": "https://storynavigation.com/our-blog/instructions/how-and-why-you-need-to-promote-your-personal-brand-on-instagram",
+      "text": "How and why you need to promote your personal brand on Instagram"
+    },
+    {
+      "href": "https://storynavigation.com/our-blog/interesting/instagram-shopping-a-guide-for-ecommerce-brands",
+      "text": ""
+    },
+    {
+      "href": "https://storynavigation.com/our-blog/interesting/instagram-shopping-a-guide-for-ecommerce-brands",
+      "text": "Instagram Shopping: A Guide for eCommerce Brands"
+    }
+  ],
+  "bodyText": "View stories\nBlog\nFeatures\nAbout us\nContacts\nen\nde-lang\nen\nfr-lang\nit-lang\nru\nView stories\nBlog\nSearch\nen de-lang fr-lang it-lang ru\n\nisrael_bidur\n\n8227Read Entertainment News\n\nPosts\n\n1,723,942\n\nFollowers\n\n835\n\nFollowing\n\nView @israel_bidur followers\n\nView who @israel_bidur is following on Instagram\n\nStories\nHighlights\nPosts\nReels\nTagged\nStatistics\n\nAutomatic story updates in the chat bot\n\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nVideo\nSuggested hashtags for user israel_bidur\n\n#israelbidur #israel #bidur #israeli #israel_food #israeltraditions #israel_culture #israelfoodporn #israeltravel #israelphotography #israellife #israeli_food #israelifoodie #israeliblogger #israelinstagram #israeli_insta #israelart #israeligaming #israelgames #israelstreamer #gamingcommunity #streamingcommunity #pushil #push #bishul #hebrewfood #hebrewcooking #israelicuisineDownload Blog Templates\n\nOn this page, you can view recently shared stories or publicly accessible profiles on Instagram by specifying a target profile or username and clicking the \"Search\" button. The service is completely free and does not require any registration. It is fully compatible with all devices, allowing for seamless access at all times.\n\nDynamics of changing followers number for the last days\nDynamics of changing followings number for the last days\nDynamics of changing posts number for the last days\nBlog\nInstructions\nHow and why you need to promote your personal brand on Instagram\n12 October 2024 09:22Read Entertainment News\nInteresting\nInstagram Shopping: A Guide for eCommerce Brands\n21 October 2024 21:53\nInteresting\nThe Evolution of Instagram: How It Became a Social Media Powerhouse\n08 October 2024 18:54Download Blog Templates\nInteresting\nCreative Instagram Content Ideas to Keep Your Feed Fresh\n09 October 2024 12:15\nGo to the blog\nView stories\nBlog\nFeatures\nAbout us\nContacts\n\nStoryNavigation.com is not connected with Instagram. All content belongs to the content authors. Download is available for informational purposes only.\n\n© 2026 StoryNavigation\nTerms & Conditions\nPrivacy policy"
+}

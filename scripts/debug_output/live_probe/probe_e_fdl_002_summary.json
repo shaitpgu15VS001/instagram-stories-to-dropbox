@@ -1,0 +1,67 @@
+[
+  {
+    "username": "kolbarama",
+    "status": "SUCCESS",
+    "expect_response": "SUCCESS",
+    "request_seen": true,
+    "response_seen": true,
+    "requests": 1,
+    "responses": 1,
+    "items": 0,
+    "click_to_resp_ms": 278.3,
+    "req_to_resp_ms": 278.5,
+    "error": ""
+  },
+  {
+    "username": "mizrahitpage",
+    "status": "TAB_NOT_FOUND",
+    "expect_response": null,
+    "request_seen": null,
+    "response_seen": null,
+    "requests": 0,
+    "responses": 0,
+    "items": null,
+    "click_to_resp_ms": null,
+    "req_to_resp_ms": null,
+    "error": "stories_tab_timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button.tabs-component__button\") to be visible\n    62 × locator resolved to 4 elements. Proceed"
+  },
+  {
+    "username": "glglz",
+    "status": "TAB_NOT_FOUND",
+    "expect_response": null,
+    "request_seen": null,
+    "response_seen": null,
+    "requests": 0,
+    "responses": 0,
+    "items": null,
+    "click_to_resp_ms": null,
+    "req_to_resp_ms": null,
+    "error": "stories_tab_timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button.tabs-component__button\") to be visible\n"
+  },
+  {
+    "username": "israel_bidur",
+    "status": "SUCCESS",
+    "expect_response": "SUCCESS",
+    "request_seen": true,
+    "response_seen": true,
+    "requests": 1,
+    "responses": 1,
+    "items": 27,
+    "click_to_resp_ms": 402.3,
+    "req_to_resp_ms": 403.1,
+    "error": ""
+  },
+  {
+    "username": "erevtov",
+    "status": "SUCCESS",
+    "expect_response": "SUCCESS",
+    "request_seen": true,
+    "response_seen": true,
+    "requests": 1,
+    "responses": 1,
+    "items": 23,
+    "click_to_resp_ms": 384.6,
+    "req_to_resp_ms": 384.8,
+    "error": ""
+  }
+]

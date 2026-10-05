@@ -1,0 +1,653 @@
+[
+  {
+    "seq": 1,
+    "username": "kolbarama",
+    "outcome": "SUCCESS",
+    "items": 1,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 14.81,
+    "before_click": {
+      "inputValue": "kolbarama",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 2,
+    "username": "mizrahitpage",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "hasUserInfo": false,
+    "tabsCount": 0,
+    "loaders": 0,
+    "req_seen": false,
+    "resp_seen": false,
+    "request_failed": false,
+    "failure": null,
+    "total": 34.25,
+    "before_click": {
+      "inputValue": "mizrahitpage",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    },
+    "dom_final": {
+      "inputValue": "",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 3,
+    "username": "glglz",
+    "outcome": "SUCCESS",
+    "items": 16,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 8.17,
+    "before_click": {
+      "inputValue": "glglz",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 4,
+    "username": "israel_bidur",
+    "outcome": "SUCCESS",
+    "items": 48,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 13.81,
+    "before_click": {
+      "inputValue": "israel_bidur",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 5,
+    "username": "erevtov",
+    "outcome": "SUCCESS",
+    "items": 28,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 5.53,
+    "before_click": {
+      "inputValue": "erevtov",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 6,
+    "username": "natgeo",
+    "outcome": "SUCCESS",
+    "items": 5,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 5.11,
+    "before_click": {
+      "inputValue": "natgeo",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 7,
+    "username": "kolbarama",
+    "outcome": "OTHER",
+    "req_seen": true,
+    "resp_seen": true,
+    "total": 20.27,
+    "before_click": {
+      "inputValue": "kolbarama",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 8,
+    "username": "mizrahitpage",
+    "outcome": "SUCCESS",
+    "items": 3,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 10.68,
+    "before_click": {
+      "inputValue": "mizrahitpage",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 9,
+    "username": "glglz",
+    "outcome": "API_ERR_FAILED",
+    "req_seen": true,
+    "resp_seen": false,
+    "request_failed": true,
+    "failure": "net::ERR_FAILED",
+    "total": 19.41,
+    "before_click": {
+      "inputValue": "glglz",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 10,
+    "username": "israel_bidur",
+    "outcome": "SUCCESS",
+    "items": 48,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 5.35,
+    "before_click": {
+      "inputValue": "israel_bidur",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 11,
+    "username": "erevtov",
+    "outcome": "API_ERR_FAILED",
+    "req_seen": true,
+    "resp_seen": false,
+    "request_failed": true,
+    "failure": "net::ERR_FAILED",
+    "total": 19.22,
+    "before_click": {
+      "inputValue": "erevtov",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 12,
+    "username": "natgeo",
+    "outcome": "API_ERR_FAILED",
+    "req_seen": true,
+    "resp_seen": false,
+    "request_failed": true,
+    "failure": "net::ERR_FAILED",
+    "total": 19.14,
+    "before_click": {
+      "inputValue": "natgeo",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 13,
+    "username": "kolbarama",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "hasUserInfo": false,
+    "tabsCount": 0,
+    "loaders": 0,
+    "req_seen": false,
+    "resp_seen": false,
+    "request_failed": false,
+    "failure": null,
+    "total": 34.33,
+    "before_click": {
+      "inputValue": "kolbarama",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    },
+    "dom_final": {
+      "inputValue": "",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 14,
+    "username": "mizrahitpage",
+    "outcome": "SUCCESS",
+    "items": 3,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 6.02,
+    "before_click": {
+      "inputValue": "mizrahitpage",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 15,
+    "username": "glglz",
+    "outcome": "SUCCESS",
+    "items": 16,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 6.57,
+    "before_click": {
+      "inputValue": "glglz",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 16,
+    "username": "israel_bidur",
+    "outcome": "SUCCESS",
+    "items": 48,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 7.66,
+    "before_click": {
+      "inputValue": "israel_bidur",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 17,
+    "username": "erevtov",
+    "outcome": "API_ERR_FAILED",
+    "req_seen": true,
+    "resp_seen": false,
+    "request_failed": true,
+    "failure": "net::ERR_FAILED",
+    "total": 19.47,
+    "before_click": {
+      "inputValue": "erevtov",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 18,
+    "username": "natgeo",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "hasUserInfo": false,
+    "tabsCount": 0,
+    "loaders": 0,
+    "req_seen": false,
+    "resp_seen": false,
+    "request_failed": false,
+    "failure": null,
+    "total": 34.28,
+    "before_click": {
+      "inputValue": "natgeo",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    },
+    "dom_final": {
+      "inputValue": "",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 19,
+    "username": "kolbarama",
+    "outcome": "SUCCESS",
+    "items": 1,
+    "hasUserInfo": false,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 5.16,
+    "before_click": {
+      "inputValue": "kolbarama",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 20,
+    "username": "mizrahitpage",
+    "outcome": "SUCCESS",
+    "items": 3,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 5.09,
+    "before_click": {
+      "inputValue": "mizrahitpage",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 21,
+    "username": "glglz",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "hasUserInfo": false,
+    "tabsCount": 0,
+    "loaders": 0,
+    "req_seen": false,
+    "resp_seen": false,
+    "request_failed": false,
+    "failure": null,
+    "total": 37.42,
+    "before_click": {
+      "inputValue": "",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    },
+    "dom_final": {
+      "inputValue": "",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 22,
+    "username": "israel_bidur",
+    "outcome": "SUCCESS",
+    "items": 48,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 8.08,
+    "before_click": {
+      "inputValue": "israel_bidur",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 23,
+    "username": "erevtov",
+    "outcome": "SUCCESS",
+    "items": 28,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 6.02,
+    "before_click": {
+      "inputValue": "erevtov",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 24,
+    "username": "natgeo",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "hasUserInfo": false,
+    "tabsCount": 0,
+    "loaders": 0,
+    "req_seen": false,
+    "resp_seen": false,
+    "request_failed": false,
+    "failure": null,
+    "total": 36.65,
+    "before_click": {
+      "inputValue": "natgeo",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    },
+    "dom_final": {
+      "inputValue": "",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 25,
+    "username": "kolbarama",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "hasUserInfo": false,
+    "tabsCount": 0,
+    "loaders": 0,
+    "req_seen": false,
+    "resp_seen": false,
+    "request_failed": false,
+    "failure": null,
+    "total": 37.02,
+    "before_click": {
+      "inputValue": "kolbarama",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    },
+    "dom_final": {
+      "inputValue": "",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 26,
+    "username": "mizrahitpage",
+    "outcome": "SUCCESS",
+    "items": 3,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 9.39,
+    "before_click": {
+      "inputValue": "mizrahitpage",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 27,
+    "username": "glglz",
+    "outcome": "SUCCESS",
+    "items": 16,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 5.82,
+    "before_click": {
+      "inputValue": "glglz",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 28,
+    "username": "israel_bidur",
+    "outcome": "SUCCESS",
+    "items": 48,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 6.98,
+    "before_click": {
+      "inputValue": "israel_bidur",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 29,
+    "username": "erevtov",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "hasUserInfo": false,
+    "tabsCount": 0,
+    "loaders": 0,
+    "req_seen": false,
+    "resp_seen": false,
+    "request_failed": false,
+    "failure": null,
+    "total": 34.58,
+    "before_click": {
+      "inputValue": "erevtov",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    },
+    "dom_final": {
+      "inputValue": "",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 30,
+    "username": "natgeo",
+    "outcome": "SUCCESS",
+    "items": 5,
+    "hasUserInfo": true,
+    "tabsCount": 4,
+    "req_seen": true,
+    "resp_seen": true,
+    "request_failed": false,
+    "total": 5.35,
+    "before_click": {
+      "inputValue": "natgeo",
+      "btnDisabled": false,
+      "btnVisible": true,
+      "hasUserInfo": false,
+      "tabsCount": 0,
+      "loaders": 0
+    }
+  }
+]

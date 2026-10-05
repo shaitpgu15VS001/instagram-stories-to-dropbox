@@ -1,0 +1,88 @@
+{
+  "generated_at": "2026-08-21T08:10:17.127537+00:00",
+  "polling_kolbarama": {
+    "username": "kolbarama",
+    "tabs": true,
+    "req": [
+      {
+        "t_ms": 4373.3,
+        "method": "POST",
+        "url": "https://api-wh.fastdl.app/api/v1/instagram/stories",
+        "post_data": "{\"username\": \"kolbarama\", \"ts\": 1787299597834, \"_ts\": 1787089086903, \"_tsc\": 0, \"_sv\": 2, \"_s\": \"<redacted>\"}"
+      }
+    ],
+    "resp": [
+      {
+        "t_ms": 39406.5,
+        "status": 200,
+        "url": "https://api-wh.fastdl.app/api/v1/instagram/stories",
+        "keys": null,
+        "result_len": null
+      }
+    ],
+    "failed": [],
+    "polling_observed": false
+  },
+  "polling_israel": {
+    "username": "israel_bidur",
+    "tabs": false,
+    "req": [],
+    "resp": [],
+    "failed": []
+  },
+  "batch": [
+    {
+      "username": "kolbarama",
+      "tabs": true,
+      "req": [
+        {
+          "t_ms": 4299.9,
+          "method": "POST",
+          "url": "https://api-wh.fastdl.app/api/v1/instagram/stories",
+          "post_data": "{\"username\": \"kolbarama\", \"ts\": 1787299741835, \"_ts\": 1787089086903, \"_tsc\": 0, \"_sv\": 2, \"_s\": \"<redacted>\"}"
+        }
+      ],
+      "resp": [
+        {
+          "t_ms": 19319.1,
+          "status": 200,
+          "url": "https://api-wh.fastdl.app/api/v1/instagram/stories",
+          "keys": null,
+          "result_len": null
+        }
+      ],
+      "failed": [],
+      "polling_observed": false
+    },
+    {
+      "username": "mizrahitpage",
+      "tabs": true,
+      "req": [
+        {
+          "t_ms": 4849.5,
+          "method": "POST",
+          "url": "https://api-wh.fastdl.app/api/v1/instagram/stories",
+          "post_data": "{\"username\": \"mizrahitpage\", \"ts\": 1787299764781, \"_ts\": 1787089086903, \"_tsc\": 0, \"_sv\": 2, \"_s\": \"<redacted>\"}"
+        }
+      ],
+      "resp": [
+        {
+          "t_ms": 19875.5,
+          "status": 200,
+          "url": "https://api-wh.fastdl.app/api/v1/instagram/stories",
+          "keys": null,
+          "result_len": null
+        }
+      ],
+      "failed": [],
+      "polling_observed": false
+    },
+    {
+      "username": "glglz",
+      "tabs": false,
+      "req": [],
+      "resp": [],
+      "failed": []
+    }
+  ]
+}

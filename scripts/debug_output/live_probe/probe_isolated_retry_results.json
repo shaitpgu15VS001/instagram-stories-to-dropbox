@@ -1,0 +1,408 @@
+[
+  {
+    "seq": 1,
+    "username": "israel_bidur",
+    "started_at": "2026-08-22T17:50:58.522627+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34962,
+      "total_ms": 34962
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 2,
+    "username": "erevtov",
+    "started_at": "2026-08-22T17:51:36.588099+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34414,
+      "total_ms": 34414
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 3,
+    "username": "mizrahitpage",
+    "started_at": "2026-08-22T17:52:14.110945+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34302,
+      "total_ms": 34302
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 4,
+    "username": "kolbarama",
+    "started_at": "2026-08-22T17:52:51.495813+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34162,
+      "total_ms": 34162
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 5,
+    "username": "glglz",
+    "started_at": "2026-08-22T17:53:28.763432+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 33941,
+      "total_ms": 33941
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 6,
+    "username": "israel_bidur",
+    "started_at": "2026-08-22T17:54:05.814459+00:00",
+    "first": {
+      "request_seen": true,
+      "response_seen": true,
+      "request_failed": false,
+      "failure": null,
+      "status": "SUCCESS",
+      "response_status": 200,
+      "items": 7,
+      "first_request_t": 4180,
+      "first_response_t": 4495,
+      "total_ms": 4960
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "SUCCESS"
+  },
+  {
+    "seq": 7,
+    "username": "erevtov",
+    "started_at": "2026-08-22T17:54:13.834806+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 33909,
+      "total_ms": 33909
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 8,
+    "username": "mizrahitpage",
+    "started_at": "2026-08-22T17:54:50.861440+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34374,
+      "total_ms": 34374
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 9,
+    "username": "kolbarama",
+    "started_at": "2026-08-22T17:55:28.291990+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 33827,
+      "total_ms": 33827
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 10,
+    "username": "glglz",
+    "started_at": "2026-08-22T17:56:05.171902+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 33957,
+      "total_ms": 33957
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 11,
+    "username": "israel_bidur",
+    "started_at": "2026-08-22T17:56:42.185550+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 33976,
+      "total_ms": 33976
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 12,
+    "username": "erevtov",
+    "started_at": "2026-08-22T17:57:19.240525+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34103,
+      "total_ms": 34103
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 13,
+    "username": "mizrahitpage",
+    "started_at": "2026-08-22T17:57:56.397804+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34199,
+      "total_ms": 34199
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 14,
+    "username": "kolbarama",
+    "started_at": "2026-08-22T17:58:33.650004+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 33877,
+      "total_ms": 33877
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 15,
+    "username": "glglz",
+    "started_at": "2026-08-22T17:59:10.582530+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34049,
+      "total_ms": 34049
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 16,
+    "username": "israel_bidur",
+    "started_at": "2026-08-22T17:59:47.688150+00:00",
+    "first": {
+      "request_seen": true,
+      "response_seen": true,
+      "request_failed": false,
+      "failure": null,
+      "status": "SUCCESS",
+      "response_status": 200,
+      "items": 7,
+      "first_request_t": 5240,
+      "first_response_t": 5754,
+      "total_ms": 5841
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "SUCCESS"
+  },
+  {
+    "seq": 17,
+    "username": "erevtov",
+    "started_at": "2026-08-22T17:59:56.609285+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34000,
+      "total_ms": 34000
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 18,
+    "username": "mizrahitpage",
+    "started_at": "2026-08-22T18:00:33.695295+00:00",
+    "first": {
+      "request_seen": true,
+      "response_seen": true,
+      "request_failed": false,
+      "failure": null,
+      "status": "SUCCESS_EMPTY",
+      "response_status": 200,
+      "items": 0,
+      "first_request_t": 4332,
+      "first_response_t": 5184,
+      "total_ms": 5308
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "SUCCESS_EMPTY"
+  },
+  {
+    "seq": 19,
+    "username": "kolbarama",
+    "started_at": "2026-08-22T18:00:42.076477+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34021,
+      "total_ms": 34021
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "seq": 20,
+    "username": "glglz",
+    "started_at": "2026-08-22T18:01:19.153685+00:00",
+    "first": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure": null,
+      "status": "TAB_TIMEOUT",
+      "first_request_t": null,
+      "first_timeout_t": 34487,
+      "total_ms": 34487
+    },
+    "retry": {
+      "triggered": false
+    },
+    "isolated_retry": false,
+    "final_status": "TAB_TIMEOUT"
+  }
+]

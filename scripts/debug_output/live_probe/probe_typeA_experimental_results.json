@@ -1,0 +1,892 @@
+[
+  {
+    "seq": 1,
+    "username": "kolbarama",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "detail": "hasUserInfo false, tabs 0, userInfo 0/0 - Type A",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": null,
+    "user_req_to_resp": null,
+    "resp_to_tabs": null,
+    "total_ms": 49772,
+    "timeline": [
+      {
+        "t": 2130,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 4
+      },
+      {
+        "t": 2133,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 2133,
+        "evt": "click",
+        "t_click": 2133
+      },
+      {
+        "t": 19699,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15026,
+        "user_status": null,
+        "has_req": false
+      },
+      {
+        "t": 49737,
+        "evt": "tabs_timeout",
+        "waited_ms": 30039
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 2,
+    "username": "mizrahitpage",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "detail": "hasUserInfo false, tabs 0, userInfo 0/0 - Type A",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": null,
+    "user_req_to_resp": null,
+    "resp_to_tabs": null,
+    "total_ms": 50102,
+    "timeline": [
+      {
+        "t": 2440,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 5
+      },
+      {
+        "t": 2443,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 2443,
+        "evt": "click",
+        "t_click": 2443
+      },
+      {
+        "t": 20027,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15023,
+        "user_status": null,
+        "has_req": false
+      },
+      {
+        "t": 50066,
+        "evt": "tabs_timeout",
+        "waited_ms": 30039
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 3,
+    "username": "glglz",
+    "outcome": "TAB_SUCCESS",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": 2572,
+    "user_req_to_resp": 2,
+    "resp_to_tabs": 15044,
+    "total_ms": 21165,
+    "stories_items": 5,
+    "timeline": [
+      {
+        "t": 2558,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 58
+      },
+      {
+        "t": 2562,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 2562,
+        "evt": "click",
+        "t_click": 2562
+      },
+      {
+        "t": 5134,
+        "evt": "userInfo_request",
+        "url": "https://api-wh.fastdl.app/api/v1/instagram/userInfo"
+      },
+      {
+        "t": 5136,
+        "evt": "userInfo_response",
+        "status": 200
+      },
+      {
+        "t": 20172,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15021,
+        "user_status": 200,
+        "has_req": true
+      },
+      {
+        "t": 20180,
+        "evt": "tabs_visible",
+        "waited_ms": 8
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 4,
+      "tabs": [
+        {
+          "text": "POSTS",
+          "visible": true,
+          "className": "tabs-component__button tabs-component__button--active"
+        },
+        {
+          "text": "STORIES",
+          "visible": true,
+          "className": "tabs-component__button"
+        },
+        {
+          "text": "HIGHLIGHTS",
+          "visible": true,
+          "className": "tabs-component__button"
+        },
+        {
+          "text": "REELS",
+          "visible": true,
+          "className": "tabs-component__button"
+        }
+      ],
+      "hasUserInfo": true,
+      "loaders": 6
+    }
+  },
+  {
+    "seq": 4,
+    "username": "israel_bidur",
+    "outcome": "TAB_SUCCESS",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": 2523,
+    "user_req_to_resp": 4,
+    "resp_to_tabs": 15074,
+    "total_ms": 19625,
+    "stories_items": 7,
+    "timeline": [
+      {
+        "t": 1561,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 5
+      },
+      {
+        "t": 1564,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 1564,
+        "evt": "click",
+        "t_click": 1564
+      },
+      {
+        "t": 4087,
+        "evt": "userInfo_request",
+        "url": "https://api-wh.fastdl.app/api/v1/instagram/userInfo"
+      },
+      {
+        "t": 4090,
+        "evt": "userInfo_response",
+        "status": 200
+      },
+      {
+        "t": 19125,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15018,
+        "user_status": 200,
+        "has_req": true
+      },
+      {
+        "t": 19165,
+        "evt": "tabs_visible",
+        "waited_ms": 39
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 4,
+      "tabs": [
+        {
+          "text": "POSTS",
+          "visible": true,
+          "className": "tabs-component__button tabs-component__button--active"
+        },
+        {
+          "text": "STORIES",
+          "visible": true,
+          "className": "tabs-component__button"
+        },
+        {
+          "text": "HIGHLIGHTS",
+          "visible": true,
+          "className": "tabs-component__button"
+        },
+        {
+          "text": "REELS",
+          "visible": true,
+          "className": "tabs-component__button"
+        }
+      ],
+      "hasUserInfo": true,
+      "loaders": 6
+    }
+  },
+  {
+    "seq": 5,
+    "username": "erevtov",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "detail": "hasUserInfo false, tabs 0, userInfo 0/0 - Type A",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": null,
+    "user_req_to_resp": null,
+    "resp_to_tabs": null,
+    "total_ms": 49273,
+    "timeline": [
+      {
+        "t": 1694,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 4
+      },
+      {
+        "t": 1697,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 1697,
+        "evt": "click",
+        "t_click": 1697
+      },
+      {
+        "t": 19252,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15019,
+        "user_status": null,
+        "has_req": false
+      },
+      {
+        "t": 49268,
+        "evt": "tabs_timeout",
+        "waited_ms": 30016
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 6,
+    "username": "natgeo",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "detail": "hasUserInfo false, tabs 0, userInfo 0/0 - Type A",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": null,
+    "user_req_to_resp": null,
+    "resp_to_tabs": null,
+    "total_ms": 49444,
+    "timeline": [
+      {
+        "t": 1854,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 5
+      },
+      {
+        "t": 1858,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 1858,
+        "evt": "click",
+        "t_click": 1858
+      },
+      {
+        "t": 19437,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15024,
+        "user_status": null,
+        "has_req": false
+      },
+      {
+        "t": 49441,
+        "evt": "tabs_timeout",
+        "waited_ms": 30004
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 7,
+    "username": "kolbarama",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "detail": "hasUserInfo false, tabs 0, userInfo 0/0 - Type A",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": null,
+    "user_req_to_resp": null,
+    "resp_to_tabs": null,
+    "total_ms": 49690,
+    "timeline": [
+      {
+        "t": 1842,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 6
+      },
+      {
+        "t": 1846,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 1846,
+        "evt": "click",
+        "t_click": 1846
+      },
+      {
+        "t": 19665,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15009,
+        "user_status": null,
+        "has_req": false
+      },
+      {
+        "t": 49686,
+        "evt": "tabs_timeout",
+        "waited_ms": 30022
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 8,
+    "username": "mizrahitpage",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "detail": "hasUserInfo false, tabs 0, userInfo 0/0 - Type A",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": null,
+    "user_req_to_resp": null,
+    "resp_to_tabs": null,
+    "total_ms": 49251,
+    "timeline": [
+      {
+        "t": 1649,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 4
+      },
+      {
+        "t": 1652,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 1652,
+        "evt": "click",
+        "t_click": 1652
+      },
+      {
+        "t": 19237,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15024,
+        "user_status": null,
+        "has_req": false
+      },
+      {
+        "t": 49247,
+        "evt": "tabs_timeout",
+        "waited_ms": 30009
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 9,
+    "username": "glglz",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "detail": "hasUserInfo false, tabs 0, userInfo 0/0 - Type A",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": null,
+    "user_req_to_resp": null,
+    "resp_to_tabs": null,
+    "total_ms": 49187,
+    "timeline": [
+      {
+        "t": 1613,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 5
+      },
+      {
+        "t": 1617,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 1617,
+        "evt": "click",
+        "t_click": 1617
+      },
+      {
+        "t": 19172,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15013,
+        "user_status": null,
+        "has_req": false
+      },
+      {
+        "t": 49179,
+        "evt": "tabs_timeout",
+        "waited_ms": 30007
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 10,
+    "username": "israel_bidur",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "detail": "hasUserInfo false, tabs 0, userInfo 0/0 - Type A",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": null,
+    "user_req_to_resp": null,
+    "resp_to_tabs": null,
+    "total_ms": 48993,
+    "timeline": [
+      {
+        "t": 1441,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 6
+      },
+      {
+        "t": 1444,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 1444,
+        "evt": "click",
+        "t_click": 1444
+      },
+      {
+        "t": 18981,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15005,
+        "user_status": null,
+        "has_req": false
+      },
+      {
+        "t": 48989,
+        "evt": "tabs_timeout",
+        "waited_ms": 30008
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 11,
+    "username": "erevtov",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "detail": "hasUserInfo false, tabs 0, userInfo 0/0 - Type A",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": null,
+    "user_req_to_resp": null,
+    "resp_to_tabs": null,
+    "total_ms": 49453,
+    "timeline": [
+      {
+        "t": 1864,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 6
+      },
+      {
+        "t": 1870,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 1870,
+        "evt": "click",
+        "t_click": 1870
+      },
+      {
+        "t": 19438,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 14997,
+        "user_status": null,
+        "has_req": false
+      },
+      {
+        "t": 49450,
+        "evt": "tabs_timeout",
+        "waited_ms": 30012
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    }
+  },
+  {
+    "seq": 12,
+    "username": "natgeo",
+    "outcome": "TAB_TIMEOUT_TYPE_A",
+    "detail": "hasUserInfo false, tabs 0, userInfo 0/0 - Type A",
+    "pre_click_state": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "interactive",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    },
+    "user_req_t": null,
+    "user_req_to_resp": null,
+    "resp_to_tabs": null,
+    "total_ms": 49017,
+    "timeline": [
+      {
+        "t": 1442,
+        "evt": "pre_click_wait_success",
+        "waited_ms": 5
+      },
+      {
+        "t": 1445,
+        "evt": "pre_click_state",
+        "btnExists": true,
+        "btnDisabled": false,
+        "btnVisible": true,
+        "vueExists": true,
+        "readyState": "interactive",
+        "tabsCount": 0,
+        "tabs": [],
+        "hasUserInfo": false,
+        "loaders": 0
+      },
+      {
+        "t": 1445,
+        "evt": "click",
+        "t_click": 1445
+      },
+      {
+        "t": 18998,
+        "evt": "userInfo_wait_timeout",
+        "waited_ms": 15011,
+        "user_status": null,
+        "has_req": false
+      },
+      {
+        "t": 49013,
+        "evt": "tabs_timeout",
+        "waited_ms": 30015
+      }
+    ],
+    "dom_final": {
+      "btnExists": true,
+      "btnDisabled": false,
+      "btnVisible": true,
+      "vueExists": true,
+      "readyState": "complete",
+      "tabsCount": 0,
+      "tabs": [],
+      "hasUserInfo": false,
+      "loaders": 0
+    }
+  }
+]

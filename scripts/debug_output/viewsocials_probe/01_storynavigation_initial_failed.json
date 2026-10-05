@@ -1,0 +1,267 @@
+[
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-850ZXZ34TV&gtm=45je68q1v9196165935za200zd9196165935&_p=1787909150665&gcd=13l3l3l3l1l1&npa=0&dma=0&are=1&cid=1920887088.1787909152&frm=0&ngs=1&pscdl=noapi&rcb=1&sr=1280x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&_s=1&tag_exp=115616985~115938465~115938468~118897920~118897930~119367802~119367810~120213116~120385422~120763598&sid=1787909151&sct=1&seg=0&dl=https%3A%2F%2Fstorynavigation.com%2Fwatch-stories&dt=Watch%20Instagram%20Stories%20anonymously&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=2575",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/pagead/adview?ai=Cxy1_IFSRavSAJ_us28oP-ouDyAS-8cDGdqf6qJDWEf3egpDaDhABIKDYwZABYPmCgICYEKAB0sbviAPIAQmoAwHIA0iqBO4BT9ARD_f4rEdyPIKmqrad8wKFW8q7IOqNnNHJylMdNw9teAyIbkmkyVABST36tk0gYYvk8EPkmc0kak4KLkDiYT61Ytqz16nEiZPIW-Qmyc5gX-zrOkGWFcb1nCWu2hp9T1ZRPO_F7Hwc4qVPMNktVxwflwLEePeEmftmbEWn_JCq-1iTnkSbM37UFyutWo8MzOP5NIrQ1EzSODxqd53avjIMXXnaqVNxCffRDFnHbkXtgy45gE2ks6iA0iBYYPKwszhENX5EpGufvxv7CExH9s0n78MDQwx63vCVorH5q_on3xVcqppXODWxjZq7BcAE1s24oKoEiAW_uM2-S6AGLoAHlrmQd6gHp8yxAqgH4tixAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgH_uixAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgHn-GxAqgHpuuxAqgH1ckbqAfZtrECqAf3wrEC2AcA8gcEEP63AdIIMwiAYRABGJ8DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYxOG7z4DDlgNgAYAKAcgLAaIMA5ABAaoNAklM6g0TCKuXvM-Aw5YDFXvWVgMd-sUASYgOCdgTA9AVAZgWAcoWAgoA-BYBgBcBshcgChoIABIUcHViLTg0ODI0Mzg1MDUxNjU5NjcYABgBUAa6FwI4AbIYCRICpGYYLiIBANAYAcIZAggB&sigh=5fYxOVjwVBI&uach_m=%5BUACH%5D&cid=CAQSngIAQM4h3Ckq8lnjZzKHZ8vhmDKUiIvbsAC570uBoQhzBGc6DZr3BNxvYwZdi4DVgUAPtViJNfc3pDL9NrDn0C7blwVHIonhr6AchYYoH1dUlb8VYIr-4n-WtKiXRLhDQTkE-mAikfuuYw9oUSf0h_uylTg3Zx-35LYdpY0EigILskKZRUSFx045gRuRtRmH2JHiMg6gnwzjVtIWlfP6vcf6X04ob68JKcvX1b9OkCDH99wAK3lrRLrhgvZsPeJWhw8Jfzqkxt7ul0PIVrkdkmUC6r2CVS9mPJdqefUq2IphkCgVfody_Bp-_dIyX3z7SePcyIUU6GRLL_UbI9SMQAShY-QMj-CCMHnXLzThR6lO7Mu-RCuUmWJUNkNEul3-GAE&template_id=419&ebtr=1&vis=1",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/btr/view?ai=Cxy1_IFSRavSAJ_us28oP-ouDyAS-8cDGdqf6qJDWEf3egpDaDhABIKDYwZABYPmCgICYEKAB0sbviAPIAQmoAwHIA0iqBO4BT9ARD_f4rEdyPIKmqrad8wKFW8q7IOqNnNHJylMdNw9teAyIbkmkyVABST36tk0gYYvk8EPkmc0kak4KLkDiYT61Ytqz16nEiZPIW-Qmyc5gX-zrOkGWFcb1nCWu2hp9T1ZRPO_F7Hwc4qVPMNktVxwflwLEePeEmftmbEWn_JCq-1iTnkSbM37UFyutWo8MzOP5NIrQ1EzSODxqd53avjIMXXnaqVNxCffRDFnHbkXtgy45gE2ks6iA0iBYYPKwszhENX5EpGufvxv7CExH9s0n78MDQwx63vCVorH5q_on3xVcqppXODWxjZq7BcAE1s24oKoEiAW_uM2-S6AGLoAHlrmQd6gHp8yxAqgH4tixAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgH_uixAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgHn-GxAqgHpuuxAqgH1ckbqAfZtrECqAf3wrEC2AcA8gcEEP63AdIIMwiAYRABGJ8DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYxOG7z4DDlgNgAYAKAcgLAaIMA5ABAaoNAklM6g0TCKuXvM-Aw5YDFXvWVgMd-sUASYgOCdgTA9AVAZgWAcoWAgoA-BYBgBcBshcgChoIABIUcHViLTg0ODI0Mzg1MDUxNjU5NjcYABgBUAa6FwI4AbIYCRICpGYYLiIBANAYAcIZAggB&sigh=5fYxOVjwVBI&uach_m=%5BUACH%5D&cid=CAQSngIAQM4h3Ckq8lnjZzKHZ8vhmDKUiIvbsAC570uBoQhzBGc6DZr3BNxvYwZdi4DVgUAPtViJNfc3pDL9NrDn0C7blwVHIonhr6AchYYoH1dUlb8VYIr-4n-WtKiXRLhDQTkE-mAikfuuYw9oUSf0h_uylTg3Zx-35LYdpY0EigILskKZRUSFx045gRuRtRmH2JHiMg6gnwzjVtIWlfP6vcf6X04ob68JKcvX1b9OkCDH99wAK3lrRLrhgvZsPeJWhw8Jfzqkxt7ul0PIVrkdkmUC6r2CVS9mPJdqefUq2IphkCgVfody_Bp-_dIyX3z7SePcyIUU6GRLL_UbI9SMQAShY-QMj-CCMHnXLzThR6lO7Mu-RCuUmWJUNkNEul3-GAE&template_id=419&ibtr=1",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-pagehide2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-pagehide2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://dsum-sec.casalemedia.com/rum?cm_dsp_id=45&external_user_id=CAESEBLePMohTripgJzu0dVEBIQ&google_cver=1",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://ep1.adtrafficquality.google/bg/-CV_YfjafxqgQH2lAl4fjMqlSL8MqCOpgvg5XHmzrkg.js",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-pagehide2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://cfg.dotnxdomain.net/newadcfg/ad.py?A=1807&N&R&F",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-pagehide2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pcs/activeview?xai=AKAOjstliLJ84l4waolUj4j0RUTPXVJc3yV4iNtazgHFt2uADc_nTgcX7KrezJjiifbQzTlqSgFebzpn4FKe6VRuCFuM16tZBbBEr5XmXfPkiJv4Ps1n4NQd96sNDXsE1hnAFNTMzedjPyEfDpLs2XDzEEmHxY-3Lekqvv1iP5-ufIhpoLc9f_HNPRpAPAiUgzcQDUBGpK0SiueoEE0YehtKcfssHqcJCCAMqRU-bggCtbxnGKmuC4I63RnRJyh7_6o5_xtPSREdbrOCDIWVaTPaW_zt62emocyhPo_3pLQjQelnofv_zT-fCHygpYLBU1hih5omeLg9BCwxFCTgVHKSS1gz0LQImPQR601I9aiJH64PSOyLfkSfMBZP1yf7bJ3x-S0SPwl3z3qBfhbe7-F7DZ0TgcA98PfFVBMHlLaS0Gw38vSAPBcKjFV6OZ6L09bCfTvmNoz38U50Aq1sML-Yi7BmQZQD3tclnWly9hpJPsRjfFUOBJQVR3PC5dTuHTzpqigyQnntjCC0h8h-7TW992lmmKFgDg8QMFk6dl3bnnkhivsIO9AzoqugcEKjk7Jqabg-9iagRb2nISpTnif_W11hm6Cz1tUuPUr1PH__RFIWjCkDHNAD5v7VvIp4ox9RRopbZWvVHV9HqSif8v7qE8pQ8jZuLcDeAX8jnLrFChq5TW8PFkzGKMHeT88JSJj5iJjyFwEWXBOi9hhgp9lwxhPXJnrCJ85quoWlZ_7UvE_N5vl4khAaSe5NclM-bGUGgJyPEH6nCs-fKwjMilLWHtT1YFMyfMrrUMs0d1gpHYY2O5zyPcK8IKDl8Y1LSgKPDA22iFy5Z-ue5XZYPV76sKzB6_AG09iQvqQywj4kOj6MyP4oTWl4sCBZU9O93KX751NmpUCESqRgcp-o7_51qv4_jo-XmPbMa6-VbP8qqkx8p7z-3z6zz2wLW3PJ9sV1Sug8dOnPLOrO5tydHnuKzhTUBkS0sY3NmDXCNKjsiv3dChR1Ge1mmXZai2GLJTnQErxu5zK5URr5NoBexJn23Sja3p5CvsrljUlerfAzqq7u-nDu70k9ItUF6oCZkoh_Bd3tF2KwNr1OiPYID-NTrOLfI8i4qxGMtIEWWvlBgdECIczfCoC8dJ5SeP2FLxgmHuuZesCd3IDws00K5XlHrdICllQpgTxNx9iIdG3qiJW9AZgRmGKVJK4coilrRYHyRx2lTbDgS3fOHXNHIPBde3gYmngwWhEKVJ3TivbAsHqP49MXMEsjfqHSnIvmcOE_hf2qazUdf-2xPfomajf3mYMa3QbvzhgbYz2jydIw2yBGRsgCkxSUwuKh_JHFrrru72srETupMLYRaLcIwCKCK9-ioaFa6DNMkAopBDFkviDpV4-zjQcCNyzTwUvfzl5dHbrNktLW2hvvLWevusSnvA&sai=AMfl-YTyz1A56RzjWBYUoGUvObKSXEkYotNCTmz4-sZbK_WS1jsjLLI_8H3Mh1w7ZfFqcOiBhLRdcgcAkOUEbCTi7fNTYzjG5uzY-WP1wEKNxHt_OlSCa1Y8kuhXWbZxh8zv4Yl9CxdvSyZcZxOpQI3sAds-6hlWBVSk_FHXzObV46YNIwCtu-_Z_qhwVh1XTA2YZMeu-QiH5BHFTc8etGL1UqGnjNqLvbQvNzOlFCfKPrduPywHkd-c8aIf7P3V9cp-efcDzQTDkbiJRS466P5G2J8lFMdMCM2NJOCfLPjCnNkz9dHQ1acfGy7g-e7ipgZ3flBua4ZGoIk5xFzCdS3xUHppOZidPQ7v4j3wX8WkRvIH-dsSb0mVOGLADoeIgEyrKOMS6tITUNBUr9mC67ZMEl1PsvCAVQP_mGYHeI-u_-Itovj7JsGa0SZ1VgB1K9s_&sig=Cg0ArKJSzA77PRdKd1kdEAE&cid=CAQSngIAQM4h3Ckq8lnjZzKHZ8vhmDKUiIvbsAC570uBoQhzBGc6DZr3BNxvYwZdi4DVgUAPtViJNfc3pDL9NrDn0C7blwVHIonhr6AchYYoH1dUlb8VYIr-4n-WtKiXRLhDQTkE-mAikfuuYw9oUSf0h_uylTg3Zx-35LYdpY0EigILskKZRUSFx045gRuRtRmH2JHiMg6gnwzjVtIWlfP6vcf6X04ob68JKcvX1b9OkCDH99wAK3lrRLrhgvZsPeJWhw8Jfzqkxt7ul0PIVrkdkmUC6r2CVS9mPJdqefUq2IphkCgVfody_Bp-_dIyX3z7SePcyIUU6GRLL_UbI9SMQAShY-QMj-CCMHnXLzThR6lO7Mu-RCuUmWJUNkNEul3-GAE&id=lidartos&mcvt=396&p=0,0,82.99305725097656,646&tm=437.5999999642372&tu=22.19999998807907&mtos=0,168,396,415,415&tos=0,168,228,19,0&v=20260826&bin=7&avms=nio&bs=0,0&mc=0.8&if=1&vu=1&app=0&itpl=22&adk=1812271801&rs=2&la=0&cr=0&uach=WyJXaW5kb3dzIiwiMTAuMCIsIng4NiIsIiIsIjE0OC4wLjc3NzguOTYiLG51bGwsMCxudWxsLCI2NCIsW1siQ2hyb21pdW0iLCIxNDguMC43Nzc4Ljk2Il0sWyJIZWFkbGVzc0Nocm9tZSIsIjE0OC4wLjc3NzguOTYiXSxbIk5vdC9BKUJyYW5kIiwiOTkuMC4wLjAiXV0sMF0%3D&vs=3&r=b&co=8384195400&rst=1787909154201&rpt=647&ec=1&met=mue&wmsd=0&pbe=0&fle=0&vae=0&spb=0&sfl=0&ffslot=0&reach=8&io2=0",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://fundingchoicesmessages.google.com/el/AGSKWxW4BSC3vEg8VXL9W5KnTRJEiDxIOIRinXpOjbZy0OM4QbEjJ-6ejNm8ZbgCe4LLKg0TwX4tRKMSm2bwKf1Txw-hQZg_Zrm5JsSpqvDzAstZYn8Q6r7zvvXKqhI3vhB-ddRckal0fQ==",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://csi.gstatic.com/csi?v=2&s=pagead&action=csi_pagead&dmc=8&top=1&puid=1~mtcqy59r&ctx=0&met.1=24.4oh",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-850ZXZ34TV&gtm=45je68q1v9196165935za200zd9196165935&_p=1787909150665&gcd=13l3l3l3l1l1&npa=0&dma=0&tcfd=10000&_eu=AAAAAAQ&are=1&cid=1920887088.1787909152&frm=0&ngs=1&pscdl=noapi&rcb=1&sr=1280x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&_s=2&tag_exp=115616985~115938465~115938468~118897920~118897930~119367802~119367810~120213116~120385422~120763598&sid=1787909151&sct=1&seg=0&dl=https%3A%2F%2Fstorynavigation.com%2Fwatch-stories&dt=Watch%20Instagram%20Stories%20anonymously&en=user_engagement&_et=3486&tfd=6064",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/ping?e=1",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://mc.yandex.ru/clmap/98468737?page-url=https%3A%2F%2Fstorynavigation.com%2Fwatch-stories&pointer-click=rn%3A60160571%3Ax%3A-417081%3Ay%3A-372008%3At%3A30%3Ap%3A%3FAAAA%C2%89A%3AX%3A0%3AY%3A0&hidv2=4991733598783799492&browser-info=u%3A1787909152117579199%3Av%3A2631%3Avf%3A4uoujm0trtfzam26nf44fkb1vz8frz%3Arqnl%3A1%3Ast%3A1787909155&t=gdpr(14)ti(1)",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/ping?e=1",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://fundingchoicesmessages.google.com/el/AGSKWxX1oNLpl7NYqadm5GBRUWoNMbKqPQQWiUDwGAa5_hlKzhD1w7lxSPkrhwWVSgRCJ1TGsURgU2jrS928DDC3YtgjgsTrDWIIDs1PCCkQtneM01Q5HpkK_w5WH6ItE_oXc5dp0o2H_g==",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-850ZXZ34TV&gtm=45je68q1v9196165935za200zd9196165935&_p=1787909155886&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AAAAAAQ&are=1&cid=1920887088.1787909152&frm=0&ngs=1&pscdl=noapi&rcb=16&sr=1280x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&_s=1&tag_exp=115938466~115938469~118897920~118897930~119367802~119367810~120213116~120385422&sid=1787909151&sct=1&seg=1&dl=https%3A%2F%2Fstorynavigation.com%2Fuser%2Fisrael_bidur&dr=https%3A%2F%2Fstorynavigation.com%2Fwatch-stories&dt=%40israel_bidur%20%7C%20View%20Instagram%20Stories%20Anonymously%20%7C%20Posts%20%7C%20Comments%20%7C%20Reels&en=page_view&_ee=1&tfd=838",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/pagead/ads?client=ca-pub-8482438505165967&output=html&h=280&slotname=6339029329&adk=40789851&adf=3527736219&pi=t.ma~as.6339029329&abgtt=6&w=1116&fwrn=4&fwrnh=100&lmt=1787909156&rafmt=1&format=1116x280&url=https%3A%2F%2Fstorynavigation.com%2Fuser%2Fisrael_bidur&fwr=0&fwrattr=true&rpe=1&resp_fmts=3&aiof=11&asro=0&aimartd=4&aieuf=1&aicrs=1&uach=WyJXaW5kb3dzIiwiMTAuMCIsIng4NiIsIiIsIjE0OC4wLjc3NzguOTYiLG51bGwsMCxudWxsLCI2NCIsW1siQ2hyb21pdW0iLCIxNDguMC43Nzc4Ljk2Il0sWyJIZWFkbGVzc0Nocm9tZSIsIjE0OC4wLjc3NzguOTYiXSxbIk5vdC9BKUJyYW5kIiwiOTkuMC4wLjAiXV0sMF0.&dt=1787909155983&bpp=1&bdt=693&idt=32&shv=r20260825&mjsv=m202608250101&ptt=9&saldr=aa&abxe=1&cookie=ID%3D9afdde2ef30c250e%3AT%3D1787909152%3ART%3D1787909152%3AS%3DALNI_MbkHOgIZFMfqiv8Pxg0wjNCKB3-cw&gpic=UID%3D0000152d2d8da039%3AT%3D1787909152%3ART%3D1787909152%3AS%3DALNI_MZGF1RlnHOCYJxECUkto5eFpQzqFw&eo_id_str=ID%3D175970748aa02ef4%3AT%3D1787909152%3ART%3D1787909152%3AS%3DAA-AfjYR6o9IVb-7Cl3_DgKjbO51&prev_fmts=0x0&nras=1&correlator=2814755084419&frm=20&pv=1&u_tz=180&u_his=3&u_h=900&u_w=1280&u_ah=900&u_aw=1280&u_cd=24&u_sd=1&dmc=8&adx=82&ady=112&biw=1280&bih=900&scr_x=0&scr_y=0&eid=95399244%2C95400779%2C122880598%2C42533293%2C31089210&oid=2&pvsid=6390378024738376&tmod=1466940866&uas=1&nvt=1&ref=https%3A%2F%2Fstorynavigation.com%2Fwatch-stories&fc=1920&brdim=0%2C0%2C0%2C0%2C1280%2C0%2C1280%2C900%2C1280%2C900&vis=1&rsz=%7C%7CeE%7C&abl=CS&pfx=0&fu=128&bc=31&bz=1&ifi=2&uci=a!2&fsb=1&dtd=37",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/btr/view?ai=CNYLjJFSRau-HK9_r-cAPo__kuA3C6d6hiQGLp-Kegha_4R4QASCg2MGQAWD5goCAmBCgAfORwL0DyAEJqQLMF8ZxuKaWPqgDAcgDywSqBO8BT9AC2PutvrYLcEvD49BdJlVCjEOZrXLp76ku4m_clrW3bNmzvBa-LSOssAxzZfdr65-GDERqGZ9pLjlQ7Axn9e6IFJIDzZ3R5wvzk6YFpLcI0XYgLmSQIkQCj2uvcWZSeMukvVSw-qKA7TBhgzdW-VTrFwaxBipcrbXtOstWM-dyP5d7Nsy0qsRFdbUN3YnhdHK97Lm-3QCUZhFtHSCt7vjPh05A4wvwA0_nXQzZihCvCYustQS5zYRFYdmAul9bs3qO5DQtJeLDq5QnBtiDVU5FkeD1oDLUaDU0CLWEnJPXL9mmIdCVeX3n09Z2gG7ABN_8tZLcBYgF_N-w01eSBQQIBBgBkgUECAUYBKAGLoAH9e2_QqgHp8yxAqgH4tixAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgH_uixAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgHn-GxAqgHpuuxAqgH1ckbqAf3wrEC2AcA8gcEEO_DBNIIMwiAYRABGJ8DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYy4ez0YDDlgNgAYAKAcgLAaIMMyoKCgiO37ECleKxAmICCgBqGQoXY29tLm5hbW5nLnFyY29kZWJhcmNvZGV4AYgBAZABAaoNAklM6g0TCL2xtNGAw5YDFd91HgIdoz8Z14gOCdgTDdAVAZgWAcoWAgoA-BYBgBcBshcsChoIABIUcHViLTg0ODI0Mzg1MDUxNjU5NjcYABgBKgo2MzM5MDI5MzI5UAa6FwI4AaoYFwkAAAAA8B7yQBIKNjMzOTAyOTMyORgBshgJEgLXahguIgEA0BgB6BgBwhkCCAE&sigh=NBlcMPSkW3E&uach_m=%5BUACH%5D&cid=CAQSiwIAQM4h3G1LR4D2JuXW-XGSg9sI-d8H1gps8IR2rPiA3A1CLFYTURvNSHfzfcEipTIaKxlRVe_kQCyCTGP4xBH8m7V7fTVFHDHSUmcBYeYm0M684f8VJdPUwBBvhH74hMNjsT-uyquCryi4LYf01H7KZnWMqV0VAeC95Zy1h3j2uNHvLgvOSrQ__24oqxI4jFomFY-dkrrspqN9htlPT0o0kG6nRMyJwm_AkyNUpxg0dOhMjwQevwRv_2TZH2q2uYFMn5xN0cOSJqwc304iE3LsNcat9M5haevhomz9VUjau9KhNYaTzbkAU9w_zLh2Fa-KD-BuQjREaMC--YvfDytngtYScrNfae_xbosYAQ&template_id=5000&ibtr=1",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/pagead/adview?ai=CNYLjJFSRau-HK9_r-cAPo__kuA3C6d6hiQGLp-Kegha_4R4QASCg2MGQAWD5goCAmBCgAfORwL0DyAEJqQLMF8ZxuKaWPqgDAcgDywSqBO8BT9AC2PutvrYLcEvD49BdJlVCjEOZrXLp76ku4m_clrW3bNmzvBa-LSOssAxzZfdr65-GDERqGZ9pLjlQ7Axn9e6IFJIDzZ3R5wvzk6YFpLcI0XYgLmSQIkQCj2uvcWZSeMukvVSw-qKA7TBhgzdW-VTrFwaxBipcrbXtOstWM-dyP5d7Nsy0qsRFdbUN3YnhdHK97Lm-3QCUZhFtHSCt7vjPh05A4wvwA0_nXQzZihCvCYustQS5zYRFYdmAul9bs3qO5DQtJeLDq5QnBtiDVU5FkeD1oDLUaDU0CLWEnJPXL9mmIdCVeX3n09Z2gG7ABN_8tZLcBYgF_N-w01eSBQQIBBgBkgUECAUYBKAGLoAH9e2_QqgHp8yxAqgH4tixAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgH_uixAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgHn-GxAqgHpuuxAqgH1ckbqAf3wrEC2AcA8gcEEO_DBNIIMwiAYRABGJ8DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYy4ez0YDDlgNgAYAKAcgLAaIMMyoKCgiO37ECleKxAmICCgBqGQoXY29tLm5hbW5nLnFyY29kZWJhcmNvZGV4AYgBAZABAaoNAklM6g0TCL2xtNGAw5YDFd91HgIdoz8Z14gOCdgTDdAVAZgWAcoWAgoA-BYBgBcBshcsChoIABIUcHViLTg0ODI0Mzg1MDUxNjU5NjcYABgBKgo2MzM5MDI5MzI5UAa6FwI4AaoYFwkAAAAA8B7yQBIKNjMzOTAyOTMyORgBshgJEgLXahguIgEA0BgB6BgBwhkCCAE&sigh=NBlcMPSkW3E&uach_m=%5BUACH%5D&cid=CAQSiwIAQM4h3G1LR4D2JuXW-XGSg9sI-d8H1gps8IR2rPiA3A1CLFYTURvNSHfzfcEipTIaKxlRVe_kQCyCTGP4xBH8m7V7fTVFHDHSUmcBYeYm0M684f8VJdPUwBBvhH74hMNjsT-uyquCryi4LYf01H7KZnWMqV0VAeC95Zy1h3j2uNHvLgvOSrQ__24oqxI4jFomFY-dkrrspqN9htlPT0o0kG6nRMyJwm_AkyNUpxg0dOhMjwQevwRv_2TZH2q2uYFMn5xN0cOSJqwc304iE3LsNcat9M5haevhomz9VUjau9KhNYaTzbkAU9w_zLh2Fa-KD-BuQjREaMC--YvfDytngtYScrNfae_xbosYAQ&template_id=5000&ebtr=1&vis=1",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/ping?e=1",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/pagead/adview?ai=Cuqf6JFSRarWxDJD2-cAPjLKG0AKWpNC2hAGsls_Vmxas_LO13w4QASCg2MGQAWD5goCAmBCgAZvb6_wDyAEJqQLkcpzGTqeWPqgDAcgDywSqBPIBT9CfUMzePLxS8PCzWMaJce-A_v-Prm7MUmhCE-oAAeFgMLT0nBJo277E4KdY18OL-90cmp20jarqad0CeOH9rf0wZ5h_txgetQGvuzcBxKZmPt-VE0NSTuKn7i33rkadwTraVQ1xA5Ie0n5QRyhmJ-blqf5HVlU1cr-xBNMeIDlefgAwtlh9qziPqvEwXrBUdNu93LHOl4ZsRKvtI06vQsyR8NAeMAAzBr6bV9vQvD7XcxVmmYz4EpsMTyWPkAnaxOBtHKl1Bt375CNhmK-ofq2b4_sCC0skPS9hpQ6bVWiwF5emoeL39h1bHqKz6EBQcozABK_wmZjiBYgF7Y_KxFaSBQQIBBgBkgUECAUYBKAGLoAHzaSUA6gHp8yxAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgH_uixAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgHn-GxAqgHpuuxAqgH1ckbqAfZtrECqAf3wrEC2AcA8gcEEJ_nEdIIMwiAYRABGJ8DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYy6qU0YDDlgNgAYAKAcgLAaIMDCoKCgiO37ECleKxAqoNAklM6g0TCKnYldGAw5YDFRB7HgIdDJkBKogOCbAOo5qNjBnYEwzQFQHKFgIKAPgWAYAXAbIXIAoaCAASFHB1Yi04NDgyNDM4NTA1MTY1OTY3GAAYAVAGuhcCOAGyGAkSArNPGC4iAQDQGAHoGAHCGQIIAQ&sigh=1uqNlIPlgEM&uach_m=%5BUACH%5D&cid=CAQSiwIAQM4h3K7bg2GW0LgIKPGwPl18OrwYjDKptmIn4ztmAwmJjLRh0iRG8wPWvcAflxe06P2eVaWUOJ2euu6-Wtau6J41Okls1H5zIwW8KnLLIxpX_fbrv5jJzhngsmF-6gHyvc6qyBZIq-ogwA9w8Vy0bIdIASbcKiMzZfFVOFYA5uRwGkxAuB-RTYCFg1G7RDwACAwuIEqEnQzfaWprssL5hs9dcaQ7KA5WoDq3DcwQhDZvn-sw-ze9YqZW_C5CG_oWGF4iW9JFRA5Uw3lehFjbJqDIDtJn0xCjUr6pCcOxcdFq3BZRXNz1df4F627VNHcuqDYQm-C334EL6nJVSleYFA1tak_yMiWecbYYAQ&template_id=5000&ebtr=1&vis=1",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/btr/view?ai=Cuqf6JFSRarWxDJD2-cAPjLKG0AKWpNC2hAGsls_Vmxas_LO13w4QASCg2MGQAWD5goCAmBCgAZvb6_wDyAEJqQLkcpzGTqeWPqgDAcgDywSqBPIBT9CfUMzePLxS8PCzWMaJce-A_v-Prm7MUmhCE-oAAeFgMLT0nBJo277E4KdY18OL-90cmp20jarqad0CeOH9rf0wZ5h_txgetQGvuzcBxKZmPt-VE0NSTuKn7i33rkadwTraVQ1xA5Ie0n5QRyhmJ-blqf5HVlU1cr-xBNMeIDlefgAwtlh9qziPqvEwXrBUdNu93LHOl4ZsRKvtI06vQsyR8NAeMAAzBr6bV9vQvD7XcxVmmYz4EpsMTyWPkAnaxOBtHKl1Bt375CNhmK-ofq2b4_sCC0skPS9hpQ6bVWiwF5emoeL39h1bHqKz6EBQcozABK_wmZjiBYgF7Y_KxFaSBQQIBBgBkgUECAUYBKAGLoAHzaSUA6gHp8yxAqgHpr4bqAfMzrECqAfz0RuoB5bYG6gHqpuxAqgH_uixAqgHjs4bqAeT2BuoB_DgG6gH7paxAqgH_p6xAqgHr76xAqgHn-GxAqgHpuuxAqgH1ckbqAfZtrECqAf3wrEC2AcA8gcEEJ_nEdIIMwiAYRABGJ8DMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYy6qU0YDDlgNgAYAKAcgLAaIMDCoKCgiO37ECleKxAqoNAklM6g0TCKnYldGAw5YDFRB7HgIdDJkBKogOCbAOo5qNjBnYEwzQFQHKFgIKAPgWAYAXAbIXIAoaCAASFHB1Yi04NDgyNDM4NTA1MTY1OTY3GAAYAVAGuhcCOAGyGAkSArNPGC4iAQDQGAHoGAHCGQIIAQ&sigh=1uqNlIPlgEM&uach_m=%5BUACH%5D&cid=CAQSiwIAQM4h3K7bg2GW0LgIKPGwPl18OrwYjDKptmIn4ztmAwmJjLRh0iRG8wPWvcAflxe06P2eVaWUOJ2euu6-Wtau6J41Okls1H5zIwW8KnLLIxpX_fbrv5jJzhngsmF-6gHyvc6qyBZIq-ogwA9w8Vy0bIdIASbcKiMzZfFVOFYA5uRwGkxAuB-RTYCFg1G7RDwACAwuIEqEnQzfaWprssL5hs9dcaQ7KA5WoDq3DcwQhDZvn-sw-ze9YqZW_C5CG_oWGF4iW9JFRA5Uw3lehFjbJqDIDtJn0xCjUr6pCcOxcdFq3BZRXNz1df4F627VNHcuqDYQm-C334EL6nJVSleYFA1tak_yMiWecbYYAQ&template_id=5000&ibtr=1",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/pagead/adview?ai=C1fXBJVSRapiZCvHZ-cAPgLWx6QuM1cj_iAGfrqeG6BXv5Kn5rQkQASCg2MGQAWD5goCAmBCgAfn6rblByAEBqAMByAPLBKoE-gFP0PGalmVHlq6fsUWYdfte-J-YltJrLzbDPCU3Uwba4oGV7LZj6oddSG-lOPyWUxI1ZgLLYWrUGKjG3bkf3te82QRdp0Zzf11yD6O1XpE9v5y62njAtPEIxGUIyYXIRVHFqHn0CelaC8Y5oWs_hkiz4niLjONOV7T06Zdyg7F8JKuFp38rrBLZaeEEzwbYWomETOKQQNNHErc_YylM6isdC7wsFVnJJnwj8iYec3JFIneZ2srzdF0T1k6xRTUxUNrZbcbtUzx0aSC6TAlqe_P2ePdb2mT1AurNYGP1-5BvLxwgsmC3ML1TueifmcE6hHj0rBrsHF6l30fxwASx05Tt1AWIBfSd3MdWkgUECAQYAZIFBAgFGASgBhqwBgGAB9rNw5kcqAenzLECqAfi2LECqAemvhuoB8zOsQKoB_PRG6gHltgbqAeqm7ECqAf-6LECqAeOzhuoB5PYG6gH8OAbqAfulrECqAehAagHrcobqAf-nrECqAevvrECqAef4bECqAem67ECqAfVyRuoB9m2sQKoB_fCsQLYBwHyBwQQjf4J-gdCZ29vZ2xlLnBjYy5nYW1lcy50ZXN0LmtpbmdzZ3JvdXBmdW5wbHVzLmZvdW5kYXRpb25nYWxhY3RpY2Zyb250aWVymAgBoAiloAGwCAK4CAHSCDMIgGEQARifAzIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WOefz9GAw5YDYAGACgGQCwXICwGYDOLn39WrBaIMbRABGAEqCgoIjt-xApXisQJIAVkAAAAAAADwP2ICCgBqRApCZ29vZ2xlLnBjYy5nYW1lcy50ZXN0LmtpbmdzZ3JvdXBmdW5wbHVzLmZvdW5kYXRpb25nYWxhY3RpY2Zyb250aWVyeAGIAQGQAQGqDQJJTOoNEwiuxNDRgMOWAxXxbB4CHYBaLL2IDgnYEw2CFBUaE3N0b3J5bmF2aWdhdGlvbi5jb22IFLIB0BUBmBYByhZECkJnb29nbGUucGNjLmdhbWVzLnRlc3Qua2luZ3Nncm91cGZ1bnBsdXMuZm91bmRhdGlvbmdhbGFjdGljZnJvbnRpZXL4FgGAFwGyFyAKGggAEhRwdWItODQ4MjQzODUwNTE2NTk2NxgAGAFQBrIYCRICsFMYGiIBAOgYAQ&sigh=BpOUCjsGXO0&uach_m=%5BUACH%5D&cid=CAQSiwIAQM4h3DGLZ5P0XoBj4gKJZ-1LFy0ru0BXu6qM-a4nrGfbA_QiTwR88VAPQv2X9bIxOgJM9KJK_KmDnYuZkHS5MbRZj5C6BxsZaEjewo8bNoxL_4wlJ_9aLO9nzhStn28T8a7eScUKOYBZRHFZAgJ7VNe9aHH5GtYCCsIl8S2PFdMxIzZDCekVA_5qN80Ax2FZMF9k1Q3FP4MPLuJifQZTYmAUyFSC6Elpfisp6MybkzsiDBlDvTkE865iA89sv8JkRREbTe7rTiQFatRKZW1mcddvpcdOLBfx1dO61TdxVZQq61QqgAoBVV9uI1AeTQouie4x5uVlFhE9G25EYKOySw_pu7rCHWr3Mc4YAQ&template_id=353&ebtr=1&vis=1",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/btr/view?ai=C1fXBJVSRapiZCvHZ-cAPgLWx6QuM1cj_iAGfrqeG6BXv5Kn5rQkQASCg2MGQAWD5goCAmBCgAfn6rblByAEBqAMByAPLBKoE-gFP0PGalmVHlq6fsUWYdfte-J-YltJrLzbDPCU3Uwba4oGV7LZj6oddSG-lOPyWUxI1ZgLLYWrUGKjG3bkf3te82QRdp0Zzf11yD6O1XpE9v5y62njAtPEIxGUIyYXIRVHFqHn0CelaC8Y5oWs_hkiz4niLjONOV7T06Zdyg7F8JKuFp38rrBLZaeEEzwbYWomETOKQQNNHErc_YylM6isdC7wsFVnJJnwj8iYec3JFIneZ2srzdF0T1k6xRTUxUNrZbcbtUzx0aSC6TAlqe_P2ePdb2mT1AurNYGP1-5BvLxwgsmC3ML1TueifmcE6hHj0rBrsHF6l30fxwASx05Tt1AWIBfSd3MdWkgUECAQYAZIFBAgFGASgBhqwBgGAB9rNw5kcqAenzLECqAfi2LECqAemvhuoB8zOsQKoB_PRG6gHltgbqAeqm7ECqAf-6LECqAeOzhuoB5PYG6gH8OAbqAfulrECqAehAagHrcobqAf-nrECqAevvrECqAef4bECqAem67ECqAfVyRuoB9m2sQKoB_fCsQLYBwHyBwQQjf4J-gdCZ29vZ2xlLnBjYy5nYW1lcy50ZXN0LmtpbmdzZ3JvdXBmdW5wbHVzLmZvdW5kYXRpb25nYWxhY3RpY2Zyb250aWVymAgBoAiloAGwCAK4CAHSCDMIgGEQARifAzIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WOefz9GAw5YDYAGACgGQCwXICwGYDOLn39WrBaIMbRABGAEqCgoIjt-xApXisQJIAVkAAAAAAADwP2ICCgBqRApCZ29vZ2xlLnBjYy5nYW1lcy50ZXN0LmtpbmdzZ3JvdXBmdW5wbHVzLmZvdW5kYXRpb25nYWxhY3RpY2Zyb250aWVyeAGIAQGQAQGqDQJJTOoNEwiuxNDRgMOWAxXxbB4CHYBaLL2IDgnYEw2CFBUaE3N0b3J5bmF2aWdhdGlvbi5jb22IFLIB0BUBmBYByhZECkJnb29nbGUucGNjLmdhbWVzLnRlc3Qua2luZ3Nncm91cGZ1bnBsdXMuZm91bmRhdGlvbmdhbGFjdGljZnJvbnRpZXL4FgGAFwGyFyAKGggAEhRwdWItODQ4MjQzODUwNTE2NTk2NxgAGAFQBrIYCRICsFMYGiIBAOgYAQ&sigh=BpOUCjsGXO0&uach_m=%5BUACH%5D&cid=CAQSiwIAQM4h3DGLZ5P0XoBj4gKJZ-1LFy0ru0BXu6qM-a4nrGfbA_QiTwR88VAPQv2X9bIxOgJM9KJK_KmDnYuZkHS5MbRZj5C6BxsZaEjewo8bNoxL_4wlJ_9aLO9nzhStn28T8a7eScUKOYBZRHFZAgJ7VNe9aHH5GtYCCsIl8S2PFdMxIzZDCekVA_5qN80Ax2FZMF9k1Q3FP4MPLuJifQZTYmAUyFSC6Elpfisp6MybkzsiDBlDvTkE865iA89sv8JkRREbTe7rTiQFatRKZW1mcddvpcdOLBfx1dO61TdxVZQq61QqgAoBVV9uI1AeTQouie4x5uVlFhE9G25EYKOySw_pu7rCHWr3Mc4YAQ&template_id=353&ibtr=1",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://hdrc.yandex.net/",
+    "method": "GET",
+    "failure": "net::ERR_CERT_AUTHORITY_INVALID"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-850ZXZ34TV&gtm=45je68q1v9196165935za200zd9196165935&_p=1787909155886&gcd=13l3l3l3l1l1&npa=0&dma=0&_eu=AEAAAAQ&ae=a&are=1&cid=1920887088.1787909152&frm=0&ngs=1&pscdl=noapi&rcb=16&sr=1280x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&_s=2&tag_exp=115938466~115938469~118897920~118897930~119367802~119367810~120213116~120385422&sid=1787909151&sct=1&seg=1&dl=https%3A%2F%2Fstorynavigation.com%2Fuser%2Fisrael_bidur&dr=https%3A%2F%2Fstorynavigation.com%2Fwatch-stories&dt=%40israel_bidur%20%7C%20View%20Instagram%20Stories%20Anonymously%20%7C%20Posts%20%7C%20Comments%20%7C%20Reels&en=scroll&epn.percent_scrolled=90&_et=3&tfd=5853",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  }
+]

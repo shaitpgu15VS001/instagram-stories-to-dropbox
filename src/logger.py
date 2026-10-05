@@ -51,7 +51,14 @@ class Logger:
 
     def _print(self, formatted, level_value):
         if level_value >= self.level:
-            print(formatted, flush=True)
+            try:
+                print(formatted, flush=True)
+            except UnicodeEncodeError:
+                try:
+                    safe = formatted.encode("ascii", "backslashreplace").decode("ascii")
+                    print(safe, flush=True)
+                except Exception:
+                    pass
         # Always write to debug file if initialized (redacted)
         try:
             if self._debug_full_fh:
@@ -249,7 +256,10 @@ class Logger:
             # write both to console and file
             try:
                 text = "\n".join(lines)
-                print(text)
+                try:
+                    print(text)
+                except UnicodeEncodeError:
+                    print(text.encode("ascii", "backslashreplace").decode("ascii"))
                 if self.debug_dir:
                     with open(self.debug_summary_path, "w", encoding="utf-8") as fh:
                         fh.write(self._redact(text))
@@ -264,10 +274,21 @@ class Logger:
         filled = int(bar_length * current / total) if total > 0 else 0
         bar = "█" * filled + "░" * (bar_length - filled)
         msg = f"{prefix} [{bar}] {current}/{total} ({percent:.0f}%)"
-        sys.stdout.write(f"\r{msg}")
-        sys.stdout.flush()
+        try:
+            sys.stdout.write(f"\r{msg}")
+            sys.stdout.flush()
+        except UnicodeEncodeError:
+            try:
+                safe = msg.encode("ascii", "backslashreplace").decode("ascii")
+                sys.stdout.write(f"\r{safe}")
+                sys.stdout.flush()
+            except Exception:
+                pass
         if current >= total:
-            print()
+            try:
+                print()
+            except Exception:
+                pass
 
 
 logger = Logger()

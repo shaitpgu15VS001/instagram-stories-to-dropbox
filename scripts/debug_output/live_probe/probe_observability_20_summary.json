@@ -1,0 +1,64 @@
+{
+  "counts": {
+    "TAB_TIMEOUT": 10,
+    "SUCCESS": 8,
+    "API_ERR_FAILED": 1,
+    "NO_ACTIVE_STORIES": 1
+  },
+  "total_p50": 34041.0,
+  "total_p90": 35048.6,
+  "total_p95": 35640.450000000004,
+  "req_p50": 308.0,
+  "req_p90": 425.20000000000005,
+  "req_p95": 519.5999999999999,
+  "before_api": 10,
+  "after_api": 10,
+  "hang": 0,
+  "err_failed": 1,
+  "per_user": {
+    "kolbarama": {
+      "TAB_TIMEOUT": 3,
+      "NO_ACTIVE_STORIES": 1
+    },
+    "mizrahitpage": {
+      "TAB_TIMEOUT": 2,
+      "SUCCESS": 2
+    },
+    "glglz": {
+      "SUCCESS": 2,
+      "TAB_TIMEOUT": 2
+    },
+    "israel_bidur": {
+      "TAB_TIMEOUT": 1,
+      "SUCCESS": 2,
+      "API_ERR_FAILED": 1
+    },
+    "erevtov": {
+      "TAB_TIMEOUT": 2,
+      "SUCCESS": 2
+    }
+  },
+  "per_pos": {
+    "1": {
+      "TAB_TIMEOUT": 3,
+      "NO_ACTIVE_STORIES": 1
+    },
+    "2": {
+      "TAB_TIMEOUT": 2,
+      "SUCCESS": 2
+    },
+    "3": {
+      "SUCCESS": 2,
+      "TAB_TIMEOUT": 2
+    },
+    "4": {
+      "TAB_TIMEOUT": 1,
+      "SUCCESS": 2,
+      "API_ERR_FAILED": 1
+    },
+    "5": {
+      "TAB_TIMEOUT": 2,
+      "SUCCESS": 2
+    }
+  }
+}

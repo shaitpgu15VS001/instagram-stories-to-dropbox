@@ -26,6 +26,7 @@ USER_AGENT = (
 STORIES_API = "https://api-wh.fastdl.app/api/v1/instagram/stories"
 VIEWER_URL = "https://fastdl.app/en2/instagram-anonymously-viewer"
 STORIES_API_PATH = "/api/v1/instagram/stories"
+STORIES_API_TIMEOUT_MS = 35000
 
 
 class FastDLStoriesAPI:
@@ -117,6 +118,7 @@ class FastDLStoriesAPI:
 
                 request_seen = {"value": False, "method": None, "url": None}
                 response_seen = {"value": False, "status": None, "url": None, "content_type": None}
+                request_failed = {"value": False, "failure": None, "url": None}
                 listener_attached = False
                 search_click_started = False
                 search_click_completed = False
@@ -140,8 +142,17 @@ class FastDLStoriesAPI:
                         response_seen["url"] = resp.url
                         response_seen["content_type"] = (resp.headers.get("content-type") or resp.headers.get("Content-Type"))
 
+                def on_request_failed(req):
+                    nonlocal listener_attached
+                    listener_attached = True
+                    if STORIES_API_PATH in req.url and req.method == "POST":
+                        request_failed["value"] = True
+                        request_failed["failure"] = req.failure
+                        request_failed["url"] = req.url
+
                 page.on("request", on_request)
                 page.on("response", on_response)
+                page.on("requestfailed", on_request_failed)
                 listener_attached = True
 
                 __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE page.goto start")
@@ -201,32 +212,143 @@ class FastDLStoriesAPI:
                 __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE wait_for_stories_tab done")
 
                 # Now start listening for Stories API response and click the Stories tab
-                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE response_waiter create start")
-                with page.expect_response(
-                    lambda response: STORIES_API_PATH in response.url and response.request.method == "POST",
-                    timeout=20000,
-                ) as response_info:
-                    __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE click_stories_tab start")
-                    # Click Stories tab using JavaScript (matches proven diagnostic flow)
-                    stories_tab_clicked = page.evaluate(
-                        """
-                        () => {
-                            const buttons = Array.from(document.querySelectorAll('button.tabs-component__button'));
-                            for (const button of buttons) {
-                                if (button.innerText && button.innerText.toLowerCase().includes('stories')) {
-                                    button.scrollIntoView();
-                                    button.click();
-                                    return true;
-                                }
+                # Retry safety: FastDL may send polling requests ~30s after first click.
+                # Our expect_response predicate is deterministic: STORIES_API_PATH + POST.
+                # A retry click will create a fresh expect_response waiter, so only the
+                # response triggered by the retry click is captured. Duplicate/polling
+                # requests arriving outside the waiter window are observed via on_request/
+                # on_response listeners but do not satisfy the active waiter, preventing
+                # ambiguous capture.
+                response = None
+                last_exc = None
+                retry_used = False
+                for attempt in (1, 2):
+                    if attempt == 2:
+                        # Only retry when request was seen but response was not (hang)
+                        # and no requestfailed was observed.
+                        if not (request_seen["value"] and not response_seen["value"] and not request_failed["value"]):
+                            break
+                        __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE retry sleep start")
+                        time.sleep(3)
+                        __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE retry sleep done")
+                        page.evaluate(
+                            """
+                            () => {
+                                const selectors = ['.fc-dialog-overlay', '.fc-consent-root', '.overlay', '.modal', '.cookie-banner', '.fc__dialog', '.fc-cookie-banner', '[role=dialog]'];
+                                selectors.forEach(sel => document.querySelectorAll(sel).forEach(el => el.remove()));
                             }
-                            return false;
-                        }
-                        """
-                    )
-                    if not stories_tab_clicked:
-                        __import__("src.logger", fromlist=["logger"]).logger.error("API_BRIDGE_STAGE stories_tab_not_found via evaluate")
-                    __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE click_stories_tab done")
-                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE response_waiter create done")
+                            """
+                        )
+                        retry_used = True
+                        __import__("src.logger", fromlist=["logger"]).logger.info(f"API_BRIDGE_STAGE retry attempt {attempt} start")
+
+                    __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE response_waiter create start")
+                    try:
+                        with page.expect_response(
+                            lambda response: STORIES_API_PATH in response.url and response.request.method == "POST",
+                            timeout=STORIES_API_TIMEOUT_MS,
+                        ) as response_info:
+                            __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE click_stories_tab start")
+                            stories_tab_clicked = page.evaluate(
+                                """
+                                () => {
+                                    const buttons = Array.from(document.querySelectorAll('button.tabs-component__button'));
+                                    for (const button of buttons) {
+                                        if (button.innerText && button.innerText.toLowerCase().includes('stories')) {
+                                            button.scrollIntoView();
+                                            button.click();
+                                            return true;
+                                        }
+                                    }
+                                    return false;
+                                }
+                                """
+                            )
+                            if not stories_tab_clicked:
+                                __import__("src.logger", fromlist=["logger"]).logger.error("API_BRIDGE_STAGE stories_tab_not_found via evaluate")
+                            __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE click_stories_tab done")
+                        __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE response_waiter create done")
+                        page_url_after_search = page.url
+
+                        if request_seen["value"]:
+                            __import__("src.logger", fromlist=["logger"]).logger.info(
+                                f"STORIES_API_REQUEST_METHOD={request_seen['method']} STORIES_API_REQUEST_URL={request_seen['url']}"
+                            )
+                        if response_seen["value"]:
+                            __import__("src.logger", fromlist=["logger"]).logger.info(
+                                f"STORIES_API_RESPONSE_STATUS={response_seen['status']} STORIES_API_RESPONSE_CONTENT_TYPE={response_seen['content_type']}"
+                            )
+
+                        __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE wait_for_response start")
+                        try:
+                            response = response_info.value
+                        except Exception as exc:
+                            page_url_after_search = page.url
+                            __import__("src.logger", fromlist=["logger"]).logger.error(
+                                "NETWORK_DIAGNOSTIC: "
+                                f"expect_response_timeout_ms={STORIES_API_TIMEOUT_MS} "
+                                f"configured_page_timeout_s={timeout} "
+                                f"request_seen={str(request_seen['value']).lower()} "
+                                f"response_seen={str(response_seen['value']).lower()} "
+                                f"request_failed={str(request_failed['value']).lower()} "
+                                f"request_failed_reason={request_failed['failure']} "
+                                f"page_url={page_url_after_search} "
+                                f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
+                                f"LISTENER_ATTACHED={str(listener_attached).lower()} "
+                                f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
+                                f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
+                                f"exception_type={type(exc).__name__} exception_message={exc} attempt={attempt} retry_used={str(retry_used).lower()}"
+                            )
+                            raise
+                        __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE wait_for_response done")
+                        last_exc = None
+                        break
+                    except PlaywrightTimeout as exc:
+                        last_exc = exc
+                        page_url_after_search = page.url
+                        __import__("src.logger", fromlist=["logger"]).logger.error(
+                            "NETWORK_DIAGNOSTIC: "
+                            f"expect_response_timeout_ms={STORIES_API_TIMEOUT_MS} "
+                            f"configured_page_timeout_s={timeout} "
+                            f"request_seen={str(request_seen['value']).lower()} "
+                            f"response_seen={str(response_seen['value']).lower()} "
+                            f"request_failed={str(request_failed['value']).lower()} "
+                            f"request_failed_reason={request_failed['failure']} "
+                            f"page_url={page_url_after_search} "
+                            f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
+                            f"LISTENER_ATTACHED={str('true' if listener_attached else 'false').lower()} "
+                            f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
+                            f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
+                            f"STORIES_API_REQUEST_METHOD={request_seen['method']} STORIES_API_REQUEST_URL={request_seen['url']} "
+                            f"STORIES_API_RESPONSE_STATUS={response_seen['status']} STORIES_API_RESPONSE_CONTENT_TYPE={response_seen['content_type']} "
+                            f"exception_type={type(exc).__name__} exception_message={exc} attempt={attempt} retry_used={str(retry_used).lower()}"
+                        )
+                        if attempt == 1 and request_seen["value"] and not response_seen["value"] and not request_failed["value"]:
+                            __import__("src.logger", fromlist=["logger"]).logger.info(
+                                f"API_BRIDGE_STAGE retry scheduled attempt={attempt} reason=request_seen_no_response"
+                            )
+                            continue
+                        log_failure("waiting_for_response", exc, timeout_seconds=timeout, response=None)
+                        return None
+                    except Exception as exc:
+                        # Non-timeout inside waiter (e.g., evaluate failure)
+                        page_url_after_search = page.url
+                        __import__("src.logger", fromlist=["logger"]).logger.error(
+                            "NETWORK_DIAGNOSTIC: "
+                            f"expect_response_timeout_ms={STORIES_API_TIMEOUT_MS} "
+                            f"configured_page_timeout_s={timeout} "
+                            f"request_seen={str(request_seen['value']).lower()} "
+                            f"response_seen={str(response_seen['value']).lower()} "
+                            f"request_failed={str(request_failed['value']).lower()} "
+                            f"page_url={page_url_after_search} "
+                            f"exception_type={type(exc).__name__} exception_message={exc} attempt={attempt}"
+                        )
+                        raise
+
+                if response is None:
+                    if last_exc is not None:
+                        log_failure("waiting_for_response", last_exc, timeout_seconds=timeout, response=None)
+                    return None
                 page_url_after_search = page.url
 
                 if request_seen["value"]:
@@ -238,43 +360,27 @@ class FastDLStoriesAPI:
                         f"STORIES_API_RESPONSE_STATUS={response_seen['status']} STORIES_API_RESPONSE_CONTENT_TYPE={response_seen['content_type']}"
                     )
 
-                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE wait_for_response start")
-                try:
-                    response = response_info.value
-                except Exception as exc:
-                    __import__("src.logger", fromlist=["logger"]).logger.error(
-                        "NETWORK_DIAGNOSTIC: "
-                        f"LISTENER_ATTACHED={str(listener_attached).lower()} "
-                        f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
-                        f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
-                        f"STORIES_API_REQUEST_SEEN={str(request_seen['value']).lower()} "
-                        f"STORIES_API_RESPONSE_SEEN={str(response_seen['value']).lower()} "
-                        f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
-                        f"PAGE_URL_AFTER_SEARCH={page_url_after_search} "
-                        f"exception_type={type(exc).__name__} exception_message={exc}"
-                    )
-                    raise
-                __import__("src.logger", fromlist=["logger"]).logger.info("API_BRIDGE_STAGE wait_for_response done")
-
                 if response.status != 200:
                     __import__("src.logger", fromlist=["logger"]).logger.error(
                         "NETWORK_DIAGNOSTIC: "
+                        f"expect_response_timeout_ms={STORIES_API_TIMEOUT_MS} "
+                        f"configured_page_timeout_s={timeout} "
+                        f"request_seen={str(request_seen['value']).lower()} "
+                        f"response_seen={str(response_seen['value']).lower()} "
+                        f"request_failed={str(request_failed['value']).lower()} "
+                        f"page_url={page_url_after_search} "
                         f"LISTENER_ATTACHED={str(listener_attached).lower()} "
                         f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
                         f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
-                        f"STORIES_API_REQUEST_SEEN={str(request_seen['value']).lower()} "
-                        f"STORIES_API_RESPONSE_SEEN={str(response_seen['value']).lower()} "
-                        f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
-                        f"PAGE_URL_AFTER_SEARCH={page_url_after_search} "
                         f"STORIES_API_REQUEST_METHOD={request_seen['method']} STORIES_API_REQUEST_URL={request_seen['url']} "
                         f"STORIES_API_RESPONSE_STATUS={response_seen['status']} STORIES_API_RESPONSE_CONTENT_TYPE={response_seen['content_type']} E-FDL-002"
                     )
                     log_failure(
                         "waiting_for_response",
                         TimeoutError(
-                            f"API bridge timeout stage=waiting_for_response timeout_seconds={20000}"
+                            f"API bridge timeout stage=waiting_for_response expect_timeout_ms={STORIES_API_TIMEOUT_MS}"
                         ),
-                        timeout_seconds=20000,
+                        timeout_seconds=STORIES_API_TIMEOUT_MS // 1000,
                         response=response,
                     )
                     return None
@@ -283,13 +389,15 @@ class FastDLStoriesAPI:
                 if items is None:
                     __import__("src.logger", fromlist=["logger"]).logger.error(
                         "NETWORK_DIAGNOSTIC: "
+                        f"expect_response_timeout_ms={STORIES_API_TIMEOUT_MS} "
+                        f"configured_page_timeout_s={timeout} "
+                        f"request_seen={str(request_seen['value']).lower()} "
+                        f"response_seen={str(response_seen['value']).lower()} "
+                        f"request_failed={str(request_failed['value']).lower()} "
+                        f"page_url={page_url_after_search} "
                         f"LISTENER_ATTACHED={str(listener_attached).lower()} "
                         f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
                         f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
-                        f"STORIES_API_REQUEST_SEEN={str(request_seen['value']).lower()} "
-                        f"STORIES_API_RESPONSE_SEEN={str(response_seen['value']).lower()} "
-                        f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
-                        f"PAGE_URL_AFTER_SEARCH={page_url_after_search} "
                         f"STORIES_API_REQUEST_METHOD={request_seen['method']} STORIES_API_REQUEST_URL={request_seen['url']} "
                         f"STORIES_API_RESPONSE_STATUS={response_seen['status']} STORIES_API_RESPONSE_CONTENT_TYPE={response_seen['content_type']}"
                     )
@@ -297,30 +405,37 @@ class FastDLStoriesAPI:
                     return None
                 __import__("src.logger", fromlist=["logger"]).logger.info(
                     "NETWORK_DIAGNOSTIC: "
+                    f"expect_response_timeout_ms={STORIES_API_TIMEOUT_MS} "
+                    f"configured_page_timeout_s={timeout} "
+                    f"request_seen={str(request_seen['value']).lower()} "
+                    f"response_seen={str(response_seen['value']).lower()} "
+                    f"request_failed={str(request_failed['value']).lower()} "
+                    f"page_url={page_url_after_search} "
                     f"LISTENER_ATTACHED={str(listener_attached).lower()} "
                     f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
                     f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
-                    f"STORIES_API_REQUEST_SEEN={str(request_seen['value']).lower()} "
-                    f"STORIES_API_RESPONSE_SEEN={str(response_seen['value']).lower()} "
-                    f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
-                    f"PAGE_URL_AFTER_SEARCH={page_url_after_search} "
                     f"STORIES_API_REQUEST_METHOD={request_seen['method']} STORIES_API_REQUEST_URL={request_seen['url']} "
                     f"STORIES_API_RESPONSE_STATUS={response_seen['status']} STORIES_API_RESPONSE_CONTENT_TYPE={response_seen['content_type']}"
                 )
                 return items
             except PlaywrightTimeout as exc:
+                page_url_after_search = page.url if 'page_url_after_search' in locals() and page_url_after_search else page.url
                 __import__("src.logger", fromlist=["logger"]).logger.error(
                     "NETWORK_DIAGNOSTIC: "
+                    f"expect_response_timeout_ms={STORIES_API_TIMEOUT_MS} "
+                    f"configured_page_timeout_s={timeout} "
+                    f"request_seen={str(request_seen['value']).lower()} "
+                    f"response_seen={str(response_seen['value']).lower()} "
+                    f"request_failed={str(request_failed['value']).lower()} "
+                    f"request_failed_reason={request_failed['failure']} "
+                    f"page_url={page_url_after_search} "
+                    f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
                     f"LISTENER_ATTACHED={str('true' if listener_attached else 'false').lower()} "
                     f"SEARCH_CLICK_STARTED={str(search_click_started).lower()} "
                     f"SEARCH_CLICK_COMPLETED={str(search_click_completed).lower()} "
-                    f"STORIES_API_REQUEST_SEEN={str(request_seen['value']).lower()} "
-                    f"STORIES_API_RESPONSE_SEEN={str(response_seen['value']).lower()} "
-                    f"PAGE_URL_BEFORE_SEARCH={page_url_before_search} "
-                    f"PAGE_URL_AFTER_SEARCH={page_url_after_search} "
                     f"STORIES_API_REQUEST_METHOD={request_seen['method']} STORIES_API_REQUEST_URL={request_seen['url']} "
                     f"STORIES_API_RESPONSE_STATUS={response_seen['status']} STORIES_API_RESPONSE_CONTENT_TYPE={response_seen['content_type']} "
-                    f"exception_type={type(exc).__name__} exception_message={exc} timeout_seconds={timeout}"
+                    f"exception_type={type(exc).__name__} exception_message={exc}"
                 )
                 log_failure("waiting_for_response", exc, timeout_seconds=timeout)
                 return None

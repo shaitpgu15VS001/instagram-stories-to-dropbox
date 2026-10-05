@@ -1,0 +1,308 @@
+[
+  {
+    "username": "israel_bidur",
+    "round_id": 1,
+    "user_idx": 0,
+    "started_at": "2026-08-21T08:39:12.123819+00:00",
+    "initial": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "TAB_TIMEOUT",
+      "exception": "Tab Timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button.tabs-component__button\") to be visible\n",
+      "dt": 34.38
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "username": "erevtov",
+    "round_id": 1,
+    "user_idx": 1,
+    "started_at": "2026-08-21T08:39:48.587745+00:00",
+    "initial": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "TAB_TIMEOUT",
+      "exception": "Tab Timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button.tabs-component__button\") to be visible\n",
+      "dt": 34.38
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "username": "mizrahitpage",
+    "round_id": 1,
+    "user_idx": 2,
+    "started_at": "2026-08-21T08:40:25.032591+00:00",
+    "initial": {
+      "request_seen": true,
+      "response_seen": true,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "SUCCESS",
+      "response_status": 200,
+      "items": 4,
+      "dt": 0.27,
+      "elapsed_total": 4.83
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "SUCCESS"
+  },
+  {
+    "username": "kolbarama",
+    "round_id": 1,
+    "user_idx": 3,
+    "started_at": "2026-08-21T08:40:31.937676+00:00",
+    "initial": {
+      "request_seen": true,
+      "response_seen": true,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "SUCCESS_EMPTY",
+      "response_status": 200,
+      "items": 0,
+      "dt": 0.35,
+      "elapsed_total": 4.54
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "SUCCESS_EMPTY"
+  },
+  {
+    "username": "israel_bidur",
+    "round_id": 2,
+    "user_idx": 0,
+    "started_at": "2026-08-21T08:40:39.585864+00:00",
+    "initial": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "TAB_TIMEOUT",
+      "exception": "Tab Timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button.tabs-component__button\") to be visible\n",
+      "dt": 33.91
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "username": "erevtov",
+    "round_id": 2,
+    "user_idx": 1,
+    "started_at": "2026-08-21T08:41:15.600736+00:00",
+    "initial": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "TAB_TIMEOUT",
+      "exception": "Tab Timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button.tabs-component__button\") to be visible\n",
+      "dt": 34.52
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "username": "mizrahitpage",
+    "round_id": 2,
+    "user_idx": 2,
+    "started_at": "2026-08-21T08:41:52.215679+00:00",
+    "initial": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "TAB_TIMEOUT",
+      "exception": "Tab Timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button.tabs-component__button\") to be visible\n",
+      "dt": 34.12
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "username": "kolbarama",
+    "round_id": 2,
+    "user_idx": 3,
+    "started_at": "2026-08-21T08:42:28.426345+00:00",
+    "initial": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "TAB_TIMEOUT",
+      "exception": "Tab Timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button.tabs-component__button\") to be visible\n",
+      "dt": 34.1
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "username": "kolbarama",
+    "round_id": 3,
+    "user_idx": 0,
+    "started_at": "2026-08-21T08:43:05.722899+00:00",
+    "initial": {
+      "request_seen": true,
+      "response_seen": true,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "SUCCESS_EMPTY",
+      "response_status": 200,
+      "items": 0,
+      "dt": 0.43,
+      "elapsed_total": 5.0
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "SUCCESS_EMPTY"
+  },
+  {
+    "username": "mizrahitpage",
+    "round_id": 3,
+    "user_idx": 1,
+    "started_at": "2026-08-21T08:43:12.802307+00:00",
+    "initial": {
+      "request_seen": true,
+      "response_seen": true,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "SUCCESS",
+      "response_status": 200,
+      "items": 4,
+      "dt": 0.35,
+      "elapsed_total": 4.57
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "SUCCESS"
+  },
+  {
+    "username": "glglz",
+    "round_id": 3,
+    "user_idx": 2,
+    "started_at": "2026-08-21T08:43:19.438995+00:00",
+    "initial": {
+      "request_seen": true,
+      "response_seen": true,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "SUCCESS",
+      "response_status": 200,
+      "items": 14,
+      "dt": 0.33,
+      "elapsed_total": 4.5
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "SUCCESS"
+  },
+  {
+    "username": "israel_bidur",
+    "round_id": 4,
+    "user_idx": 0,
+    "started_at": "2026-08-21T08:43:27.005475+00:00",
+    "initial": {
+      "request_seen": true,
+      "response_seen": false,
+      "request_failed": true,
+      "failure_reason": "net::ERR_FAILED",
+      "status": "ERR_FAILED",
+      "exception": "Timeout 35000ms exceeded while waiting for event \"response\"",
+      "dt": 35.01,
+      "elapsed_total": 39.14
+    },
+    "retry": {
+      "attempted": true,
+      "wait_seconds": 4,
+      "status": "TIMEOUT_AFTER_REQUEST",
+      "request_seen": true,
+      "response_seen": false,
+      "request_failed": false,
+      "failure_reason": null,
+      "exception": "Timeout 35000ms exceeded while waiting for event \"response\"",
+      "dt": 35.01
+    },
+    "final_status": "RETRY_TIMEOUT_AFTER_REQUEST"
+  },
+  {
+    "username": "erevtov",
+    "round_id": 4,
+    "user_idx": 1,
+    "started_at": "2026-08-21T08:44:47.263791+00:00",
+    "initial": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "TAB_TIMEOUT",
+      "exception": "Tab Timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button.tabs-component__button\") to be visible\n",
+      "dt": 34.17
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "TAB_TIMEOUT"
+  },
+  {
+    "username": "mizrahitpage",
+    "round_id": 4,
+    "user_idx": 2,
+    "started_at": "2026-08-21T08:45:23.530281+00:00",
+    "initial": {
+      "request_seen": true,
+      "response_seen": true,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "SUCCESS",
+      "response_status": 200,
+      "items": 4,
+      "dt": 0.37,
+      "elapsed_total": 4.52
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "SUCCESS"
+  },
+  {
+    "username": "kolbarama",
+    "round_id": 4,
+    "user_idx": 3,
+    "started_at": "2026-08-21T08:45:30.121970+00:00",
+    "initial": {
+      "request_seen": false,
+      "response_seen": false,
+      "request_failed": false,
+      "failure_reason": null,
+      "status": "TAB_TIMEOUT",
+      "exception": "Tab Timeout: Page.wait_for_selector: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"button.tabs-component__button\") to be visible\n",
+      "dt": 34.15
+    },
+    "retry": {
+      "attempted": false
+    },
+    "final_status": "TAB_TIMEOUT"
+  }
+]

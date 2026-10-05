@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>פתרון בעיות - הורדת סטוריז מאינסטגרם לענן</title>
+<style>
+body{font-family:Arial,"Segoe UI",Tahoma,sans-serif;line-height:1.8;max-width:820px;margin:0 auto;padding:20px;color:#222;background:#fff}
+h1{font-size:1.6em;border-bottom:2px solid #4a90d9;padding-bottom:8px}
+h2{font-size:1.2em;color:#b42318;margin-top:1.6em}
+pre{background:#f4f4f4;border:1px solid #ddd;border-radius:6px;padding:12px;overflow:auto}
+code{background:#f0f0f0;padding:1px 5px;border-radius:4px}
+.tip{background:#eef6ff;border-right:4px solid #4a90d9;padding:10px 14px;border-radius:4px;margin:12px 0}
+ol,ul{padding-right:24px}
+li{margin-bottom:6px}
+nav{background:#f7f7f7;border:1px solid #ddd;border-radius:6px;padding:10px 14px;margin:16px 0}
+nav a{margin-left:14px}
+footer{margin-top:30px;border-top:1px solid #ddd;padding-top:10px;font-size:.9em;color:#555}
+</style>
+</head>
+<body>
+<h1>🆘 פתרון בעיות</h1>
+<p>הבעיות הנפוצות ביותר והפתרון לכל אחת. מקור ההורדה הנוכחי: insta-stories.io (ראשי), fastdl.app (גיבוי).</p>
+<nav><strong>מדריכים:</strong> <a href="SETUP.html">התקנה (קצר)</a> <a href="USAGE.html">שימוש מורחב</a> <a href="TROUBLESHOOTING.html">פתרון בעיות</a></nav>
+
+<h2>❌ "Playwright לא מותקן" / "Executable doesn't exist"</h2>
+<p><strong>פתרון:</strong> ודא שב-<code>requirements.txt</code> יש <code>playwright</code>, וב-workflow יש שלב <code>playwright install --with-deps chromium</code>. נסה להריץ שוב (לפעמים רשת זמנית). ההרצה הראשונה תמיד איטית (~150MB).</p>
+
+<h2>❌ שגיאת חיבור לענן / אימות נכשל</h2>
+<p><strong>פתרון:</strong></p>
+<ol>
+<li>בדוק שה-Secret <code>RCLONE_CONF</code> מכיל את <strong>כל</strong> תוכן <code>rclone.conf</code>, בלי רווחים מיותרים</li>
+<li>אם שינית את <code>rclone.conf</code> במחשב - הדבק מחדש ל-Secret</li>
+<li>ודא שהשם ב-<code>STORAGE_BACKEND.txt</code> זהה לשם החיבור (למשל <code>dropbox</code>)</li>
+<li>אם הטוקן פג - חבר מחדש עם <code>rclone authorize</code> ועדכן</li>
+</ol>
+
+<h2>❌ "לא הורדו קבצים" למרות שיש סטוריז</h2>
+<ol>
+<li>ודא שהחשבון <strong>ציבורי</strong> (פרטיים לא נתמכים)</li>
+<li>ודא שיש סטורי פעיל <strong>ממש עכשיו</strong> (סטוריז נמחקים אחרי 24 שעות)</li>
+<li>נסה חשבון פעיל מאוד (למשל <code>instagram</code>) כדי לוודא שהמערכת תקינה</li>
+<li>אם הרבה משתמשים נכשלים יחד - ייתכן שהשירות החיצוני נפל זמנית, נסה בהרצה הבאה</li>
+</ol>
+
+<h2>❌ "Captcha verification failed" / API_ERROR</h2>
+<p><strong>מה זה:</strong> שירות ההורדה דורש פתרון Captcha ולא החזיר נתונים.</p>
+<p><strong>פתרון:</strong> בדרך כלל זמני - נסה בהרצה הבאה. אם נמשך ימים, ייתכן שהאתר שינה הגנה וצריך עדכון קוד (פתח Issue עם הלוג).</p>
+
+<h2>❌ "Rate limit" / "429"</h2>
+<p>יותר מדי בקשות בזמן קצר. המערכת ממתינה אוטומטית. אם חוזר הרבה - הפחת משתמשים או תדירות.</p>
+
+<h2>❌ "Timeout" / פג הזמן</h2>
+<p>בדרך כלל בעיה זמנית בשירות החיצוני. נסה בהרצה הבאה. אם תדיר - בדוק את האתר ידנית בדפדפן.</p>
+
+<h2>❌ ההרצה הצליחה אבל שום קובץ לא הועלה</h2>
+<p>זה תקין אם לא היו סטוריז פעילים או שהכל כבר הועלה (מניעת כפילויות). בדוק את <code>RUN SUMMARY</code> בלוג: <code>NO_ACTIVE_STORIES</code> או <code>NO_NEW_STORIES</code> = תקין.</p>
+
+<h2>❌ "דילוג על X עקב שגיאה" להרבה משתמשים</h2>
+<p>אם זה רוב המשתמשים - בעיה בשירות החיצוני, נסה מאוחר יותר. אם רק ספציפיים - בדוק אם הם פרטיים/לא קיימים/עם שגיאת כתיב.</p>
+
+<h2>❌ קבצים לא נטענים בטלפון</h2>
+<p>רענן את האפליקציה, בדוק מקום פנוי, ודא חיבור לאותו חשבון.</p>
+
+<h2>🆘 עדיין לא עובד?</h2>
+<ol>
+<li>העתק את הלוג וחפש את הודעת השגיאה המדויקת למעלה</li>
+<li>בדוק את <code>RUN SUMMARY</code> בסוף הלוג - הוא מסכם הצלחות/כישלונות לפי סוג</li>
+<li>אם לא מצאת - פתח Issue בריפו עם הלוג המלא</li>
+</ol>
+
+<div class="tip"><strong>טיפים:</strong> הרצה ראשונה איטית; הבאות מהירות (~1-2 דקות). <code>state.json</code> נשמר בענן ומונע כפילויות. אפשר להריץ ידנית בכל רגע. ההשהייה בין משתמשים 2-3 שניות.</div>
+
+<nav><strong>מדריכים:</strong> <a href="SETUP.html">התקנה (קצר)</a> <a href="USAGE.html">שימוש מורחב</a> <a href="TROUBLESHOOTING.html">פתרון בעיות</a></nav>
+<footer>אם השירות החיצוני שינה הגנה (Captcha), ההורדה תיכשל לכולם יחד - זה הסימן שצריך עדכון קוד.</footer>
+</body>
+</html>

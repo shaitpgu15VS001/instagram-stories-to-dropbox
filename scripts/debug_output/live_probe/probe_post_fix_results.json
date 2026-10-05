@@ -1,0 +1,43 @@
+{
+  "STORIES_API_TIMEOUT_MS": 35000,
+  "single": [
+    {
+      "username": "kolbarama",
+      "status": "NO_ACTIVE_STORIES",
+      "items": 0,
+      "dt": 6.1
+    },
+    {
+      "username": "israel_bidur",
+      "status": "STORIES_FOUND",
+      "items": 27,
+      "dt": 5.3
+    },
+    {
+      "username": "erevtov",
+      "status": "STORIES_FOUND",
+      "items": 23,
+      "dt": 5.3
+    }
+  ],
+  "batch": [
+    {
+      "username": "kolbarama",
+      "status": "API_ERROR",
+      "items": null,
+      "dt": 35.0
+    },
+    {
+      "username": "mizrahitpage",
+      "status": "API_ERROR",
+      "items": null,
+      "dt": 40.0
+    },
+    {
+      "username": "glglz",
+      "status": "API_ERROR",
+      "items": null,
+      "dt": 36.9
+    }
+  ]
+}

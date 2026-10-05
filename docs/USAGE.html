@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מדריך שימוש מורחב - הורדת סטוריז מאינסטגרם לענן</title>
+<style>
+body{font-family:Arial,"Segoe UI",Tahoma,sans-serif;line-height:1.8;max-width:860px;margin:0 auto;padding:20px;color:#222;background:#fff}
+h1{font-size:1.6em;border-bottom:2px solid #4a90d9;padding-bottom:8px}
+h2{font-size:1.3em;color:#1a5fb4;margin-top:1.8em;border-bottom:1px solid #ddd;padding-bottom:4px}
+h3{font-size:1.1em;margin-top:1.2em}
+pre{background:#f4f4f4;border:1px solid #ddd;border-radius:6px;padding:12px;overflow:auto}
+code{background:#f0f0f0;padding:1px 5px;border-radius:4px}
+pre code{background:none;padding:0}
+.tip{background:#eef6ff;border-right:4px solid #4a90d9;padding:10px 14px;border-radius:4px;margin:12px 0}
+.warn{background:#fff8e6;border-right:4px solid #e6a817;padding:10px 14px;border-radius:4px;margin:12px 0}
+table{border-collapse:collapse;width:100%;margin:12px 0}
+th,td{border:1px solid #ccc;padding:8px 10px;text-align:right;vertical-align:top}
+th{background:#f0f5fb}
+ol,ul{padding-right:24px}
+li{margin-bottom:6px}
+nav{background:#f7f7f7;border:1px solid #ddd;border-radius:6px;padding:10px 14px;margin:16px 0}
+nav a{margin-left:14px}
+footer{margin-top:30px;border-top:1px solid #ddd;padding-top:10px;font-size:.9em;color:#555}
+</style>
+</head>
+<body>
+<h1>📖 מדריך שימוש מורחב</h1>
+<p>כל האפשרויות, דוגמאות, שאלות נפוצות ומגבלות. למתחילים: התחל ב<a href="SETUP.html">מדריך ההתקנה</a>.</p>
+<nav><strong>מדריכים:</strong> <a href="SETUP.html">התקנה (קצר)</a> <a href="USAGE.html">שימוש מורחב</a> <a href="TROUBLESHOOTING.html">פתרון בעיות</a></nav>
+
+<h2>1. הוספת שמות משתמשים</h2>
+<p>אפשר להשתמש ב-<code>usernames.txt</code>, <code>usernames.csv</code> או <code>usernames.xlsx</code> - או בכולם יחד. המערכת מאחדת את כולם ומסירה כפילויות.</p>
+<h3>טקסט (usernames.txt)</h3>
+<p>שורה לכל משתמש. שם תצוגה מותאם לתיקייה עם <code>|</code>:</p>
+<pre dir="ltr"><code>ישראל בידור | israel_bidur
+natgeo
+https://www.instagram.com/djyochaiedri/</code></pre>
+<p>מותר: שם רגיל (<code>natgeo</code>), עם @ (<code>@natgeo</code>), קישור מלא לפרופיל. המערכת שולפת את שם המשתמש לבד.</p>
+<h3>CSV (usernames.csv)</h3>
+<pre dir="ltr"><code>username,display_name
+israel_bidur,ישראל בידור
+natgeo,
+cristiano,כריסטיאנו רונאלדו</code></pre>
+<h3>Excel (usernames.xlsx)</h3>
+<p>אותן עמודות: A = <code>username</code>, B = <code>display_name</code> (אופציונלי).</p>
+
+<h2>2. קבצים והחלטות המשתמש ⭐</h2>
+<p>סעיף זה מסביר אילו קבצים אתה עורך, ואיך להחליט.</p>
+<h3>2.1 מאילו משתמשים להוריד</h3>
+<table>
+<tr><th>קובץ</th><th>למה הוא משמש</th><th>מתי לערוך</th></tr>
+<tr><td><code>usernames.txt</code> / <code>.csv</code> / <code>.xlsx</code></td><td>רשימת החשבונות למעקב</td><td>הוספה/הסרה של חשבון, שינוי שם תצוגה</td></tr>
+</table>
+<ul>
+<li><strong>איך להחליט:</strong> הוסף רק חשבונות <strong>ציבוריים</strong> שמעניינים אותך. חשבונות פרטיים לא יורדו לעולם.</li>
+<li><strong>שם תצוגה:</strong> אם שם המשתמש באנגלית ואתה רוצה תיקייה בעברית - השתמש בפורמט <code>שם תצוגה | username</code>. שים לב: שינוי שם תצוגה יוצר תיקייה חדשה, הקבצים הישנים נשארים במקומם.</li>
+<li><strong>הסרה:</strong> מחק את השורה. קבצים שכבר הועלו נשארים בענן (לא נמחקים).</li>
+<li><strong>כמות:</strong> אין מגבלה קשיחה, אבל כל משתמש לוקח כמה שניות. עשרות משתמשים = כמה דקות טובות.</li>
+</ul>
+<h3>2.2 לאיזה ענן לחבר (חיבורים)</h3>
+<table>
+<tr><th>קובץ / מקום</th><th>למה הוא משמש</th><th>מתי לערוך</th></tr>
+<tr><td><code>rclone.conf</code> (במחשב שלך, <strong>לא</strong> בריפו)</td><td>כל חיבורי הענן (טוקנים)</td><td>הוספת ענן חדש, חידוש גישה שפגה</td></tr>
+<tr><td>Secret בשם <code>RCLONE_CONF</code> בריפו</td><td>עותק של <code>rclone.conf</code> לשימוש GitHub</td><td>אחרי כל שינוי ב-<code>rclone.conf</code> - להדביק מחדש!</td></tr>
+</table>
+<ul>
+<li><strong>איך להחליט:</strong> חבר את הענן שבו יש לך מקום פנוי. אפשר לחבר כמה עננים בו-זמנית (Dropbox + OneDrive) ולבחור ביניהם בהמשך.</li>
+<li><strong>כלל ברזל:</strong> אף פעם לא להעלות את <code>rclone.conf</code> לריפו כקובץ - רק כ-Secret מוצפן.</li>
+</ul>
+<h3>2.3 לאיזה ענן להוריד בפועל (בחירה)</h3>
+<table>
+<tr><th>דרך</th><th>איך</th><th>מתי</th></tr>
+<tr><td><code>STORAGE_BACKEND.txt</code> (מומלץ)</td><td>כתוב שם חיבור אחד, למשל <code>dropbox</code></td><td>בחירה קבועה - נשמרת בין הרצות</td></tr>
+<tr><td>שדה <strong>Storage backend</strong> בהרצה ידנית</td><td>מזינים שם חיבור אחר לפני Run</td><td>בדיקה חד-פעמית בענן אחר (עוקף את הקובץ להרצה זו בלבד)</td></tr>
+</table>
+<ul>
+<li><strong>איך להחליט:</strong> בחר את הענן עם המקום הפנוי והאפליקציה הנוחה לך בטלפון. אם אתה מתלבט - הרץ פעם אחת ידנית לענן השני ובדוק.</li>
+<li><strong>מה קורה אם השם לא קיים:</strong> ההרצה נכשלת עם הודעה ברורה + רשימת החיבורים הזמינים. תקן את השם והרץ שוב.</li>
+<li>מבנה התיקיות בענן: <code>Instagram/&lt;תאריך&gt;/&lt;שם תצוגה&gt;/קבצים</code>.</li>
+</ul>
+<h3>2.4 קבצים שאתה לא נוגע בהם (אבל טוב להכיר)</h3>
+<table>
+<tr><th>קובץ</th><th>תפקיד</th></tr>
+<tr><td><code>state.json</code> (שמור בענן תחת <code>.instagram-sync/</code>)</td><td>זוכר מה כבר הועלה כדי לא להעלות פעמיים. עובר אוטומטית בין הרצות - לא לגעת.</td></tr>
+<tr><td><code>.github/workflows/sync.yml</code></td><td>האוטומציה: כל 3 שעות + כפתור ידני. שינוי תדירות נעשה כאן (ראה סעיף 5).</td></tr>
+<tr><td><code>src/</code></td><td>קוד המערכת. מקור ההורדה: insta-stories.io (ראשי), fastdl.app (גיבוי).</td></tr>
+</table>
+
+<h2>3. הרצה</h2>
+<h3>אוטומטית</h3>
+<p>כל 3 שעות, ללא פעולה מצדך.</p>
+<h3>ידנית</h3>
+<p><strong>Actions</strong> ← <strong>Download Instagram Stories to Dropbox</strong> ← <strong>Run workflow</strong>. אפשרויות:</p>
+<ul>
+<li><code>force_redownload</code> = <code>true</code> - מוריד ומעלה הכל מחדש, מתעלם ממה שכבר הועלה. שימושי אחרי מעבר ענן.</li>
+<li><code>storage_backend</code> - שם חיבור אחר להרצה זו בלבד.</li>
+</ul>
+
+<h2>4. בדיקה בענן</h2>
+<p>היכנס לענן ונווט ל-<code>Instagram/&lt;תאריך&gt;/&lt;שם&gt;/</code>. הקבצים נקראים <code>username-YYYY-MM-DD_HH-MM-SS.jpg/mp4</code> (שעת ישראל).</p>
+
+<h2>5. תחזוקה ושינויים</h2>
+<ul>
+<li><strong>הוספה:</strong> שורה חדשה בקובץ המשתמשים → Commit → הרצה.</li>
+<li><strong>הסרה:</strong> מחיקת שורה (קבצים ישנים נשארים בענן).</li>
+<li><strong>מעבר ענן קבוע:</strong> עדכן <code>STORAGE_BACKEND.txt</code> → Commit. הקבצים הישנים לא עוברים לבד - הרץ עם <code>force_redownload=true</code> אם רוצה להעתיק הכל.</li>
+<li><strong>שינוי תדירות:</strong> ערוך <code>cron: '0 */3 * * *'</code> ב-<code>sync.yml</code>. דוגמאות: <code>0 */1 * * *</code> כל שעה, <code>0 */6 * * *</code> כל 6 שעות, <code>0 0 * * *</code> פעם ביום.</li>
+</ul>
+
+<h2>6. שאלות נפוצות</h2>
+<ul>
+<li><strong>האם צריך חשבון אינסטגרם?</strong> לא.</li>
+<li><strong>האם זה אנונימי?</strong> כן - ההורדה דרך שירות חיצוני, בעל החשבון לא רואה שצפית.</li>
+<li><strong>חשבון פרטי?</strong> לא נתמך, רק ציבוריים.</li>
+<li><strong>אותו סטורי יועלה פעמיים?</strong> לא - <code>state.json</code> מונע כפילויות.</li>
+<li><strong>איפה הסטוריז נשמרים?</strong> רק בענן שלך, תחת <code>Instagram/תאריך/שם/</code>.</li>
+</ul>
+
+<h2>7. מגבלות ידועות</h2>
+<ul>
+<li>רק חשבונות ציבוריים.</li>
+<li>תלוי בשירות חיצוני (insta-stories.io) - אם הוא נופל או מוסיף Captcha, ההורדה נכשלת עד לתיקון.</li>
+<li>חותמות זמן מחושבות מזמן הפרסום היחסי (לפני X שעות) - דיוק של דקות.</li>
+<li>מגבלת GitHub: הרצה עד 25 דקות. עשרות משתמשים עובדים טוב; מאות עלולים לחרוג.</li>
+</ul>
+
+<h2>8. טיפים</h2>
+<ul>
+<li>הרצה ראשונה איטית (התקנת דפדפן ~150MB). הבאות מהירות.</li>
+<li>לבדיקת תקינות: הוסף חשבון פעיל מאוד (למשל <code>instagram</code>) והרץ ידנית.</li>
+<li>אחרי שינוי <code>rclone.conf</code> - תמיד עדכן את ה-Secret.</li>
+<li>לוגי ההרצה מפורטים - חפש <code>RUN SUMMARY</code> בסוף.</li>
+</ul>
+
+<nav><strong>מדריכים:</strong> <a href="SETUP.html">התקנה (קצר)</a> <a href="USAGE.html">שימוש מורחב</a> <a href="TROUBLESHOOTING.html">פתרון בעיות</a></nav>
+<footer>מקור ההורדה: insta-stories.io (ראשי), fastdl.app (גיבוי). מבנה תיקיות: Instagram/תאריך/שם-תצוגה.</footer>
+</body>
+</html>

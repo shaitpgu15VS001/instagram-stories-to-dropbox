@@ -1,0 +1,168 @@
+[
+  {
+    "username": "israel_bidur",
+    "impression": 1,
+    "status": "TAB_TIMEOUT",
+    "request_failed": false,
+    "failure": null,
+    "elapsed": 34.24
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 2,
+    "status": "SUCCESS",
+    "items": 27,
+    "request_failed": false,
+    "elapsed": 4.85
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 3,
+    "status": "SUCCESS",
+    "items": 27,
+    "request_failed": false,
+    "elapsed": 4.63
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 4,
+    "status": "SUCCESS",
+    "items": 27,
+    "request_failed": false,
+    "elapsed": 4.71
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 5,
+    "status": "ERR_FAILED",
+    "retry_status": "TIMEOUT_AFTER_REQUEST",
+    "retry_request_failed": false,
+    "retry_failure": null,
+    "elapsed": 78.03,
+    "initial_failure": "net::ERR_FAILED",
+    "final": "RETRY_TIMEOUT_AFTER_REQUEST"
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 6,
+    "status": "TAB_TIMEOUT",
+    "request_failed": false,
+    "failure": null,
+    "elapsed": 34.11
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 7,
+    "status": "SUCCESS",
+    "items": 27,
+    "request_failed": false,
+    "elapsed": 4.69
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 8,
+    "status": "SUCCESS",
+    "items": 27,
+    "request_failed": false,
+    "elapsed": 5.13
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 9,
+    "status": "TAB_TIMEOUT",
+    "request_failed": false,
+    "failure": null,
+    "elapsed": 33.8
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 10,
+    "status": "SUCCESS",
+    "items": 27,
+    "request_failed": false,
+    "elapsed": 4.67
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 11,
+    "status": "TAB_TIMEOUT",
+    "request_failed": false,
+    "failure": null,
+    "elapsed": 33.8
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 12,
+    "status": "TAB_TIMEOUT",
+    "request_failed": false,
+    "failure": null,
+    "elapsed": 34.01
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 13,
+    "status": "SUCCESS",
+    "items": 27,
+    "request_failed": false,
+    "elapsed": 4.69
+  },
+  {
+    "username": "mizrahitpage",
+    "impression": 14,
+    "status": "SUCCESS",
+    "items": 4,
+    "request_failed": false,
+    "elapsed": 4.52
+  },
+  {
+    "username": "erevtov",
+    "impression": 15,
+    "status": "SUCCESS",
+    "items": 23,
+    "request_failed": false,
+    "elapsed": 4.49
+  },
+  {
+    "username": "glglz",
+    "impression": 16,
+    "status": "TAB_TIMEOUT",
+    "request_failed": false,
+    "failure": null,
+    "elapsed": 33.84
+  },
+  {
+    "username": "israel_bidur",
+    "impression": 17,
+    "status": "ERR_FAILED",
+    "retry_status": "TIMEOUT_AFTER_REQUEST",
+    "retry_request_failed": false,
+    "retry_failure": null,
+    "elapsed": 78.15,
+    "initial_failure": "net::ERR_FAILED",
+    "final": "RETRY_TIMEOUT_AFTER_REQUEST"
+  },
+  {
+    "username": "mizrahitpage",
+    "impression": 18,
+    "status": "SUCCESS",
+    "items": 4,
+    "request_failed": false,
+    "elapsed": 4.95
+  },
+  {
+    "username": "erevtov",
+    "impression": 19,
+    "status": "TAB_TIMEOUT",
+    "request_failed": false,
+    "failure": null,
+    "elapsed": 34.27
+  },
+  {
+    "username": "glglz",
+    "impression": 20,
+    "status": "TAB_TIMEOUT",
+    "request_failed": false,
+    "failure": null,
+    "elapsed": 34.12
+  }
+]

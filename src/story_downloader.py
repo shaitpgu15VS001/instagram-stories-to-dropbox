@@ -38,11 +38,17 @@ def extract_pre_download_id(href):
         parsed = urlparse(href)
         qs = parse_qs(parsed.query)
         uri = qs.get('uri', [''])[0]
-        if not uri:
-            return None
-        uri_decoded = unquote(uri)
-        inner = urlparse(uri_decoded)
-        return inner.path if inner.path else None
+        if uri:
+            uri_decoded = unquote(uri)
+            inner = urlparse(uri_decoded)
+            return inner.path if inner.path else None
+        # מקור insta-stories.io: פרמטר media עם כתובת CDN מקודדת
+        media = qs.get('media', [''])[0]
+        if media:
+            media_decoded = unquote(media)
+            inner = urlparse(media_decoded)
+            return inner.path if inner.path else None
+        return None
     except Exception:
         return None
 
@@ -309,7 +315,7 @@ class StoryDownloader:
                 headers={
                     "User-Agent": USER_AGENT,
                     "Accept": "*/*",
-                    "Referer": "https://fastdl.app/",
+                    "Referer": "https://insta-stories.io/",
                 },
             )
             status = getattr(response, "status", None)
@@ -476,6 +482,21 @@ class StoryDownloader:
         return {"success": True, "files": combined, "meta": meta_map, "error": None, "outcome": "stories_found", "stories_found": len(download_urls), "pre_skipped": summary["skipped"]}
 
     def _fetch_story_urls(self, username):
+        # מקור ראשי: insta-stories.io (API פשוט, בלי Captcha ובלי דפדפן).
+        # גיבוי: FastDL Stories API. DOM נשמר בארכיון ואינו רץ אוטומטית.
+        try:
+            from .insta_stories_api import InstaStoriesAPI
+            insta = InstaStoriesAPI()
+            insta_items = insta.fetch_stories(username)
+            if insta_items is not None:
+                if insta_items:
+                    logger.info(f"insta-stories.io success, items={len(insta_items)}")
+                    return [{"u": it.get("u"), "ta": None, "txt": it.get("txt")} for it in insta_items if it.get("u")]
+                logger.info(f"ℹ️ @{username}: אין סטוריז פעילים כרגע")
+                return []
+            logger.warning(f"@{username}: insta-stories.io נכשל - עובר לגיבוי FastDL")
+        except Exception as exc:
+            logger.warning(f"@{username}: insta-stories.io שגיאה ({exc}) - עובר לגיבוי FastDL")
         # API-first: try FastDL Stories API. Do not automatically run the DOM
         # fallback if the API fails or returns no usable items.
         try:

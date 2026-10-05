@@ -1,0 +1,7 @@
+[
+  {
+    "url": "https://hagen.challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/i/a32245d46ea83562/10kzCBR3WhtFV9nCMQUaQofv90bzOnAle9I9INSp28c-1787909169-1.2.1.1-VEHVrI3eKu.ZxKXZFTGo88C.e5IhGByOAXjPlDqfd2zQ13rKyv18y6Z8avFdvPYU",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  }
+]

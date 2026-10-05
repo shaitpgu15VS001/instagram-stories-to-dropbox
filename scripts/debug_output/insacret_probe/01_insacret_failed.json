@@ -1,0 +1,157 @@
+[
+  {
+    "url": "https://eechicha.com/ntfc.php?p=9474884",
+    "method": "GET",
+    "failure": "net::ERR_CERT_AUTHORITY_INVALID"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-Q0BNG71Q2S&gtm=45je68q1v9185682185za200zd9185682185&_p=1787909792421&gcs=G1--&gcd=13l3l3l3l5l1&npa=0&dma=0&tcfd=10000&are=1&cid=2124600463.1787909794&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=1280x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&_s=1&tag_exp=115616986~115938465~115938468~118897920~118897930~119367802~119367810~120385422~120763597&sid=1787909794&sct=1&seg=0&dl=https%3A%2F%2Finsacret.org%2Fen%2Fstories%2Fisrael_bidur&dt=israel_bidur%20%E2%80%95%20Anonymous%20Instagram%20Story%20Viewer%20%E2%80%95%20Insacret&en=page_view&_fv=1&_nsi=1&_ss=1&_ee=1&tfd=2223",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/pagead/adview?ai=CmXlgolaRaoOTKdi8wuIP1fOBwQ2c3IGXhwHf1JOirRbAjbcBEAEgsYXgZGD5goCAmBDIAQmoAwHIAwKqBIACT9AecxNSRciod4dGwdICuKjsstPmeVJPbcD9VSb209wNVtUeoCWydikTWef4xkwJDfFWf2I5DXCOHS9yohfaNGrcts5dfeTWfnF5KcTueBTF-IDTnA8dznZ_kdAps1Ln-6tuRgKFjcbO7w9UsO7i1l8I9xJzF6ZU1-y0aJcYfe19T03Eg4TOcZ9ZPHhQkfgDbnEUhQpWUz1I2tZxByZn-0yufQRzJJ6PmkzZ3EXLSiAv39SR2tEVcFAx1yeHcvDQr_gb5OJ3ze10L-Y-IKuJjVhaNbgeT2Bb4aQbTwSPVR4zlaWQbqQlz31DFnHX53zfzGI93NcTDRamZ_yDMZdHUYAG7L6D_bb32bGuAaAGIagHk9ixAqgHlNixAqgHldixAqgHpr4bqAeW2BuoB6qbsQKoB_-esQKoB9-fsQKoB_7osQKoB62-sQLYBwDSCDAIgGEQATIIioKAgICAgAg6D4BAgMCAgICAqIACqIOAEEi9_cE6WJKEzoGDw5YDYACACgH6CwIIAYAMAaoNAklM6g0TCPXwzoGDw5YDFVieUAYd1Xkg2IgOCdAVAYAXAbIXKgoYEhRwdWItMjIzNDcwMzY2MzA3MzU3OBgAGAwqCjk2NzY3NzE2NjNQAaoYFwljEFg5BDDBQBIKOTY3Njc3MTY2MxgB&sigh=3rHTC8FnHHo&uach_m=%5BUACH%5D&sreq=1&cid=CAQSngIAQM4h3GhcxtHYHT21mHxgrEIDY1yW2r3IPMAxvRqkFQjo0bKHW0cBgMef4P8BKeCbre_oG36gysG5sicD7wteEx78gQKXnL0J4_gb-ixW5rhi-PAdOzklajG08FOu-B3JUgUYBbCF5VjbPdYPyM8WzE2kKLRZGq0bBPU52AfDHIFMCR_0NLCH0XJ0gA1-ITJ_9o15_LeBnbPxSm6155qURCbLuhYs7C_GWq11o4UOQbekOsvIMzC9eHOpcSDChjf3IbZ9NIf50V701QplutNGrxd3Palz1tlsryQox5h5KNfUzCFLyBZpeHz1WJM5dsqZLMpiJIbjAS2-dzZskh_rRiyyqiX3fEyr4ez_7aH7blMel0_iiKLS_xO2Y9QLGAE",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/pagead/adview?ai=CYOMZolaRaqmwKbyHwuIPk8yA8QLR6vbye_nLk9bQE8CNtwEQASCxheBkYPmCgICYEMgBCagDAcgDAqoEgAJP0E2Ez_FoPWuLzfltL4rox4etO0Wx45p4zFDM4ZzQjHAs4kl-s15EKlDyxAUfkCNBdqBjPIPnqFLszZPDT5z2FVLrzFEhpCX4N1ytBybgaftVJlGCvneDuibJ8ytS-bgCckNpaNgwhZ55ANGVZJ2Qbdb9AbRqvT_qXnP_ln6V1Zy0u13UfHtUl0nSZ2T1lrfjCIp0aMmG7vAecBlgq0wCMAtKI72ZQKCcaIT6U8I4mpMvRUe3xZvqeFHbd4_Xf3PpPYuOgc5TyLXeYWRKfnxFQika2zb9d3JwslMse6sohM8IdebjXY4r9veUdNL1jyS84d89wa4cPJpYQoWbw70wgAaJsqqwzLafh_QBoAYhqAeT2LECqAeU2LECqAeV2LECqAemvhuoB5bYG6gHqpuxAqgH_56xAqgH35-xAqgH_uixAqgHrb6xAtgHANIIMAiAYRABMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpY9IvOgYPDlgNgAIAKAfoLAggBgAwBqg0CSUzqDRMIhI_PgYPDlgMVvINQBh0TJiAuiA4J0BUBgBcBshceChgSFHB1Yi0yMjM0NzAzNjYzMDczNTc4GAAYDFAB&sigh=uR81NBx0pyE&uach_m=%5BUACH%5D&sreq=1&cid=CAQSngIAQM4h3IBlUp19ElBioG3xkqCLSYsdVhO43Hs2vmRrKd9vNOKWe0T4Ld57ptERlofBGIXMgO2uEkEM80jZBHj5L6Pkn0kRpxoNLKiB9x8uWhEhmFS-HfhOFDVULMSvzXt_UlOnI2cw2t_mpFePEDm_ruXKHTEmfBbaI8r46W1-6A0A3s5L3FwJWHBV1wbcAxJWq09-cQ6bCYK_6nynfG0vHmY3YWXabAxxdpQOn4wBKkzHuz07xvSLlIFuygwJ9iCm8scEaVR5HwG8A9S6XsOcQjPCBRbnC9MoWKnKuYRlokaZgmuSSaLtnVMcG_69PFhQ3DyGIeLzEDhCQkce6mo49e8w6wyV_pzroAv8j0Nrj-I1xCi9qhCHA5VyVVJ6GAE",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/ping?e=1",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://eu.asas.yango.com/ex-event/IqEoL_wCAAAAAAAAeJxNks1r03Acxputq7WKjJ7qbaIWEbo2TdOXQZm_JG3TxL63S5Mdwi9p0ry16ZK0SSoDdxC8CF7dcXfBf0LYHyCIB4_iSebRm3biwA888Hmuz_ebOI1v7yIp5MH5u2u-HD65eP_xUyz_EJZldSKVYUatSDmIy3KmLMOChGEwgxUVFJVktYw4t-NXx7tXx6nL2PpO_PM3ZHeTTXmJRF4jyFvkx6tfZ1dnXz-w50g0uRVHLpB7iUT8-05ye2XBVGQ3mnwTTfze1jxv4R5ks1By90M4nyjBvrPMuu4iq6yUuZdFD-VquZBLK14VS6vVZcfKUMMmAf6hMGtDaa-KtlivFCq5NjZln6NaseLrMIAdrHQirmaqOl85LmkHMk2wLaD5cAh4csj4Awo0W42pz1IE3yKmvkKxAPQUCtRatV7ASUTIArM5MGp4kWZRmjNshbZKvCd4fZ4W16WuuR6vMDsnEIAknUDo8EdMyI8XgmTjfcUisHqozlY5bOYGouRN-lTb8OdFwmCWg77iy9qUbdR0lWc1HTa6s8KS0jgZmIGVGZkDAzRduhf4em_eUpl1t73O4-viGjDTmu76ZOiaTAjqgh4YeKcDMrUG2eYto37SKI5gg7AFTjjhG-TRxl1pwQ2EGa4J3EITZoxlcsJCYjgZzizd4jSdlyBj9sb2WOYnBqNYlEF1RoZBhDQgBm10KtAOCLsD0lRqVDPT6gb6uItjLQDYHs5X3Md5Mr2oPnoBRuSw2WmL3X6TrJ2mYVUPQrHQM8H_t5pToyHRKEHgA44CAzx5C-qOOHEXqej9yF9-Hu5dxtAbr9zIswgdEcjU1h7yNCbB-Vxx8nfRShkt5Mv5Aopj-R3P9qB1EGu6Dtxsn9KgK0r6RISSvVKuTbVs2xFRafOLGvIHD2H0ZA,,?pr=apFWogAKSYMGUJ5YACB51fTrMnCXgCc9OXMHFQ",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://eu.asas.yango.com/ex-event/llxvSxEDAAAAAAAAeJxF0jtv01AABeAYQigVQlWnsFUCKoQIiWM7dpAiuH7Fjzhp_GjqLNZ1fBM7L6e-bpwYITHChhADYkGCGYk_gegPYOU_sLNQXuJM33p0zm6yc3mPKBN3P3z8_LVUvwVHFKIaDVShxyzpsyRZoZusz5B0UGGbHOOjGsMRybWdL9TeF6p8Xsr_8xlReE4QL4k3L85_vH7-7ZP-lijuX9oh3hM3dnd3Xl3bv4whLhf2ivsfi7vvimGarvDDahX6-MEWLgO0eZCcVTFeVdEaLdMq-WjU4ujaIUpb1OG41W32xpYMePA3SMuni67M0GvkTBPsr4EzSHKyETpU5HEVTa7Rnr-aBadYiDcjhdcNEGbQBq5ga5klAtVoTzJd5F2Dn2RI1AHoIxFIhtTfDHx-q4OZak0ltqHopDKYxkiZs246TE23m8C1n0ImtytnXBxPTP6YxktDrzFGZxantRFeWxMvYuQ8h0p7LBvd4zM6XGxi-wSEM0pz127Pn8hnwnEPy07WFZXt6ETeKO2R5UZMr6MNJ1JbXLmxqdmLzoxhI2bcNBxtImWCaQ35oTmVF6CNQ3cDl0dgfdFlGJ2kbG8C2V5sy3x02iA1S-FNd44cOEPDiDYD7Id9d-MLuhPU4tpI7G9x7mQGOL2wSwnxPA9yYZvaQm7Yuoopqy7EDBl0JD1VpGyR2WqGM4MPKUNuDHoY0FZFklTOkFVlIM7GEq9WjI4Zu0dTNfPa2ohbchwP-KAPp8adunC4at1-AhzBVntd78hUBenpIWwJfS5Z9AH4v2km_pF0f_8qjBIvwKty8Wbhd74_Ojgvkf_c_IfHBaUwFMqXDoh7JR8ulyipXyebHEnXuTpNMlT9ShqncP6wpOIEojlfDiH2_CjwoB-v0S-N53GceDX_4qsh8RO73fH7?pr=apFWowAHnjoGUIemAAJ0ShxohHFw4LS2Mt-Caw",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-Q0BNG71Q2S&gtm=45je68q1v9185682185za200zd9185682185&_p=1787909792421&gcs=G1--&gcd=13l3l3l3l5l1&npa=0&dma=0&tcfd=10000&_eu=AAAAAAQ&are=1&cid=2124600463.1787909794&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=1280x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&_s=2&tag_exp=115616986~115938465~115938468~118897920~118897930~119367802~119367810~120385422~120763597&sid=1787909794&sct=1&seg=0&dl=https%3A%2F%2Finsacret.org%2Fen%2Fstories%2Fisrael_bidur&dt=israel_bidur%20%E2%80%95%20Anonymous%20Instagram%20Story%20Viewer%20%E2%80%95%20Insacret&en=load_profile_initiate&_ee=1&ep.username=israel_bidur&_et=4&tfd=6038",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://googleads.g.doubleclick.net/pagead/adview?ai=CaWtvo1aRarq8HqaPwuIPyuiJkAKc3IGXhwHf1JOirRbAjbcBEAEgsYXgZGD5goCAmBDIAQmoAwHIAwKqBIYCT9CEIyn1UcIBGPPA7oGTucydBf1Wt10maeKHRxHDsuCv6yrAB3ea0CpgNCKMC7-PAsz35NOqd7Bhus05D84-91hGJUiTQI6NRl4VbfnpoZZT97J0QKTu4ys__4S_ykxU3QRCXV6-XDtt9XbJRuA9NPwZHfZt8LruD1Lg02Zdhwh51ds3SpGvHWctNQA9qem9hxADLu-0wTy2V7xUdpeZBDvabRvbMqR0DJ64hpO5Lc7RulMTPBz8lTSDThgnE-eGSA5K4NvpvgLprNjsmx2-8T7Ws3lmcVJqjWBF7NGsVqL9s8pLNDP6EX7FcU2NHvxLvGhd0218hNA3rXVXp-fIBAANj_AqIoAG3qv2j8GagLFQoAYhqAeT2LECqAeU2LECqAeV2LECqAemvhuoB5bYG6gHqpuxAqgH_56xAqgH35-xAqgH_uixAqgHrb6xAtgHANIIMAiAYRABMgiKgoCAgICACDoPgECAwICAgICogAKog4AQSL39wTpYi8CAgoPDlgNgAIAKAfoLAggBgAwBqg0CSUzqDRMI9Z6BgoPDlgMVpodQBh1KdAIiiA4J0BUBgBcBshceChgSFHB1Yi0yMjM0NzAzNjYzMDczNTc4GAAYDFAB&sigh=LW4UNOu_66c&uach_m=%5BUACH%5D&sreq=1&cid=CAQSiwIAQM4h3Eb0aT5Eg15V47umK9ud7oevdB9JGg1fsh2NRNhOUA6lyM-bTueQgywTDOw2iE865cbFlGX6COHMqMuVjy6gGCRQoo5e-rt_nkm64dtYESZm0zvuexhAhhIgrlj_aBEd4tLH908XvSUJ2XKu8hrkBwJrMalrPDvX34J5RjUs7A_M7F8MQugLJLQbhfnFH0-KU8wAJQHk6ccp9L2_d9w2Ixeuye5eoSzxrzxV2Ld_ujAM_NaOhmKgtDnm9hVvRDBHvHi98pmbI9bh5VZz4i9kSV48FGyxzweSTkE288ttbspjj9QFq5vZVd4PlHmBiHF6tfh3_hMW7W1fZ3diMCCcJlCVyfQgUjkYAQ",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://tracenep-eu.admaster.cc/ju/win?tn=2ce2e6e33746b4224011d22068a89c02&trackingid=9d48a60e0e86aeb5b773ebfcc53529a4&acid=36269&data=bl19pVhA-BJ3EFHAjtikikivELwqFwuYMUjvrtzEh8w1LqgZEBonIxbvqofUsxl7g46ZrLZxGdyc7sjlckdy9V3YJ1_Eyet4SeBZ7lL1xkkXUPb6AOu36T26ERr8GnH2jTpQLl2pkZAan71ZiOeIQI_XrX4pMMJYat7Ypeo7I1zoMve_8RvETEbisIrECR4kKhXerSMxC5fkzsQ15hW8pStMeCpu2-SIWgFWhvrMHTjrrdl-Pmjehc3UuvU4H6X4ITijkZJw0qAcqeE3TYc9hUOVMiWe4gZzqTx2MZ3TgABLgy85qUJoeu2HO6TKSmmYl2pEw6FMsVG4lro6sy26wyzhoRp_1xes2tkwJAx-4jYrXc74qHynMuzy_dZ1_vT-2NxRSLJOdRfXND6mM0DldjsrEboCFWcLwqGQCUkHgR9Wt-qF6aTA_xh25Iez7B4U2Jg7q5F8rX1MdeXniBepYiq6nE_W9vGKtWf3vqa9yRu5oBjewGzIwMnqiP6p7k1bwBAm19a7PakSIYG5A043Oe1Hzu97s-ezOFkFgAXDB-Z--UrtjuKZMLaUZSxt0dxlYhaHJ7XhVLmgJZt5QJBmQqRAybXPM0L8t-1kr-wqy0XtmDO_bjPueUkrHhndeD4431mhYCn44LpKYSOgzsc3eTvTirRPDprhiuS_0uQWyImHksMvAclEZ6trKUdcALU_haUgPGPnKKOeFZb5BDMbW0piOi7dliwFL7eLDvBsweQjemZq-VPvHrcEo0C-jUZ0K4fDBwIF5Khp8pSRJjoY_XRzIO_USzECj9otUVMQ0NLgleNZK4c5AUIXKzn_MDWk45iO4kMIot9rJldEktpkLg&ap=apFWogAKWCkGUIO8ACAmEw6AZMCaI6y7f9zUXg&tid=106&c_sync=1",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://ups.analytics.yahoo.com/ups/58933/cms?google_gid=CAESEEuQosb-JO1Um0FqkWRMd5c&google_cver=1&google_push=AeofssL1cuDaMgCHEOl89h20oDQuyPlMUznmhqDCA07QNsa_bsJZ9bczgSDA8BRYWELwPjMCJzpO_2ZwO4RoxR8IvVtOqz_3j-T3FBG5OINgdFtA5NAv7wtrYWSBqmsBE5-99Q54mn40m_H-CH4YBHM-2RdPOA",
+    "method": "GET",
+    "failure": "net::ERR_BLOCKED_BY_ORB"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://www.google.com/ads/measurement/l?ebcid=ALh7CaT-hgO-6GBhq0ayupeOb-9Q1WhfwFLg6TXjYeE37LfQb_ulI7KWEDvaD2CakSnWmRmmOyg0e0XA_YmR5AeNs_wsIBgyxQ",
+    "method": "GET",
+    "failure": "net::ERR_BLOCKED_BY_ORB"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-Q0BNG71Q2S&gtm=45je68q1v9185682185za200zd9185682185&_p=1787909792421&gcs=G1--&gcd=13l3l3l3l5l1&npa=0&dma=0&tcfd=10000&_eu=AEIAAAQ&are=1&cid=2124600463.1787909794&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=1280x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&tag_exp=115616986~115938465~115938468~118897920~118897930~119367802~119367810~120385422~120763597&sid=1787909794&sct=1&seg=0&dl=https%3A%2F%2Finsacret.org%2Fen%2Fstories%2Fisrael_bidur&dt=israel_bidur%20%E2%80%95%20Anonymous%20Instagram%20Story%20Viewer%20%E2%80%95%20Insacret&_s=3&tfd=11045",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://ibocojcx.xyz/",
+    "method": "HEAD",
+    "failure": "net::ERR_NAME_NOT_RESOLVED"
+  },
+  {
+    "url": "https://hagen.challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/i/a32255112f3f997f/BJuK.dFnbBAIchIK66EuSY2a_TTU2I9jdaIIC1c1IHI-1787909793-1.2.1.1-w.LO.W7O6S.lamfM5oSUl.g1d_x.Dkv8RW2eHNJXNHp5KnAPQqxtAmlpGV4l_vl9",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=fle-fetch-start2",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=colleague-executed&name=4",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/gen_204?id=av-js&type=reach&proto=CAlgAWACaAM%3D",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://pagead2.googlesyndication.com/pagead/ping?e=1",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://hagen.challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/i/a3225559e8ad997f/li.KIEA.EXqB6OL7x011hwwaaSlcaoqUgTk3vDCgSQE-1787909805-1.2.1.1-aNPQ4DMPQg0vt9Z9ZH_3Xp1W9POlWjwTPL6PdhY6g7s.CfULZLDbPcrJpOQmTxQ7",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://hagen.challenges.cloudflare.com/cdn-cgi/challenge-platform/h/b/i/a3225567f944997f/lh9KyDqQUuemnIlI6JTJIYknyCebKeCIdLE65tOARDE-1787909807-1.2.1.1-U.JqLRwWHVD.Ik0c2vMvy9gQAbj7qBfCB9nS8EZiM7H6Ece__Cs09CvTRkO6DWJD",
+    "method": "GET",
+    "failure": "net::ERR_ABORTED"
+  },
+  {
+    "url": "https://www.google-analytics.com/g/collect?v=2&tid=G-Q0BNG71Q2S&gtm=45je68q1v9185682185za200zd9185682185&_p=1787909792421&gcs=G1--&gcd=13l3l3l3l5l1&npa=0&dma=0&tcfd=10000&_eu=AEIAAAQ&are=1&cid=2124600463.1787909794&frm=0&ngs=1&pscdl=noapi&rcb=2&sr=1280x900&uaa=x86&uab=64&uafvl=Chromium%3B148.0.7778.96%7CHeadlessChrome%3B148.0.7778.96%7CNot%252FA)Brand%3B99.0.0.0&uam=&uamb=0&uap=Windows&uapv=10.0&uaw=0&ul=en-us&_s=4&tag_exp=115616986~115938465~115938468~118897920~118897930~119367802~119367810~120385422~120763597&sid=1787909794&sct=1&seg=0&dl=https%3A%2F%2Finsacret.org%2Fen%2Fstories%2Fisrael_bidur&dt=israel_bidur%20%E2%80%95%20Anonymous%20Instagram%20Story%20Viewer%20%E2%80%95%20Insacret&en=ad_impression&ep.query_id=CKiJz4GDw5YDFbyDUAYdEyYgLg&_et=1102&tfd=16614",
+    "method": "POST",
+    "failure": "net::ERR_ABORTED"
+  }
+]

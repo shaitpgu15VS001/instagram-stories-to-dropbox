@@ -28,20 +28,20 @@
 
 ## 📋 תוכן העניינים
 
-המדריך מחולק ל-3 קבצים:
+המדריך מחולק ל-3 קבצים (גם בגרסת Markdown וגם בגרסת HTML קריאה בעברית מימין לשמאל בתיקיית `docs/`):
 
-1. **[SETUP.md](SETUP.md)** - הכנה והתקנה צעד אחר צעד
+1. **[SETUP.md](SETUP.md)** ([HTML](docs/SETUP.html)) - הכנה והתקנה צעד אחר צעד
    - יצירת אפליקציית Dropbox
    - קבלת מפתחות API
    - יצירת חשבון GitHub
    - יצירת הריפו
    - הגדרת Secrets
-2. **[USAGE.md](USAGE.md)** - שימוש יומיומי
+2. **[USAGE.md](USAGE.md)** ([HTML](docs/USAGE.html)) - שימוש יומיומי
    - הוספת שמות משתמשים
    - הרצה ראשונה
    - בדיקה בדרופבוקס
    - תחזוקה שוטפת
-3. **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - פתרון בעיות
+3. **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** ([HTML](docs/TROUBLESHOOTING.html)) - פתרון בעיות
    - שגיאות נפוצות
    - מה לעשות כשמשהו לא עובד
 
@@ -65,7 +65,8 @@
 
 | אתר | סטטוס | תפקיד | תיעוד |
 |---|---|---|---|
-| **fastdl.app** | ✅ פעיל | קוד ראשי ב-`story_downloader.py` | ראה סלקטורים למטה |
+| **insta-stories.io** | ✅ פעיל | מקור ראשי ב-`src/insta_stories_api.py` (API פשוט, בלי Captcha ובלי דפדפן) | `docs/investigations/insta-stories.md` |
+| **fastdl.app** | ⚠️ גיבוי (חסום ב-Turnstile) | גיבוי ב-`src/fastdl_api.py` | ראה סלקטורים למטה |
 | **viewsocials.com** | ❌ חסום ב-GitHub | נוסה אך Cloudflare חוסם את ה-IP של GitHub Actions | ראה הערות למטה |
 | **instanonimo.com** | ❌ לא עבר | נוסה אך חסום על ידי Cloudflare Turnstile | ראה הערות למטה |
 
