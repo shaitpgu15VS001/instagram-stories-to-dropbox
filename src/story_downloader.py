@@ -140,16 +140,20 @@ def _parse_meta_timestamp(s):
                 return datetime(int(y), int(mo), int(d), int(h), int(mi), int(sec), tzinfo=timezone.utc)
             except Exception:
                 pass
-    rm = re.search(r"(\d+)\s*(minute|minutes|hour|hours|day|days)", txt)
+    rm = re.search(r"(\d+)\s*(second|seconds|minute|minutes|hour|hours|day|days)", txt)
     if rm:
         n = int(rm.group(1))
         unit = rm.group(2)
+        if unit.startswith('second'):
+            return datetime.now(timezone.utc) - timedelta(seconds=n)
         if unit.startswith('minute'):
             return datetime.now(timezone.utc) - timedelta(minutes=n)
         if unit.startswith('hour'):
             return datetime.now(timezone.utc) - timedelta(hours=n)
         if unit.startswith('day'):
             return datetime.now(timezone.utc) - timedelta(days=n)
+    if 'just now' in txt.lower():
+        return datetime.now(timezone.utc)
     if s.get('u'):
         em = re.search(r'__expires=(\d+)', s.get('u'))
         if em:
@@ -441,6 +445,9 @@ class StoryDownloader:
             return {"success": False, "files": [], "error": str(exc), "outcome": "api_error", "stories_found": 0, "pre_skipped": 0}
 
         if download_urls is None:
+            if getattr(self, "_source_outcome", None) == "user_not_found":
+                logger.error(f"@{username}: המשתמש לא נמצא (user_not_found) E-USR-001")
+                return {"success": False, "files": [], "error": f"user_not_found: @{username} לא נמצא", "outcome": "user_not_found", "stories_found": 0, "pre_skipped": 0}
             logger.warning(
                 f"@{username}: FastDL API/bridge failed or returned no usable stories. "
                 "DOM extraction remains archived in src/story_downloader.py and docs/FASTDL_STORIES_ARCHITECTURE.md; "
@@ -539,16 +546,26 @@ class StoryDownloader:
     def _fetch_story_urls(self, username):
         # מקור ראשי: insta-stories.io (API פשוט, בלי Captcha ובלי דפדפן).
         # גיבוי: FastDL Stories API. DOM נשמר בארכיון ואינו רץ אוטומטית.
+        self._source_outcome = None
         try:
             from .insta_stories_api import InstaStoriesAPI
             insta = InstaStoriesAPI()
             insta_items = insta.fetch_stories(username)
+            if insta_items is None:
+                # ניסיון חוזר אחד זול (requests בלבד) לפני אבחון/גיבוי -
+                # מטפל בכשלים רגעיים בלי להפעיל את גשר הדפדפן הכבד.
+                time.sleep(5)
+                insta_items = insta.fetch_stories(username)
             if insta_items is not None:
                 if insta_items:
                     logger.info(f"insta-stories.io success, items={len(insta_items)}")
                     return [{"u": it.get("u"), "ta": None, "txt": it.get("txt")} for it in insta_items if it.get("u")]
                 logger.info(f"ℹ️ @{username}: אין סטוריז פעילים כרגע")
                 return []
+            if insta.diagnose(username) == "user_not_found":
+                logger.warning(f"@{username}: המשתמש לא נמצא במקור - מדלג בלי גיבוי")
+                self._source_outcome = "user_not_found"
+                return None
             logger.warning(f"@{username}: insta-stories.io נכשל - עובר לגיבוי FastDL")
         except Exception as exc:
             logger.warning(f"@{username}: insta-stories.io שגיאה ({exc}) - עובר לגיבוי FastDL")
@@ -724,6 +741,11 @@ class StoryDownloader:
                     ct = (media["content_type"] or "").lower()
                     # סיומת לפי content-type/URL, עם זיהוי חתימה כנפילה
                     ext = _decide_ext(content, ct, url)
+                    # הגנה: תוכן טקסט (דף שגיאה) אינו מדיה — לדחות במקום להעלות זבל.
+                    # פריט שנדחה אינו מסומן כהועלה, כך שינוסה שוב בהרצה הבאה.
+                    sniffed = _is_jpeg(content) or _is_heic(content) or _is_mp4(content)
+                    if not sniffed and (not ct or ct.startswith("text/") or "json" in ct):
+                        raise ValueError(f"non-media content: content_type={ct or 'empty'}")
                     ts = None
                     # Prefer raw unix timestamp if available; format in Israel timezone
                     if s.get('ta'):

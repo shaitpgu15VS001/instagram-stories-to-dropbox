@@ -249,6 +249,18 @@ def _parse_xlsx(path):
     return entries, stats
 
 
+def _sanitize_folder_name(name, fallback):
+    """מנקה שם תיקייה מתווים אסורים (למשל / שיוצר תת-תיקיות בטעות)."""
+    value = (str(name) if name is not None else "").strip()
+    value = re.sub(r'[\\/:*?"<>|\x00-\x1f]', "_", value)
+    value = value.strip().rstrip(".")
+    if len(value) > 100:
+        value = value[:100].rstrip()
+    if not value:
+        value = fallback
+    return value
+
+
 def load_usernames():
     all_entries = []
     source_stats = {}
@@ -284,7 +296,7 @@ def load_usernames():
     for display_name, username in all_entries:
         if username not in seen:
             seen.add(username)
-            unique_entries.append((display_name, username))
+            unique_entries.append((_sanitize_folder_name(display_name, username), username))
 
     global_duplicates = len(all_entries) - len(unique_entries)
     load_stats = {
@@ -360,7 +372,10 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
         # Map known downloader errors to Error IDs and statuses (observability only)
         err_str = err if isinstance(err, str) else str(err) if err else ""
         outcome = _outcome or ""
-        if "api_error" in err_str or "timeout" in err_str or outcome in ("api_error",):
+        if outcome in ("user_not_found",):
+            err_id = "E-USR-001"
+            status = "USER_NOT_FOUND"
+        elif "api_error" in err_str or "timeout" in err_str or outcome in ("api_error",):
             err_id = "E-FDL-001"
             status = "API_ERROR"
         elif "download_failed" in err_str or outcome in ("download_error",):
@@ -563,6 +578,7 @@ def main():
         "users_api_error": 0,
         "users_download_error": 0,
         "users_upload_error": 0,
+        "users_not_found": 0,
         "users_other_error": 0,
         "files_downloaded": 0,
         "files_uploaded": 0,
@@ -607,11 +623,13 @@ def main():
                 total_stats["users_download_error"] += 1
             elif status == "UPLOAD_ERROR":
                 total_stats["users_upload_error"] += 1
+            elif status == "USER_NOT_FOUND":
+                total_stats["users_not_found"] += 1
             else:
                 total_stats["users_other_error"] += 1
 
-            # failed = any *_ERROR
-            if status in ("API_ERROR", "DOWNLOAD_ERROR", "UPLOAD_ERROR", "OTHER_ERROR"):
+            # failed = any *_ERROR + USER_NOT_FOUND
+            if status in ("API_ERROR", "DOWNLOAD_ERROR", "UPLOAD_ERROR", "USER_NOT_FOUND", "OTHER_ERROR"):
                 total_stats["users_failed"] += 1
                 failed_users.append((username, status, stats.get("error_id") or stats.get("error") or status))
             else:
@@ -662,10 +680,11 @@ def main():
     run_summary_lines.append(_fmt_line("  NO_ACTIVE_STORIES:", total_stats.get("users_no_active", 0)))
     run_summary_lines.append(_fmt_line("  NO_NEW_STORIES:", total_stats.get("users_no_new", 0)))
     run_summary_lines.append(_fmt_line("Failed:", failed))
-    if total_stats.get("users_api_error", 0) or total_stats.get("users_download_error", 0) or total_stats.get("users_upload_error", 0):
+    if total_stats.get("users_api_error", 0) or total_stats.get("users_download_error", 0) or total_stats.get("users_upload_error", 0) or total_stats.get("users_not_found", 0):
         run_summary_lines.append(_fmt_line("  API_ERROR:", total_stats.get("users_api_error", 0)))
         run_summary_lines.append(_fmt_line("  DOWNLOAD_ERROR:", total_stats.get("users_download_error", 0)))
         run_summary_lines.append(_fmt_line("  UPLOAD_ERROR:", total_stats.get("users_upload_error", 0)))
+        run_summary_lines.append(_fmt_line("  USER_NOT_FOUND:", total_stats.get("users_not_found", 0)))
     run_summary_lines.append(_fmt_line("Stories found:", total_stats.get("stories_found_total", 0)))
     run_summary_lines.append(_fmt_line("Stories downloaded:", total_stats["files_downloaded"]))
     run_summary_lines.append(_fmt_line("Files uploaded:", total_stats["files_uploaded"]))
@@ -720,6 +739,7 @@ def main():
                 f.write(f"| STORIES_FOUND | {total_stats.get('users_stories_found',0)} |\n")
                 f.write(f"| NO_ACTIVE_STORIES | {total_stats.get('users_no_active',0)} |\n")
                 f.write(f"| NO_NEW_STORIES | {total_stats.get('users_no_new',0)} |\n")
+                f.write(f"| USER_NOT_FOUND | {total_stats.get('users_not_found',0)} |\n")
                 f.write(f"| Failed | {failed} |\n")
                 f.write(f"| Stories found (items) | {total_stats.get('stories_found_total',0)} |\n")
                 f.write(f"| Stories downloaded | {total_stats['files_downloaded']} |\n")
@@ -758,6 +778,7 @@ def main():
             "users_api_error": total_stats.get("users_api_error", 0),
             "users_download_error": total_stats.get("users_download_error", 0),
             "users_upload_error": total_stats.get("users_upload_error", 0),
+            "users_not_found": total_stats.get("users_not_found", 0),
             "stories_found_total": total_stats.get("stories_found_total", 0),
             "files_downloaded": total_stats.get("files_downloaded", 0),
             "files_uploaded": total_stats.get("files_uploaded", 0),

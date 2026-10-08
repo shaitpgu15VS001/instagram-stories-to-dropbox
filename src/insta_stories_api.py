@@ -25,8 +25,10 @@ USER_AGENT = (
 )
 REFERER = "https://insta-stories.io/"
 
-# חותמות יחסיות כפי שהאתר מציג, למשל "21 hours ago".
-TIME_PATTERN = re.compile(r"(\d+\s*(?:minute|hour|day)s?\s*ago)", re.IGNORECASE)
+# חותמות יחסיות כפי שהאתר מציג, למשל "21 hours ago" או "just now".
+TIME_PATTERN = re.compile(
+    r"(\d+\s*(?:second|minute|hour|day)s?\s*ago|just now)", re.IGNORECASE
+)
 # כרטיס סטורי בודד ב-HTML (עד תחילת הכרטיס הבא).
 CARD_START = '<div class="col-md-4 position-relative">'
 IMG_SRC_PATTERN = re.compile(r'<img[^>]+src="([^"]+)"')
@@ -117,6 +119,44 @@ class InstaStoriesAPI:
         self.s = session or requests.Session()
         self.s.headers.update({"User-Agent": USER_AGENT, "Referer": REFERER})
 
+    def diagnose(self, username: str, timeout: int = 10) -> str:
+        """מבחין בין משתמש לא קיים לבין תקלת מקור.
+
+        נקרא רק כאשר `fetch_stories` נכשל. מחזיר:
+        - "user_not_found" כאשר האתר עצמו תקין אבל לא מכיר את המשתמש.
+        - "api_error" כאשר יש בעיית רשת או שהאתר עצמו נפל.
+        """
+        username = (username or "").strip().lstrip("@")
+        if not username:
+            return "api_error"
+        profile_ok = False
+        try:
+            r = self.s.get(
+                BASE_URL + CONTENT_PATH,
+                params={"url": username},
+                timeout=timeout,
+            )
+            if r.status_code == 200:
+                try:
+                    body = r.json()
+                except Exception:
+                    body = None
+                if isinstance(body, dict) and body.get("status") == "ok":
+                    profile_ok = True
+        except Exception:
+            profile_ok = False
+        if profile_ok:
+            # הפרופיל קיים — הכשל הוא בצד הסטוריז או זמני
+            return "api_error"
+        try:
+            home = self.s.get(BASE_URL + "/", timeout=timeout)
+            if home.status_code == 200:
+                # האתר תקין אבל לא מכיר את המשתמש
+                return "user_not_found"
+        except Exception:
+            pass
+        return "api_error"
+
     def fetch_stories(self, username: str, timeout: int = 20) -> Optional[List[Dict[str, Any]]]:
         username = (username or "").strip().lstrip("@")
         if not username:
@@ -143,6 +183,11 @@ class InstaStoriesAPI:
                 return []
             return None
         html = body.get("html") or ""
-        if not html:
+        if not html.strip():
             return []
-        return parse_stories_html(html)
+        items = parse_stories_html(html)
+        if not items:
+            # HTML לא ריק אבל לא פוענח ממנו דבר — כנראה מבנה האתר השתנה.
+            # להחזיר None (שגיאה) ולא [] כדי לא לדווח בטעות "אין סטוריז".
+            return None
+        return items

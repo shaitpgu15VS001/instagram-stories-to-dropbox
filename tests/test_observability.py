@@ -166,6 +166,19 @@ def test_summary_counts_statuses(tmp_path):
     assert len(failed) == 1
 
 
+def test_user_not_found_status(tmp_path):
+    class FakeDownloader:
+        def download_stories(self, username, folder_name=None):
+            return {"success": False, "files": [], "error": "user_not_found: @ghost לא נמצא", "outcome": "user_not_found", "stories_found": 0, "pre_skipped": 0}
+        def extract_story_id(self, name):
+            return name
+    lg = logger.logger
+    lg.init_debug(debug_dir=str(tmp_path/"debug7"), run_id="test-not-found")
+    stats = main.process_user("ghost", FakeDownloader(), _fake_uploader(tmp_path), _fake_state(), force_redownload=False)
+    assert stats["status"] == "USER_NOT_FOUND"
+    assert stats["error_id"] == "E-USR-001"
+
+
 def test_failures_appear_in_list(tmp_path):
     class FakeDownloader:
         def download_stories(self, username, folder_name=None):
