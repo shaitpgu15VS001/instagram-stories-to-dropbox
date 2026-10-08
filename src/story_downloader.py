@@ -64,6 +64,61 @@ def _is_mp4(content: bytes) -> bool:
         return False
 
 
+def _unique_path(user_dir, username, ts, ext, seen_names):
+    """נתיב ייחודי לקובץ: שני סטוריז שונים עם אותה חותמת זמן
+    (למשל שניהם 'לפני 8 שעות' שהורדו באותה שנייה) לא ידרסו זה את זה."""
+    filename = f"{username}-{ts}{ext}"
+    candidate = user_dir / filename
+    suffix = 1
+    while candidate.name in seen_names or candidate.exists():
+        suffix += 1
+        filename = f"{username}-{ts}_{suffix}{ext}"
+        candidate = user_dir / filename
+    seen_names.add(candidate.name)
+    return candidate
+
+
+def _is_heic(content: bytes) -> bool:
+    """בודק חתימת HEIC לפי מותג ה-ftyp (למשל תמונות אייפון)."""
+    try:
+        if not content or len(content) < 12:
+            return False
+        if content[4:8] != b"ftyp":
+            return False
+        brand = content[8:12]
+        return brand in (
+            b"heic", b"heix", b"hevc", b"hevx",
+            b"heim", b"heis", b"hevm", b"hevs",
+            b"mif1", b"msf1",
+        )
+    except Exception:
+        return False
+
+
+def _decide_ext(content: bytes, content_type: str, url: str) -> str:
+    """בוחר סיומת לפי content-type ו-URL, עם נפילה לזיהוי חתימת תוכן.
+
+    הנפילה חשובה כי שרתים מסוימים מחזירים content-type לא סטנדרטי
+    (למשל image/heic) על תוכן JPEG תקין.
+    """
+    ct = (content_type or "").lower()
+    if "video" in ct or ".mp4" in url.lower() or "video/mp4" in ct:
+        return ".mp4"
+    if "png" in ct or url.lower().endswith(".png"):
+        return ".png"
+    if "webp" in ct or url.lower().endswith(".webp"):
+        return ".webp"
+    if "jpeg" in ct or "jpg" in ct or url.lower().endswith((".jpg", ".jpeg")):
+        return ".jpg"
+    if _is_jpeg(content):
+        return ".jpg"
+    if _is_heic(content):
+        return ".heic"
+    if _is_mp4(content):
+        return ".mp4"
+    return ".bin"
+
+
 def format_taken_at_for_filename(ta):
     """Format unix timestamp `ta` into Israel local time filename fragment."""
     try:
@@ -658,6 +713,7 @@ class StoryDownloader:
 
     def _download_files(self, stories, user_dir, username):
         downloaded = []
+        seen_names = set()
         for idx, s in enumerate(stories, 1):
             url = s['u']
             for attempt in range(1, MAX_RETRIES + 1):
@@ -666,17 +722,8 @@ class StoryDownloader:
                     media = self._download_media_via_browser_context(url, timeout_seconds=DOWNLOAD_TIMEOUT)
                     content = media["content"]
                     ct = (media["content_type"] or "").lower()
-                    # Prefer content-type and signatures over URL extension
-                    if "video" in ct or ".mp4" in url.lower() or "video/mp4" in ct:
-                        ext = ".mp4"
-                    elif "png" in ct or url.lower().endswith(".png"):
-                        ext = ".png"
-                    elif "webp" in ct or url.lower().endswith(".webp"):
-                        ext = ".webp"
-                    elif "jpeg" in ct or "jpg" in ct or url.lower().endswith((".jpg", ".jpeg")):
-                        ext = ".jpg"
-                    else:
-                        ext = ".bin"
+                    # סיומת לפי content-type/URL, עם זיהוי חתימה כנפילה
+                    ext = _decide_ext(content, ct, url)
                     ts = None
                     # Prefer raw unix timestamp if available; format in Israel timezone
                     if s.get('ta'):
@@ -695,8 +742,7 @@ class StoryDownloader:
                     if not ts:
                         ts = f"unknown_{int(time.time())}_{idx}"
 
-                    filename = f"{username}-{ts}{ext}"
-                    p = user_dir / filename
+                    p = _unique_path(user_dir, username, ts, ext, seen_names)
 
                     # Validate content matches expected media type before saving
                     if ext == '.jpg' and not _is_jpeg(content):
@@ -716,7 +762,7 @@ class StoryDownloader:
                         len(content),
                         str(p),
                     )
-                    logger.debug(f"  [{idx}/{len(stories)}] הורד {filename}")
+                    logger.debug(f"  [{idx}/{len(stories)}] הורד {p.name}")
                     break
                 except (requests.HTTPError, ValueError, OSError, PlaywrightTimeout) as exc:
                     # Compute duration and extract minimal signed-url info for diagnostics

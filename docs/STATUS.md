@@ -39,6 +39,9 @@
 - 2026-10-05: אבחון ביתי על 4 שמות עם Playwright, כולל בדיקת DOM ורשת.
 - 2026-10-05: אימוץ insta-stories.io כמקור ראשי (`src/insta_stories_api.py`, חיבור ב-`src/story_downloader.py:478`, הרחבת `extract_pre_download_id`, Referer עודכן). אומת מקצה לקצה: 6 קבצים ל-idfonline. כל 47 הבדיקות עוברות.
 - 2026-10-05: מדריכי HTML בעברית RTL (`docs/SETUP.html`, `docs/USAGE.html` עם סעיף קבצים והחלטות, `docs/TROUBLESHOOTING.html`). סונכרנו גם קבצי ה-md (מקור חדש + סעיף קבצים ב-USAGE.md) וקישורים ב-README.
+- 2026-10-05: תיקון סיומת `.bin` (`_decide_ext` + `_is_heic` ב-`src/story_downloader.py:50`, בדיקות `tests/test_media_ext.py`). סיבה: שרת מחזיר `image/heic` על תוכן JPEG. אומת מול קובץ BIN אמיתי מהענן. כל 51 הבדיקות עוברות.
+- 2026-10-05: תיקון כפילויות-שווא (שמות קבצים זהים באותה שנייה דרסו זה את זה). `_unique_path` מוסיף `_2`... כל 52 הבדיקות עוברות.
+- 2026-10-07: הוסרה מגבלת `timeout-minutes: 25` מ-`.github/workflows/sync.yml` (בקשת משתמש). שים לב: ברירת המחדל של GitHub היא 360 דקות להרצה.
 
 ## אזהרות ומגבלות
 - לא להוסיף תלות כבדה (FlareSolverr/Docker) לפני שהזרימה החדשה מובנת.

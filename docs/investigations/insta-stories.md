@@ -3,7 +3,10 @@
 ## מטרה
 להחליף את fastdl כמקור סטוריז: בלי Captcha, עם API פשוט.
 
-## ממצאים מאומתים (2026-10-05, IP ביתי, requests בלבד)
+## ממצאים מאומתים
+- עובדה: הרצת GitHub ראשונה עם המקור החדש (2026-10-05, run 37319909731): 8/8 משתמשים הצליחו, 73 קבצים הועלו, 0 שגיאות, מניעת כפילויות עובדת. `shticktokofficial` ללא סטוריז פעילים (תקין).
+- עובדה: קבצי `.bin` אצל hidabroottv נגרמו מ-`content-type: image/heic` שהקוד לא הכיר. התוכן תקין (JPEG עם חתימה תקינה) — רק הסיומת שגויה.
+- עובדה: 4 ה"כפילויות" בהרצת GitHub הראשונה היו כפילויות-שווא (2026-10-05): מדיה ייחודית לכל פריט, אבל שמות קבצים זהים (אותה שנייה) → דריסה מקומית + דילוג שגוי. 4 סטוריז אמיתיים לא עלו. תוקן עם `_unique_path` (סיומת `_2`...). (2026-10-05, IP ביתי, requests בלבד)
 - עובדה: `GET /content.php?url=<username>` מחזיר `{"status":"ok","source":"GetProfileInfo","username","full_name","html"}` לשלושת השמות. אין Turnstile, אין כותרת מיוחדת.
 - עובדה: `GET /content.php?url=<username>&method=allstories` מחזיר `{"status":"ok","source":"GetAllStories","html"}` עם מדיה אמיתית: israeli_songs = 1 וידאו, idfonline = 4 תמונות + 2 וידאו, 995fm = 7 תמונות.
 - עובדה: חותמות זמן יחסיות ב-HTML: `21 hours ago`, `12 minutes ago` וכו' — נתפסות על ידי `_parse_meta_timestamp` הקיים.
