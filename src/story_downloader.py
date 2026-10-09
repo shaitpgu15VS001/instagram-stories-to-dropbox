@@ -28,7 +28,24 @@ PROFILE_LOAD_TIMEOUT = 60000
 STORIES_LOAD_TIMEOUT = 30000
 DOWNLOAD_TIMEOUT = 60
 MEDIA_EXTENSIONS = {".mp4", ".jpg", ".jpeg", ".png", ".webp", ".mov"}
-MAX_RETRIES, RETRYABLE, RETRY_DELAY = 3, {502, 503, 504}, 2
+MAX_RETRIES, RETRYABLE_HTTP, RETRY_DELAY = 4, {408, 425, 429, 500, 502, 503, 504}, 2
+
+
+def _retry_delay(attempt):
+    """המתנה גדלה בין ניסיונות (2, 4, 8... עד 30 שניות) — נותן לשרת להתאושש."""
+    try:
+        return min(2 ** attempt, 30)
+    except Exception:
+        return RETRY_DELAY
+
+
+def _http_status_of(exc):
+    """שולף קוד HTTP מהודעת השגיאה, או None אם אין."""
+    try:
+        m = re.search(r"status=(\d+)", str(exc))
+        return int(m.group(1)) if m else None
+    except Exception:
+        return None
 
 
 def extract_pre_download_id(href):
@@ -786,7 +803,13 @@ class StoryDownloader:
                     )
                     logger.debug(f"  [{idx}/{len(stories)}] הורד {p.name}")
                     break
-                except (requests.HTTPError, ValueError, OSError, PlaywrightTimeout) as exc:
+                except (requests.HTTPError, OSError, PlaywrightTimeout) as exc:
+                    # ניסיון חוזר רק לכשלים זמניים (5xx/429/timeout) עם המתנה גדלה.
+                    # שגיאת 4xx אחרת (למשל 404) לא תיפתר בניסיון נוסף.
+                    retryable = True
+                    if isinstance(exc, requests.HTTPError):
+                        status = _http_status_of(exc)
+                        retryable = status is None or status in RETRYABLE_HTTP
                     # Compute duration and extract minimal signed-url info for diagnostics
                     duration_ms = int((time.time() - start_ts) * 1000)
                     try:
@@ -818,12 +841,24 @@ class StoryDownloader:
                         expires_in,
                         host,
                     )
-                    if attempt == MAX_RETRIES:
-                        logger.warning(f"  [{idx}/{len(stories)}] שגיאת הורדה ב/browser context: {exc} E-DL-001")
+                    if attempt == MAX_RETRIES or not retryable:
+                        if not retryable:
+                            logger.warning(f"  [{idx}/{len(stories)}] שגיאה לא זמנית, לא מנסה שוב: {exc} E-DL-001")
+                        else:
+                            logger.warning(f"  [{idx}/{len(stories)}] שגיאת הורדה ב/browser context: {exc} E-DL-001")
                         break
-                    time.sleep(RETRY_DELAY)
+                    time.sleep(_retry_delay(attempt))
+                except ValueError as exc:
+                    # כשל תוכן דטרמיניסטי (ולידציה/דף שגיאה) — ניסיון נוסף לא יעזור.
+                    logger.warning(f"  [{idx}/{len(stories)}] תוכן לא תקין, לא מנסה שוב: {exc} E-DL-001")
+                    break
                 except Exception as exc:
-                    # General exception: log debug info and break (not retryable)
+                    # General exception: retry only when it looks transient
+                    # (למשל "aborted" — ביטול חיבור רגעי), אחרת break.
+                    transient = any(
+                        k in str(exc).lower()
+                        for k in ("abort", "reset", "econn", "socket", "temporar", "timeout", "network", "closed")
+                    )
                     duration_ms = int((time.time() - start_ts) * 1000)
                     try:
                         parsed = urlparse(url)
@@ -855,6 +890,9 @@ class StoryDownloader:
                         host,
                     )
                     logger.warning(f"  [{idx}/{len(stories)}] שגיאה כללית בהורדה: {exc} E-DL-001")
+                    if transient and attempt < MAX_RETRIES:
+                        time.sleep(_retry_delay(attempt))
+                        continue
                     break
         return downloaded
 
