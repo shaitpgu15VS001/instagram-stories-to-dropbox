@@ -28,7 +28,7 @@ def _make_fake_env(tmp_path):
         def is_uploaded(self, username, story_id):
             return False
 
-        def mark_uploaded(self, username, story_id, filename, dropbox_path, pre_download_id=None):
+        def mark_uploaded(self, username, story_id, filename, dropbox_path, pre_download_id=None, **kw):
             return None
 
         def save(self):

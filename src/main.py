@@ -7,6 +7,7 @@ import time
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit
+from zoneinfo import ZoneInfo
 
 from .logger import logger
 from .rclone_uploader import RcloneUploader, InfrastructureError
@@ -316,7 +317,7 @@ def load_usernames():
 
 
 def get_today_str():
-    return datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    return datetime.now(ZoneInfo("Asia/Jerusalem")).strftime("%Y-%m-%d")
 
 
 def random_delay():
@@ -338,13 +339,24 @@ def _detect_remotes(config_path=RCLONE_CONF_FILE):
     return remotes
 
 
-def _read_default_remote(file_path=STORAGE_BACKEND_FILE):
+def _read_remote_list(file_path=STORAGE_BACKEND_FILE):
+    """קורא רשימת עננים לפי סדר עדיפות (שורה לכל ענן). תואם לאחור לשם יחיד."""
     path = Path(file_path)
-    if path.exists():
-        name = path.read_text(encoding="utf-8").strip()
-        if name:
-            return name
-    return None
+    if not path.exists():
+        return []
+    names = []
+    for line in path.read_text(encoding="utf-8").splitlines():
+        name = line.strip()
+        if not name or name.startswith("#"):
+            continue
+        if name not in names:
+            names.append(name)
+    return names
+
+
+def _read_default_remote(file_path=STORAGE_BACKEND_FILE):
+    names = _read_remote_list(file_path)
+    return names[0] if names else None
 
 
 def process_user(username, downloader, uploader, state, force_redownload, folder_name=None):
@@ -440,6 +452,7 @@ def process_user(username, downloader, uploader, state, force_redownload, folder
                 filename=local_file.name,
                 dropbox_path=dropbox_path,
                 pre_download_id=pre_id,
+                remote=getattr(uploader, "current_remote", None),
             )
             saved = False
             try:
@@ -509,13 +522,24 @@ def main():
     logger.info(f"זמן התחלה: {start_ts.isoformat()}")
     logger.info(f"SCROLL_DEBUG={os.environ.get('SCROLL_DEBUG')}")
 
+    from .schedule import read_trigger, should_run
+    trigger = read_trigger()
+    event = os.environ.get("GITHUB_EVENT_NAME", "")
+    run_now, run_reason = should_run(trigger, event)
+    logger.info(f"TRIGGER mode={trigger} event={event or 'local'}: {run_reason}")
+    if not run_now:
+        sys.exit(0)
+
     force_redownload = os.environ.get("FORCE_REDOWNLOAD", "false").lower() == "true"
     if force_redownload:
         logger.warning("מצב כפוי: כל הקבצים יועלו מחדש ללא בדיקת כפילויות")
 
     remote_from_env = os.environ.get("STORAGE_BACKEND", "").strip().lower()
-    remote_from_file = _read_default_remote()
-    remote_from_env = remote_from_env if remote_from_env else (remote_from_file or "")
+    remote_list = _read_remote_list()
+    if remote_from_env:
+        requested = [remote_from_env]
+    else:
+        requested = remote_list
 
     available = _detect_remotes()
     if not available:
@@ -524,20 +548,20 @@ def main():
 
     logger.info(f"אחסונים זמינים: {available}")
 
-    if remote_from_env:
-        if remote_from_env not in available:
-            logger.warning(
-                f"האחסון המבוקש '{remote_from_env}' לא נמצא ב-rclone.conf. "
-                f"אפשרויות: {available}. בוחר אוטומטית..."
-            )
-            selected = available[0]
-        else:
-            selected = remote_from_env
-    else:
-        selected = available[0]
+    ordered = [r for r in requested if r in available]
+    for r in requested:
+        if r not in available:
+            logger.warning(f"האחסון המבוקש '{r}' לא נמצא ב-rclone.conf. מדלג.")
+    if not ordered:
+        if requested:
+            logger.warning(f"אף אחסון מבוקש לא נמצא. אפשרויות: {available}. בוחר אוטומטית...")
+        ordered = list(available)
 
-    logger.info(f"נבחר אחסון: {selected}")
-    uploader = RcloneUploader(remote_name=selected, config_path=RCLONE_CONF_FILE)
+    logger.info(f"סדר עדיפויות: {ordered}")
+    uploader = RcloneUploader(remote_name=ordered[0], config_path=RCLONE_CONF_FILE, failover_remotes=ordered)
+    if uploader.select_initial() is None:
+        logger.error("כל העננים מלאים (מעל 97%) או לא זמינים. פנה מקום ונסה שוב.")
+        sys.exit(1)
 
     user_entries, load_stats = load_usernames()
     if not user_entries:
@@ -565,7 +589,7 @@ def main():
         sys.exit(1)
 
     if not uploader.connect():
-        logger.error(f"לא ניתן להתחבר לאחסון '{selected}'. בדוק את rclone.conf.")
+        logger.error(f"לא ניתן להתחבר לאחסון '{ordered[0]}'. בדוק את rclone.conf.")
         sys.exit(1)
 
     total_stats = {
@@ -689,6 +713,14 @@ def main():
     run_summary_lines.append(_fmt_line("Stories downloaded:", total_stats["files_downloaded"]))
     run_summary_lines.append(_fmt_line("Files uploaded:", total_stats["files_uploaded"]))
     run_summary_lines.append(_fmt_line("Duplicates skipped:", total_stats["duplicates_skipped"]))
+    try:
+        for remote_name, count in (getattr(uploader, "uploads_per_remote", {}) or {}).items():
+            if count:
+                run_summary_lines.append(_fmt_line(f"Uploaded to {remote_name}:", count))
+        for sw in getattr(uploader, "switches", []) or []:
+            run_summary_lines.append(f"Switched cloud {sw.get('from')} -> {sw.get('to')} ({sw.get('reason')})")
+    except Exception:
+        pass
     run_summary_lines.append(f"State tracked: {overall['total_uploaded']} (for {overall['tracked_users']} users)")
     run_summary_lines.append("=" * 40)
 
@@ -767,7 +799,12 @@ def main():
             "end_iso": end_ts.isoformat(),
             "duration_seconds": int((end_ts - start_ts).total_seconds()),
             "python_version": platform.python_version(),
-            "selected_backend": selected,
+            "selected_backend": ordered[0],
+            "remote_order": ordered,
+            "trigger": trigger,
+            "event": event or "local",
+            "uploads_per_remote": getattr(uploader, "uploads_per_remote", {}),
+            "cloud_switches": getattr(uploader, "switches", []),
             "users_loaded": len(user_entries),
             "users_processed": total_stats.get("users_processed", 0),
             "users_failed": total_stats.get("users_failed", 0),

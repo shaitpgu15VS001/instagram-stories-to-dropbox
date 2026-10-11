@@ -26,6 +26,10 @@ footer{margin-top:30px;border-top:1px solid #ddd;padding-top:10px;font-size:.9em
 <h2>❌ "Playwright לא מותקן" / "Executable doesn't exist"</h2>
 <p><strong>פתרון:</strong> ודא שב-<code>requirements.txt</code> יש <code>playwright</code>, וב-workflow יש שלב <code>playwright install --with-deps chromium</code>. נסה להריץ שוב (לפעמים רשת זמנית). ההרצה הראשונה תמיד איטית (~150MB).</p>
 
+<h2>❌ "כל העננים מלאים" / UPLOAD_ERROR לכולם</h2>
+<p><strong>פתרון:</strong> פנה מקום באחד העננים או הוסף ענן חדש לרשימה ב-<code>STORAGE_BACKEND.txt</code> (ועדכן את ה-Secret). קבצים שלא הועלו ינוסו שוב בהרצה הבאה.</p>
+<p>שורת "עובר ענן מ-X ל-Y" בלוג היא תקינה – מעבר אוטומטי כי הקודם התמלא.</p>
+
 <h2>❌ שגיאת חיבור לענן / אימות נכשל</h2>
 <p><strong>פתרון:</strong></p>
 <ol>

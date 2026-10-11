@@ -56,7 +56,7 @@ jobs:
         if: env.RCLONE_CONF != ''
         run: printf '%s' "$RCLONE_CONF" > rclone.conf
 
-      - name: Resolve remote backend for stories and state persistence
+      - name: Resolve remote backends for stories and state persistence
         id: resolve-remote
         env:
           STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
@@ -64,7 +64,7 @@ jobs:
           set -euo pipefail
           requested="$(printf '%s' "$STORAGE_BACKEND" | tr -d '\r')"
           if [ -z "$requested" ] && [ -f STORAGE_BACKEND.txt ]; then
-            requested="$(tr -d '\r\n' < STORAGE_BACKEND.txt | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+            requested="$(grep -v '^[[:space:]]*#' STORAGE_BACKEND.txt | grep -v '^[[:space:]]*$' | tr -d '\r' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | tr '\n' ' ')"
           fi
 
           if [ ! -f rclone.conf ]; then
@@ -88,35 +88,54 @@ jobs:
             exit 1
           fi
 
-          if ! printf '%s\n' "$remotes" | grep -Fxq "$requested"; then
-            echo "error: requested storage backend '$requested' not found in rclone.conf" >&2
+          ordered=""
+          for name in $requested; do
+            if printf '%s\n' "$remotes" | grep -Fxq "$name"; then
+              ordered="$ordered $name"
+            else
+              echo "warning: requested storage backend '$name' not found in rclone.conf, skipping" >&2
+            fi
+          done
+          ordered="$(echo "$ordered" | xargs)"
+          if [ -z "$ordered" ]; then
+            echo "error: none of the requested storage backends found in rclone.conf" >&2
             echo "available remotes: $remotes" >&2
             exit 1
           fi
 
-          echo "remote=$requested" >> "$GITHUB_OUTPUT"
+          primary="$(echo "$ordered" | awk '{print $1}')"
+          echo "remotes=$ordered" >> "$GITHUB_OUTPUT"
+          echo "primary=$primary" >> "$GITHUB_OUTPUT"
+          echo "ordered backends: $ordered (primary: $primary)"
 
       - name: Restore state.json from remote if it exists
         run: |
           set -e
-          remote="${{ steps.resolve-remote.outputs.remote }}"
-          if [ ! -f rclone.conf ]; then
-            echo 'rclone.conf is missing' >&2
-            exit 1
-          fi
-          if ! rclone listremotes --config rclone.conf | grep -Fxq "${remote}:"; then
-            echo "Could not access remote '${remote}' via rclone" >&2
-            exit 1
-          fi
-          if ! rclone lsd "${remote}:" --config rclone.conf >/dev/null 2>&1; then
-            echo "Remote '${remote}' is configured but not accessible via rclone" >&2
-            exit 1
-          fi
-          if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
-            rclone copyto "${remote}:.instagram-sync/state.json" state.json --config rclone.conf
-            echo "Restored state.json from ${remote}:.instagram-sync/state.json"
-          else
-            echo "Remote state.json not found; starting fresh"
+          restored=0
+          for remote in ${{ steps.resolve-remote.outputs.remotes }}; do
+            if [ ! -f rclone.conf ]; then
+              echo 'rclone.conf is missing' >&2
+              exit 1
+            fi
+            if ! rclone listremotes --config rclone.conf | grep -Fxq "${remote}:"; then
+              echo "Could not access remote '${remote}' via rclone" >&2
+              continue
+            fi
+            if ! rclone lsd "${remote}:" --config rclone.conf >/dev/null 2>&1; then
+              echo "Remote '${remote}' is configured but not accessible via rclone" >&2
+              continue
+            fi
+            if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
+              rclone copyto "${remote}:.instagram-sync/state.json" state.json --config rclone.conf
+              echo "Restored state.json from ${remote}:.instagram-sync/state.json"
+              restored=1
+              break
+            else
+              echo "No state.json on ${remote}, trying next"
+            fi
+          done
+          if [ "$restored" = "0" ]; then
+            echo "Remote state.json not found on any backend; starting fresh"
           fi
 
       - name: Validate restored state.json if present
@@ -192,7 +211,6 @@ jobs:
         if: ${{ always() && steps.resolve-remote.outcome == 'success' }}
         run: |
           set -e
-          remote="${{ steps.resolve-remote.outputs.remote }}"
           if [ ! -f state.json ]; then
             echo 'No local state.json to upload'
             exit 0
@@ -240,9 +258,23 @@ jobs:
                       print('Each entry must include instagram_id or pre_download_id', file=sys.stderr)
                       sys.exit(1)
           PY
-          rclone mkdir "${remote}:.instagram-sync" --config rclone.conf
-          rclone copyto state.json "${remote}:.instagram-sync/state.json" --config rclone.conf
-          echo "Uploaded state.json to ${remote}:.instagram-sync/state.json"
+          # State lives on the primary backend; emergency fallback to next on failure.
+          uploaded=0
+          # shellcheck disable=SC2086
+          for remote in ${{ steps.resolve-remote.outputs.remotes }}; do
+            if rclone mkdir "${remote}:.instagram-sync" --config rclone.conf 2>/dev/null \
+              && rclone copyto state.json "${remote}:.instagram-sync/state.json" --config rclone.conf 2>/dev/null; then
+              echo "Uploaded state.json to ${remote}:.instagram-sync/state.json"
+              uploaded=1
+              break
+            else
+              echo "Warning: could not upload state.json to ${remote}, trying next" >&2
+            fi
+          done
+          if [ "$uploaded" = "0" ]; then
+            echo 'error: could not upload state.json to any backend' >&2
+            exit 1
+          fi
 
       - name: Clean temporary files
         if: always()

@@ -84,7 +84,7 @@ class StateManager:
         _, item = self.find_uploaded_entry(username, story_id)
         return item is not None
 
-    def mark_uploaded(self, username, story_id, filename, dropbox_path, published_at=None, pre_download_id=None):
+    def mark_uploaded(self, username, story_id, filename, dropbox_path, published_at=None, pre_download_id=None, remote=None):
         if username not in self.state["uploaded_files"]:
             self.state["uploaded_files"][username] = []
 
@@ -98,6 +98,9 @@ class StateManager:
         # Optionally store the pre-download identifier (uri_path) for faster skip-before-download
         if pre_download_id:
             entry["pre_download_id"] = pre_download_id
+        # Which cloud the file was uploaded to (failover tracking)
+        if remote:
+            entry["remote"] = remote
 
         self.state["uploaded_files"][username].append(entry)
         logger.debug(f"סומן כהועלה: {username}/{filename}")
