@@ -137,6 +137,10 @@
 
 ---
 
+## ❌ TEST RUN ב-cron-job מחזיר 401
+
+גיטהאב לא קיבל טוקן תקין. לפי סדר: (1) שתי הכותרות הוגדרו? (2) הערך בדיוק `Bearer רווח טוקן`? (3) טוקן Fine-grained עם Actions לריפו הזה ולא פג? (4) הדלק "Save responses" לראות הודעה מדויקת: `Bad credentials` = טוקן; `Resource not accessible` = הרשאה.
+
 ## 🆘 עדיין לא עובד?
 
 1. **העתק את הלוג** מ-GitHub Actions (החלק שמתחיל ב-❌)

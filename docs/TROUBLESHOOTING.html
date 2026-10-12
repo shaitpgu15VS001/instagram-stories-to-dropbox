@@ -70,6 +70,15 @@ footer{margin-top:30px;border-top:1px solid #ddd;padding-top:10px;font-size:.9em
 <h2>❌ קבצים לא נטענים בטלפון</h2>
 <p>רענן את האפליקציה, בדוק מקום פנוי, ודא חיבור לאותו חשבון.</p>
 
+<h2>❌ TEST RUN ב-cron-job מחזיר 401 Unauthorized</h2>
+<p><strong>מה זה אומר:</strong> גיטהאב לא קיבל טוקן תקין. לבדוק לפי סדר:</p>
+<ol>
+<li><strong>הכותרות הוגדרו?</strong> לשונית ADVANCED ← Headers – חייבות להיות <strong>שתי</strong> כותרות (<code>Accept</code> ו-<code>Authorization</code>). אם כתוב "No custom headers defined" – עוד לא הוספת. לחץ ADD.</li>
+<li><strong>הערך מדויק?</strong> חייב להיות <code>Bearer רווח טוקן</code> – עם רווח אחרי Bearer, בלי גרשיים ובלי רווחים מיותרים. טעות נפוצה: הדבקה עם שורה חדשה בסוף.</li>
+<li><strong>הטוקן מתאים?</strong> חייב להיות Fine-grained עם גישה לריפו הזה + הרשאת Actions. טוקן שפג או בלי הרשאה – גם נותן 401.</li>
+<li><strong>לראות הודעה מדויקת:</strong> הדלק ב-COMMON את <strong>"Save responses in job history"</strong> והרץ שוב – <code>"Bad credentials"</code> = טוקן שגוי/פג; <code>"Resource not accessible"</code> = חסרה הרשאת Actions.</li>
+</ol>
+
 <h2>🆘 עדיין לא עובד?</h2>
 <ol>
 <li>העתק את הלוג וחפש את הודעת השגיאה המדויקת למעלה</li>

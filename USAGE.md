@@ -234,7 +234,7 @@ onedrive
 - `trigger=github` (ברירת מחדל) — cron של GitHub + כפתור ידני. פשוט, לא מדויק לדקה.
 - `trigger=external` — שירות חיצוני (למשל cron-job.org, חינמי) מעורר דרך API בדיוק של כדקה. הרצות cron של GitHub מדולגות אוטומטית. כפתור ידני עובד תמיד.
 
-חיבור cron-job.org: צור טוקן GitHub (הרשאת Actions:write לריפו), צור משימה עם POST ל-`https://api.github.com/repos/שם_משתמש/שם_ריפו/actions/workflows/sync.yml/dispatches`, כותרות `Accept: application/vnd.github+json` ו-`Authorization: Bearer הטוקן`, גוף `{"ref":"main"}`. קבע לוח זמנים ובדוק בטאב Actions.
+חיבור cron-job.org: במסך Personal access tokens בחר **Fine-grained tokens** (לא classic — קלאסי נותן גישה לכל הריפו). צור טוקן לשנה עם גישה לריפו הסטוריז בלבד והרשאת **Actions: Read and write**. העתק אותו מיד. בדשבורד לחץ **Create cronjob** ועבור על 3 הלשוניות: ב-**COMMON** — Title, URL (של ה-dispatches), מתג Enable job דולק, וב-Execution schedule בחר **Custom** עם `0 */3 * * *` ובדוק ב-Next executions; ב-**ADVANCED** — Request method ‏**POST**, ב-Request body הדבק `{"ref":"main"}`, ב-Headers הוסף `Accept: application/vnd.github+json` ו-`Authorization: Bearer הטוקן`, וודא Time zone ‏**Asia/Jerusalem**; ב-**NOTIFICATIONS** — הדלק התראה על כשלון. לחץ **TEST RUN** ובדוק שנוצרה הרצה ב-Actions, ורק אז **CREATE**. שים תזכורת לחדש את הטוקן בעוד שנה — כשהוא פג, ההרצות מפסיקות להגיע.
 
 ### אזורי זמן (שלא יהיו אי-הבנות)
 - **cron של GitHub = שעון UTC תמיד.** למשל `0 */3 * * *` רץ ב-00:00, 03:00... UTC — כלומר 03:00, 06:00... שעון ישראל (קיץ). לתזמון לפי שעה ישראלית — חשב אחורה את ההפרש.

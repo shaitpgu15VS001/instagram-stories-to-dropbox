@@ -3,99 +3,73 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>מדריך התקנה - הורדת סטוריז מאינסטגרם לענן</title>
+<title>מדריך התקנה קצר - הורדת סטוריז מאינסטגרם לענן</title>
 <style>
-body{font-family:Arial,"Segoe UI",Tahoma,sans-serif;line-height:1.8;max-width:820px;margin:0 auto;padding:20px;color:#222;background:#fff}
+body{font-family:Arial,"Segoe UI",Tahoma,sans-serif;line-height:1.9;max-width:820px;margin:0 auto;padding:20px;color:#222;background:#fff}
 h1{font-size:1.6em;border-bottom:2px solid #4a90d9;padding-bottom:8px}
-h2{font-size:1.3em;color:#1a5fb4;margin-top:1.6em}
-h3{font-size:1.1em;margin-top:1.2em}
+h2{font-size:1.3em;color:#1a5fb4;margin-top:1.8em;border-bottom:1px solid #ddd;padding-bottom:4px}
+p{margin:10px 0}
 pre{background:#f4f4f4;border:1px solid #ddd;border-radius:6px;padding:12px;overflow:auto}
 code{background:#f0f0f0;padding:1px 5px;border-radius:4px}
 pre code{background:none;padding:0}
 .tip{background:#eef6ff;border-right:4px solid #4a90d9;padding:10px 14px;border-radius:4px;margin:12px 0}
 .warn{background:#fff8e6;border-right:4px solid #e6a817;padding:10px 14px;border-radius:4px;margin:12px 0}
+.step{background:#f9f9f9;border:1px solid #e0e0e0;border-radius:6px;padding:10px 14px;margin:10px 0}
 ol,ul{padding-right:24px}
-li{margin-bottom:6px}
+li{margin-bottom:8px}
 nav{background:#f7f7f7;border:1px solid #ddd;border-radius:6px;padding:10px 14px;margin:16px 0}
 nav a{margin-left:14px}
 footer{margin-top:30px;border-top:1px solid #ddd;padding-top:10px;font-size:.9em;color:#555}
 </style>
 </head>
 <body>
-<h1>🛠️ מדריך התקנה - צעד אחר צעד</h1>
-<p>מדריך זה ילווה אותך בהתקנה הראשונית, מאפס ועד הרצה ראשונה.<br>זמן משוער: 30-45 דקות.</p>
+<h1>🛠️ מדריך התקנה קצר – מאפס עד סטורי ראשון בענן</h1>
+<p><strong>מה המערכת עושה?</strong> רובוט חינמי שבודק כל כמה שעות סטוריז של אנשים שבחרת באינסטגרם, ושומר אותם אוטומטית בענן שלך (Dropbox או OneDrive). בלי חשבון אינסטגרם, בלי מחשב דולק, באנונימיות מלאה.</p>
+<p><strong>איך זה עובד?</strong> אינסטגרם ← שירות הורדה ← רובוט GitHub ← הענן שלך. אתה מגדיר פעם אחת, וזה רץ לבד.</p>
+<p>זמן משוער: 30-45 דקות. צריך: חשבון ענן, כתובת מייל, מחשב.</p>
 <nav><strong>מדריכים:</strong> <a href="SETUP.html">התקנה (קצר)</a> <a href="USAGE.html">שימוש מורחב</a> <a href="TROUBLESHOOTING.html">פתרון בעיות</a></nav>
 
-<h2>חלק 1: הכנה</h2>
-<p>לפני שמתחילים, צריך:</p>
+<h2>שלב 1: מה זה GitHub ולמה צריך אותו?</h2>
+<p><strong>GitHub</strong> הוא אתר שמאחסן קבצים ומריץ תוכנות בחינם, 24 שעות ביממה. הרובוט שלנו גר שם – המחשב שלך יכול להיות כבוי והכל ממשיך לעבוד. התוכנית החינמית מספיקה לגמרי.</p>
+<div class="step"><strong>פתיחת חשבון:</strong> היכנס ל-<code dir="ltr">github.com/signup</code> ← מלא מייל, סיסמה ושם משתמש ← אשר את המייל שישלחו לך ← בחר תוכנית <strong>Free</strong>. זהו, יש לך חשבון.</div>
+
+<h2>שלב 2: חיבור הענן (5 דקות + המתנה לאישור)</h2>
+<p>נתחבר ל-Dropbox בעזרת תוכנה קטנה בשם <strong>rclone</strong> (מתווך בין המחשב לענן).</p>
+<div class="step"><strong>1.</strong> פתח PowerShell (חפש "PowerShell" בתפריט התחל) והדבק: <pre dir="ltr"><code>winget install rclone</code></pre> לחץ Enter וחכה לסיום.</div>
+<div class="step"><strong>2.</strong> הדבק: <pre dir="ltr"><code>rclone authorize "dropbox"</code></pre> יופיע קישור – פתח אותו בדפדפן, התחבר ל-Dropbox ולחץ אישור (Allow). חזור ל-PowerShell – יופיע קוד ארוך (token). <strong>אל תסגור את החלון!</strong></div>
+<div class="step"><strong>3.</strong> הדבק: <pre dir="ltr"><code>rclone config</code></pre> ענה כך: הקש <code>n</code> ← שם: <code>dropbox</code> ← בחר את המספר של Dropbox מהרשימה ← פעמיים Enter (ריק) ← <code>N</code> ← הדבק את הקוד מצעד 2 ← <code>y</code> ← בסוף <code>q</code>.</div>
+<div class="step"><strong>4.</strong> הדבק: <pre dir="ltr"><code>notepad "$env:USERPROFILE\.config\rclone\rclone.conf"</code></pre> ייפתח קובץ – <strong>העתק את כל תוכנו</strong> ושמור בצד (בקובץ טקסט זמני). זה המפתח לענן.</div>
+<div class="tip">OneDrive? אפשר להוסיף אחר כך – ראה <a href="USAGE.html">המדריך המורחב</a>. כרגע מספיק ענן אחד.</div>
+
+<h2>שלב 3: יצירת מקום לפרויקט בגיטהאב</h2>
+<div class="step"><strong>1.</strong> היכנס ל-<code dir="ltr">github.com/new</code> ← תן שם, למשל <code>instagram-stories</code> ← בחר <strong>Private</strong> (פרטי – רק אתה רואה) ← <strong>Create repository</strong>.</div>
+<div class="step"><strong>2.</strong> בדף הריפו לחץ <strong>Add file</strong> ← <strong>Upload files</strong> ← גרור את כל קבצי הפרויקט שקיבלת ← <strong>Commit changes</strong> (כפתור ירוק). הקבצים עולים לרשת.</div>
+<div class="tip">קיבלת את הקבצים כקובץ ZIP? חלץ אותו קודם לתיקייה, ואז גרור את <strong>תוכן</strong> התיקייה (לא את התיקייה עצמה).</div>
+
+<h2>שלב 4: המפתח היחיד (Secret)</h2>
+<p>כדי שהרובוט יוכל להעלות לענן שלך, נותנים לו את המפתח משלב 2 – במקום מוצפן שנקרא <strong>Secret</strong> (אף אחד לא יכול לראות מה כתוב בו, גם לא אתה אחרי השמירה).</p>
+<div class="step"><strong>1.</strong> בריפו: <strong>Settings</strong> (למעלה) ← בתפריט השמאלי <strong>Secrets and variables</strong> ← <strong>Actions</strong> ← <strong>New repository secret</strong>.</div>
+<div class="step"><strong>2.</strong> בשם כתוב <code>RCLONE_CONF</code>, בתוכן הדבק את כל מה שהעתקת בשלב 2 צעד 4 ← <strong>Add secret</strong>. זהו – זה הסוד היחיד שצריך.</div>
+<div class="warn"><strong>כלל ברזל:</strong> לעולם לא להעלות את קובץ <code>rclone.conf</code> עצמו לריפו – רק להדביק את תוכנו לתוך ה-Secret!</div>
+
+<h2>שלב 5: אדם ראשון למעקב</h2>
+<div class="step"><strong>1.</strong> בריפו לחץ על <code>usernames.txt</code> ← סמל העיפרון ✏️ ← כתוב שם משתמש אחד (בלי @), למשל <code>natgeo</code> ← <strong>Commit changes</strong>.</div>
+<div class="tip">חייב להיות חשבון <strong>ציבורי</strong> (רואים אותו בדפדפן בלי להתחבר). פרטי – לא יעבוד לעולם.</div>
+
+<h2>שלב 6: הרצה ראשונה ובדיקה 🎉</h2>
+<div class="step"><strong>1.</strong> לחץ למעלה על <strong>Actions</strong> (אם כתוב שה-workflows כבויים – אשר).</div>
+<div class="step"><strong>2.</strong> בצד שמאל לחץ על <strong>Download Instagram Stories to Dropbox</strong> ← מימין <strong>Run workflow</strong> ← שוב <strong>Run workflow</strong>.</div>
+<div class="step"><strong>3.</strong> לחץ על ההרצה שנפתחה ← <strong>sync</strong> – רואים לוג חי. ההרצה הראשונה לוקחת 3-5 דקות (מתקינה דברים).</div>
+<div class="step"><strong>4.</strong> בסוף הלוג חפש <strong>RUN SUMMARY</strong> – אם יש שורת <code>STORIES_FOUND</code>, הצלחת! בדוק בענן: תיקייה <code>Instagram</code> ← תאריך היום ← שם המשתמש ← הקבצים.</div>
+<div class="warn">אין קבצים? או שאין סטורי פעיל עכשיו (נמחק אחרי 24 שעות – תקין!), או שהחשבון פרטי. נסה חשבון פעיל מאוד כמו <code>instagram</code>. עזרה נוספת: <a href="TROUBLESHOOTING.html">פתרון בעיות</a>.</div>
+
+<h2>סיימת! מה הלאה?</h2>
 <ul>
-<li>חשבון Dropbox או OneDrive (אפשר חינמי)</li>
-<li>גישה למייל (לאימות GitHub וענן)</li>
-<li>30-45 דקות פנויות</li>
-<li>מחשב עם Windows, Mac או Linux (רק להתקנה - אחר כך הכל רץ בענן)</li>
+<li>המערכת רצה לבד <strong>כל 3 שעות</strong>. להוספת אנשים – עוד שורות ב-<code>usernames.txt</code>.</li>
+<li>לכל השאר (ענן שני, שמות בעברית, תדירות, דיוק, קריאת דו"חות) – <a href="USAGE.html">המדריך המורחב</a>.</li>
 </ul>
 
-<h2>חלק 2: חיבור אחסון ענן (rclone)</h2>
-<p>המערכת מתחברת לענן דרך כלי בשם <strong>rclone</strong>. כל החיבורים נשמרים בקובץ אחד: <code>rclone.conf</code>.</p>
-
-<h3>שלב 1: התקנת rclone</h3>
-<p>פתח PowerShell והרץ:</p>
-<pre dir="ltr"><code>winget install rclone</code></pre>
-<div class="tip">אם <code>winget</code> לא מותקן, הורד מ-<code>rclone.org/downloads</code> והתקן ידנית.</div>
-
-<h3>שלב 2: חיבור ל-Dropbox</h3>
-<pre dir="ltr"><code>rclone authorize "dropbox"</code></pre>
-<ol>
-<li>תיפתח הודעה עם קישור או קוד</li>
-<li>פתח את הקישור בדפדפן, התחבר ל-Dropbox ואשר גישה</li>
-<li>אחרי האישור יופיע token ב-PowerShell - <strong>אל תסגור את החלון</strong></li>
-</ol>
-
-<h3>שלב 3: חיבור ל-OneDrive (אופציונלי)</h3>
-<pre dir="ltr"><code>rclone authorize "onedrive" --auth-no-open-browser</code></pre>
-<ol>
-<li>העתק את הקישור לדפדפן, התחבר לחשבון Microsoft ואשר</li>
-<li>יופיע token ב-PowerShell</li>
-</ol>
-
-<h3>שלב 4: יצירת קובץ התצורה</h3>
-<pre dir="ltr"><code>rclone config</code></pre>
-<p>לכל חיבור (Dropbox / OneDrive): הקש <code>n</code>, תן שם (<code>dropbox</code>), בחר את הסוג מהרשימה, השאר Client Id/Secret ריקים, בחר <code>N</code> ב-auto config, הדבק את ה-token, ואשר עם <code>y</code>. בסיום הקש <code>q</code>.</p>
-
-<h3>שלב 5: העתקת התצורה</h3>
-<pre dir="ltr"><code>notepad "$env:USERPROFILE\.config\rclone\rclone.conf"</code></pre>
-<p>העתק את <strong>כל תוכן הקובץ</strong>. שמור אותו - תדביק אותו ב-GitHub בהמשך.</p>
-
-<h2>חלק 3: אחסון ברירת מחדל</h2>
-<p>אם חיברת יותר מענן אחד, קבע לאן יעלו הקבצים כברירת מחדל. ערוך את <code>STORAGE_BACKEND.txt</code> וכתוב שם אחד:</p>
-<pre dir="ltr"><code>dropbox</code></pre>
-<p>או <code>onedrive</code>. אפשר גם לבחור ענן אחר בכל הרצה ידנית (ראה מדריך שימוש).</p>
-
-<h2>חלק 4: חשבון GitHub וריפו</h2>
-<ol>
-<li>אם אין לך חשבון: <code>github.com/signup</code> - בחר תוכנית Free</li>
-<li>צור ריפו חדש: <code>github.com/new</code> - שם למשל <code>instagram-stories-to-dropbox</code>, בחר <strong>Private</strong></li>
-<li>העלה את קבצי הפרויקט מהמחשב (ראה מדריך שימוש, חלק העלאה)</li>
-</ol>
-
-<h2>חלק 5: Secret יחיד</h2>
-<ol>
-<li>בריפו: <strong>Settings</strong> ← <strong>Secrets and variables</strong> ← <strong>Actions</strong> ← <strong>New repository secret</strong></li>
-<li>Name: <code>RCLONE_CONF</code>, תוכן: כל תוכן <code>rclone.conf</code> משלב 5</li>
-</ol>
-<div class="tip">זה ה-Secret היחיד שהמערכת צריכה. הוא מכיל את כל חיבורי הענן.</div>
-
-<h2>חלק 6: משתמש ראשון והרצה ראשונה</h2>
-<ol>
-<li>ערוך את <code>usernames.txt</code> בריפו והוסף שורה עם שם משתמש (בלי @), למשל <code>natgeo</code></li>
-<li>עבור לטאב <strong>Actions</strong> ← בחר את ה-workflow ← <strong>Run workflow</strong></li>
-<li>ההרצה הראשונה לוקחת 3-5 דקות (מתקינה דפדפן). עקוב בלוגים</li>
-<li>בדוק בענן: תיקייה <code>Instagram/&lt;תאריך&gt;/&lt;שם&gt;/</code></li>
-</ol>
-
-<div class="warn"><strong>חשוב:</strong> המערכת מורידה רק מחשבונות <strong>ציבוריים</strong>. חשבונות פרטיים לא נתמכים.</div>
-
-<nav><strong>המשך:</strong> <a href="USAGE.html">מדריך שימוש מורחב</a> <a href="TROUBLESHOOTING.html">פתרון בעיות</a></nav>
-<footer>מקור ההורדה: insta-stories.io (ראשי, בלי Captcha), fastdl.app (גיבוי). אין צורך בחשבון אינסטגרם.</footer>
+<nav><strong>מדריכים:</strong> <a href="SETUP.html">התקנה (קצר)</a> <a href="USAGE.html">שימוש מורחב</a> <a href="TROUBLESHOOTING.html">פתרון בעיות</a></nav>
+<footer>בלי חשבון אינסטגרם, באנונימיות מלאה, רק חשבונות ציבוריים. מקור ההורדה: insta-stories.io.</footer>
 </body>
 </html>

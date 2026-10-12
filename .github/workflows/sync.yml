@@ -1,8 +1,9 @@
 name: Download Instagram Stories to Dropbox
+run-name: "Download Stories [${{ github.event_name }}]"
 
 on:
   schedule:
-    - cron: '0 */3 * * *'
+    - cron: '0 */7 * * *'
   workflow_dispatch:
     inputs:
       force_redownload:
