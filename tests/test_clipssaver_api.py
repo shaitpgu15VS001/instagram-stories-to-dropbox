@@ -179,3 +179,47 @@ def test_clipssaver_media_id_used_for_state_dedup(tmp_path, monkeypatch):
     assert res["success"] is True
     assert res["outcome"] == "no_new_stories"
     assert res["files"] == []
+
+
+def test_downloader_reuses_one_client_and_one_token(tmp_path, monkeypatch):
+    from src.story_downloader import StoryDownloader
+    import src.clipssaver_api as clip_mod
+
+    session = FakeSession(
+        story_responses=[
+            (200, {"status": "success", "data": {"stories": [_story()]}}),
+            (200, {"status": "success", "data": {"stories": [_story("456")]}}),
+        ]
+    )
+    made = {"n": 0}
+    original_cls = clip_mod.ClipSaverAPI
+
+    def factory():
+        made["n"] += 1
+        return original_cls(session=session)
+
+    monkeypatch.setattr(clip_mod, "ClipSaverAPI", factory)
+    dl = StoryDownloader(output_dir=tmp_path / "stories")
+
+    first = dl._fetch_from_clipssaver("user1")
+    second = dl._fetch_from_clipssaver("user2")
+
+    assert len(first) == len(second) == 1
+    assert made["n"] == 1          # לקוח אחד לכל הריצה
+    assert session.get_calls == 1  # טוקן אחד לשני המשתמשים
+    assert [p["headers"]["x-cs-tok"] for p in session.posts] == ["tok-1", "tok-1"]
+
+
+def test_preflight_retries_transient_token_failure(tmp_path, monkeypatch):
+    from src.story_downloader import StoryDownloader
+    import src.clipssaver_api as clip_mod
+
+    session = FakeSession(token_bodies=[Exception("network down"), {"token": "tok-2"}])
+    original_cls = clip_mod.ClipSaverAPI
+    monkeypatch.setattr(clip_mod, "ClipSaverAPI", lambda: original_cls(session=session))
+    monkeypatch.setattr("time.sleep", lambda seconds: None)
+    dl = StoryDownloader(output_dir=tmp_path / "stories")
+
+    assert dl.ensure_story_source_ready() is True
+    assert session.get_calls == 2
+    assert dl._clipssaver_api.ensure_token() is True

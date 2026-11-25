@@ -596,6 +596,12 @@ def main():
     state = StateManager()
     downloader = StoryDownloader()
 
+    # בדיקת טוקן מקדימה: אם המקור הראשי חסום מ-IP של GitHub, לעצור עכשיו
+    # במקום לבזבז שעות על כל המשתמשים ולסמן אותם בטעות כ"לא נמצאו".
+    if not downloader.ensure_story_source_ready():
+        logger.error("המקור הראשי (ClipSaver) אינו זמין — עוצר את הריצה לפני עיבוד המשתמשים")
+        sys.exit(1)
+
     if not downloader.check_binary():
         logger.error("Playwright לא מותקן כראוי. בדוק את שלב ההתקנה ב-workflow.")
         sys.exit(1)

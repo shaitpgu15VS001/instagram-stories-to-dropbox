@@ -66,6 +66,12 @@ class ClipSaverAPI:
         self._token = token
         return token
 
+    def ensure_token(self, timeout: int = 20) -> bool:
+        """מבטיח שיש טוקן זמין; משמש לבדיקה מקדימה בתחילת הריצה."""
+        if self._token:
+            return True
+        return bool(self._fetch_token(timeout=timeout))
+
     @staticmethod
     def _normalize(raw: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         is_video = bool(raw.get("isVideo")) or str(raw.get("mediaType") or "") == "2"

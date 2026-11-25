@@ -173,6 +173,7 @@ onedrive</code></pre>
 <tr><td>API_ERROR / DOWNLOAD_ERROR</td><td>תקלה רגעית, נוסה כמה פעמים.</td><td>לחכות להרצה הבאה. חוזר ימים? לבדוק.</td></tr>
 <tr><td>UPLOAD_ERROR</td><td>הענן לא קיבל (מלא? חיבור?).</td><td>מקום פנוי? חיבור? מה שלא עלה ינוסה שוב.</td></tr>
 <tr><td>Aborted</td><td>המקור מושבת, והריצה נעצרה בכוונה (קוד יציאה 1).</td><td>לבדוק Captcha באתר; אם נמשך – להחליף מקור. ראה TROUBLESHOOTING.</td></tr>
+<tr><td>בדיקת טוקן מקדימה נכשלה</td><td>המקור הראשי חסם את ה-IP של GitHub; הריצה נעצרה מיד.</td><td>לנסות שוב בעוד שעה; לא למחוק משתמשים מהרשימה. ראה TROUBLESHOOTING.</td></tr>
 <tr><td>Duplicates skipped</td><td>דילוגים שחסכו זמן. גבוה = טוב.</td><td>כלום.</td></tr>
 </table>
 <p><strong>משתני סביבה אופציונליים:</strong> <code>MAX_CONSECUTIVE_API_ERRORS</code> (ברירת מחדל <code>5</code>, <code>0</code> מכבה) – מספר כשלי API רצופים שאחריו הריצה נעצרת; <code>FORCE_REDOWNLOAD=true</code> – העלאה מחדש של הכל; <code>SCROLL_DEBUG=1</code> – לוגים מפורטים לאבחון.</p>

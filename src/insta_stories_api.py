@@ -134,6 +134,7 @@ class InstaStoriesAPI:
         if not username:
             return "api_error"
         profile_ok = False
+        explicit_not_found = False
         try:
             r = self.s.get(
                 BASE_URL + CONTENT_PATH,
@@ -145,17 +146,27 @@ class InstaStoriesAPI:
                     body = r.json()
                 except Exception:
                     body = None
-                if isinstance(body, dict) and body.get("status") == "ok":
-                    profile_ok = True
+                if isinstance(body, dict):
+                    if body.get("status") == "ok":
+                        profile_ok = True
+                    msg = str(body.get("msg") or body.get("message") or "").lower()
+                    # רק הודעה מפורשת על "משתמש לא נמצא" מאשרת סיווג כזה.
+                    # תשובת Captcha / "temporarily unavailable" אינה הוכחה —
+                    # האתר מחזיר אותה גם למשתמשים אמיתיים כשהוא חסום.
+                    if any(marker in msg for marker in ("not found", "doesn't exist", "does not exist", "no such user")):
+                        explicit_not_found = True
         except Exception:
             profile_ok = False
         if profile_ok:
             # הפרופיל קיים — הכשל הוא בצד הסטוריז או זמני
             return "api_error"
+        if not explicit_not_found:
+            # אין עדות מפורשת שהמשתמש לא קיים — לא לסמן אותו כמת.
+            return "api_error"
         try:
             home = self.s.get(BASE_URL + "/", timeout=timeout)
             if home.status_code == 200:
-                # האתר תקין אבל לא מכיר את המשתמש
+                # האתר תקין ואישר במפורש שהמשתמש לא קיים
                 return "user_not_found"
         except Exception:
             pass

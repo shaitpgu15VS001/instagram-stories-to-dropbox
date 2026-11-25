@@ -1,7 +1,7 @@
 # ClipSaver (clipssaver.com) — מקור סטוריז חלופי
 
 **תאריך בדיקה:** 2026-11-25
-**מצב:** אומץ כמקור ראשי. ממומש ב-`src/clipssaver_api.py` ומחובר ב-`src/story_downloader.py` (`_fetch_from_clipssaver`). ממתין לאימות IP בהרצת GitHub.
+**מצב:** אומץ כמקור ראשי ופעל בהרצת GitHub (764 קבצים הועלו). נמצאה מגבלת IP: `/api/token` מחזיר 403 אחרי כ-110 בקשות טוקן מאותו IP; תוקן ע"י שימוש חוזר בטוקן אחד + בדיקה מקדימה.
 
 ## מטרה
 למצוא מקור סטוריז שעובד אחרי ש-insta-stories.io הוסיף Captcha ו-FastDL נחסם ב-Cloudflare.
@@ -62,12 +62,19 @@
 - **FastDL** — `403` מדף Cloudflare "Just a moment".
 
 ## מה מומש בפועל
-- `src/clipssaver_api.py` — `ClipSaverAPI.fetch_stories` מחזיר `[{u, kind, ta, id}]`, `[]` ל"אין סטוריז", `None` לכשל + `last_error`.
-- טוקן נלקח לכל קריאה (בקשה נוספת ~0.2-0.6 שנ'); רענון אוטומטי + ניסיון חוזר אחד על 401/403.
-- `src/story_downloader.py` — `_fetch_from_clipssaver` רץ ראשון; על כשל עוברים ל-insta-stories.io ואז FastDL; על "אין סטוריז" עוצרים (לא ממשיכים לגיבוי).
+- `src/clipssaver_api.py` — `ClipSaverAPI.fetch_stories` מחזיר `[{u, kind, ta, id}]`, `[]` ל"אין סטוריז", `None` לכשל + `last_error`. יש גם `ensure_token()` לבדיקה מקדימה.
+- **טוקן אחד לכל הריצה** (`StoryDownloader._get_clipssaver_api`): רענון אוטומטי רק כשה-API מחזיר 401/403. קודם נפתח טוקן לכל משתמש — וזה גרם ל-403 מ-IP של GitHub אחרי כ-110 משתמשים (ראה למטה).
+- `src/story_downloader.py` — `ensure_story_source_ready()` בודקת טוקן לפני הלולאה (עם ניסיון חוזר אחד); `main` עוצר עם `exit 1` אם נכשל. `_fetch_from_clipssaver` רץ ראשון; על כשל עוברים ל-insta-stories.io ואז FastDL; על "אין סטוריז" עוצרים (לא ממשיכים לגיבוי).
 - מניעת כפילויות: `id` של המדיה משמש כ-`pre_download_id` (במקום חילוץ מה-URL).
-- בדיקות: `tests/test_clipssaver_api.py` (10 בדיקות, כולל רענון טוקן ו-`upstream_unavailable`), ועדכון בדיקות קיימות שכן קראו ל-`_fetch_story_urls`.
+- בדיקות: `tests/test_clipssaver_api.py` (12 בדיקות: רענון טוקן, `upstream_unavailable`, שימוש חוזר בטוקן, ניסיון חוזר בבדיקה המקדימה) + בדיקות `diagnose` ב-`tests/test_insta_stories_api.py`.
+
+## ממצא חדש מהרצת GitHub (45637110882, 2026-11-25)
+- המקור עבד מה-IP של GitHub: 764 קבצים הועלו מ-106 משתמשים; 109 משתמשים בלי סטוריז.
+- אחרי 17:17 (כ-110 משתמשים) **כל** בקשת `/api/token` החזירה `403` — 244 משתמשים נכשלו. שלושה נוספים ב-timeout של 30 שנ' ואחד ב-`upstream_unavailable`.
+- בדיקה מקומית: טוקן אחד שירת 9 משתמשים רצופים; 20 בקשות טוקן מהירות — כולן 200 ⇒ ההגבלה קשורה ל-IP של GitHub ולמספר הבקשות.
+- **תופעת לוואי**: כש-ClipSaver נכשל, הורדת insta-stories.io החזירה Captcha גם למשתמשים אמיתיים, ו-`diagnose` סימן 248 מהם `USER_NOT_FOUND` (למשל `24tv`, `i24news_he`). תוקן ע"י דרישת הודעת "not found" מפורשת.
+- קובץ המקור: `debug (1).zip` (בתוך `debug_full.log`).
 
 ## צעדים הבאים
-1. הרצה ידנית אחת ב-GitHub Actions לאימות IP.
-2. מעקב אחרי הריצה הראשונה: צפויים קבצים כפולים-למראה מהעדכון החד-פעמי של המזהה.
+1. הרצת GitHub נוספת לאימות: אין `token_http_status=403`, אין `USER_NOT_FOUND` מזויף, והבדיקה המקדימה עוברת.
+2. מעקב אחרי המזהים החדשים (כפילויות חד-פעמיות כבר נצפו בהרצה הראשונה).

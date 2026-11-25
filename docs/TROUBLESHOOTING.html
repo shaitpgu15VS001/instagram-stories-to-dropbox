@@ -52,8 +52,13 @@ footer{margin-top:30px;border-top:1px solid #ddd;padding-top:10px;font-size:.9em
 <p><strong>פתרון:</strong> בדרך כלל זמני - נסה בהרצה הבאה. אם נמשך ימים, ייתכן שהאתר שינה הגנה וצריך עדכון קוד (פתח Issue עם הלוג).</p>
 
 <h2>❌ "user_not_found" / USER_NOT_FOUND</h2>
-<p><strong>מה זה:</strong> המקור לא מכיר את שם המשתמש (לא קיים, שינה שם או הפך לפרטי). בלוג: <code>המשתמש לא נמצא (user_not_found) E-USR-001</code>.</p>
+<p><strong>מה זה:</strong> המקור המשני (insta-stories.io) אישר במפורש שהמשתמש לא קיים (לא קיים, שינה שם או הפך לפרטי). בלוג: <code>המשתמש לא נמצא (user_not_found) E-USR-001</code>.</p>
 <p><strong>פתרון:</strong> בדוק את הפרופיל בדפדפן. אם לא קיים - מחק מהרשימה. אם קיים - ייבדק שוב בהרצה הבאה.</p>
+<p><strong>חשוב:</strong> אם ClipSaver נחסם, הריצה נעצרת מראש בבדיקת הטוקן — לא אמורים להיות USER_NOT_FOUND המוניים. אם בכל זאת יש הרבה, חפש בלוג <code>ClipSaver נכשל (token_http_status=403)</code>.</p>
+
+<h2>❌ "בדיקת טוקן מקדימה נכשלה" / עצירה מיידית</h2>
+<p><strong>מה זה:</strong> ClipSaver החזיר <code>403</code> בבקשת <code>/api/token</code> מ-IP של GitHub. הריצה נעצרה מיד (קוד יציאה 1) לפני עיבוד משתמשים.</p>
+<p><strong>פתרון:</strong> נסה שוב בעוד שעה. אם חוזר — צריך מקור חלופי (<code>docs/STATUS.md</code>). אל תמחק משתמשים מהרשימה בגלל זה.</p>
 
 <h2>❌ "Aborted" / כל המשתמשים מקבלים 0 סטוריז</h2>
 <p><strong>מה זה:</strong> מקור הסטוריז מושבת (למשל האתר הוסיף Captcha). המערכת עוצרת את הריצה אחרי כמה כשלים רצופים ומסיימת בקוד יציאה 1.</p>

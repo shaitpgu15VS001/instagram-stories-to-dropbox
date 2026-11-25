@@ -59,7 +59,7 @@ NO_ACTIVE_RESULT = {
 }
 
 
-def _run_main(monkeypatch, results):
+def _run_main(monkeypatch, results, preflight_ok=True):
     """מריץ את main() עם תלויות מדומות. מחזיר (מספר משתמשים שעובדו, exit code)."""
     import src.logger as logger_module
 
@@ -68,6 +68,9 @@ def _run_main(monkeypatch, results):
     class FakeDownloader:
         def __init__(self, *args, **kwargs):
             self.state_manager = None
+
+        def ensure_story_source_ready(self):
+            return preflight_ok
 
         def check_binary(self):
             return True
@@ -101,6 +104,12 @@ def _run_main(monkeypatch, results):
     with pytest.raises(SystemExit) as exc_info:
         main.main()
     return calls["n"], exc_info.value.code
+
+
+def test_preflight_failure_aborts_before_any_user(monkeypatch):
+    processed, code = _run_main(monkeypatch, [NO_ACTIVE_RESULT] * 10, preflight_ok=False)
+    assert processed == 0
+    assert code == 1
 
 
 def test_threshold_env_parsing(monkeypatch):

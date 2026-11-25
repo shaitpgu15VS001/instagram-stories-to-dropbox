@@ -21,6 +21,7 @@ This repo is a Python automation project that downloads public Instagram stories
 
 ## Project conventions
 - Keep the source order in [src/story_downloader.py](src/story_downloader.py) `_fetch_story_urls`: ClipSaver first, then insta-stories.io, then FastDL. Returning `None` means "source failed"; an empty list means "no active stories".
+- Keep one ClipSaver client/token per run (`StoryDownloader._get_clipssaver_api`) and the preflight token check (`ensure_story_source_ready` called from `main`) — GitHub Actions IP gets 403 after ~110 token requests.
 - Keep the existing API-first FastDL flow in [src/fastdl_api.py](src/fastdl_api.py). The DOM logic in [src/story_downloader.py](src/story_downloader.py) is preserved for fallback/reference, not as the automatic path.
 - Do not change the storage backend selection logic in [src/main.py](src/main.py) unless a real bug requires it and the rationale is explained.
 - Keep state persistence aligned with the workflow: `state.json` is restored and uploaded under `<remote>:.instagram-sync/state.json` using rclone. Do not introduce `actions/cache` for `state.json`.

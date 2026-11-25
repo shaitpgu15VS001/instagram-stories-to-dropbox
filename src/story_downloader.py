@@ -342,6 +342,8 @@ class StoryDownloader:
         self._playwright = None
         self._browser = None
         self._context = None
+        # לקוח ClipSaver יחיד לכל הריצה — טוקן אחד נשמר ונעשה בו שימוש חוזר.
+        self._clipssaver_api = None
 
     def _ensure_browser_context(self):
         if self._context is not None:
@@ -563,14 +565,41 @@ class StoryDownloader:
         logger.success(f"@{username}: הורדו {len(files_return)} קבצים (קיימים: {len(existing_files)})")
         return {"success": True, "files": combined, "meta": meta_map, "error": None, "outcome": "stories_found", "stories_found": len(download_urls), "pre_skipped": summary["skipped"]}
 
+    def _get_clipssaver_api(self):
+        """לקוח ClipSaver יחיד לכל הריצה (חוסך בקשות token ומאפשר רענון)."""
+        if self._clipssaver_api is None:
+            from .clipssaver_api import ClipSaverAPI
+            self._clipssaver_api = ClipSaverAPI()
+        return self._clipssaver_api
+
+    def ensure_story_source_ready(self) -> bool:
+        """בדיקת טוקן מקדימה מול המקור הראשי, לפני עיבוד כל המשתמשים.
+
+        Provider חסום (למשל 403 על /api/token מ-IP של GitHub) יעצור את הריצה
+        מיד במקום לבזבז שעות על 463 משתמשים.
+        """
+        try:
+            api = self._get_clipssaver_api()
+            for attempt in (1, 2):
+                if api.ensure_token(timeout=20):
+                    logger.info("בדיקת טוקן מקדימה: ClipSaver זמין")
+                    return True
+                if attempt == 1:
+                    logger.warning("בדיקת טוקן מקדימה נכשלה - מנסה שוב פעם אחת")
+                    time.sleep(3)
+            logger.error(f"בדיקת טוקן מקדימה נכשלה: {api.last_error}")
+            return False
+        except Exception as exc:
+            logger.error(f"בדיקת טוקן מקדימה נכשלה: {type(exc).__name__}: {exc}")
+            return False
+
     def _fetch_from_clipssaver(self, username):
         """מקור ראשי: ClipSaver (API בלבד).
 
         מחזיר רשימת פריטים, רשימה ריקה ("אין סטוריז"), או None כדי לעבור למקור הבא.
         """
         try:
-            from .clipssaver_api import ClipSaverAPI
-            api = ClipSaverAPI()
+            api = self._get_clipssaver_api()
             items = api.fetch_stories(username)
             if items is None:
                 # ניסיון חוזר אחד זול (requests בלבד) לפני מעבר למקור הבא.

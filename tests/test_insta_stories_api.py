@@ -117,11 +117,21 @@ HOME_URL = "https://insta-stories.io/"
 
 def test_diagnose_user_not_found():
     api = InstaStoriesAPI(session=_fake_session({
-        (PROFILE_URL, (("url", "ghost"),)): (200, {"status": "error", "msg": "temporarily unavailable"}),
+        (PROFILE_URL, (("url", "ghost"),)): (200, {"status": "error", "msg": "User not found"}),
         (HOME_URL, ()): (200, "<html>ok</html>"),
     }))
     # homepage returns text, .json() must fail -> FakeResp.json returns str, not dict
     assert api.diagnose("ghost") == "user_not_found"
+
+
+def test_diagnose_captcha_is_api_error_not_user_not_found():
+    # המקור חסום: אותה תשובה גם למשתמש אמיתי וגם לדמיוני — אסור לסמן כמת.
+    for username in ("realuser", "ghost"):
+        api = InstaStoriesAPI(session=_fake_session({
+            (PROFILE_URL, (("url", username),)): (200, {"status": "error", "msg": "Captcha verification failed"}),
+            (HOME_URL, ()): (200, "<html>ok</html>"),
+        }))
+        assert api.diagnose(username) == "api_error"
 
 
 def test_diagnose_api_error_when_profile_exists():
