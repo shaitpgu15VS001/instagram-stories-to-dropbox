@@ -144,9 +144,12 @@ def test_diagnose_api_error_when_site_down():
 def test_download_stories_user_not_found_outcome(tmp_path, monkeypatch, capsys):
     from src.story_downloader import StoryDownloader
     import src.insta_stories_api as mod
+    import src.clipssaver_api as clip_mod
 
+    monkeypatch.setattr(clip_mod.ClipSaverAPI, "fetch_stories", lambda self, username, timeout=30: None)
     monkeypatch.setattr(mod.InstaStoriesAPI, "fetch_stories", lambda self, username, timeout=20: None)
     monkeypatch.setattr(mod.InstaStoriesAPI, "diagnose", lambda self, username, timeout=10: "user_not_found")
+    monkeypatch.setattr("time.sleep", lambda seconds: None)
     sd = StoryDownloader(output_dir=tmp_path / "stories")
     res = sd.download_stories("ghostuser")
     assert res["success"] is False
@@ -160,6 +163,7 @@ def test_download_stories_user_not_found_outcome(tmp_path, monkeypatch, capsys):
 def test_transient_failure_retried_once(tmp_path, monkeypatch):
     from src.story_downloader import StoryDownloader
     import src.insta_stories_api as mod
+    import src.clipssaver_api as clip_mod
 
     calls = {"n": 0}
 
@@ -169,6 +173,7 @@ def test_transient_failure_retried_once(tmp_path, monkeypatch):
             return None
         return [{"u": "https://fr1.anon-viewer.com/media2.php?media=abc", "kind": "image", "txt": "5 minutes ago"}]
 
+    monkeypatch.setattr(clip_mod.ClipSaverAPI, "fetch_stories", lambda self, username, timeout=30: None)
     monkeypatch.setattr(mod.InstaStoriesAPI, "fetch_stories", flaky_fetch)
     monkeypatch.setattr("time.sleep", lambda s: None)
     sd = StoryDownloader(output_dir=tmp_path / "stories")
@@ -244,3 +249,45 @@ def test_meta_timestamp_seconds_and_just_now():
     assert _parse_meta_timestamp({"txt": "45 seconds ago"}) is not None
     assert abs((now - _parse_meta_timestamp({"txt": "45 seconds ago"})).total_seconds() - 45) < 10
     assert abs((now - _parse_meta_timestamp({"txt": "just now"})).total_seconds()) < 10
+
+
+def _api_with_body(body):
+    class FakeResp:
+        status_code = 200
+
+        def json(self):
+            return body
+
+    class FakeSession:
+        headers = {}
+
+        def get(self, *args, **kwargs):
+            return FakeResp()
+
+    return InstaStoriesAPI(session=FakeSession())
+
+
+def test_unrecognized_refresh_status_returns_none():
+    # התשובה שנצפתה בפועל כשהאתר חסם: אסור שיוחזר [] (שמשמעותו "אין סטוריז")
+    api = _api_with_body({"msg": "Error, Please refresh the page and try again.", "status": "Refresh"})
+    assert api.fetch_stories("someuser") is None
+    assert "Refresh" in (api.last_error or "")
+
+
+def test_captcha_error_returns_none():
+    api = _api_with_body({"msg": "Captcha verification failed", "status": "error"})
+    assert api.fetch_stories("someuser") is None
+    assert "captcha" in (api.last_error or "").lower()
+
+
+def test_no_stories_error_still_returns_empty_list():
+    api = _api_with_body({"status": "error", "msg": "The user has no stories. Try Highlights"})
+    assert api.fetch_stories("nouser") == []
+    assert api.last_error is None
+
+
+def test_ok_status_with_html_still_parses_stories():
+    api = _api_with_body({"status": "ok", "source": "GetAllStories", "html": SAMPLE_CARD})
+    items = api.fetch_stories("someuser")
+    assert items is not None and len(items) == 1
+

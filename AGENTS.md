@@ -11,13 +11,16 @@ This repo is a Python automation project that downloads public Instagram stories
 
 ## Key files
 - [src/main.py](src/main.py): entry point, username loading, orchestration
-- [src/fastdl_api.py](src/fastdl_api.py): API-first FastDL story discovery and response parsing
+- [src/clipssaver_api.py](src/clipssaver_api.py): primary stories source (ClipSaver token + stories API)
+- [src/insta_stories_api.py](src/insta_stories_api.py): secondary stories source (insta-stories.io fallback)
+- [src/fastdl_api.py](src/fastdl_api.py): last-resort FastDL stories API and response parsing
 - [src/story_downloader.py](src/story_downloader.py): downloader flow and archived DOM fallback; do not change unless a specific issue is identified
 - [src/state_manager.py](src/state_manager.py): uploaded-state tracking and duplicate prevention
 - [src/rclone_uploader.py](src/rclone_uploader.py): remote upload path via rclone
 - [.github/workflows/sync.yml](.github/workflows/sync.yml): CI workflow and remote-state persistence
 
 ## Project conventions
+- Keep the source order in [src/story_downloader.py](src/story_downloader.py) `_fetch_story_urls`: ClipSaver first, then insta-stories.io, then FastDL. Returning `None` means "source failed"; an empty list means "no active stories".
 - Keep the existing API-first FastDL flow in [src/fastdl_api.py](src/fastdl_api.py). The DOM logic in [src/story_downloader.py](src/story_downloader.py) is preserved for fallback/reference, not as the automatic path.
 - Do not change the storage backend selection logic in [src/main.py](src/main.py) unless a real bug requires it and the rationale is explained.
 - Keep state persistence aligned with the workflow: `state.json` is restored and uploaded under `<remote>:.instagram-sync/state.json` using rclone. Do not introduce `actions/cache` for `state.json`.

@@ -82,7 +82,14 @@ def test_parse_message_only_returns_none():
 
 def test_empty_result_is_no_stories_success(tmp_path, monkeypatch, capsys):
     from src.story_downloader import StoryDownloader
+    import src.insta_stories_api as insta_mod
+    import src.clipssaver_api as clip_mod
 
+    # שני המקורות הראשונים כושלים -> הזרימה עוברת ל-FastDL, שם תשובה ריקה = "אין סטוריז"
+    monkeypatch.setattr(clip_mod.ClipSaverAPI, "fetch_stories", lambda self, username, timeout=30: None)
+    monkeypatch.setattr(insta_mod.InstaStoriesAPI, "fetch_stories", lambda self, username, timeout=20: None)
+    monkeypatch.setattr(insta_mod.InstaStoriesAPI, "diagnose", lambda self, username, timeout=10: "api_error")
+    monkeypatch.setattr("time.sleep", lambda seconds: None)
     monkeypatch.setattr(FastDLStoriesAPI, "fetch_stories", lambda self, username, timeout=10: [])
     sd = StoryDownloader(output_dir=tmp_path / "stories")
 

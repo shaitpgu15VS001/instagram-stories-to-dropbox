@@ -1,4 +1,6 @@
-"""מקור סטוריז ראשי: insta-stories.io (ללא Captcha, ללא דפדפן).
+"""מקור סטוריז משני: insta-stories.io (ללא דפדפן).
+
+משמש כגיבוי כאשר המקור הראשי (ClipSaver) נכשל.
 
 זרימה:
 1. `GET /content.php?url=<username>` -> מידע פרופיל (GetProfileInfo).
@@ -118,6 +120,8 @@ class InstaStoriesAPI:
     def __init__(self, session: Optional[requests.Session] = None):
         self.s = session or requests.Session()
         self.s.headers.update({"User-Agent": USER_AGENT, "Referer": REFERER})
+        # סיבת הכשל האחרונה (אבחון בלבד, לא משפיע על זרימת הקריאה)
+        self.last_error: Optional[str] = None
 
     def diagnose(self, username: str, timeout: int = 10) -> str:
         """מבחין בין משתמש לא קיים לבין תקלת מקור.
@@ -158,8 +162,10 @@ class InstaStoriesAPI:
         return "api_error"
 
     def fetch_stories(self, username: str, timeout: int = 20) -> Optional[List[Dict[str, Any]]]:
+        self.last_error = None
         username = (username or "").strip().lstrip("@")
         if not username:
+            self.last_error = "username ריק"
             return None
         try:
             stories_resp = self.s.get(
@@ -167,27 +173,43 @@ class InstaStoriesAPI:
                 params={"url": username, "method": "allstories"},
                 timeout=timeout,
             )
-        except Exception:
+        except Exception as exc:
+            self.last_error = f"request_failed: {exc}"
             return None
         if stories_resp.status_code != 200:
+            self.last_error = f"http_status={stories_resp.status_code}"
             return None
         try:
             body = stories_resp.json()
-        except Exception:
+        except Exception as exc:
+            self.last_error = f"invalid_json: {exc}"
             return None
         if not isinstance(body, dict):
+            self.last_error = f"unexpected_body_type={type(body).__name__}"
             return None
-        if body.get("status") == "error":
-            msg = str(body.get("msg") or "").lower()
-            if "no stories" in msg or "no stor" in msg:
+        status = str(body.get("status") or "").strip().lower()
+        msg = str(body.get("msg") or "")
+        if status == "error":
+            low_msg = msg.lower()
+            if "no stories" in low_msg or "no stor" in low_msg:
+                # תשובת "אין סטוריז פעילים" מפורשת — תוצאה תקינה, לא כשל.
                 return []
+            self.last_error = f"status=error msg={msg}"
+            return None
+        if status != "ok":
+            # תשובה לא מוכרת (למשל status=Refresh / Captcha) — זה כשל מקור,
+            # אסור להחזיר [] כי זה מדווח בטעות "אין סטוריז" ומבטל גיבוי/אבחון.
+            self.last_error = f"unexpected_status={body.get('status')} msg={msg}"
             return None
         html = body.get("html") or ""
         if not html.strip():
+            # status=ok אך ללא html — נשמר כפי שהיה: "אין סטוריז".
+            # (האות המוצהר של האתר ל"אין סטוריז" הוא status=error.)
             return []
         items = parse_stories_html(html)
         if not items:
             # HTML לא ריק אבל לא פוענח ממנו דבר — כנראה מבנה האתר השתנה.
             # להחזיר None (שגיאה) ולא [] כדי לא לדווח בטעות "אין סטוריז".
+            self.last_error = "html_parsed_to_zero_items (layout changed?)"
             return None
         return items

@@ -1,4 +1,4 @@
-"""מוריד סטוריז מ-Instagram דרך fastdl.app"""
+"""מוריד סטוריז מ-Instagram דרך מקור API (ClipSaver ראשי, FastDL כגיבוי)"""
 import os
 import re
 import shutil
@@ -499,6 +499,9 @@ class StoryDownloader:
             for s in download_urls:
                 url = s.get("u")
                 pre_id = extract_pre_download_id(url)
+                if not pre_id:
+                    # מקור שסיפק מזהה יציב בעצמו (למשל ClipSaver: מזהה המדיה).
+                    pre_id = s.get("pre_download_id")
                 if pre_id:
                     matched_type, item = state.find_uploaded_entry(username, pre_id)
                     if item is not None:
@@ -560,10 +563,43 @@ class StoryDownloader:
         logger.success(f"@{username}: הורדו {len(files_return)} קבצים (קיימים: {len(existing_files)})")
         return {"success": True, "files": combined, "meta": meta_map, "error": None, "outcome": "stories_found", "stories_found": len(download_urls), "pre_skipped": summary["skipped"]}
 
+    def _fetch_from_clipssaver(self, username):
+        """מקור ראשי: ClipSaver (API בלבד).
+
+        מחזיר רשימת פריטים, רשימה ריקה ("אין סטוריז"), או None כדי לעבור למקור הבא.
+        """
+        try:
+            from .clipssaver_api import ClipSaverAPI
+            api = ClipSaverAPI()
+            items = api.fetch_stories(username)
+            if items is None:
+                # ניסיון חוזר אחד זול (requests בלבד) לפני מעבר למקור הבא.
+                time.sleep(5)
+                items = api.fetch_stories(username)
+            if items is None:
+                reason = getattr(api, "last_error", None)
+                reason_suffix = f" ({reason})" if reason else ""
+                logger.warning(f"@{username}: ClipSaver נכשל{reason_suffix} - עובר למקור הבא")
+                return None
+            if not items:
+                logger.info(f"ℹ️ @{username}: אין סטוריז פעילים כרגע")
+                return []
+            logger.info(f"ClipSaver success, items={len(items)}")
+            return [
+                {"u": it["u"], "ta": it.get("ta"), "txt": None, "pre_download_id": it.get("id")}
+                for it in items if it.get("u")
+            ]
+        except Exception as exc:
+            logger.warning(f"@{username}: ClipSaver שגיאה ({exc}) - עובר למקור הבא")
+            return None
+
     def _fetch_story_urls(self, username):
-        # מקור ראשי: insta-stories.io (API פשוט, בלי Captcha ובלי דפדפן).
-        # גיבוי: FastDL Stories API. DOM נשמר בארכיון ואינו רץ אוטומטית.
+        # מקורות לפי סדר: ClipSaver (ראשי) -> insta-stories.io -> FastDL Stories API.
+        # DOM נשמר בארכיון ואינו רץ אוטומטית.
         self._source_outcome = None
+        clipsaver_result = self._fetch_from_clipssaver(username)
+        if clipsaver_result is not None:
+            return clipsaver_result
         try:
             from .insta_stories_api import InstaStoriesAPI
             insta = InstaStoriesAPI()
@@ -583,7 +619,9 @@ class StoryDownloader:
                 logger.warning(f"@{username}: המשתמש לא נמצא במקור - מדלג בלי גיבוי")
                 self._source_outcome = "user_not_found"
                 return None
-            logger.warning(f"@{username}: insta-stories.io נכשל - עובר לגיבוי FastDL")
+            reason = getattr(insta, "last_error", None)
+            reason_suffix = f" ({reason})" if reason else ""
+            logger.warning(f"@{username}: insta-stories.io נכשל{reason_suffix} - עובר לגיבוי FastDL")
         except Exception as exc:
             logger.warning(f"@{username}: insta-stories.io שגיאה ({exc}) - עובר לגיבוי FastDL")
         # API-first: try FastDL Stories API. Do not automatically run the DOM

@@ -55,6 +55,17 @@ footer{margin-top:30px;border-top:1px solid #ddd;padding-top:10px;font-size:.9em
 <p><strong>מה זה:</strong> המקור לא מכיר את שם המשתמש (לא קיים, שינה שם או הפך לפרטי). בלוג: <code>המשתמש לא נמצא (user_not_found) E-USR-001</code>.</p>
 <p><strong>פתרון:</strong> בדוק את הפרופיל בדפדפן. אם לא קיים - מחק מהרשימה. אם קיים - ייבדק שוב בהרצה הבאה.</p>
 
+<h2>❌ "Aborted" / כל המשתמשים מקבלים 0 סטוריז</h2>
+<p><strong>מה זה:</strong> מקור הסטוריז מושבת (למשל האתר הוסיף Captcha). המערכת עוצרת את הריצה אחרי כמה כשלים רצופים ומסיימת בקוד יציאה 1.</p>
+<p><strong>איך מזהים:</strong> ב-RUN SUMMARY מופיע <code>Aborted: N כשלי API רצופים (סף=5)</code>, ובלוגים <code>ClipSaver נכשל (upstream_unavailable ...)</code>, <code>insta-stories.io נכשל (unexpected_status=Refresh ...)</code> או <code>FastDL API bridge failure</code>.</p>
+<p><strong>פתרון:</strong></p>
+<ol>
+<li>פתח את האתר בדפדפן ובדוק אם מופיע Captcha</li>
+<li>אם זה זמני - הרץ שוב מאוחר יותר</li>
+<li>אם זה נמשך ימים - צריך להחליף מקור (מצב העבודה ב-<code>docs/STATUS.md</code>)</li>
+<li>אפשר לכוון את הרף: <code>MAX_CONSECUTIVE_API_ERRORS</code> (ברירת מחדל <code>5</code>, <code>0</code> מכבה)</li>
+</ol>
+
 <h2>❌ "Rate limit" / "429"</h2>
 <p>יותר מדי בקשות בזמן קצר. המערכת ממתינה אוטומטית. אם חוזר הרבה - הפחת משתמשים או תדירות.</p>
 

@@ -1,1 +1,1 @@
-trigger=external
+trigger=github

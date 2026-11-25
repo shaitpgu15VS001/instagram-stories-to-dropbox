@@ -23,6 +23,18 @@ RCLONE_CONF_FILE = "rclone.conf"
 MIN_DELAY_BETWEEN_USERS = 2
 MAX_DELAY_BETWEEN_USERS = 3
 DELAY_AFTER_ERROR = 30
+DEFAULT_MAX_CONSECUTIVE_API_ERRORS = 5
+
+
+def _max_consecutive_api_errors():
+    """סף כשלי API רצופים שמפעיל עצירת ריצה מוקדמת. 0 = מפסק כבוי."""
+    raw = os.environ.get("MAX_CONSECUTIVE_API_ERRORS")
+    if raw is None or str(raw).strip() == "":
+        return DEFAULT_MAX_CONSECUTIVE_API_ERRORS
+    try:
+        return max(0, int(str(raw).strip()))
+    except (TypeError, ValueError):
+        return DEFAULT_MAX_CONSECUTIVE_API_ERRORS
 
 
 INSTAGRAM_HOSTS = {"instagram.com", "www.instagram.com", "m.instagram.com", "instagr.am"}
@@ -615,6 +627,12 @@ def main():
     # Track per-status for detailed reporting
     per_user_results = []
 
+    # מפסק תפעולי: מקור מושבת לא אמור "לשרוף" את כל הריצה (כשל שקט לכל המשתמשים).
+    max_consecutive_api_errors = _max_consecutive_api_errors()
+    consecutive_api_errors = 0
+    aborted_reason = None
+    logger.info(f"MAX_CONSECUTIVE_API_ERRORS={max_consecutive_api_errors}")
+
     total = len(user_entries)
     for idx, (display_name, username) in enumerate(user_entries, 1):
         logger.progress(idx, total, prefix="התקדמות")
@@ -658,6 +676,12 @@ def main():
                 failed_users.append((username, status, stats.get("error_id") or stats.get("error") or status))
             else:
                 total_stats["users_successful"] += 1
+
+            # מעקב אחרי רצף כשלי מקור (למפסק התפעולי)
+            if status == "API_ERROR":
+                consecutive_api_errors += 1
+            else:
+                consecutive_api_errors = 0
         except InfrastructureError as exc:
             logger.error(f"שגיאת תשתית קריטית ב-upload: {exc}")
             try:
@@ -672,6 +696,16 @@ def main():
             failed_users.append((username, "OTHER_ERROR", str(exc)))
 
         downloader.cleanup(folder_name=display_name)
+
+        if max_consecutive_api_errors and consecutive_api_errors >= max_consecutive_api_errors:
+            aborted_reason = (
+                f"{consecutive_api_errors} כשלי API רצופים (סף={max_consecutive_api_errors})"
+            )
+            logger.error(
+                f"עוצר את הריצה: {aborted_reason}. נראה שמקור הסטוריז מושבת. "
+                "לא ממשיכים לשאר המשתמשים — בדוק את הלוג (ClipSaver / insta-stories.io / FastDL)."
+            )
+            break
 
         if idx < total:
             if stats.get("error") == "rate_limit":
@@ -704,6 +738,8 @@ def main():
     run_summary_lines.append(_fmt_line("  NO_ACTIVE_STORIES:", total_stats.get("users_no_active", 0)))
     run_summary_lines.append(_fmt_line("  NO_NEW_STORIES:", total_stats.get("users_no_new", 0)))
     run_summary_lines.append(_fmt_line("Failed:", failed))
+    if aborted_reason:
+        run_summary_lines.append(_fmt_line("Aborted:", aborted_reason))
     if total_stats.get("users_api_error", 0) or total_stats.get("users_download_error", 0) or total_stats.get("users_upload_error", 0) or total_stats.get("users_not_found", 0):
         run_summary_lines.append(_fmt_line("  API_ERROR:", total_stats.get("users_api_error", 0)))
         run_summary_lines.append(_fmt_line("  DOWNLOAD_ERROR:", total_stats.get("users_download_error", 0)))
@@ -749,7 +785,10 @@ def main():
             else:
                 logger.info(f"  - {entry}")
 
-    if failed == 0:
+    if aborted_reason:
+        logger.error(f"הסנכרון הופסק - {aborted_reason}")
+        exit_code = 1
+    elif failed == 0:
         logger.success("הסנכרון הסתיים בהצלחה - כל המשתמשים עובדו")
         exit_code = 0
     elif failed == total:
@@ -773,6 +812,8 @@ def main():
                 f.write(f"| NO_NEW_STORIES | {total_stats.get('users_no_new',0)} |\n")
                 f.write(f"| USER_NOT_FOUND | {total_stats.get('users_not_found',0)} |\n")
                 f.write(f"| Failed | {failed} |\n")
+                if aborted_reason:
+                    f.write(f"| Aborted | {aborted_reason} |\n")
                 f.write(f"| Stories found (items) | {total_stats.get('stories_found_total',0)} |\n")
                 f.write(f"| Stories downloaded | {total_stats['files_downloaded']} |\n")
                 f.write(f"| Files uploaded | {total_stats['files_uploaded']} |\n")
@@ -825,7 +866,13 @@ def main():
             "error_counts": getattr(logger, "error_counts", {}),
             "failed_users": failed_users,
             "per_user_results": per_user_results,
-            "status": ("SUCCESS" if failed == 0 else ("FAILED" if failed == total else "PARTIAL_SUCCESS")),
+            "aborted_reason": aborted_reason,
+            "status": (
+                "ABORTED" if aborted_reason
+                else "SUCCESS" if failed == 0
+                else "FAILED" if failed == total
+                else "PARTIAL_SUCCESS"
+            ),
         }
         logger.write_summary(summary)
     except Exception:

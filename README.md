@@ -65,8 +65,9 @@
 
 | אתר | סטטוס | תפקיד | תיעוד |
 |---|---|---|---|
-| **insta-stories.io** | ✅ פעיל | מקור ראשי ב-`src/insta_stories_api.py` (API פשוט, בלי Captcha ובלי דפדפן) | `docs/investigations/insta-stories.md` |
-| **fastdl.app** | ⚠️ גיבוי (חסום ב-Turnstile) | גיבוי ב-`src/fastdl_api.py` | ראה סלקטורים למטה |
+| **clipssaver.com** | ✅ מקור ראשי | `src/clipssaver_api.py` (API בלבד: טוקן + שאילתת משתמש) | `docs/investigations/clipssaver.md` |
+| **insta-stories.io** | ⚠️ גיבוי (הוסיף Captcha) | גיבוי ב-`src/insta_stories_api.py` | `docs/investigations/insta-stories.md` |
+| **fastdl.app** | ⚠️ גיבוי (חסום ב-Cloudflare/Turnstile) | גיבוי ב-`src/fastdl_api.py` | ראה סלקטורים למטה |
 | **viewsocials.com** | ❌ חסום ב-GitHub | נוסה אך Cloudflare חוסם את ה-IP של GitHub Actions | ראה הערות למטה |
 | **instanonimo.com** | ❌ לא עבר | נוסה אך חסום על ידי Cloudflare Turnstile | ראה הערות למטה |
 
