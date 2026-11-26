@@ -580,6 +580,17 @@ def main():
         logger.error("לא נמצאו שמות משתמשים באף קובץ (usernames.txt / usernames.csv / usernames.xlsx)")
         sys.exit(1)
 
+    # חלוקה להרצות מקבילות: כל חלק מעבד רק את המשתמשים שלו.
+    # state מלא יורד לכל חלק, אז אין סכנת דריסה/idempotency.
+    from .partition import resolve_partition
+    full_count = len(user_entries)
+    user_entries, part_index, part_total = resolve_partition(user_entries)
+    if part_total > 1:
+        logger.info(
+            f"PART mode={part_index}/{part_total} users={len(user_entries)}/{full_count} "
+            f"per_file={os.environ.get('USERS_PER_PART') or 'from-file'}"
+        )
+
     logger.section("📄 סיכום טעינת משתמשים")
     logger.info(f'סה"כ רשומות: {load_stats.get("total_raw_records", 0)}')
     logger.info(f'סה"כ משתמשים תקינים: {load_stats.get("total_valid_records", 0)}')
@@ -853,6 +864,8 @@ def main():
             "uploads_per_remote": getattr(uploader, "uploads_per_remote", {}),
             "cloud_switches": getattr(uploader, "switches", []),
             "users_loaded": len(user_entries),
+            "part_index": part_index,
+            "part_total": part_total,
             "users_processed": total_stats.get("users_processed", 0),
             "users_failed": total_stats.get("users_failed", 0),
             "users_successful": total_stats.get("users_successful", 0),

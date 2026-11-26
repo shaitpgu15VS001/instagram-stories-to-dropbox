@@ -181,6 +181,7 @@ onedrive</code></pre>
 <h2>7. תחזוקה – כל הפעולות</h2>
 <ul>
 <li><strong>הוספה/הסרה:</strong> שורה בקובץ ← Commit. קבצים ישנים נשארים בענן (מחיקה ידנית בלבד).</li>
+<li><strong>כמה משתמשים לחלק:</strong> ערוך <code>USERS_PER_PART.txt</code> (שורה אחת, ברירת מחדל <code>80</code>) ← Commit. או שדה <em>Users per part</em> בהרצה ידנית (עוקף להרצה אחת). 463 משתמשים ÷ 80 = 6 חלקים במקביל. אין צורך לגעת בקוד.</li>
 <li><strong>מעבר ענן:</strong> ערוך <code>STORAGE_BACKEND.txt</code> ← Commit. להעתקת ישנים: הרצה ידנית עם <code>force_redownload=true</code>.</li>
 <li><strong>תדירות (שעון גיטהאב):</strong> ב-<code>sync.yml</code> שנה <code>cron: '0 */3 * * *'</code> (<code>0 */1 * * *</code> שעתי, <code>0 */6 * * *</code> כל 6, <code>0 0 * * *</code> יומי בחצות UTC). Commit.</li>
 <li><strong>ענן מתמלא:</strong> הוסף ענן שני או פנה מקום (מחק תיקיות תאריך ישנות שגיבית).</li>

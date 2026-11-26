@@ -19,17 +19,62 @@ on:
         required: false
         default: ''
         type: string
+      users_per_part:
+        description: 'How many users per parallel part (0 = use USERS_PER_PART.txt)'
+        required: false
+        default: '0'
+        type: number
 
 concurrency:
   group: instagram-stories-sync
   cancel-in-progress: false
 
 jobs:
-  sync:
+  # מגדיר כמה חלקים צריך — לפי מספר המשתמשים ו-USERS_PER_PART.
+  setup:
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    outputs:
+      total: ${{ steps.calc.outputs.total }}
+      parts: ${{ steps.calc.outputs.parts }}
+      users: ${{ steps.calc.outputs.users }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Calculate parallel parts
+        id: calc
+        env:
+          USERS_PER_PART: ${{ github.event.inputs.users_per_part || '0' }}
+        run: |
+          set -euo pipefail
+          users="$(python -m src.partition count)"
+          total="$(python -m src.partition total "$users")"
+          parts="$(python -m src.partition parts "$total")"
+          echo "users=$users"
+          echo "total=$total"
+          echo "parts=$parts"
+          echo "users=$users" >> "$GITHUB_OUTPUT"
+          echo "total=$total" >> "$GITHUB_OUTPUT"
+          echo "parts=$parts" >> "$GITHUB_OUTPUT"
 
+  sync:
+    needs: setup
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        part: ${{ fromJSON(needs.setup.outputs.parts) }}
     steps:
       - name: Checkout repository code
         uses: actions/checkout@v4
@@ -99,7 +144,7 @@ jobs:
           done
           ordered="$(echo "$ordered" | xargs)"
           if [ -z "$ordered" ]; then
-            echo "error: none of the requested storage backends found in rclone.conf" >&2
+            echo 'error: none of the requested storage backends found' >&2
             echo "available remotes: $remotes" >&2
             exit 1
           fi
@@ -169,7 +214,7 @@ jobs:
 
           for username, entries in data['uploaded_files'].items():
               if not isinstance(username, str):
-                  print('restored state.json.uploaded_files keys must be strings', file=sys.stderr)
+                  print('restored uploaded_files keys must be strings', file=sys.stderr)
                   sys.exit(1)
               if not isinstance(entries, list):
                   print(f'restored uploaded_files[{username}] must be a list', file=sys.stderr)
@@ -182,90 +227,170 @@ jobs:
                       print('Each restored upload entry must contain filename and dropbox_path', file=sys.stderr)
                       sys.exit(1)
                   if not isinstance(entry['filename'], str) or not isinstance(entry['dropbox_path'], str):
-                      print('restored filename and dropbox_path must be strings', file=sys.stderr)
+                      print('Each restored entry filename/dropbox_path must be strings', file=sys.stderr)
                       sys.exit(1)
                   if 'instagram_id' not in entry and 'pre_download_id' not in entry:
                       print('Each restored entry must include instagram_id or pre_download_id', file=sys.stderr)
                       sys.exit(1)
           PY
 
-      - name: "Debug: state.json summary after restore"
-        run: |
-          if [ -f state.json ]; then
-            python -c "import json; s=json.load(open('state.json')); users=s.get('uploaded_files',{}); total_entries=sum(len(v) for v in users.values()); pre_count=sum(1 for v in users.values() for e in v if e.get('pre_download_id')); print('state.exists=1'); print('tracked_users=', len(users)); print('total_entries=', total_entries); print('entries_with_pre_download_id=', pre_count)"
-          else
-            echo "state.exists=0"
-          fi
-
-      - name: Run sync
+      - name: Run sync (part ${{ matrix.part }}/${{ needs.setup.outputs.total }})
         env:
           RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
           STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
           FORCE_REDOWNLOAD: ${{ github.event.inputs.force_redownload || 'false' }}
           LOG_LEVEL: DEBUG
           SCROLL_DEBUG: '1'
+          USERS_PER_PART: ${{ github.event.inputs.users_per_part || '0' }}
+          PART_INDEX: ${{ matrix.part }}
+          PART_TOTAL: ${{ needs.setup.outputs.total }}
         run: |
           echo "SCROLL_DEBUG=$SCROLL_DEBUG"
           python -m src.main
 
-      - name: Validate and upload local state.json to remote
-        if: ${{ always() && steps.resolve-remote.outcome == 'success' }}
+      - name: Upload local state.json as artifact (part ${{ matrix.part }})
+        if: always()
         run: |
-          set -e
           if [ ! -f state.json ]; then
             echo 'No local state.json to upload'
             exit 0
           fi
           python - <<'PY'
-          import json
-          import pathlib
-          import sys
-
-          path = pathlib.Path('state.json')
-          try:
-              data = json.loads(path.read_text(encoding='utf-8'))
-          except Exception as exc:
-              print(f'Invalid JSON in state.json: {exc}', file=sys.stderr)
-              sys.exit(1)
-
-          if not isinstance(data, dict):
-              print('state.json root must be a JSON object', file=sys.stderr)
-              sys.exit(1)
-          if not isinstance(data.get('version'), int):
-              print('state.json.version must be an integer', file=sys.stderr)
-              sys.exit(1)
-          if 'uploaded_files' not in data or not isinstance(data['uploaded_files'], dict):
-              print('state.json.uploaded_files must be an object', file=sys.stderr)
-              sys.exit(1)
-
-          for username, entries in data['uploaded_files'].items():
-              if not isinstance(username, str):
-                  print('state.json.uploaded_files keys must be strings', file=sys.stderr)
-                  sys.exit(1)
-              if not isinstance(entries, list):
-                  print(f'uploaded_files[{username}] must be a list', file=sys.stderr)
-                  sys.exit(1)
-              for entry in entries:
-                  if not isinstance(entry, dict):
-                      print('Each uploaded entry must be an object', file=sys.stderr)
-                      sys.exit(1)
-                  if 'filename' not in entry or 'dropbox_path' not in entry:
-                      print('Each upload entry must contain filename and dropbox_path', file=sys.stderr)
-                      sys.exit(1)
-                  if not isinstance(entry['filename'], str) or not isinstance(entry['dropbox_path'], str):
-                      print('filename and dropbox_path must be strings', file=sys.stderr)
-                      sys.exit(1)
-                  if 'instagram_id' not in entry and 'pre_download_id' not in entry:
-                      print('Each entry must include instagram_id or pre_download_id', file=sys.stderr)
-                      sys.exit(1)
+          import json, pathlib
+          data = json.loads(pathlib.Path('state.json').read_text(encoding='utf-8'))
+          assert isinstance(data, dict) and isinstance(data.get('uploaded_files'), dict)
+          assert isinstance(data.get('version'), int)
+          print('part state valid: users=', len(data['uploaded_files']))
           PY
-          # State lives on the primary backend; emergency fallback to next on failure.
+          cp state.json "state-part-${{ matrix.part }}.json"
+
+      - name: Upload state artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: state-part-${{ matrix.part }}
+          path: state-part-${{ matrix.part }}.json
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Upload debug artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-part-${{ matrix.part }}
+          path: debug/
+          retention-days: 7
+          if-no-files-found: ignore
+
+      - name: Clean temporary files
+        if: always()
+        run: rm -rf stories
+
+  merge:
+    needs: [setup, sync]
+    if: always() && needs.setup.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v4
+
+      - name: Install Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Install rclone
+        run: curl -sSL https://rclone.org/install.sh | sudo bash
+
+      - name: Restore rclone config file
+        env:
+          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+        if: env.RCLONE_CONF != ''
+        run: printf '%s' "$RCLONE_CONF" > rclone.conf
+
+      - name: Download state part artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: state-part-*
+          path: state-parts
+          merge-multiple: true
+
+      - name: Resolve remote backends
+        id: resolve-remote
+        env:
+          STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
+        run: |
+          set -euo pipefail
+          requested="$(printf '%s' "$STORAGE_BACKEND" | tr -d '\r')"
+          if [ -z "$requested" ] && [ -f STORAGE_BACKEND.txt ]; then
+            requested="$(grep -v '^[[:space:]]*#' STORAGE_BACKEND.txt | grep -v '^[[:space:]]*$' | tr -d '\r' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | tr '\n' ' ')"
+          fi
+          if [ -z "$requested" ]; then
+            echo 'error: no STORAGE_BACKEND configured' >&2
+            exit 1
+          fi
+          echo "remotes=$requested" >> "$GITHUB_OUTPUT"
+
+      - name: Backup existing remote state.json (.bak)
+        run: |
+          set +e
+          for remote in ${{ steps.resolve-remote.outputs.remotes }}; do
+            if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
+              rclone copyto "${remote}:.instagram-sync/state.json" "${remote}:.instagram-sync/state.json.bak" --config rclone.conf
+              echo "Backed up state.json on ${remote}"
+              break
+            fi
+          done
+          set -e
+
+      - name: Merge state parts with integrity check
+        id: do-merge
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(state-parts/state-part-*.json)
+          echo "found ${#files[@]} state part files"
+          if [ "${#files[@]}" -eq 0 ]; then
+            echo 'error: no state part artifacts found — refusing to overwrite state.json' >&2
+            exit 1
+          fi
+          python -m src.state_merge state.json "${files[@]}"
+
+      - name: Validate and upload merged state.json to remote
+        if: steps.do-merge.outcome == 'success'
+        run: |
+          set -e
+          python - <<'PY'
+          import json, pathlib, sys
+          data = json.loads(pathlib.Path('state.json').read_text(encoding='utf-8'))
+          if not isinstance(data, dict) or not isinstance(data.get('version'), int):
+              sys.exit('merged state invalid: version')
+          if not isinstance(data.get('uploaded_files'), dict):
+              sys.exit('merged state invalid: uploaded_files')
+          for username, entries in data['uploaded_files'].items():
+              if not isinstance(username, str) or not isinstance(entries, list):
+                  sys.exit(f'merged state invalid entry for {username}')
+              for e in entries:
+                  if not isinstance(e, dict) or 'filename' not in e or 'dropbox_path' not in e:
+                      sys.exit(f'merged state invalid entry detail for {username}')
+                  if 'instagram_id' not in e and 'pre_download_id' not in e:
+                      sys.exit(f'merged state missing id for {username}')
+          print('merged state valid: users=', len(data['uploaded_files']),
+                'entries=', sum(len(v) for v in data['uploaded_files'].values()))
+          PY
           uploaded=0
-          # shellcheck disable=SC2086
           for remote in ${{ steps.resolve-remote.outputs.remotes }}; do
             if rclone mkdir "${remote}:.instagram-sync" --config rclone.conf 2>/dev/null \
               && rclone copyto state.json "${remote}:.instagram-sync/state.json" --config rclone.conf 2>/dev/null; then
-              echo "Uploaded state.json to ${remote}:.instagram-sync/state.json"
+              echo "Uploaded merged state.json to ${remote}:.instagram-sync/state.json"
               uploaded=1
               break
             else
@@ -277,18 +402,18 @@ jobs:
             exit 1
           fi
 
-      - name: Clean temporary files
-        if: always()
+      - name: Remove .bak after successful merge
+        if: steps.do-merge.outcome == 'success'
         run: |
-          rm -rf stories
+          set +e
+          for remote in ${{ steps.resolve-remote.outputs.remotes }}; do
+            rclone deletefile "${remote}:.instagram-sync/state.json.bak" --config rclone.conf 2>/dev/null && \
+              echo "Removed .bak on ${remote}"
+          done
+          set -e
 
-      - name: Run summary
-        if: always()
+      - name: Report merge failure
+        if: steps.do-merge.outcome != 'success' || failure()
         run: |
-          echo "The run is complete. Check the logs above for more details."
-      - name: Upload debug artifacts
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: debug
-          path: debug/
+          echo 'MERGE FAILED: remote state.json was preserved (and .bak kept).'
+          echo 'State part artifacts are retained for 7 days for manual recovery.'
