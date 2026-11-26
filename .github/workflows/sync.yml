@@ -55,9 +55,11 @@ jobs:
           USERS_PER_PART: ${{ github.event.inputs.users_per_part || '0' }}
         run: |
           set -euo pipefail
-          users="$(python -m src.partition count)"
-          total="$(python -m src.partition total "$users")"
-          parts="$(python -m src.partition parts "$total")"
+          # tail -n 1: הגנה כפולה — לוקח רק את השורה האחרונה (המספר),
+          # גם אם בעתיד יתווסף פלט לוגי ל-stdout.
+          users="$(python -m src.partition count | tail -n 1)"
+          total="$(python -m src.partition total "$users" | tail -n 1)"
+          parts="$(python -m src.partition parts "$total" | tail -n 1)"
           echo "users=$users"
           echo "total=$total"
           echo "parts=$parts"

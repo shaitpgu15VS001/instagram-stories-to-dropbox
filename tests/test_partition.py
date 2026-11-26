@@ -73,3 +73,26 @@ def test_invalid_part_index_raises():
 
     with pytest.raises(ValueError):
         partition_entries(ENTRIES, 5, 3)
+
+
+def test_cli_count_prints_only_a_number(monkeypatch, tmp_path, capsys):
+    """פלט ה-CLI חייב להיות מספר גרידא — ה-workflow לוכד אותו ב-command substitution."""
+    from src import partition
+
+    # מדמה קריאת משתמשים שמדפיסה לוגים ל-stdout (כמו load_usernames האמיתי)
+    def fake_load():
+        print("📥 טוען שמות משתמשים")
+        print("\x1b[94m[timestamp] ℹ️  TXT: 1 רשומה\x1b[0m")
+        return [("a", "ua"), ("b", "ub"), ("c", "uc")], {}
+
+    import src.main as main_mod
+    monkeypatch.setattr(main_mod, "load_usernames", fake_load)
+
+    rc = partition.cli(["partition", "count"])
+    captured = capsys.readouterr()
+
+    assert rc == 0
+    # כל הלוגים הוסטו ל-stderr; stdout מכיל רק את המספר
+    assert captured.out.strip() == "3"
+    int(captured.out.strip())  # לא זורק
+    assert "טוען שמות משתמשים" in captured.err

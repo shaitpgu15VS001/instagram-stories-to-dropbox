@@ -71,10 +71,17 @@ def resolve_partition(entries: List[Tuple[str, str]]) -> Tuple[List[Tuple[str, s
 
 
 def _count_unique_users() -> int:
-    """סופר משתמשים ייחודיים מהקבצים, בלי להריץ את כל main."""
+    """סופר משתמשים ייחודיים מהקבצים, בלי להריץ את כל main.
+
+    `load_usernames` מדפיס לוגים ל-stdout; מסיטים אותם ל-stderr כדי שפלט
+    ה-CLI יהיה מספר גרידא (ה-workflow לוכד את ה-stdout).
+    """
+    import contextlib
+
     from src.main import load_usernames
 
-    entries, _ = load_usernames()
+    with contextlib.redirect_stdout(sys.stderr):
+        entries, _ = load_usernames()
     return len(entries)
 
 

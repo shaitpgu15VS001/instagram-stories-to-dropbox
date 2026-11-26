@@ -1,5 +1,5 @@
 # Instagram Stories to Dropbox — מצב הפרויקט
-עודכן: 2026-11-27
+עודכן: 2026-11-28
 
 ## סקירה
 אוטומציה להורדת סטוריז ציבוריים ממקור API והעלאה לענן דרך rclone. מקורות לפי סדר: ClipSaver (ראשי), insta-stories.io (גיבוי), FastDL (גיבוי). רץ כל 3 שעות ב-GitHub Actions.
@@ -59,6 +59,7 @@ ClipSaver עובד כמקור ראשי גם מ-IP של GitHub: בהרצה 456371
 - עובדה: save-free נשלל (2026-10-05): דף סטוריז ייעודי קיים ומקבל שם משתמש, אבל לחיצה לא יוצרת בקשת backend ללא טוקן Turnstile (sitekey `0x4AAAAAAA2PJ4paB_en7_5n`). דפוס זהה ל-fastdl ו-mollygram.
 
 ## בוצע עד כה
+- 2026-11-27: **תיקון כשל בג'וב `setup` בהרצה הראשונה** — `python -m src.partition count` החזיר לוגים מעורבבים במספר (ה־`load_usernames` מדפיס ל־stdout), ו־`int()` קרס. הוסט ה־stdout ל־stderr ב־`_count_unique_users`, נוספה בדיקה שהפלט מספר גרידא, ונוספה הגנה כפולה `tail -n 1` ב־workflow. 127 בדיקות עוברות.
 - 2026-11-27: **חלוקה להרצות מקבילות + מיזוג state בטוח** — קבצים חדשים `src/partition.py`, `src/state_merge.py`, `USERS_PER_PART.txt`; שינוי ב-`src/main.py`, `.github/workflows/sync.yml` (setup → matrix → artifacts → merge + `.bak`); בדיקות `tests/test_partition.py`, `tests/test_state_merge.py`. מיזOG אומת מול state אמיתי (10.2MB / 22084 רשומות): 6 עותקים זהים → אין הכפלה, 6 עותקים עם תוספות → כל התוספות נשמרו. **126 בדיקות עוברות.**
 - 2026-11-25: **תיקונים אחרי הרצת GitHub הראשונה** — טוקן יחיד לכל הריצה (`StoryDownloader._get_clipssaver_api`), בדיקת טוקן מקדימה עם ניסיון חוזר (`ensure_story_source_ready` ← `main`), `diagnose` שלא מסמן Captcha כ"משתמש לא קיים". בדיקות חדשות: שימוש חוזר בטוקן, כשל מקדים, Captcha ב-`diagnose`. כל 110 הבדיקות עוברות.
 - 2026-11-25: **מימוש ClipSaver כמקור ראשי** — `src/clipssaver_api.py` (טוקן, שאילתת סטוריז, רענון טוקן על 401/403, `last_error`), חיבור בראש `_fetch_story_urls`, מזהה מדיה כ-`pre_download_id`, עדכון טקסטים/מסמכים. אומת חי מקצה לקצה: `idfonline` → 9 קבצים (תמונות ווידאו) בשמות `<user>-<זמן פרסום>.<ext>`; `meni_music` → 3; `avishairosen` → 0 ("אין סטוריז"). כל 106 הבדיקות עוברות.
