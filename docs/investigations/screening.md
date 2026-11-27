@@ -6,7 +6,7 @@
 ## תוצאות
 | אתר | סטטוס | סימנים | החלטה |
 |---|---|---|---|
-| insta-stories.io | 200 | אין | עובר לבדיקה מלאה |
+| insta-stories.io | 200 | אין (אז) | עובר לבדיקה מלאה; **עודכן 2026-11-27: עכשיו Turnstile — לא שמיש** |
 | dolphinradar | 200 | אין | עובר לבדיקה מלאה |
 | igstoryviewer.to | 403 | challenge-platform, attention required | נפסל |
 | gramsnap | 200 | challenge-platform, turnstile | נפסל |
