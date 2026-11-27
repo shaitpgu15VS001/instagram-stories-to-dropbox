@@ -74,7 +74,7 @@ jobs:
       contents: read
     strategy:
       fail-fast: false
-      max-parallel: 2
+      max-parallel: 4
       matrix:
         part: ${{ fromJSON(needs.setup.outputs.parts) }}
     steps:
@@ -346,8 +346,11 @@ jobs:
           if python -m src.state_restore state.prev.json $remotes; then
             for remote in $remotes; do
               if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
-                rclone copyto state.prev.json "${remote}:.instagram-sync/state.json.bak" --config rclone.conf
-                echo "Backed up freshest state.json as .bak on ${remote}"
+                if rclone copyto state.prev.json "${remote}:.instagram-sync/state.json.bak" --config rclone.conf 2>/dev/null; then
+                  echo "Backed up freshest state.json as .bak on ${remote}"
+                else
+                  echo "Warning: could not back up .bak on ${remote} (remote may be full)" >&2
+                fi
               fi
             done
           else
@@ -480,7 +483,8 @@ jobs:
         run: |
           set -euo pipefail
           shopt -s nullglob
-          files=(retry-parts/retry-users-part-*.txt)
+          # שם הקובץ הוא retry-users-partN.txt (בלי מקף אחרי part) — חפשו גם וגם.
+          files=(retry-parts/retry-users-part*.txt retry-parts/retry-users-part-*.txt)
           echo "found ${#files[@]} retry files"
           cat "${files[@]}" 2>/dev/null | grep -v '^[[:space:]]*$' | sort -u > retry-users.txt || true
           count="$(wc -l < retry-users.txt || true)"
@@ -529,9 +533,12 @@ jobs:
           remotes="${{ steps.resolve-remote.outputs.remotes }}"
           for remote in $remotes; do
             if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
-              rclone copyto "${remote}:.instagram-sync/state.json" "${remote}:.instagram-sync/state.json.bak" --config rclone.conf
-              echo "Backed up state.json on ${remote}"
-              break
+              if rclone copyto "${remote}:.instagram-sync/state.json" "${remote}:.instagram-sync/state.json.bak" --config rclone.conf 2>/dev/null; then
+                echo "Backed up state.json on ${remote}"
+                break
+              else
+                echo "Warning: could not back up .bak on ${remote}, trying next" >&2
+              fi
             fi
           done
           set -e
