@@ -600,14 +600,26 @@ class StoryDownloader:
         """
         try:
             api = self._get_clipssaver_api()
-            items = api.fetch_stories(username)
-            if items is None:
-                # ניסיון חוזר אחד זול (requests בלבד) לפני מעבר למקור הבא.
-                time.sleep(5)
+            # עד 3 ניסיונות על כשלים זמניים (timeout / upstream_unavailable),
+            # עם המתנה הולכת וגדלה + כיבוד ה-retry_after שהמקור מבקש.
+            # על חסימה/תשובה לא מוכרת — לא מבזבזים ניסיונות.
+            transient_markers = ("request_failed", "upstream_unavailable", "token_")
+            items = None
+            last_error = None
+            for attempt in range(1, 4):
                 items = api.fetch_stories(username)
+                if items is not None:
+                    break
+                last_error = getattr(api, "last_error", None) or ""
+                is_transient = any(m in last_error for m in transient_markers)
+                if not is_transient or attempt == 3:
+                    break
+                retry_after = getattr(api, "last_retry_after", None)
+                wait = max(retry_after or 0, 3 * attempt)
+                logger.debug(f"@{username}: ClipSaver כשל זמני (ניסיון {attempt}) - ממתין {wait}s")
+                time.sleep(wait)
             if items is None:
-                reason = getattr(api, "last_error", None)
-                reason_suffix = f" ({reason})" if reason else ""
+                reason_suffix = f" ({last_error})" if last_error else ""
                 logger.warning(f"@{username}: ClipSaver נכשל{reason_suffix} - עובר למקור הבא")
                 return None
             if not items:

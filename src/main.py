@@ -18,6 +18,7 @@ from .story_downloader import StoryDownloader
 USERNAMES_FILE = "usernames.txt"
 USERNAMES_CSV = "usernames.csv"
 USERNAMES_XLSX = "usernames.xlsx"
+RETRY_USERS_FILE = "retry-users.txt"
 STORAGE_BACKEND_FILE = "STORAGE_BACKEND.txt"
 RCLONE_CONF_FILE = "rclone.conf"
 MIN_DELAY_BETWEEN_USERS = 2
@@ -280,6 +281,23 @@ def load_usernames():
 
     logger.section("📥 טוען שמות משתמשים")
 
+    # ריצת השלמה: קובץ משתמשים חלופי (רק המשתמשים שנכשלו).
+    override = os.environ.get("USERNAMES_OVERRIDE", "").strip()
+    if override:
+        ov_path = Path(override)
+        if not ov_path.exists():
+            logger.error(f"USERNAMES_OVERRIDE קובץ לא נמצא: {override}")
+            return [], {}
+        entries, stats = _parse_txt(ov_path)
+        unique = []
+        seen_ov = set()
+        for display_name, username in entries:
+            if username not in seen_ov:
+                seen_ov.add(username)
+                unique.append((_sanitize_folder_name(display_name, username), username))
+        logger.info(f"USERNAMES_OVERRIDE: נטענו {len(unique)} משתמשים מ-{override}")
+        return unique, {"sources": {"OVERRIDE": stats}, "total_raw_records": stats["raw_records"], "total_valid_records": stats["valid_records"], "total_invalid_records": stats["invalid_records"], "total_duplicates": 0, "unique_usernames": len(unique)}
+
     txt_path = Path(USERNAMES_FILE)
     if txt_path.exists():
         entries, stats = _parse_txt(txt_path)
@@ -326,6 +344,31 @@ def load_usernames():
         logger.info(f"{global_duplicates} כפילויות נוספות הוסרו חוצות קבצים")
 
     return unique_entries, load_stats
+
+
+def write_retry_users(failed_users, path=RETRY_USERS_FILE):
+    """כותב רשימת משתמשים שנכשלו בכשל זמני — לריצת ההשלמה.
+
+    רק API_ERROR / DOWNLOAD_ERROR / UPLOAD_ERROR / OTHER_ERROR נכללים.
+    USER_NOT_FOUND (משתמש מת) לא נכלל — אין טעם לנסות שוב.
+    """
+    transient = ("API_ERROR", "DOWNLOAD_ERROR", "UPLOAD_ERROR", "OTHER_ERROR")
+    names = []
+    seen = set()
+    for entry in failed_users:
+        if len(entry) >= 2:
+            username, status = entry[0], entry[1]
+        else:
+            continue
+        if status in transient and username not in seen:
+            seen.add(username)
+            names.append(username)
+    try:
+        Path(path).write_text("\n".join(names) + ("\n" if names else ""), encoding="utf-8")
+        logger.info(f"RETRY_USERS written: {len(names)} users -> {path}")
+    except OSError as exc:
+        logger.warning(f"לא ניתן לכתוב רשימת retry: {exc}")
+    return names
 
 
 def get_today_str():
@@ -734,6 +777,13 @@ def main():
             time.sleep(wait)
 
     state.save()
+
+    # ריצת ההשלמה לא מייצרת רשימת retry משלה (מונע סבב אינסופי).
+    if not os.environ.get("USERNAMES_OVERRIDE", "").strip():
+        retry_path = RETRY_USERS_FILE
+        if part_total > 1:
+            retry_path = f"retry-users-part{part_index}.txt"
+        write_retry_users(failed_users, path=retry_path)
 
     logger.section("📊 סיכום")
     overall = state.get_stats()

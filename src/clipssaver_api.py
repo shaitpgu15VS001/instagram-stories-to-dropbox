@@ -43,6 +43,8 @@ class ClipSaverAPI:
         )
         # סיבת הכשל האחרונה (אבחון בלבד, לא משפיע על זרימת הקריאה)
         self.last_error: Optional[str] = None
+        # כמה שניות המקור ביקש לחכות לפני ניסיון חוזר (upstream_unavailable).
+        self.last_retry_after: Optional[int] = None
         self._token: Optional[str] = None
 
     def _fetch_token(self, timeout: int = 20) -> Optional[str]:
@@ -105,6 +107,7 @@ class ClipSaverAPI:
             return None
         # עומס זמני בצד המקור: stories ריק לצד reason/retryable — כשל, לא "אין סטוריז".
         if data.get("retryable") or data.get("reason"):
+            self.last_retry_after = _as_int(data.get("retryAfter"))
             self.last_error = (
                 f"upstream_unavailable reason={data.get('reason')} "
                 f"retry_after={data.get('retryAfter')}"
@@ -122,8 +125,9 @@ class ClipSaverAPI:
             return None
         return items
 
-    def fetch_stories(self, username: str, timeout: int = 30) -> Optional[List[Dict[str, Any]]]:
+    def fetch_stories(self, username: str, timeout: int = 45) -> Optional[List[Dict[str, Any]]]:
         self.last_error = None
+        self.last_retry_after = None
         username = (username or "").strip().lstrip("@")
         if not username:
             self.last_error = "username ריק"

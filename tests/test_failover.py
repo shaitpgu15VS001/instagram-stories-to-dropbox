@@ -125,6 +125,49 @@ def test_is_quota_error_keywords():
     assert RcloneUploader.is_quota_error("") is False
 
 
+def test_ensure_room_switches_when_fresh_usage_crosses_threshold(tmp_path):
+    """מדידה טריה שחוצה 97% חייבת להעביר ענן מיד — גם אם free עדיין גדול."""
+    # a: 98% בשימוש (מעל הסף) אבל free עדיין 2GB — המדידה הישנה הייתה מאשרת העלאה.
+    up = FailoverUploader(
+        {"about": {"a": _about(2 * GB, total=100 * GB), "b": _about(50 * GB)}, "copyto": {}},
+        remote_name="a",
+        failover_remotes=["a", "b"],
+    )
+    up._rclone_checked = True
+    up.current_remote = "a"
+    assert up._ensure_room(1024) is True
+    assert up.current_remote == "b"
+    assert up.switches and up.switches[0]["reason"] == "fresh-usage"
+
+
+def test_ensure_room_ok_when_below_threshold():
+    up = FailoverUploader(
+        {"about": {"a": _about(50 * GB, total=100 * GB)}, "copyto": {}},
+        remote_name="a",
+        failover_remotes=["a"],
+    )
+    up._rclone_checked = True
+    up.current_remote = "a"
+    assert up._ensure_room(1024) is True
+    assert up.current_remote == "a"
+    assert up.switches == []
+
+
+def test_ensure_room_falls_back_to_estimate_when_about_unavailable():
+    """כש-rclone about לא זמין — נופלים לאומדן הישן (תאימות לאחור)."""
+    up = FailoverUploader({"about": {}, "copyto": {}}, remote_name="a", failover_remotes=["a", "b"])
+    up._rclone_checked = True
+    up.current_remote = "a"
+    up._remote_free["a"] = 5 * GB  # אומדן ישן: 5GB פנוי
+    # about מחזיר returncode=1 → get_usage=None → נופל ל-_estimated_remaining
+    assert up._ensure_room(1024) is True
+    assert up.current_remote == "a"
+
+
+def test_reserve_bytes_is_large():
+    assert RcloneUploader.RESERVE_BYTES >= 200 * 1024 * 1024
+
+
 def test_read_remote_list_ordered(tmp_path):
     from src.main import _read_remote_list
 

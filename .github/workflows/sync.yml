@@ -159,31 +159,18 @@ jobs:
       - name: Restore state.json from remote if it exists
         run: |
           set -e
-          restored=0
-          for remote in ${{ steps.resolve-remote.outputs.remotes }}; do
-            if [ ! -f rclone.conf ]; then
-              echo 'rclone.conf is missing' >&2
-              exit 1
-            fi
-            if ! rclone listremotes --config rclone.conf | grep -Fxq "${remote}:"; then
-              echo "Could not access remote '${remote}' via rclone" >&2
-              continue
-            fi
-            if ! rclone lsd "${remote}:" --config rclone.conf >/dev/null 2>&1; then
-              echo "Remote '${remote}' is configured but not accessible via rclone" >&2
-              continue
-            fi
-            if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
-              rclone copyto "${remote}:.instagram-sync/state.json" state.json --config rclone.conf
-              echo "Restored state.json from ${remote}:.instagram-sync/state.json"
-              restored=1
-              break
-            else
-              echo "No state.json on ${remote}, trying next"
-            fi
-          done
-          if [ "$restored" = "0" ]; then
-            echo "Remote state.json not found on any backend; starting fresh"
+          if [ ! -f rclone.conf ]; then
+            echo 'rclone.conf is missing' >&2
+            exit 1
+          fi
+          # תמיד משחזרים מהעותק העדכני ביותר (ModTime), לא מהרמוט הראשון —
+          # אחרת עותק מעופש בענן שמלא עשוי לדרוס עדכונים טריים.
+          remotes="${{ steps.resolve-remote.outputs.remotes }}"
+          if python -m src.state_restore state.json $remotes; then
+            echo "Restored freshest state.json"
+          else
+            echo "Remote state.json not found on any backend (or restore failed); starting fresh"
+            rm -f state.json
           fi
 
       - name: Validate restored state.json if present
@@ -284,6 +271,15 @@ jobs:
           retention-days: 7
           if-no-files-found: ignore
 
+      - name: Upload retry-users artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: retry-users-part-${{ matrix.part }}
+          path: retry-users-part${{ matrix.part }}.txt
+          retention-days: 7
+          if-no-files-found: ignore
+
       - name: Clean temporary files
         if: always()
         run: rm -rf stories
@@ -344,13 +340,19 @@ jobs:
       - name: Backup existing remote state.json (.bak)
         run: |
           set +e
-          for remote in ${{ steps.resolve-remote.outputs.remotes }}; do
-            if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
-              rclone copyto "${remote}:.instagram-sync/state.json" "${remote}:.instagram-sync/state.json.bak" --config rclone.conf
-              echo "Backed up state.json on ${remote}"
-              break
-            fi
-          done
+          remotes="${{ steps.resolve-remote.outputs.remotes }}"
+          # מורידים את העותק העדכני ביותר ושומרים אותו כ-.bak על כל הרמוטים
+          # שיש בהם state — כדי שתהיה נקודת שחזור אמיתית גם אם המיזוג נכשל.
+          if python -m src.state_restore state.prev.json $remotes; then
+            for remote in $remotes; do
+              if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
+                rclone copyto state.prev.json "${remote}:.instagram-sync/state.json.bak" --config rclone.conf
+                echo "Backed up freshest state.json as .bak on ${remote}"
+              fi
+            done
+          else
+            echo "No state.json to back up"
+          fi
           set -e
 
       - name: Merge state parts with integrity check
@@ -367,6 +369,7 @@ jobs:
           python -m src.state_merge state.json "${files[@]}"
 
       - name: Validate and upload merged state.json to remote
+        id: upload-state
         if: steps.do-merge.outcome == 'success'
         run: |
           set -e
@@ -393,6 +396,7 @@ jobs:
             if rclone mkdir "${remote}:.instagram-sync" --config rclone.conf 2>/dev/null \
               && rclone copyto state.json "${remote}:.instagram-sync/state.json" --config rclone.conf 2>/dev/null; then
               echo "Uploaded merged state.json to ${remote}:.instagram-sync/state.json"
+              echo "chosen=${remote}" >> "$GITHUB_OUTPUT"
               uploaded=1
               break
             else
@@ -403,6 +407,23 @@ jobs:
             echo 'error: could not upload state.json to any backend' >&2
             exit 1
           fi
+
+      - name: Remove stale state.json copies from other remotes
+        if: steps.upload-state.outcome == 'success'
+        run: |
+          set +e
+          chosen="${{ steps.upload-state.outputs.chosen }}"
+          remotes="${{ steps.resolve-remote.outputs.remotes }}"
+          for remote in $remotes; do
+            if [ "$remote" = "$chosen" ]; then
+              continue
+            fi
+            if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
+              rclone deletefile "${remote}:.instagram-sync/state.json" --config rclone.conf 2>/dev/null && \
+                echo "Removed stale state.json from ${remote}"
+            fi
+          done
+          set -e
 
       - name: Remove .bak after successful merge
         if: steps.do-merge.outcome == 'success'
@@ -419,3 +440,171 @@ jobs:
         run: |
           echo 'MERGE FAILED: remote state.json was preserved (and .bak kept).'
           echo 'State part artifacts are retained for 7 days for manual recovery.'
+
+  # ריצת השלמה אחת (סבב יחיד): רק המשתמשים שנכשלו בכשל זמני.
+  retry:
+    needs: [merge]
+    if: always() && needs.merge.result == 'success'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Install Chromium browser for Playwright
+        run: playwright install --with-deps chromium
+      - name: Install rclone
+        run: curl -sSL https://rclone.org/install.sh | sudo bash
+      - name: Restore rclone config file
+        env:
+          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+        if: env.RCLONE_CONF != ''
+        run: printf '%s' "$RCLONE_CONF" > rclone.conf
+
+      - name: Download retry-users artifacts
+        uses: actions/download-artifact@v4
+        with:
+          pattern: retry-users-part-*
+          path: retry-parts
+          merge-multiple: true
+
+      - name: Build unique retry list
+        id: list
+        run: |
+          set -euo pipefail
+          shopt -s nullglob
+          files=(retry-parts/retry-users-part-*.txt)
+          echo "found ${#files[@]} retry files"
+          cat "${files[@]}" 2>/dev/null | grep -v '^[[:space:]]*$' | sort -u > retry-users.txt || true
+          count="$(wc -l < retry-users.txt || true)"
+          echo "count=$count"
+          echo "count=$count" >> "$GITHUB_OUTPUT"
+
+      - name: Resolve remote backends
+        if: steps.list.outputs.count != '0'
+        id: resolve-remote
+        env:
+          STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
+        run: |
+          set -euo pipefail
+          requested="$(printf '%s' "$STORAGE_BACKEND" | tr -d '\r')"
+          if [ -z "$requested" ] && [ -f STORAGE_BACKEND.txt ]; then
+            requested="$(grep -v '^[[:space:]]*#' STORAGE_BACKEND.txt | grep -v '^[[:space:]]*$' | tr -d '\r' | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//' | tr '\n' ' ')"
+          fi
+          if [ -z "$requested" ]; then
+            echo 'error: no STORAGE_BACKEND configured' >&2
+            exit 1
+          fi
+          echo "remotes=$requested" >> "$GITHUB_OUTPUT"
+
+      - name: Restore freshest state.json
+        if: steps.list.outputs.count != '0'
+        run: |
+          remotes="${{ steps.resolve-remote.outputs.remotes }}"
+          if python -m src.state_restore state.json $remotes; then
+            echo "Restored freshest state.json"
+          else
+            echo "No state.json found; starting fresh"
+            rm -f state.json
+          fi
+          python - <<'PY'
+          import json, pathlib
+          if pathlib.Path('state.json').exists():
+              d = json.loads(pathlib.Path('state.json').read_text(encoding='utf-8'))
+              assert isinstance(d, dict) and isinstance(d.get('uploaded_files'), dict)
+              print('state valid before retry: users=', len(d['uploaded_files']))
+          PY
+
+      - name: Backup state.json (.bak)
+        if: steps.list.outputs.count != '0'
+        run: |
+          set +e
+          remotes="${{ steps.resolve-remote.outputs.remotes }}"
+          for remote in $remotes; do
+            if rclone lsjson "${remote}:.instagram-sync/state.json" --config rclone.conf >/dev/null 2>&1; then
+              rclone copyto "${remote}:.instagram-sync/state.json" "${remote}:.instagram-sync/state.json.bak" --config rclone.conf
+              echo "Backed up state.json on ${remote}"
+              break
+            fi
+          done
+          set -e
+
+      - name: Run retry (single pass, no further retries)
+        if: steps.list.outputs.count != '0'
+        env:
+          RCLONE_CONF: ${{ secrets.RCLONE_CONF }}
+          STORAGE_BACKEND: ${{ github.event.inputs.storage_backend || '' }}
+          FORCE_REDOWNLOAD: 'false'
+          LOG_LEVEL: DEBUG
+          USERNAMES_OVERRIDE: retry-users.txt
+          PART_INDEX: '1'
+          PART_TOTAL: '1'
+          RETRY_PASS: '1'
+        run: |
+          python -m src.main || true
+
+      - name: Upload refreshed state.json after retry
+        if: steps.list.outputs.count != '0'
+        run: |
+          set -e
+          if [ ! -f state.json ]; then
+            echo 'No state.json after retry; nothing to upload'
+            exit 0
+          fi
+          python - <<'PY'
+          import json, pathlib, sys
+          data = json.loads(pathlib.Path('state.json').read_text(encoding='utf-8'))
+          if not isinstance(data, dict) or not isinstance(data.get('uploaded_files'), dict) or not isinstance(data.get('version'), int):
+              sys.exit('state.json invalid after retry')
+          for u, entries in data['uploaded_files'].items():
+              if not isinstance(u, str) or not isinstance(entries, list):
+                  sys.exit(f'invalid entries for {u}')
+              for e in entries:
+                  if not isinstance(e, dict) or 'filename' not in e or 'dropbox_path' not in e:
+                      sys.exit(f'invalid entry for {u}')
+                  if 'instagram_id' not in e and 'pre_download_id' not in e:
+                      sys.exit(f'missing id for {u}')
+          print('retry state valid: users=', len(data['uploaded_files']),
+                'entries=', sum(len(v) for v in data['uploaded_files'].values()))
+          PY
+          uploaded=0
+          for remote in ${{ steps.resolve-remote.outputs.remotes }}; do
+            if rclone mkdir "${remote}:.instagram-sync" --config rclone.conf 2>/dev/null \
+              && rclone copyto state.json "${remote}:.instagram-sync/state.json" --config rclone.conf 2>/dev/null; then
+              echo "Uploaded state.json after retry to ${remote}"
+              uploaded=1
+              break
+            else
+              echo "Warning: could not upload to ${remote}, trying next" >&2
+            fi
+          done
+          if [ "$uploaded" = "0" ]; then
+            echo 'error: could not upload state.json after retry' >&2
+            exit 1
+          fi
+
+      - name: Remove .bak after successful retry
+        if: steps.list.outputs.count != '0'
+        run: |
+          set +e
+          for remote in ${{ steps.resolve-remote.outputs.remotes }}; do
+            rclone deletefile "${remote}:.instagram-sync/state.json.bak" --config rclone.conf 2>/dev/null && \
+              echo "Removed .bak on ${remote}"
+          done
+          set -e
+
+      - name: Upload retry debug artifact
+        if: steps.list.outputs.count != '0'
+        uses: actions/upload-artifact@v4
+        with:
+          name: debug-retry
+          path: debug/
+          retention-days: 7
+          if-no-files-found: ignore

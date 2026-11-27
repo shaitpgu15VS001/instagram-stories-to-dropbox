@@ -13,7 +13,8 @@ class RcloneUploader:
     RETRY_DELAY = 5
     # מעבר ענן כשניצול מגיע לסף (97%), עם שולי ביטחון לבייטים.
     MAX_USAGE = 0.97
-    RESERVE_BYTES = 50 * 1024 * 1024
+    # שולי ביטחון מספיקים גם לקובץ וידאו גדול + מרווח, כדי לא להגיע ל-100%.
+    RESERVE_BYTES = 200 * 1024 * 1024
     QUOTA_TOKENS = [
         "quota",
         "no space left",
@@ -149,14 +150,32 @@ class RcloneUploader:
         return False
 
     def _ensure_room(self, size):
-        """בודק שיש מקום משוער. אם לא — מנסה לעבור ענן."""
-        remaining = self._estimated_remaining(self.current_remote)
-        if remaining is None:
-            return True
+        """בודק שיש מקום. מודד מחדש בכל העלאה כדי לא להגיע ל-100%.
+
+        בעבר המדידה נעשתה פעם אחת בהתחלה (`free - bytes_uploaded`),
+        מה שאיפשר לענן להתמלא עד אפס מקום כשהעלאות חרגו מהאומדן.
+        """
+        usage = self.get_usage(self.current_remote)
+        if usage is not None:
+            # מדידה טריה — מעדכנים גם את המקום הידוע.
+            self._remote_free[self.current_remote] = usage["free"]
+            if usage["pct"] >= self.MAX_USAGE:
+                logger.warning(
+                    f"{self.current_remote} חצה את סף {self.MAX_USAGE * 100:.0f}% "
+                    f"({usage['pct'] * 100:.1f}%) - עובר ענן עכשיו"
+                )
+                return self._switch_remote("fresh-usage")
+            remaining = usage["free"]
+        else:
+            # נפילה למדידה ישנה אם rclone about לא זמין (תאימות לאחור).
+            remaining = self._estimated_remaining(self.current_remote)
+            if remaining is None:
+                return True
+
         if remaining - size >= self.RESERVE_BYTES:
             return True
         logger.warning(
-            f"מקום משוער ב-{self.current_remote} לא מספיק ({remaining // 1024 // 1024}MB) - מחפש ענן אחר"
+            f"מקום ב-{self.current_remote} לא מספיק ({remaining // 1024 // 1024}MB) - מחפש ענן אחר"
         )
         return self._switch_remote("estimated-full")
 
